@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\editor\models;
+namespace app\modules\eete\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -43,10 +43,9 @@ class TreeDiagram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'author'], 'required'],
             [['mode', 'tree_view'], 'default', 'value' => null],
             [['mode', 'tree_view'], 'integer'],
-            [['diagram'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(),
+            [['diagram'], 'exist', 'skipOnError' => true, 'targetClass' => Diagram::className(),
                 'targetAttribute' => ['diagram' => 'id']],
         ];
     }

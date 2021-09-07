@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\editor\controllers;
+namespace app\modules\eete\controllers;
 
 use app\components\OWLOntologyImporter;
 use Yii;
@@ -10,14 +10,14 @@ use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\bootstrap\ActiveForm;
-use app\modules\editor\models\Level;
-use app\modules\editor\models\Node;
-use app\modules\editor\models\Sequence;
-use app\modules\editor\models\Parameter;
-use app\modules\editor\models\TreeDiagram;
-use app\modules\editor\models\OWLFileForm;
-use app\modules\editor\models\TreeDiagramSearch;
-use app\modules\editor\models\Import;
+use app\modules\eete\models\Level;
+use app\modules\eete\models\Node;
+use app\modules\eete\models\Sequence;
+use app\modules\eete\models\Parameter;
+use app\modules\eete\models\TreeDiagram;
+use app\modules\eete\models\OWLFileForm;
+use app\modules\eete\models\TreeDiagramSearch;
+use app\modules\eete\models\Import;
 use yii\filters\AccessControl;
 use app\components\EventTreeXMLGenerator;
 use app\components\EventTreeXMLImport;
@@ -53,10 +53,10 @@ class TreeDiagramsController extends Controller
                 ],
             ],
             'verbs' => [
-                        'class' => VerbFilter::className(),
-                        'actions' => [
-                            'delete' => ['POST'],
-                        ],
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
             ],
         ];
     }

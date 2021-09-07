@@ -5,6 +5,7 @@
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $array_template app\modules\main\controllers\DefaultController */
 
+use app\modules\eete\models\TreeDiagram;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\modules\main\models\User;
@@ -76,13 +77,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => Yii::$app->user->isGuest ? '{visual-diagram} {view}' :
                     '{visual-diagram} {view} {update} {delete} {import} {export} {upload-ontology}',
                 'buttons' => [
-                    'visual-diagram' => function ($model) {
-                        $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-blackboard"]);
-                        $url = $model;
-                        return Html::a($icon, $url,[
-                            'title' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM'),
-                            'aria-label' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM')
-                        ]);
+                    'visual-diagram' => function ($url, $model, $key) {
+                        $url = ['import', 'id' => $model->id]; // TODO - STD
+                        $tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
+                        if (!empty($tree_diagram))
+                            $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
+                        return Html::a('<span class="glyphicon glyphicon-blackboard"></span>',
+                            $url,
+                            [
+                                'title' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM'),
+                                'aria-label' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM')
+                            ]
+                        );
                     },
                     'import' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-import"></span>',

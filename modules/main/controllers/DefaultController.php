@@ -2,6 +2,7 @@
 
 namespace app\modules\main\controllers;
 
+use app\modules\eete\models\TreeDiagram;
 use app\modules\main\models\Diagram;
 use Yii;
 use yii\filters\AccessControl;
@@ -163,6 +164,15 @@ class DefaultController extends Controller
         $model->author = Yii::$app->user->identity->getId();
         $model->correctness = Diagram::NOT_CHECKED_CORRECT;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // Если создаваемая диаграмма является деревом событий
+            if ($model->type == Diagram::EVENT_TREE_TYPE) {
+                // Создание диаграммы дерева событий
+                $tree_diagram_model = new TreeDiagram();
+                $tree_diagram_model->mode = TreeDiagram::EXTENDED_TREE_MODE;
+                $tree_diagram_model->tree_view = TreeDiagram::ORDINARY_TREE_VIEW;
+                $tree_diagram_model->diagram = $model->id;
+                $tree_diagram_model->save();
+            }
             Yii::$app->getSession()->setFlash('success',
                 Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM'));
 

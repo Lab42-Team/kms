@@ -1,11 +1,10 @@
 <?php
 
-namespace app\modules\editor\models;
+namespace app\modules\eete\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
-
 
 /**
  * This is the model class for table "{{%level}}".

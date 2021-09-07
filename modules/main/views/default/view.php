@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-blackboard"></span> ' .
             Yii::t('app', 'BUTTON_OPEN_DIAGRAM'),
-            ['visual-diagram', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+            ['/eete/tree-diagrams/visual-diagram/', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> ' .
             Yii::t('app', 'BUTTON_UPDATE'),
             ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

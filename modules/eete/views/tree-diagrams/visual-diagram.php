@@ -1,27 +1,26 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\editor\models\TreeDiagram */
-/* @var $level_model app\modules\editor\models\Level */
-/* @var $node_model app\modules\editor\models\Node */
-/* @var $level_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $level_model_count app\modules\editor\controllers\TreeDiagramsController */
-/* @var $initial_event_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $sequence_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $event_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $mechanism_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $array_levels app\modules\editor\controllers\TreeDiagramsController */
-/* @var $array_levels_initial_without app\modules\editor\controllers\TreeDiagramsController */
-/* @var $node_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $parameter_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $parameter_model app\modules\editor\controllers\TreeDiagramsController */
-/* @var $the_initial_event_is app\modules\editor\controllers\TreeDiagramsController */
+/* @var $model app\modules\eete\models\TreeDiagram */
+/* @var $level_model app\modules\eete\models\Level */
+/* @var $node_model app\modules\eete\models\Node */
+/* @var $level_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $level_model_count app\modules\eete\controllers\TreeDiagramsController */
+/* @var $initial_event_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $sequence_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $event_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $mechanism_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $array_levels app\modules\eete\controllers\TreeDiagramsController */
+/* @var $array_levels_initial_without app\modules\eete\controllers\TreeDiagramsController */
+/* @var $node_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $parameter_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $parameter_model app\modules\eete\controllers\TreeDiagramsController */
+/* @var $the_initial_event_is app\modules\eete\controllers\TreeDiagramsController */
 
-use yii\bootstrap\ButtonDropdown;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use app\modules\main\models\Lang;
-use app\modules\editor\models\TreeDiagram;
+use app\modules\eete\models\TreeDiagram;
 
 $this->title = Yii::t('app', 'TREE_DIAGRAMS_PAGE_VISUAL_DIAGRAM') . ' - ' . $model->name;
 
