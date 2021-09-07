@@ -1,0 +1,513 @@
+.visual-diagram {
+    height:700px;
+    border:1px solid #b9def0;
+    background-color:white;
+    cursor:default;
+    /* Вкл Прокрутку (отдельно чтобы функция расширения increaseLevel корректно работала )*/
+    overflow: auto;
+}
+
+.visual-diagram-top-layer {
+    position:relative;
+    margin-left: -19px;
+    margin-right: -15px;
+}
+
+/* -Выравнивание ширины всех уровней по самой большой ширины уровня- */
+div.top {
+    width: max-content;
+    min-width: 100%;
+}
+div.top > div {
+    width: 100%;
+}
+/* ------------ */
+
+/* -Стили для уровней- */
+.div-level {
+    min-height: 200px;
+    width: max-content;
+    border-bottom:2px dashed #337ab7;
+    background-color: white;
+    /* div в строку*/
+    display: flex;
+}
+
+.div-level-name {
+    position: relative;
+    font-size: 80%;
+    width: 100px;
+    border:0px solid #337ab7;
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+.div-title-name {
+    position: absolute;
+    width: 70px;
+    height: 80%;
+    margin-left: 10px;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    writing-mode:vertical-rl;
+    transform: rotate(180deg);
+    text-align: right;
+    word-wrap: break-word; /* перенос текста */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+}
+
+.div-level-description {
+    /* div в строку*/
+    width: 100%;
+    position:relative;
+    display: flex;
+}
+
+/* -Стили для событий- */
+.div-event {
+    /* форма*/
+    width: 150px;
+    min-height: 60px;
+    border:2px solid #337ab7;
+    background-color:#f5f5f5;
+    border-radius: 5px;
+    /* текст по центру для дочернего блока div-event-name*/
+    position: absolute;
+    overflow:hidden
+}
+
+.div-event:hover {
+    border:2px solid #337ab7;
+    background-color: #b9def0;
+    opacity:0.9;
+    cursor: pointer;
+}
+
+.div-event:active {
+    cursor: move;
+}
+
+.content-event{
+    position: relative;
+    padding-top: 20px;
+    min-height: 60px;
+    padding-bottom: 20px;
+    font-size: 80%;
+}
+
+.div-event-name {
+    /* текст по центру*/
+    position: relative;
+    text-align: center;
+    word-wrap: break-word; /* перенос строк */
+}
+
+/* -Стили для механизмов- */
+.div-mechanism {
+    width:69px;
+    height:80px;
+    background-image:url(/web/images/triangle.png);
+    /* текст по центру для дочерних блоков div-mechanism-m*/
+    position: absolute;
+}
+
+.div-mechanism-m {
+    /* текст по центру*/
+    font-weight:bold;
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 40%;
+    margin-right: -60%;
+    transform: translate(-50%, -50%);
+}
+
+.div-mechanism-name {
+    position: absolute;
+    right: 25px;
+    text-align: right;
+    word-wrap: break-word;
+    font-size: 80%;
+    width: 100px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.div-mechanism:hover {
+    width:69px;
+    height:80px;
+    background-image:url(/web/images/triangle_activ.png);
+    cursor: pointer;
+}
+
+.div-mechanism:active {
+    cursor: move;
+}
+
+.div-parameter {
+    position: relative;
+    min-height:25px;
+    min-width: 150px;
+    border-top:2px dashed #337ab7;
+    padding-left: 2px;
+    padding-right: 2px;
+    display: table;
+    font-size: 80%;
+}
+
+.button-parameter{
+    height: 25px;
+    width: 40px;
+    float: right;
+}
+
+
+/* стиль курсора при наведении на связь*/
+path { cursor:pointer; }
+
+/*стиль заголовка*/
+.aLabel {
+    /*прозрачный текст*/
+    color: #FFF;
+    mix-blend-mode: multiply;
+    text-align: center;
+    /*форма*/
+    width: 65px;
+    height: 25px;
+    border:2px solid;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+/*стиль заголовка при наведении*/
+.aLabel.jtk-hover {
+    mix-blend-mode: normal;
+    width: 65px;
+    height: 25px;
+    background-color: #ff3f48;
+}
+
+/* меняем стили связанных элементов при наведении на их связь*/
+.jtk-source-hover, .jtk-target-hover {
+    box-shadow: 0 0 5px 2px red;
+}
+
+
+/*кнопки*/
+/*кнопки уровней*/
+.edit-level {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-level {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.move-level {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+    transform: rotate(-90deg);
+}
+
+.show-level-comment {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+/*показать скрытые кнопки*/
+.div-level-name:hover .edit-level {
+    display:block;
+}
+.div-level-name:hover .del-level {
+    display:block;
+}
+.div-level-name:hover .move-level {
+    display:block;
+}
+.div-level-name:hover .show-level-comment{
+    display:block;
+}
+
+/*кнопки событий*/
+.edit-event {
+    position: absolute;
+    right: 30px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-event {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.ep-event {
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.show-event-comment {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.add-parameter {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+/*показать скрытые кнопки*/
+.content-event:hover .edit-event {
+    display:block;
+}
+.content-event:hover .del-event {
+    display:block;
+}
+.content-event:hover .ep-event {
+    display:block;
+}
+.content-event:hover .show-event-comment{
+    display:block;
+}
+.content-event:hover .add-parameter {
+    display:block;
+}
+
+/*кнопки механизмов*/
+.edit-mechanism {
+    position: absolute;
+    right: 10px;
+    top: -4px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-mechanism {
+    position: absolute;
+    right: -10px;
+    top: -4px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.ep-mechanism {
+    position: absolute;
+    top: 20px;
+    right: -10px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+/*показать скрытые кнопки*/
+.node:hover .edit-mechanism {
+    display:block;
+}
+.node:hover .del-mechanism {
+    display:block;
+}
+.node:hover .ep-mechanism {
+    display:block;
+}
+
+/*кнопки параметров*/
+.edit-parameter {
+    position: absolute;
+    right: 30px;
+    bottom: 3px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-parameter {
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+/*показать скрытые кнопки*/
+.div-parameter:hover .edit-parameter {
+    display:block;
+}
+.div-parameter:hover .del-parameter {
+    display:block;
+}
+
+
+/* стиль комментариев уровней*/
+.div-level-comment {
+    /* форма*/
+    width: 150px;
+    border:2px dotted #777777;
+    background-color: #fafafa;
+    border-radius: 5px;
+    position: absolute;
+    box-sizing: border-box;
+    padding-left: 5px;
+    overflow:hidden;
+}
+
+/* стиль названия комментариев уровней и событий*/
+.div-comment-name {
+    display: inline-block;
+    position: relative;
+    width: 135px;
+    padding-bottom: 20px;
+    font-size: 80%;
+    word-wrap: break-word; /* перенос строк */
+}
+
+/*стили кнопок комментариев уровней*/
+.edit-level-comment {
+    position: absolute;
+    right: 30px;
+    bottom: 3px;
+    display:none;
+    color: #777777;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-level-comment {
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+    display:none;
+    color: #777777;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.hide-level-comment {
+    position: absolute;
+    level: 10px;
+    bottom: 3px;
+    display:none;
+    color: #777777;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+/*показать скрытые кнопки*/
+.div-level-comment:hover .edit-level-comment {
+    display:block;
+}
+.div-level-comment:hover .del-level-comment {
+    display:block;
+}
+
+.div-level-comment:hover .hide-level-comment {
+    display:block;
+}
+
+
+/* стиль комментариев событий*/
+.div-event-comment {
+    /* форма*/
+    width: 150px;
+    border:2px dotted #337ab7;
+    border-radius: 5px;
+    position: absolute;
+    font-size: 80%;
+    box-sizing: border-box;
+    padding-left: 5px;
+    overflow:hidden;
+}
+
+/*стили кнопок комментариев событий*/
+.edit-event-comment {
+    position: absolute;
+    right: 30px;
+    bottom: 3px;
+    display:none;
+    color: #777777;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-event-comment {
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+    display:none;
+    color: #777777;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.hide-event-comment {
+    position: absolute;
+    left: 10px;
+    bottom: 3px;
+    display:none;
+    color: #777777;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+/*показать скрытые кнопки*/
+.div-event-comment:hover .edit-event-comment {
+    display:block;
+}
+.div-event-comment:hover .del-event-comment {
+    display:block;
+}
+.div-event-comment:hover .hide-event-comment {
+    display:block;
+}
