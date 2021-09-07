@@ -44,8 +44,8 @@ AppAsset::register($this);
             'items' => array_filter([
                 [
                     'label' => '<span class="glyphicon glyphicon-list"></span> ' .
-                        Yii::t('app', 'NAV_TREE_DIAGRAMS'),
-                    'url' => ['/eete/tree-diagrams/index']
+                        Yii::t('app', 'NAV_DIAGRAMS'),
+                    'url' => ['/main/default/diagrams']
                 ],
 
                 !Yii::$app->user->isGuest ? (

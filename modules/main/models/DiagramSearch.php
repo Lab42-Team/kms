@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\editor\models;
+namespace app\modules\main\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 /**
  * TreeDiagramSearch represents the model behind the search form of `app\modules\eete\models\TreeDiagram`.
  */
-class DiagramSearch extends TreeDiagram
+class DiagramSearch extends Diagram
 {
     /**
      * {@inheritdoc}
@@ -38,7 +38,7 @@ class DiagramSearch extends TreeDiagram
      */
     public function search($params)
     {
-        $query = TreeDiagram::find();
+        $query = Diagram::find();
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
@@ -72,7 +72,7 @@ class DiagramSearch extends TreeDiagram
 
     public function searchPublic($params)
     {
-        $query = TreeDiagram::find();
+        $query = Diagram::find();
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
@@ -93,7 +93,7 @@ class DiagramSearch extends TreeDiagram
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'type' => $this->type,
-            'status' => TreeDiagram::PUBLIC_STATUS,
+            'status' => Diagram::PUBLIC_STATUS,
             'correctness' => $this->correctness,
             'author' => $this->author,
         ]);

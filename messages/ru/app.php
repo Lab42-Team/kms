@@ -25,8 +25,8 @@ return [
     'NAV_SIGN_UP' => 'Регистрация',
     'NAV_SIGN_IN' => 'Вход',
     'NAV_SIGN_OUT' => 'Выход',
-    'NAV_TREE_DIAGRAMS' => 'Диаграммы',
-    'NAV_TREE_DIAGRAM' => 'Диаграмма',
+    'NAV_DIAGRAMS' => 'Диаграммы',
+    'NAV_DIAGRAM' => 'Диаграмма',
     'NAV_BACK_LIST' => 'Вернуться к списку',
 
     'NAV_ADD' => 'Добавить',
@@ -38,8 +38,6 @@ return [
     'NAV_EXPORT' => 'Экспортировать',
     'NAV_VERIFY' => 'Проверить',
     'NAV_ALIGNMENT' => 'Выравнивание',
-
-    'NAV_ACCOUNT' => 'Аккаунт',
 
     /* Пункты правого меню */
     'SIDE_NAV_POSSIBLE_ACTIONS' => 'Возможные действия',
@@ -87,26 +85,28 @@ return [
     'NOTICE_TEXT' => 'на эту важную информацию.',
 
     /* Страницы сайта */
-    /* Страница диаграммы */
-    'TREE_DIAGRAMS_PAGE_TREE_DIAGRAM' => 'Диаграмма',
-    'TREE_DIAGRAMS_PAGE_TREE_DIAGRAMS' => 'Диаграммы',
-    'TREE_DIAGRAMS_PAGE_CREATE_TREE_DIAGRAM' => 'Создать диаграмму',
-    'TREE_DIAGRAMS_PAGE_VIEW_TREE_DIAGRAM' => 'Просмотр диаграммы',
-    'TREE_DIAGRAMS_PAGE_UPDATE_TREE_DIAGRAM' => 'Изменить диаграмму',
-    'TREE_DIAGRAMS_PAGE_DELETE_TREE_DIAGRAM' => 'Удалить диаграмму',
-    'TREE_DIAGRAMS_PAGE_VISUAL_DIAGRAM' => 'Визуальная диаграмма',
-    'TREE_DIAGRAMS_PAGE_IMPORT_TREE_DIAGRAM' => 'Импортирование визуальной диаграммы',
-    'TREE_DIAGRAMS_PAGE_CREATE_CHART_FROM_TEMPLATE' => 'Создать диаграмму по шаблону',
-    'TREE_DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данную диаграмму?',
-    'TREE_DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Загрузить онтологию',
-    'TREE_DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Преобразование онтологии',
-    /* Сообщения на страницах администрирования событий */
-    'TREE_DIAGRAMS_PAGE_MESSAGE_CREATE_TREE_DIAGRAM' => 'Вы успешно создали новую диаграмму.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_UPDATED_TREE_DIAGRAM' => 'Вы успешно обновили данную диаграмму.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_DELETED_TREE_DIAGRAM' => 'Вы успешно удалили диаграмму.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_IMPORT_TREE_DIAGRAM' => 'Вы успешно импортировали диаграмму.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'Вы успешно загрузили файл OWL-онтологии.',
-    /* Имя диаграммы созданной из шаблона */
+    /* Страница диаграмм */
+    'DIAGRAMS_PAGE_DIAGRAM' => 'Диаграмма',
+    'DIAGRAMS_PAGE_DIAGRAMS' => 'Диаграммы',
+    'DIAGRAMS_PAGE_CREATE_DIAGRAM' => 'Создать диаграмму',
+    'DIAGRAMS_PAGE_VIEW_DIAGRAM' => 'Просмотр диаграммы',
+    'DIAGRAMS_PAGE_UPDATE_DIAGRAM' => 'Изменить диаграмму',
+    'DIAGRAMS_PAGE_DELETE_DIAGRAM' => 'Удалить диаграмму',
+    'DIAGRAMS_PAGE_VISUAL_DIAGRAM' => 'Визуальная диаграмма',
+    'DIAGRAMS_PAGE_IMPORT_DIAGRAM' => 'Импортирование визуальной диаграммы',
+    'DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данную диаграмму?',
+    'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Загрузить онтологию',
+    'DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Преобразование онтологии',
+    /* Сообщения на страницах администрирования диаграмм */
+    'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM' => 'Вы успешно создали новую диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'Вы успешно обновили данную диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM' => 'Вы успешно удалили диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM' => 'Вы успешно импортировали диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'Вы успешно загрузили файл OWL-онтологии.',
+
+    /* Страница диаграммы деревьев событий */
+    'TREE_DIAGRAMS_PAGE_CREATE_EVENT_TREE_FROM_TEMPLATE' => 'Создать дерево событий по шаблону',
+    /* Дерево событий созданного из шаблона */
     'TREE_DIAGRAMS_CREATED_FROM' => 'Диаграмма созданная из ',
     'TEMPLATES_DIAGRAMS_NOT_FOUND' => 'Шаблоны диаграмм не найдены',
 

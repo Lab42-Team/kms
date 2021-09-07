@@ -2,13 +2,16 @@
 
 namespace app\modules\main\controllers;
 
+use app\modules\main\models\Diagram;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\modules\main\models\LoginForm;
 use app\modules\main\models\ContactForm;
+use app\modules\main\models\DiagramSearch;
 
 class DefaultController extends Controller
 {
@@ -116,5 +119,117 @@ class DefaultController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Lists all diagram models.
+     *
+     * @return mixed
+     */
+    public function actionDiagrams()
+    {
+        $searchModel = new DiagramSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('diagrams', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Diagram model.
+     *
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Diagram model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     *
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Diagram();
+        $model->author = Yii::$app->user->identity->getId();
+        $model->correctness = Diagram::NOT_CHECKED_CORRECT;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success',
+                Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM'));
+
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Diagram model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     *
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success',
+                Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM'));
+
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Diagram model.
+     * If deletion is successful, the browser will be redirected to the 'diagrams' page.
+     *
+     * @param integer $id
+     * @return Response
+     * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+        Yii::$app->getSession()->setFlash('success',
+            Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM'));
+
+        return $this->redirect(['diagrams']);
+    }
+
+    /**
+     * Finds the Diagram model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     *
+     * @param $id
+     * @return Diagram|null the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Diagram::findOne($id)) !== null)
+            return $model;
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

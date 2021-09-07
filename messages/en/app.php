@@ -25,8 +25,8 @@ return [
     'NAV_SIGN_UP' => 'Sign up',
     'NAV_SIGN_IN' => 'Sign in',
     'NAV_SIGN_OUT' => 'Sign out',
-    'NAV_TREE_DIAGRAMS' => 'Diagrams',
-    'NAV_TREE_DIAGRAM' => 'Diagram',
+    'NAV_DIAGRAMS' => 'Diagrams',
+    'NAV_DIAGRAM' => 'Diagram',
     'NAV_BACK_LIST' => 'Back to the list',
 
     'NAV_ADD' => 'Add',
@@ -38,8 +38,6 @@ return [
     'NAV_EXPORT' => 'Export',
     'NAV_VERIFY' => 'Verify',
     'NAV_ALIGNMENT' => 'Alignment',
-
-    'NAV_ACCOUNT' => 'Account',
 
     /* Пункты правого меню */
     'SIDE_NAV_POSSIBLE_ACTIONS' => 'Possible actions',
@@ -87,26 +85,28 @@ return [
     'NOTICE_TEXT' => 'this important information.',
 
     /* Страницы сайта */
-    /* Страница диаграммы */
-    'TREE_DIAGRAMS_PAGE_TREE_DIAGRAM' => 'Diagram',
-    'TREE_DIAGRAMS_PAGE_TREE_DIAGRAMS' => 'Diagrams',
-    'TREE_DIAGRAMS_PAGE_CREATE_TREE_DIAGRAM' => 'Create diagram',
-    'TREE_DIAGRAMS_PAGE_VIEW_TREE_DIAGRAM' => 'View diagram',
-    'TREE_DIAGRAMS_PAGE_UPDATE_TREE_DIAGRAM' => 'Update diagram',
-    'TREE_DIAGRAMS_PAGE_DELETE_TREE_DIAGRAM' => 'Delete diagram',
-    'TREE_DIAGRAMS_PAGE_VISUAL_DIAGRAM' => 'Visual diagram',
-    'TREE_DIAGRAMS_PAGE_IMPORT_TREE_DIAGRAM' => 'Import visual diagram',
-    'TREE_DIAGRAMS_PAGE_CREATE_CHART_FROM_TEMPLATE' => 'Create a chart from a template',
-    'TREE_DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Are you sure that you want to delete this diagram?',
-    'TREE_DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Upload ontology',
-    'TREE_DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Convert ontology',
-    /* Сообщения на страницах администрирования событий */
-    'TREE_DIAGRAMS_PAGE_MESSAGE_CREATE_TREE_DIAGRAM' => 'You have successfully created a new diagram.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_UPDATED_TREE_DIAGRAM' => 'You have successfully updated diagram.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_DELETED_TREE_DIAGRAM' => 'You have successfully deleted diagram.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_IMPORT_TREE_DIAGRAM' => 'You have successfully imported diagram.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'You have successfully uploaded ontology.',
-    /* Имя диаграммы созданной из шаблона */
+    /* Страница диаграмм */
+    'DIAGRAMS_PAGE_DIAGRAM' => 'Diagram',
+    'DIAGRAMS_PAGE_DIAGRAMS' => 'Diagrams',
+    'DIAGRAMS_PAGE_CREATE_DIAGRAM' => 'Create diagram',
+    'DIAGRAMS_PAGE_VIEW_DIAGRAM' => 'View diagram',
+    'DIAGRAMS_PAGE_UPDATE_DIAGRAM' => 'Update diagram',
+    'DIAGRAMS_PAGE_DELETE_DIAGRAM' => 'Delete diagram',
+    'DIAGRAMS_PAGE_VISUAL_DIAGRAM' => 'Visual diagram',
+    'DIAGRAMS_PAGE_IMPORT_DIAGRAM' => 'Import visual diagram',
+    'DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Are you sure that you want to delete this diagram?',
+    'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Upload ontology',
+    'DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Convert ontology',
+    /* Сообщения на страницах администрирования диаграмм */
+    'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM' => 'You have successfully created a new diagram.',
+    'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'You have successfully updated diagram.',
+    'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM' => 'You have successfully deleted diagram.',
+    'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM' => 'You have successfully imported diagram.',
+    'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'You have successfully uploaded ontology.',
+
+    /* Страница диаграммы деревьев событий */
+    'TREE_DIAGRAMS_PAGE_CREATE_EVENT_TREE_FROM_TEMPLATE' => 'Create an event tree from a template',
+    /* Дерево событий созданного из шаблона */
     'TREE_DIAGRAMS_CREATED_FROM' => 'Chart created from ',
     'TEMPLATES_DIAGRAMS_NOT_FOUND' => 'Templates diagrams not found',
 
