@@ -179,32 +179,38 @@ return [
     'USER_MODEL_MESSAGE_UPDATED_YOUR_DETAILS' => 'You have successfully changed your details.',
     'USER_MODEL_MESSAGE_UPDATED_YOUR_PASSWORD' => 'You have successfully changed password.',
 
+    /* Diagram */
+    'DIAGRAM_MODEL_ID' => 'ID',
+    'DIAGRAM_MODEL_CREATED_AT' => 'Created at',
+    'DIAGRAM_MODEL_UPDATED_AT' => 'Updated at',
+    'DIAGRAM_MODEL_NAME' => 'Name',
+    'DIAGRAM_MODEL_DESCRIPTION' => 'Description',
+    'DIAGRAM_MODEL_TYPE' => 'Type',
+    'DIAGRAM_MODEL_STATUS' => 'Status',
+    'DIAGRAM_MODEL_CORRECTNESS' => 'Correctness',
+    'DIAGRAM_MODEL_AUTHOR' => 'Author',
+    /* Значения полей типов диаграмм */
+    'DIAGRAM_MODEL_EVENT_TREE_TYPE' => 'Event tree',
+    'DIAGRAM_MODEL_STATE_TRANSITION_DIAGRAM_TYPE' => 'State transition diagram',
+    /* Значения полей статусов */
+    'DIAGRAM_MODEL_PUBLIC_STATUS' => 'Public',
+    'DIAGRAM_MODEL_PRIVATE_STATUS' => 'Private',
+    /* Значения корректности диаграммы */
+    'DIAGRAM_MODEL_NOT_CHECKED_CORRECT' => 'Not checked',
+    'DIAGRAM_MODEL_CORRECTLY_CORRECT' => 'Correctly',
+    'DIAGRAM_MODEL_INCORRECTLY_CORRECT' => 'Incorrectly',
+
     /* TreeDiagram */
     'TREE_DIAGRAM_MODEL_ID' => 'ID',
     'TREE_DIAGRAM_MODEL_CREATED_AT' => 'Created at',
     'TREE_DIAGRAM_MODEL_UPDATED_AT' => 'Updated at',
-    'TREE_DIAGRAM_MODEL_NAME' => 'Name',
-    'TREE_DIAGRAM_MODEL_DESCRIPTION' => 'Description',
-    'TREE_DIAGRAM_MODEL_TYPE' => 'Type',
-    'TREE_DIAGRAM_MODEL_STATUS' => 'Status',
-    'TREE_DIAGRAM_MODEL_AUTHOR' => 'Author',
     'TREE_DIAGRAM_MODEL_MODE' => 'Mode',
-    'TREE_DIAGRAM_MODEL_CORRECTNESS' => 'Correctness',
     'TREE_DIAGRAM_MODEL_TREE_VIEW' => 'Tree view',
-    /* Значения полей типов диаграмм*/
-    'TREE_DIAGRAM_MODEL_EVENT_TREE_TYPE' => 'Event tree',
-    'TREE_DIAGRAM_MODEL_FAULT_TREE_TYPE' => 'Fault tree',
-    /* Значения полей статусов*/
-    'TREE_DIAGRAM_MODEL_PUBLIC_STATUS' => 'Public',
-    'TREE_DIAGRAM_MODEL_PRIVATE_STATUS' => 'Private',
-    /* Значения режимов деревьев диаграмм*/
+    'TREE_DIAGRAM_MODEL_DIAGRAM' => 'Diagram',
+    /* Значения режимов деревьев диаграмм */
     'TREE_DIAGRAM_MODEL_EXTENDED_TREE_MODE' => 'Extended tree',
     'TREE_DIAGRAM_MODEL_CLASSIC_TREE_MODE' => 'Classic tree',
-    /* Значения корректности диаграммы*/
-    'TREE_DIAGRAM_MODEL_NOT_CHECKED_CORRECT' => 'Not checked',
-    'TREE_DIAGRAM_MODEL_CORRECTLY_CORRECT' => 'Correctly',
-    'TREE_DIAGRAM_MODEL_INCORRECTLY_CORRECT' => 'Incorrectly',
-    /* Значения вида дерева диаграмм*/
+    /* Значения вида дерева диаграмм */
     'TREE_DIAGRAM_MODEL_ORDINARY_TREE_VIEW' => 'Ordinary tree',
     'TREE_DIAGRAM_MODEL_TEMPLATE_TREE_VIEW' => 'Tree template',
 

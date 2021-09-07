@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 /**
  * TreeDiagramSearch represents the model behind the search form of `app\modules\eete\models\TreeDiagram`.
  */
-class TreeDiagramSearch extends TreeDiagram
+class DiagramSearch extends TreeDiagram
 {
     /**
      * {@inheritdoc}
@@ -16,7 +16,8 @@ class TreeDiagramSearch extends TreeDiagram
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'mode', 'tree_view', 'diagram'], 'integer'],
+            [['id', 'created_at', 'updated_at', 'type', 'status', 'correctness', 'author'], 'integer'],
+            [['name', 'description'], 'safe'],
         ];
     }
 
@@ -57,10 +58,14 @@ class TreeDiagramSearch extends TreeDiagram
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'mode' => $this->mode,
-            'tree_view' => $this->tree_view,
-            'diagram' => $this->diagram,
+            'type' => $this->type,
+            'status' => $this->status,
+            'correctness' => $this->correctness,
+            'author' => $this->author,
         ]);
+
+        $query->andFilterWhere(['ilike', 'name', $this->name])
+            ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;
     }
@@ -87,10 +92,14 @@ class TreeDiagramSearch extends TreeDiagram
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'mode' => TreeDiagram::EXTENDED_TREE_MODE,
-            'tree_view' => $this->tree_view,
-            'diagram' => $this->diagram,
+            'type' => $this->type,
+            'status' => TreeDiagram::PUBLIC_STATUS,
+            'correctness' => $this->correctness,
+            'author' => $this->author,
         ]);
+
+        $query->andFilterWhere(['ilike', 'name', $this->name])
+            ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;
     }
