@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\modules\main\models\Diagram;
+use app\modules\eete\models\TreeDiagram;
 
 $this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAM') . ' - ' . $model->name;
 
@@ -13,6 +14,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'DIAGRAMS_PAGE_DIAGRA
     'url' => ['diagrams']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$url = ['import', 'id' => $model->id]; // TODO - STD
+$tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
+if (!empty($tree_diagram))
+    $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
 ?>
 
 <?= $this->render('_modal_form_diagrams', ['model' => $model]); ?>
@@ -24,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-blackboard"></span> ' .
             Yii::t('app', 'BUTTON_OPEN_DIAGRAM'),
-            ['/eete/tree-diagrams/visual-diagram/', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+            $url, ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> ' .
             Yii::t('app', 'BUTTON_UPDATE'),
             ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
