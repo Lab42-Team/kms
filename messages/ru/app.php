@@ -275,6 +275,65 @@ return [
     'SEQUENCE_MODEL_NODE' => 'Узел',
     'SEQUENCE_MODEL_PRIORITY' => 'Приоритет',
 
+    /* State */
+    'STATE_MODEL_ID' => 'ID',
+    'STATE_MODEL_CREATED_AT' => 'Создано',
+    'STATE_MODEL_UPDATED_AT' => 'Обновлено',
+    'STATE_MODEL_NAME' => 'Название',
+    'STATE_MODEL_TYPE' => 'Тип',
+    'STATE_MODEL_DESCRIPTION' => 'Описание',
+    'STATE_MODEL_INDENT_X' => 'Отступ по X',
+    'STATE_MODEL_INDENT_Y' => 'Отступ по Y',
+    'STATE_MODEL_DIAGRAM' => 'Диаграмма',
+    /* Значения типов состояний */
+    'STATE_MODEL_INITIAL_STATE_TYPE' => 'Начальное состояние',
+    'STATE_MODEL_COMMON_STATE_TYPE' => 'Состояние',
+
+    /* StateProperty */
+    'STATE_PROPERTY_MODEL_ID' => 'ID',
+    'STATE_PROPERTY_MODEL_CREATED_AT' => 'Создано',
+    'STATE_PROPERTY_MODEL_UPDATED_AT' => 'Обновлено',
+    'STATE_PROPERTY_MODEL_NAME' => 'Название',
+    'STATE_PROPERTY_MODEL_DESCRIPTION' => 'Описание',
+    'STATE_PROPERTY_MODEL_OPERATOR' => 'Оператор',
+    'STATE_PROPERTY_MODEL_VALUE' => 'Значение',
+    'STATE_PROPERTY_MODEL_STATE' => 'Состояние',
+    /* Значения операторов */
+    'STATE_PROPERTY_MODEL_EQUALLY_OPERATOR' => '=',
+    'STATE_PROPERTY_MODEL_MORE_OPERATOR' => '>',
+    'STATE_PROPERTY_MODEL_LESS_OPERATOR' => '<',
+    'STATE_PROPERTY_MODEL_MORE_EQUAL_OPERATOR' => '>=',
+    'STATE_PROPERTY_MODEL_LESS_EQUAL_OPERATOR' => '<=',
+    'STATE_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
+    'STATE_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
+
+    /* Transition */
+    'TRANSITION_MODEL_ID' => 'ID',
+    'TRANSITION_MODEL_CREATED_AT' => 'Создан',
+    'TRANSITION_MODEL_UPDATED_AT' => 'Обновлен',
+    'TRANSITION_MODEL_NAME' => 'Название',
+    'TRANSITION_MODEL_DESCRIPTION' => 'Описание',
+    'TRANSITION_MODEL_STATE_FROM' => 'Состояние из',
+    'TRANSITION_MODEL_STATE_TO' => 'Состояние в',
+
+    /* TransitionProperty */
+    'TRANSITION_PROPERTY_MODEL_ID' => 'ID',
+    'TRANSITION_PROPERTY_MODEL_CREATED_AT' => 'Создано',
+    'TRANSITION_PROPERTY_MODEL_UPDATED_AT' => 'Обновлено',
+    'TRANSITION_PROPERTY_MODEL_NAME' => 'Название',
+    'TRANSITION_PROPERTY_MODEL_DESCRIPTION' => 'Описание',
+    'TRANSITION_PROPERTY_MODEL_OPERATOR' => 'Оператор',
+    'TRANSITION_PROPERTY_MODEL_VALUE' => 'Значение',
+    'TRANSITION_PROPERTY_MODEL_TRANSITION' => 'Переход',
+    /* Значения операторов */
+    'TRANSITION_PROPERTY_MODEL_EQUALLY_OPERATOR' => '=',
+    'TRANSITION_PROPERTY_MODEL_MORE_OPERATOR' => '>',
+    'TRANSITION_PROPERTY_MODEL_LESS_OPERATOR' => '<',
+    'TRANSITION_PROPERTY_MODEL_MORE_EQUAL_OPERATOR' => '>=',
+    'TRANSITION_PROPERTY_MODEL_LESS_EQUAL_OPERATOR' => '<=',
+    'TRANSITION_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
+    'TRANSITION_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'Имя файла',
     'MESSAGE_CLEANING' => 'При импорте все элементы диаграммы будут удалены',

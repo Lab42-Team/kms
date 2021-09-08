@@ -275,6 +275,65 @@ return [
     'SEQUENCE_MODEL_NODE' => 'Node',
     'SEQUENCE_MODEL_PRIORITY' => 'Priority',
 
+    /* State */
+    'STATE_MODEL_ID' => 'ID',
+    'STATE_MODEL_CREATED_AT' => 'Created at',
+    'STATE_MODEL_UPDATED_AT' => 'Updated at',
+    'STATE_MODEL_NAME' => 'Name',
+    'STATE_MODEL_TYPE' => 'Type',
+    'STATE_MODEL_DESCRIPTION' => 'Description',
+    'STATE_MODEL_INDENT_X' => 'Indent X',
+    'STATE_MODEL_INDENT_Y' => 'Indent Y',
+    'STATE_MODEL_DIAGRAM' => 'Diagram',
+    /* Значения типов состояний */
+    'STATE_MODEL_INITIAL_STATE_TYPE' => 'Initial state',
+    'STATE_MODEL_COMMON_STATE_TYPE' => 'State',
+
+    /* StateProperty */
+    'STATE_PROPERTY_MODEL_ID' => 'ID',
+    'STATE_PROPERTY_MODEL_CREATED_AT' => 'Created at',
+    'STATE_PROPERTY_MODEL_UPDATED_AT' => 'Updated at',
+    'STATE_PROPERTY_MODEL_NAME' => 'Name',
+    'STATE_PROPERTY_MODEL_DESCRIPTION' => 'Description',
+    'STATE_PROPERTY_MODEL_OPERATOR' => 'Operator',
+    'STATE_PROPERTY_MODEL_VALUE' => 'Value',
+    'STATE_PROPERTY_MODEL_STATE' => 'State',
+    /* Значения операторов */
+    'STATE_PROPERTY_MODEL_EQUALLY_OPERATOR' => '=',
+    'STATE_PROPERTY_MODEL_MORE_OPERATOR' => '>',
+    'STATE_PROPERTY_MODEL_LESS_OPERATOR' => '<',
+    'STATE_PROPERTY_MODEL_MORE_EQUAL_OPERATOR' => '>=',
+    'STATE_PROPERTY_MODEL_LESS_EQUAL_OPERATOR' => '<=',
+    'STATE_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
+    'STATE_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
+
+    /* Transition */
+    'TRANSITION_MODEL_ID' => 'ID',
+    'TRANSITION_MODEL_CREATED_AT' => 'Created at',
+    'TRANSITION_MODEL_UPDATED_AT' => 'Updated at',
+    'TRANSITION_MODEL_NAME' => 'Name',
+    'TRANSITION_MODEL_DESCRIPTION' => 'Description',
+    'TRANSITION_MODEL_STATE_FROM' => 'State from',
+    'TRANSITION_MODEL_STATE_TO' => 'State to',
+
+    /* TransitionProperty */
+    'TRANSITION_PROPERTY_MODEL_ID' => 'ID',
+    'TRANSITION_PROPERTY_MODEL_CREATED_AT' => 'Created at',
+    'TRANSITION_PROPERTY_MODEL_UPDATED_AT' => 'Updated at',
+    'TRANSITION_PROPERTY_MODEL_NAME' => 'Name',
+    'TRANSITION_PROPERTY_MODEL_DESCRIPTION' => 'Description',
+    'TRANSITION_PROPERTY_MODEL_OPERATOR' => 'Operator',
+    'TRANSITION_PROPERTY_MODEL_VALUE' => 'Value',
+    'TRANSITION_PROPERTY_MODEL_STATE' => 'State',
+    /* Значения операторов */
+    'TRANSITION_PROPERTY_MODEL_EQUALLY_OPERATOR' => '=',
+    'TRANSITION_PROPERTY_MODEL_MORE_OPERATOR' => '>',
+    'TRANSITION_PROPERTY_MODEL_LESS_OPERATOR' => '<',
+    'TRANSITION_PROPERTY_MODEL_MORE_EQUAL_OPERATOR' => '>=',
+    'TRANSITION_PROPERTY_MODEL_LESS_EQUAL_OPERATOR' => '<=',
+    'TRANSITION_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
+    'TRANSITION_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'File name',
     'MESSAGE_CLEANING' => 'When importing all chart elements are removed',
