@@ -29,18 +29,20 @@ if (!empty($tree_diagram))
 
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-blackboard"></span> ' .
-            Yii::t('app', 'BUTTON_OPEN_DIAGRAM'),
-            $url, ['class' => 'btn btn-success']) ?>
+            Yii::t('app', 'BUTTON_OPEN_DIAGRAM'), $url, ['class' => 'btn btn-success']
+        ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> ' .
             Yii::t('app', 'BUTTON_UPDATE'),
-            ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            ['update', 'id' => $model->id], ['class' => 'btn btn-primary']
+        ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-import"></span> ' .
             Yii::t('app', 'BUTTON_IMPORT'),
             ['import', 'id' => $model->id], ['class' => 'btn btn-primary']
         ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-export"></span> ' .
             Yii::t('app', 'BUTTON_EXPORT'),
-            ['visual-diagram', 'id' => $model->id], ['data' => ['method' => 'post'], 'class' => 'btn btn-primary']
+            ['visual-diagram', 'id' => $model->id],
+            ['data' => ['method' => 'post'], 'class' => 'btn btn-primary']
         ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-download-alt"></span> ' .
             Yii::t('app', 'BUTTON_UPLOAD_ONTOLOGY'),
