@@ -63,7 +63,7 @@ AppAsset::register($this);
                     preg_match("/visual-diagram/", Url::current([], false)) == 1 ?
                     [
                         'label' => '<span class="glyphicon glyphicon-blackboard"></span> ' .
-                            Yii::t('app', 'NAV_TREE_DIAGRAM'),
+                            Yii::t('app', 'NAV_DIAGRAM'),
                         'items' => $this->params['menu_diagram']
                     ] : false
                 ) : false,

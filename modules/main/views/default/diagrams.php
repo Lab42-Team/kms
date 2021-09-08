@@ -78,10 +78,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     '{visual-diagram} {view} {update} {delete} {import} {export} {upload-ontology}',
                 'buttons' => [
                     'visual-diagram' => function ($url, $model, $key) {
-                        $url = ['import', 'id' => $model->id]; // TODO - STD
+                        $url = '#';
                         $tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
                         if (!empty($tree_diagram))
                             $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
+                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
+                            $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
                         return Html::a('<span class="glyphicon glyphicon-blackboard"></span>',
                             $url,
                             [
