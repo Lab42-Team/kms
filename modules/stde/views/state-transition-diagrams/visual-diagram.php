@@ -21,3 +21,5 @@ $this->params['menu_diagram'] = [
 
 <div id="visual-diagram" class="visual-diagram col-md-12">
 </div>
+
+<div> тест </div>
