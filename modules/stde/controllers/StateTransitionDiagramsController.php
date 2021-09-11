@@ -5,6 +5,8 @@ namespace app\modules\stde\controllers;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use app\modules\main\models\Diagram;
+use app\modules\stde\models\State;
+use app\modules\stde\models\Transition;
 
 /**
  * StateTransitionDiagramsController implements the CRUD actions for State Transition Diagram model.
@@ -22,8 +24,30 @@ class StateTransitionDiagramsController extends Controller
      */
     public function actionVisualDiagram($id)
     {
+
+
+        $states_model_all = State::find()->where(['diagram' => $id])->all();
+
+
+
+        $transitions_all = Transition::find()->all();
+        $transitions_model_all = array();//массив пустых связей
+        foreach ($transitions_all as $t){
+            foreach ($states_model_all as $s){
+                if ($t->state_from == $s->id){
+                    array_push($transitions_model_all, $t);
+                }
+            }
+        }
+
+
+
+
+
         return $this->render('visual-diagram', [
             'model' => $this->findModel($id),
+            'states_model_all' => $states_model_all,
+            'transitions_model_all' => $transitions_model_all,
         ]);
     }
 
