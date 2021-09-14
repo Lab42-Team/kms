@@ -51,6 +51,60 @@
 }
 
 
+/*кнопки событий*/
+.edit-state {
+    position: absolute;
+    right: 30px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-state {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.connect-state {
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.add-state-property {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+/*показать скрытые кнопки*/
+.content-state:hover .edit-state {
+    display:block;
+}
+.content-state:hover .del-state {
+    display:block;
+}
+.content-state:hover .connect-state {
+    display:block;
+}
+.content-state:hover .add-state-property {
+    display:block;
+}
+
 
 /* -Стили для переходов- */
 .transitions-style {

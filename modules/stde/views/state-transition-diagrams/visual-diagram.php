@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\main\models\Diagram */
+/* @var $transition_model app\modules\stde\models\Transition */
 /* @var $states_all app\modules\stde\controllers\StateTransitionDiagramsController */
 
 use yii\helpers\Html;
@@ -35,6 +36,12 @@ foreach ($transitions_model_all as $t){
 ?>
 
 
+<?= $this->render('_modal_form_transition_editor', [
+    'model' => $model,
+    'transition_model' => $transition_model,
+]) ?>
+
+
 <!-- Подключение скрипта для модальных форм -->
 <?php
 $this->registerJsFile('/js/modal-form.js', ['position' => yii\web\View::POS_HEAD]);
@@ -49,6 +56,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 <script type="text/javascript">
     var guest = <?php echo json_encode(Yii::$app->user->isGuest); ?>;//переменная гость определяет пользователь гость или нет
 
+    var current_connection; //текущее соединение
+    var id_state_from = 0; //id состояние из которого выходит связь
+    var id_state_to = 0; //id состояния к которому выходит связь
 
     var states_mas = <?php echo json_encode($states_mas); ?>;//прием массива состояний из php
     var transitions_mas = <?php echo json_encode($transitions_mas); ?>;//прием массива переходов из php
@@ -104,7 +114,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     //console.log(mas_data_transition);
 
 
-
+    //-----начало кода jsPlumb-----
     var instance = "";
     jsPlumb.ready(function () {
         instance = jsPlumb.getInstance({
@@ -138,9 +148,47 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             //instance.addToGroup('group', state);
         });
 
+        var windows = jsPlumb.getSelector(".div-state");
 
         //построение переходов (связей)
         instance.batch(function () {
+
+            //расположение мест соединения (якорей соединений)
+            var anchor_places = [
+                [ 0.25, 0, 0, 0, 0, 0 ],  //top1
+                [ 0.5, 0, 0, 0, 0, 0 ],  //top2
+                [ 0.75, 0, 0, 0, 0, 0 ],  //top3
+                [ 0, 0.3, 0, 0, 0, 0 ],  //left1
+                [ 0, 0.7, 0, 0, 0, 0 ],  //left2
+                [ 1, 0.3, 0, 0, 0, 0 ],  //right1
+                [ 1, 0.7, 0, 0, 0, 0 ],  //right2
+                [ 0.25, 1, 0, 0, 0, 0 ],  //bottom1
+                [ 0.5, 1, 0, 0, 0, 0 ],  //bottom2
+                [ 0.75, 1, 0, 0, 0, 0 ],  //bottom3
+            ];
+
+            for (var i = 0; i < windows.length; i++) {
+
+                instance.makeSource(windows[i], {
+                    filter: ".connect-state",
+                    anchor: anchor_places,
+                });
+
+                instance.makeTarget(windows[i], {
+                    dropOptions: { hoverClass: "dragHover" },
+                    anchor: anchor_places,
+                    allowLoopback: false, // Нельзя создать кольцевую связь
+                    //anchor: "Top",
+                    //maxConnections: max_con,
+                    //onMaxConnections: function (info, e) {
+                    //    var message = "?php echo Yii::t('app', 'MAXIMUM_CONNECTIONS'); ?>" + info.maxConnections;   // убрал < в ?php
+                    //    document.getElementById("message-text").lastChild.nodeValue = message;
+                    //    $("#viewMessageErrorLinkingItemsModalForm").modal("show");
+                    //}
+                });
+            }
+
+            //---------------построение связей из бд
             $.each(mas_data_transition, function (j, elem) {
                 //console.log(elem.state_from + ' - ' + elem.state_to);
                 instance.connect({
@@ -150,20 +198,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                         ['Label', {
                             label: elem.name,
                             location: 0.5, //расположение посередине
-                            cssClass: "transitions-style"}]
+                            cssClass: "transitions-style"
+                        }]
                     ],
-                    anchor:[
-                        [ 0.25, 0, 0, 0, 0, 0 ],  //top1
-                        [ 0.5, 0, 0, 0, 0, 0 ],  //top2
-                        [ 0.75, 0, 0, 0, 0, 0 ],  //top3
-                        [ 0, 0.3, 0, 0, 0, 0 ],  //left1
-                        [ 0, 0.7, 0, 0, 0, 0 ],  //left2
-                        [ 1, 0.3, 0, 0, 0, 0 ],  //right1
-                        [ 1, 0.7, 0, 0, 0, 0 ],  //right2
-                        [ 0.25, 1, 0, 0, 0, 0 ],  //bottom1
-                        [ 0.5, 1, 0, 0, 0, 0 ],  //bottom2
-                        [ 0.75, 1, 0, 0, 0, 0 ],  //bottom3
-                    ]
+                    //anchor: anchor_places
                 });
             });
         });
@@ -179,8 +217,23 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         //});
 
 
-    });
+        //обработка построения связи (добавление перехода)
+        instance.bind("connection", function(connection) {
+            if (!guest) {
+                var source_id = connection.sourceId;
+                var target_id = connection.targetId;
 
+                //параметры передаваемые на модальную форму
+                current_connection = connection;
+                id_state_from = parseInt(source_id.match(/\d+/));
+                id_state_to = parseInt(target_id.match(/\d+/));
+
+                $("#addTransitionModalForm").modal("show");
+            }
+        });
+
+    });
+    //-----конец кода jsPlumb-----
 
 </script>
 
@@ -199,6 +252,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             <div id="state_<?= $state->id ?>" class="div-state" title="<?= $state->description ?>">
                 <div class="content-state">
                     <div id="state_name_<?= $state->id ?>" class="div-state-name"><?= $state->name ?></div>
+                    <div class="connect-state glyphicon-share-alt" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"></div>
+                    <div id="state_del_<?= $state->id ?>" class="del-state glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                    <div id="state_edit_<?= $state->id ?>" class="edit-state glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
+                    <div id="state_add_property_<?= $state->id ?>" class="add-state-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
                 </div>
             </div>
         <?php endforeach; ?>

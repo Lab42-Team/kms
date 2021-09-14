@@ -339,7 +339,7 @@ return [
     'MESSAGE_CLEANING' => 'When importing all chart elements are removed',
     'MESSAGE_IMPORT_ERROR_INCOMPATIBLE_MODE' => 'Imported file mode does not match chart mode',
 
-    /* Заголовки модальных форм */
+    /* Заголовки модальных форм EETE*/
     'LEVEL_ADD_NEW_LEVEL' => 'Add new level',
     'LEVEL_EDIT_LEVEL' => 'Level change',
     'LEVEL_DELETE_LEVEL' => 'Level delete',
@@ -363,6 +363,9 @@ return [
     'VALIDATION' => 'Validation',
     'DELETE_RELATIONSHIP' => 'Deleting connection',
     'IMPORT_FORM' => 'Import',
+
+    /* Заголовки модальных форм STDE*/
+    'TRANSITION_ADD_NEW_TRANSITION' => 'Add new transition',
 
     /* Cообщения */
     'MAXIMUM_CONNECTIONS' => 'Maximum connections ',

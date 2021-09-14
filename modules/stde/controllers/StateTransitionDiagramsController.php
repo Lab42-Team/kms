@@ -2,8 +2,11 @@
 
 namespace app\modules\stde\controllers;
 
+use Yii;
+use yii\web\Response;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\bootstrap\ActiveForm;
 use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
 use app\modules\stde\models\Transition;
@@ -25,10 +28,9 @@ class StateTransitionDiagramsController extends Controller
     public function actionVisualDiagram($id)
     {
 
+        $transition_model = new Transition();
 
         $states_model_all = State::find()->where(['diagram' => $id])->all();
-
-
 
         $transitions_all = Transition::find()->all();
         $transitions_model_all = array();//массив пустых связей
@@ -42,10 +44,9 @@ class StateTransitionDiagramsController extends Controller
 
 
 
-
-
         return $this->render('visual-diagram', [
             'model' => $this->findModel($id),
+            'transition_model' => $transition_model,
             'states_model_all' => $states_model_all,
             'transitions_model_all' => $transitions_model_all,
         ]);
@@ -66,4 +67,47 @@ class StateTransitionDiagramsController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+    /**
+     * Добавление нового перехода.
+     *
+     * @param $id - id дерева событий
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionAddTransition()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            // Формирование модели перехода
+            $model = new Transition();
+
+            $model->state_from = Yii::$app->request->post('id_state_from');
+            $model->state_to = Yii::$app->request->post('id_state_to');
+
+            // Определение полей модели перехода и валидация формы
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                // Успешный ввод данных
+                $data["success"] = true;
+                // Добавление нового перехода в БД
+                $model->save();
+                // Формирование данных о новом переходе
+                $data["id"] = $model->id;
+                $data["name"] = $model->name;
+                $data["description"] = $model->description;
+            } else
+                $data = ActiveForm::validate($model);
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
 }
