@@ -118,10 +118,11 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var instance = "";
     jsPlumb.ready(function () {
         instance = jsPlumb.getInstance({
-            Connector:["Straight"], //стиль соединения линии ломанный с радиусом
-            Endpoint:["Dot", {radius:1}], //стиль точки соединения
+            Connector:["StateMachine"], //стиль соединения линии ломанный с радиусом
+            Endpoint:["Dot", {radius:3}], //стиль точки соединения
             EndpointStyle: { fill: '#337ab7' }, //цвет точки соединения
             PaintStyle : { strokeWidth:3, stroke: "#337ab7", "dashstyle": "0 0", fill: "transparent"},//стиль линии
+            HoverPaintStyle : { strokeWidth:3, stroke: "#5bb35b", "dashstyle": "0 0", fill: "transparent"},//стиль линии при наведении
             Overlays:[["PlainArrow", {location:1, width:15, length:15}]], //стрелка
             Container: "visual_diagram"
         });
@@ -138,7 +139,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         //});
 
 
-        //находим все элементы с классом div-state
+        //находим все элементы с классом div-state и делаем их двигаемыми
         $(".div-state").each(function(i) {
             var id_state = $(this).attr('id');
             var state = document.getElementById(id_state);
@@ -148,50 +149,40 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             //instance.addToGroup('group', state);
         });
 
+
+        //находим все элементы с классом div-transition и делаем их двигаемыми
+        $(".div-transition").each(function(i) {
+            var id_state = $(this).attr('id');
+            var state = document.getElementById(id_state);
+            //делаем state перетаскиваемыми
+            instance.draggable(state);
+            //добавляем элемент state в группу с именем group
+            //instance.addToGroup('group', state);
+        });
+
+
         var windows = jsPlumb.getSelector(".div-state");
 
         //построение переходов (связей)
         instance.batch(function () {
 
-            //расположение мест соединения (якорей соединений)
-            var anchor_places = [
-                [ 0.25, 0, 0, 0, 0, 0 ],  //top1
-                [ 0.5, 0, 0, 0, 0, 0 ],  //top2
-                [ 0.75, 0, 0, 0, 0, 0 ],  //top3
-                [ 0, 0.3, 0, 0, 0, 0 ],  //left1
-                [ 0, 0.7, 0, 0, 0, 0 ],  //left2
-                [ 1, 0.3, 0, 0, 0, 0 ],  //right1
-                [ 1, 0.7, 0, 0, 0, 0 ],  //right2
-                [ 0.25, 1, 0, 0, 0, 0 ],  //bottom1
-                [ 0.5, 1, 0, 0, 0, 0 ],  //bottom2
-                [ 0.75, 1, 0, 0, 0, 0 ],  //bottom3
-            ];
-
             for (var i = 0; i < windows.length; i++) {
 
                 instance.makeSource(windows[i], {
                     filter: ".connect-state",
-                    anchor: anchor_places,
+                    anchor: "Continuous", //непрерывный анкер
                 });
 
                 instance.makeTarget(windows[i], {
                     dropOptions: { hoverClass: "dragHover" },
-                    anchor: anchor_places,
-                    allowLoopback: false, // Нельзя создать кольцевую связь
-                    //anchor: "Top",
-                    //maxConnections: max_con,
-                    //onMaxConnections: function (info, e) {
-                    //    var message = "?php echo Yii::t('app', 'MAXIMUM_CONNECTIONS'); ?>" + info.maxConnections;   // убрал < в ?php
-                    //    document.getElementById("message-text").lastChild.nodeValue = message;
-                    //    $("#viewMessageErrorLinkingItemsModalForm").modal("show");
-                    //}
+                    anchor: "Continuous", //непрерывный анкер
+                    allowLoopback: true, // Разрешение создавать кольцевую связь
                 });
             }
 
             //---------------построение связей из бд
             $.each(mas_data_transition, function (j, elem) {
-                //console.log(elem.state_from + ' - ' + elem.state_to);
-                instance.connect({
+                var c = instance.connect({
                     source: "state_" + elem.state_from,
                     target: "state_" + elem.state_to,
                     overlays: [
@@ -201,20 +192,54 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                             cssClass: "transitions-style"
                         }]
                     ],
-                    //anchor: anchor_places
                 });
+                //создаем параметр для связи id_transition куда прописываем название связи "transition_connect_" +  data['id'] (как замена id)
+                c.setParameter('id_transition',"transition_connect_" +  elem.id);
             });
         });
 
 
-        //instance.bind("click", function (c) {
-            //instance.deleteConnection(c);
-            //console.log("bep");
-            //c.sourceId.substring(15)
-            //c.targetId.substring(15))
-        //    console.log(c.sourceId);
-        //    console.log(c.targetId);
-        //});
+        //обработка клика на связь для просмотра перехода
+        instance.bind("click", function (c) {
+            //получение id_transition параметра для идентификации связи
+            var id_transition = parseInt(c.getParameters().id_transition.match(/\d+/));
+
+            //поиск перехода относящегося к выбранной связи
+            var transition = document.getElementById("transition_" + id_transition);
+            if (transition.style.visibility == 'hidden'){
+                transition.style.visibility = 'visible';//делаем переход видимым
+            } else {
+                transition.style.visibility='hidden';//скрываем переход
+            }
+
+            //поиск связанных элементов
+            var source = document.getElementById(c.sourceId);
+            var target = document.getElementById(c.targetId);
+
+            var x_source = source.offsetLeft;//нахождение отступа слева от первого элемента
+            var x_target = target.offsetLeft;//нахождение отступа слева от второго элемента
+            var distance_x = Math.abs(x_source - x_target); //расстояние между элементами
+            //нахождение отступа от крайнего слева элемента
+            if (x_source < x_target){
+                var indent_x = x_source;
+            } else {
+                var indent_x = x_target;
+            }
+
+            var y_source = source.offsetTop;//нахождение отступа сверху от первого элемента
+            var y_target = target.offsetTop;//нахождение отступа сверху от второго элемента
+            var distance_y = Math.abs(y_source - y_target); //расстояние между элементами
+            //нахождение отступа от крайнего слева элемента
+            if (y_source < y_target){
+                var indent_y = y_source;
+            } else {
+                var indent_y = y_target;
+            }
+
+            //выравниваем переход по центру между связанными элементами
+            transition.style.left = distance_x/2 + indent_x + 'px';
+            transition.style.top = distance_y/2 + indent_y + 'px';
+        });
 
 
         //обработка построения связи (добавление перехода)
@@ -248,6 +273,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
     <div id="visual_diagram_field" class="visual-diagram-top-layer">
 
+        <!-- отображение состояний -->
         <?php foreach ($states_model_all as $state): ?>
             <div id="state_<?= $state->id ?>" class="div-state" title="<?= $state->description ?>">
                 <div class="content-state">
@@ -257,6 +283,32 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     <div id="state_edit_<?= $state->id ?>" class="edit-state glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                     <div id="state_add_property_<?= $state->id ?>" class="add-state-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
                 </div>
+            </div>
+        <?php endforeach; ?>
+
+        <!-- отображение блоков переходов -->
+        <?php foreach ($transitions_model_all as $transition): ?>
+            <div id="transition_<?= $transition->id ?>" class="div-transition" style="visibility:hidden;">
+                <div class="content-transition">
+                    <div id="transition_name_<?= $transition->id ?>" class="div-transition-name"><?= $transition->name ?></div>
+                    <div id="transition_del_<?= $transition->id ?>" class="del-transition glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                    <div id="transition_edit_<?= $transition->id ?>" class="edit-transition glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
+                    <div id="transition_hide_<?= $transition->id ?>" class="hide-transition glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"></div>
+                    <div id="transition_add_property_<?= $transition->id ?>" class="add-transition-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
+                </div>
+
+                <!-- отображение условий -->
+                <?php foreach ($transitions_property_model_all as $transition_property): ?>
+                    <?php if ($transition_property->transition == $transition->id){ ?>
+                        <div id="transition_property_<?= $transition_property->id ?>" class="div-transition-property">
+                            <?= $transition_property->name ?> <?= $transition_property->getOperatorName() ?> <?= $transition_property->value ?>
+                            <div class="button-transition-property">
+                                <div id="transition_property_edit_<?= $transition_property->id ?>" class="edit-transition-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
+                                <div id="transition_property_del_<?= $transition_property->id ?>" class="del-transition-property glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php endforeach; ?>
             </div>
         <?php endforeach; ?>
 

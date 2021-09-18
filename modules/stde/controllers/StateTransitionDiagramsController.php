@@ -10,6 +10,7 @@ use yii\bootstrap\ActiveForm;
 use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
 use app\modules\stde\models\Transition;
+use app\modules\stde\models\TransitionProperty;
 
 /**
  * StateTransitionDiagramsController implements the CRUD actions for State Transition Diagram model.
@@ -33,7 +34,7 @@ class StateTransitionDiagramsController extends Controller
         $states_model_all = State::find()->where(['diagram' => $id])->all();
 
         $transitions_all = Transition::find()->all();
-        $transitions_model_all = array();//массив пустых связей
+        $transitions_model_all = array();//массив связей
         foreach ($transitions_all as $t){
             foreach ($states_model_all as $s){
                 if ($t->state_from == $s->id){
@@ -42,6 +43,15 @@ class StateTransitionDiagramsController extends Controller
             }
         }
 
+        $transitions_property_all = TransitionProperty::find()->all();
+        $transitions_property_model_all = array();//массив условий
+        foreach ($transitions_property_all as $p){
+            foreach ($transitions_model_all as $t){
+                if ($p->transition == $t->id){
+                    array_push($transitions_property_model_all, $p);
+                }
+            }
+        }
 
 
         return $this->render('visual-diagram', [
@@ -49,6 +59,7 @@ class StateTransitionDiagramsController extends Controller
             'transition_model' => $transition_model,
             'states_model_all' => $states_model_all,
             'transitions_model_all' => $transitions_model_all,
+            'transitions_property_model_all' => $transitions_property_model_all,
         ]);
     }
 

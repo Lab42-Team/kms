@@ -118,7 +118,150 @@
 }
 
 .transitions-style.jtk-hover, .jtk-source-hover, .jtk-target-hover {
-    background-color: #b9def0;
+    background-color: #98fb98;
     opacity: 1;
 }
 
+
+/* -Стили для блоков переходов- */
+.div-transition {
+    /* форма*/
+    width: 150px;
+    min-height: 60px;
+    border:2px dashed #337ab7;
+    background-color: #ddffd3;
+    border-radius: 5px;
+    z-index: 100;
+    /* текст по центру для дочернего блока div-event-name*/
+    position: absolute;
+    overflow:hidden
+}
+
+.div-transition:hover {
+    border:2px dashed #337ab7;
+    background-color: #98fb98;
+    opacity:0.9;
+    cursor: pointer;
+}
+
+.div-transition:active {
+    cursor: move;
+}
+
+.content-transition{
+    position: relative;
+    padding-top: 20px;
+    min-height: 60px;
+    padding-bottom: 20px;
+    font-size: 80%;
+}
+
+.div-transition-name {
+    /* текст по центру*/
+    position: relative;
+    text-align: center;
+    word-wrap: break-word; /* перенос строк */
+}
+
+
+/*кнопки блоков переходов*/
+.edit-transition {
+    position: absolute;
+    right: 30px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-transition {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.hide-transition {
+    position: absolute;
+    right: 50px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.add-transition-property {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+/*показать скрытые кнопки*/
+.content-transition:hover .edit-transition {
+    display:block;
+}
+.content-transition:hover .del-transition {
+    display:block;
+}
+.content-transition:hover .hide-transition {
+    display:block;
+}
+.content-transition:hover .add-transition-property {
+    display:block;
+}
+
+
+/* -Стили для условий- */
+.div-transition-property {
+    position: relative;
+    min-height:25px;
+    min-width: 150px;
+    border-top:2px dashed #337ab7;
+    padding-left: 2px;
+    padding-right: 2px;
+    display: table;
+    font-size: 80%;
+}
+
+.button-transition-property{
+    height: 25px;
+    width: 40px;
+    float: right;
+}
+
+/*кнопки условий*/
+.edit-transition-property {
+    position: absolute;
+    right: 30px;
+    bottom: 3px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-transition-property {
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+/*показать скрытые кнопки*/
+.div-transition-property:hover .edit-transition-property {
+    display:block;
+}
+.div-transition-property:hover .del-transition-property {
+    display:block;
+}

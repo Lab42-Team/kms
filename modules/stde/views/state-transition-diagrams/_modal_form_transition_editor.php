@@ -37,11 +37,15 @@ use app\modules\main\models\Lang;
                         // Скрывание модального окна
                         $("#addTransitionModalForm").modal("hide");
 
+                        //присваиваем наименование и свойства новой связи
                         instance.select(current_connection).setLabel({
                             label: data['name'],
                             location: 0.5, //расположение посередине
                             cssClass: "transitions-style"
                         });
+
+                        //создаем параметр для новой связи id_transition куда прописываем название связи transition_" +  data['id'] (как замена id)
+                        instance.select(current_connection).setParameter('id_transition',"transition_connect_" +  data['id']);
 
                         document.getElementById('add-transition-form').reset();
                     } else {

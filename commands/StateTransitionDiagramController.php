@@ -8,6 +8,7 @@ use app\modules\main\models\User;
 use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
 use app\modules\stde\models\Transition;
+use app\modules\stde\models\TransitionProperty;
 
 class StateTransitionDiagramController extends Controller
 {
@@ -69,19 +70,53 @@ class StateTransitionDiagramController extends Controller
                 $this->log($state->save());
                 $state2 = $state->id;
 
-                $transition = new Transition();
-                $transition->name = 'Переход 1';
-                $transition->description = 'Описание перехода 1';
-                $transition->state_from = $state0;
-                $transition->state_to = $state1;
-                $this->log($transition->save());
+                    $transition = new Transition();
+                    $transition->name = 'Переход 1';
+                    $transition->description = 'Описание перехода 1';
+                    $transition->state_from = $state0;
+                    $transition->state_to = $state1;
+                    $this->log($transition->save());
+                    $transition1 = $transition->id;
 
-                $transition = new Transition();
-                $transition->name = 'Переход 2';
-                $transition->description = 'Описание перехода 2';
-                $transition->state_from = $state1;
-                $transition->state_to = $state2;
-                $this->log($transition->save());
+                        $transition_property = new TransitionProperty();
+                        $transition_property->name = 'Условие 1';
+                        $transition_property->description = 'Описание условия 1';
+                        $transition_property->operator = 0;
+                        $transition_property->value = '111';
+                        $transition_property->transition = $transition1;
+                        $this->log($transition_property->save());
+
+                        $transition_property = new TransitionProperty();
+                        $transition_property->name = 'Условие 2';
+                        $transition_property->description = 'Описание условия 2';
+                        $transition_property->operator = 1;
+                        $transition_property->value = '222';
+                        $transition_property->transition = $transition1;
+                        $this->log($transition_property->save());
+
+                    $transition = new Transition();
+                    $transition->name = 'Переход 2';
+                    $transition->description = 'Описание перехода 2';
+                    $transition->state_from = $state1;
+                    $transition->state_to = $state2;
+                    $this->log($transition->save());
+                    $transition2 = $transition->id;
+
+                        $transition_property = new TransitionProperty();
+                        $transition_property->name = 'Условие 1';
+                        $transition_property->description = 'Описание условия 1';
+                        $transition_property->operator = 4;
+                        $transition_property->value = '333';
+                        $transition_property->transition = $transition2;
+                        $this->log($transition_property->save());
+
+                        $transition_property = new TransitionProperty();
+                        $transition_property->name = 'Условие 2';
+                        $transition_property->description = 'Описание условия 2';
+                        $transition_property->operator = 5;
+                        $transition_property->value = '444';
+                        $transition_property->transition = $transition2;
+                        $this->log($transition_property->save());
 
             } else {
                 $this->stdout('The diagram is created. - - - - - - - -', Console::FG_GREEN, Console::BOLD);
