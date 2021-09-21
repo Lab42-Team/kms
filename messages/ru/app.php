@@ -315,6 +315,10 @@ return [
     'TRANSITION_MODEL_DESCRIPTION' => 'Описание',
     'TRANSITION_MODEL_STATE_FROM' => 'Состояние из',
     'TRANSITION_MODEL_STATE_TO' => 'Состояние в',
+    'TRANSITION_MODEL_NAME_PROPERTY' => 'Название условия',
+    'TRANSITION_MODEL_DESCRIPTION_PROPERTY' => 'Описание условия',
+    'TRANSITION_MODEL_OPERATOR_PROPERTY' => 'Оператор условия',
+    'TRANSITION_MODEL_VALUE_PROPERTY' => 'Значение условия',
 
     /* TransitionProperty */
     'TRANSITION_PROPERTY_MODEL_ID' => 'ID',

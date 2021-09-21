@@ -118,7 +118,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var instance = "";
     jsPlumb.ready(function () {
         instance = jsPlumb.getInstance({
-            Connector:["StateMachine"], //стиль соединения линии ломанный с радиусом
+            Connector:["StateMachine"], //стиль соединения линии
             Endpoint:["Dot", {radius:3}], //стиль точки соединения
             EndpointStyle: { fill: '#337ab7' }, //цвет точки соединения
             PaintStyle : { strokeWidth:3, stroke: "#337ab7", "dashstyle": "0 0", fill: "transparent"},//стиль линии
@@ -301,7 +301,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                 <?php foreach ($transitions_property_model_all as $transition_property): ?>
                     <?php if ($transition_property->transition == $transition->id){ ?>
                         <div id="transition_property_<?= $transition_property->id ?>" class="div-transition-property">
-                            <?= $transition_property->name ?> <?= $transition_property->getOperatorName() ?> <?= $transition_property->value ?>
+                            <?= $transition_property->name ?> <?= $transition_property->getOperatorName()?> <?= $transition_property->value ?>
                             <div class="button-transition-property">
                                 <div id="transition_property_edit_<?= $transition_property->id ?>" class="edit-transition-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                 <div id="transition_property_del_<?= $transition_property->id ?>" class="del-transition-property glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>

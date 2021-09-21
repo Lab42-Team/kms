@@ -112,6 +112,31 @@ class StateTransitionDiagramsController extends Controller
                 $data["id"] = $model->id;
                 $data["name"] = $model->name;
                 $data["description"] = $model->description;
+
+
+
+
+                // ----------Формирование модели условия
+                $transition_property = new TransitionProperty();
+                $transition_property->name = $model->name_property;
+                $transition_property->description = $model->description_property;
+                $transition_property->operator = $model->operator_property;
+                $transition_property->value = $model->value_property;
+                $transition_property->transition = $model->id;
+                $transition_property->save();
+
+                // --------------Формирование данных о новом переходе
+                $data["id_property"] = $transition_property->id;
+                $data["name_property"] = $transition_property->name;
+                $data["description_property"] = $transition_property->description;
+                $data["operator_property"] = $transition_property->getOperatorName();
+                $data["value_property"] = $transition_property->value;
+
+
+
+
+
+
             } else
                 $data = ActiveForm::validate($model);
             // Возвращение данных

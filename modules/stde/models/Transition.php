@@ -22,6 +22,11 @@ use yii\behaviors\TimestampBehavior;
  */
 class Transition extends \yii\db\ActiveRecord
 {
+    public $name_property;
+    public $description_property;
+    public $operator_property;
+    public $value_property;
+
     /**
      * @return string table name
      */
@@ -36,10 +41,10 @@ class Transition extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'state_from', 'state_to'], 'required'],
-            [['state_from', 'state_to'], 'integer'],
-            [['name'], 'string', 'max' => 255],
-            [['description'], 'string'],
+            [['name', 'state_from', 'state_to', 'name_property', 'operator_property', 'value_property'], 'required'],
+            [['state_from', 'state_to', 'operator_property'], 'integer'],
+            [['name', 'name_property', 'value_property'], 'string', 'max' => 255],
+            [['description', 'description_property'], 'string'],
             [['state_from'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(),
                 'targetAttribute' => ['state_from' => 'id']],
             [['state_to'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(),
@@ -60,6 +65,10 @@ class Transition extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'TRANSITION_MODEL_DESCRIPTION'),
             'state_from' => Yii::t('app', 'TRANSITION_MODEL_STATE_FROM'),
             'state_to' => Yii::t('app', 'TRANSITION_MODEL_STATE_TO'),
+            'name_property' => Yii::t('app', 'TRANSITION_MODEL_NAME_PROPERTY'),
+            'description_property' => Yii::t('app', 'TRANSITION_MODEL_DESCRIPTION_PROPERTY'),
+            'operator_property' => Yii::t('app', 'TRANSITION_MODEL_OPERATOR_PROPERTY'),
+            'value_property' => Yii::t('app', 'TRANSITION_MODEL_VALUE_PROPERTY'),
         ];
     }
 

@@ -315,6 +315,10 @@ return [
     'TRANSITION_MODEL_DESCRIPTION' => 'Description',
     'TRANSITION_MODEL_STATE_FROM' => 'State from',
     'TRANSITION_MODEL_STATE_TO' => 'State to',
+    'TRANSITION_MODEL_NAME_PROPERTY' => 'Name property',
+    'TRANSITION_MODEL_DESCRIPTION_PROPERTY' => 'Description property',
+    'TRANSITION_MODEL_OPERATOR_PROPERTY' => 'Operator property',
+    'TRANSITION_MODEL_VALUE_PROPERTY' => 'Value property',
 
     /* TransitionProperty */
     'TRANSITION_PROPERTY_MODEL_ID' => 'ID',
