@@ -83,8 +83,6 @@ class StateTransitionDiagramsController extends Controller
     /**
      * Добавление нового перехода.
      *
-     * @param $id - id дерева событий
-     * @return bool|\yii\console\Response|Response
      */
     public function actionAddTransition()
     {
@@ -113,9 +111,6 @@ class StateTransitionDiagramsController extends Controller
                 $data["name"] = $model->name;
                 $data["description"] = $model->description;
 
-
-
-
                 // ----------Формирование модели условия
                 $transition_property = new TransitionProperty();
                 $transition_property->name = $model->name_property;
@@ -132,13 +127,40 @@ class StateTransitionDiagramsController extends Controller
                 $data["operator_property"] = $transition_property->getOperatorName();
                 $data["value_property"] = $transition_property->value;
 
-
-
-
-
-
             } else
                 $data = ActiveForm::validate($model);
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Сохранение отступов.
+     *
+     */
+    public function actionSaveIndent()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $state = State::find()->where(['id' => Yii::$app->request->post('state_id')])->one();
+            $state->indent_x = Yii::$app->request->post('indent_x');
+            $state->indent_y = Yii::$app->request->post('indent_y');
+            $state->updateAttributes(['indent_x']);
+            $state->updateAttributes(['indent_y']);
+
+            $data["indent_x"] = $state->indent_x;
+            $data["indent_y"] = $state->indent_y;
+            $data["success"] = true;
+
             // Возвращение данных
             $response->data = $data;
             return $response;

@@ -119,7 +119,7 @@ use app\modules\stde\models\TransitionProperty;
                         var div_transition = document.getElementById('transition_' + data['id']);
                         instance.draggable(div_transition);
 
-
+                        //---------добавить его в группу
 
                         //---------добавить новое в массивы связи и условий для изменений
 

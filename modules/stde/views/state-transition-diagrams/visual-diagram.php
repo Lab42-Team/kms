@@ -124,19 +124,17 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             PaintStyle : { strokeWidth:3, stroke: "#337ab7", "dashstyle": "0 0", fill: "transparent"},//стиль линии
             HoverPaintStyle : { strokeWidth:3, stroke: "#5bb35b", "dashstyle": "0 0", fill: "transparent"},//стиль линии при наведении
             Overlays:[["PlainArrow", {location:1, width:15, length:15}]], //стрелка
-            Container: "visual_diagram"
+            Container: "visual_diagram_field"
         });
 
-
-        //var div_visual_diagram = document.getElementById('visual_diagram');
-        ////создаем группу с определенным именем group
-        //instance.addGroup({
-        //    el: div_visual_diagram,
-        //    id: 'group',
-        //    draggable: false, //перетаскивание группы
-        //    //constrain: true, //запрет на перетаскивание элементов за группу (false перетаскивать можно)
-        //    dropOverride:true,
-        //});
+        var div_visual_diagram_field = document.getElementById('visual_diagram_field');
+        //создаем группу с определенным именем group
+        instance.addGroup({
+            el: div_visual_diagram_field,
+            id: 'group_field',
+            draggable: false, //перетаскивание группы
+            dropOverride:true,
+        });
 
 
         //находим все элементы с классом div-state и делаем их двигаемыми
@@ -145,8 +143,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var state = document.getElementById(id_state);
             //делаем state перетаскиваемыми
             instance.draggable(state);
-            //добавляем элемент state в группу с именем group
-            //instance.addToGroup('group', state);
+            //добавляем элемент state в группу с именем group_field
+            instance.addToGroup('group_field', state);
         });
 
 
@@ -156,8 +154,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var state = document.getElementById(id_state);
             //делаем state перетаскиваемыми
             instance.draggable(state);
-            //добавляем элемент state в группу с именем group
-            //instance.addToGroup('group', state);
+            //добавляем элемент state в группу с именем group_field
+            instance.addToGroup('group_field', state);
         });
 
 
@@ -249,9 +247,18 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                 var target_id = connection.targetId;
 
                 //параметры передаваемые на модальную форму
-                current_connection = connection;
+                current_connection = connection.connection;
                 id_state_from = parseInt(source_id.match(/\d+/));
                 id_state_to = parseInt(target_id.match(/\d+/));
+
+                //-------------здесь баг с переименованием всех одинаковых связей
+                //instance.select(current_connection).setParameter('id_transition',"transition_connect_");
+                //instance.select(current_connection).setLabel({
+                //    label: 'name',
+                //    location: 0.5, //расположение посередине
+                //    cssClass: "transitions-style"
+                //});
+                // модальную форму скрыть перед использованием
 
                 $("#addTransitionModalForm").modal("show");
             }
@@ -259,6 +266,107 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
     });
     //-----конец кода jsPlumb-----
+
+
+
+    //функция расширения или сужения поля visual_diagram_field для размещения элементов
+    var mousemoveState = function() {
+        var field = document.getElementById('visual_diagram_field');
+
+        var width_field = field.clientWidth;
+        var height_field = field.clientHeight;
+
+        var max_w = 0;
+        var max_h = 0;
+
+        $(".div-state").each(function(i) {
+            var id_state = $(this).attr('id');
+            var state = document.getElementById(id_state);
+
+            var w = state.offsetLeft + state.clientWidth;
+            var h = state.offsetTop + state.clientHeight;
+
+            if (w > max_w){max_w = w;}
+            if (h > max_h){max_h = h;}
+        });
+
+        field.style.width = max_w + 7 + 'px';
+        field.style.height = max_h + 7 + 'px';
+    };
+
+
+    //функция сохранения расположения элемента
+    var saveIndent = function(state_id, indent_x, indent_y) {
+        $.ajax({
+            //переход на экшен левел
+            url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
+            '/state-transition-diagrams/save-indent'?>",
+            type: "post",
+            data: "YII_CSRF_TOKEN=<?= Yii::$app->request->csrfToken ?>" + "&state_id=" + state_id +
+            "&indent_x=" + indent_x + "&indent_y=" + indent_y,
+            dataType: "json",
+            success: function (data) {
+                if (data['success']) {
+                    //console.log("x = " + data['indent_x']);
+                    //console.log("y = " + data['indent_y']);
+                }
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+    };
+
+
+    // Раcпределение всех объектов на диаграмме
+    $(document).ready(function() {
+        //Распределение state (состояний) на диаграмме
+        $.each(mas_data_state, function (j, elem) {
+            $(".div-state").each(function(i) {
+                var state = $(this).attr('id');
+                var state_id = parseInt(state.match(/\d+/));
+
+                if (elem.id == state_id) {
+                    $(this).css({
+                        left: parseInt(elem.indent_x),
+                        top: parseInt(elem.indent_y)
+                    });
+                }
+            });
+        });
+        // Обновление формы редактора
+        instance.repaintEverything();
+        mousemoveState();
+    });
+
+
+    //при движении блока состояния расширяем или сужаем поле visual_diagram_field
+    $(document).on('mousemove', '.div-state', function() {
+        var id_state = $(this).attr('id');
+        mousemoveState();
+        //------------------------------------------
+        // Обновление формы редактора
+        //instance.repaintEverything();
+    });
+
+
+    //сохранение расположения элемента
+    $(document).on('mouseup', '.div-state', function() {
+        if (!guest) {
+            var state = $(this).attr('id');
+            var state_id = parseInt(state.match(/\d+/));
+            var indent_x = $(this).position().left;
+            var indent_y = $(this).position().top;
+            //если отступ элемента отрицательный делаем его нулевым
+            if (indent_x < 0){
+                indent_x = 0;
+            }
+            if (indent_y < 0){
+                indent_y = 0;
+            }
+            saveIndent(state_id, indent_x, indent_y);
+        }
+    });
 
 </script>
 

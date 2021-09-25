@@ -52,7 +52,7 @@ $config = [
                     'eete/tree-diagrams/<_eet>',
                 '/state-transition-diagrams/<_std:(visual-diagram)>/<id:\d+>' =>
                     'stde/state-transition-diagrams/<_std>',
-                '/state-transition-diagrams/<_std:(add-transition)>' =>
+                '/state-transition-diagrams/<_std:(add-transition|save-indent)>' =>
                     'stde/state-transition-diagrams/<_std>',
             ],
         ],
