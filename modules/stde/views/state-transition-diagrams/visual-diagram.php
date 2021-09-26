@@ -11,6 +11,8 @@ use app\modules\main\models\Lang;
 $this->title = Yii::t('app', 'DIAGRAMS_PAGE_VISUAL_DIAGRAM') . ' - ' . $model->name;
 
 $this->params['menu_add'] = [
+    ['label' => Yii::t('app', 'NAV_ADD_STATE'), 'url' => '#',
+        'options' => ['data-toggle'=>'modal', 'data-target'=>'#addStateModalForm']],
 ];
 
 $this->params['menu_diagram'] = [
@@ -24,7 +26,7 @@ $this->params['menu_diagram'] = [
 // создаем массив из state для передачи в js
 $states_mas = array();
 foreach ($states_model_all as $s){
-    array_push($states_mas, [$s->id, $s->indent_x, $s->indent_y]);
+    array_push($states_mas, [$s->id, $s->indent_x, $s->indent_y, $s->name, $s->description]);
 }
 
 // создаем массив из transition для передачи в jsplumb
@@ -35,6 +37,11 @@ foreach ($transitions_model_all as $t){
 
 ?>
 
+
+<?= $this->render('_modal_form_state_editor', [
+    'model' => $model,
+    'state_model' => $state_model,
+]) ?>
 
 <?= $this->render('_modal_form_transition_editor', [
     'model' => $model,
@@ -69,15 +76,21 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var id = "";
     var indent_x = "";
     var indent_y = "";
+    var name = "";
+    var description = "";
     $.each(states_mas, function (i, mas) {
         $.each(mas, function (j, elem) {
             if (j == 0) {id = elem;}//записываем id
             if (j == 1) {indent_x = elem;}
             if (j == 2) {indent_y = elem;}
+            if (j == 3) {name = elem;}
+            if (j == 4) {description = elem;}
             mas_data_state[q] = {
                 "id":id,
                 "indent_x":indent_x,
                 "indent_y":indent_y,
+                "name":name,
+                "description":description,
             }
         });
         q = q+1;
@@ -199,6 +212,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
         //обработка клика на связь для просмотра перехода
         instance.bind("click", function (c) {
+            var ind_x;
+            var ind_y;
             //получение id_transition параметра для идентификации связи
             var id_transition = parseInt(c.getParameters().id_transition.match(/\d+/));
 
@@ -219,9 +234,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var distance_x = Math.abs(x_source - x_target); //расстояние между элементами
             //нахождение отступа от крайнего слева элемента
             if (x_source < x_target){
-                var indent_x = x_source;
+                ind_x = x_source;
             } else {
-                var indent_x = x_target;
+                ind_x = x_target;
             }
 
             var y_source = source.offsetTop;//нахождение отступа сверху от первого элемента
@@ -229,14 +244,14 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var distance_y = Math.abs(y_source - y_target); //расстояние между элементами
             //нахождение отступа от крайнего слева элемента
             if (y_source < y_target){
-                var indent_y = y_source;
+                ind_y = y_source;
             } else {
-                var indent_y = y_target;
+                ind_y = y_target;
             }
 
             //выравниваем переход по центру между связанными элементами
-            transition.style.left = distance_x/2 + indent_x + 'px';
-            transition.style.top = distance_y/2 + indent_y + 'px';
+            transition.style.left = distance_x/2 + ind_x + 'px';
+            transition.style.top = distance_y/2 + ind_y + 'px';
         });
 
 
@@ -344,9 +359,6 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     $(document).on('mousemove', '.div-state', function() {
         var id_state = $(this).attr('id');
         mousemoveState();
-        //------------------------------------------
-        // Обновление формы редактора
-        //instance.repaintEverything();
     });
 
 

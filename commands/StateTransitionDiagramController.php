@@ -387,9 +387,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state1;
                     $transition->state_to = $state2;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -406,9 +406,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state2;
                     $transition->state_to = $state3;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -425,9 +425,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state2;
                     $transition->state_to = $state4;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -444,9 +444,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state3;
                     $transition->state_to = $state5;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -463,9 +463,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state4;
                     $transition->state_to = $state5;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -482,9 +482,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state5;
                     $transition->state_to = $state6;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -501,9 +501,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state5;
                     $transition->state_to = $state7;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -520,9 +520,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state6;
                     $transition->state_to = $state8;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -539,9 +539,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state7;
                     $transition->state_to = $state9;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -558,9 +558,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state8;
                     $transition->state_to = $state10;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -577,9 +577,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state8;
                     $transition->state_to = $state11;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -596,9 +596,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state9;
                     $transition->state_to = $state12;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -615,9 +615,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state10;
                     $transition->state_to = $state13;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -634,9 +634,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state11;
                     $transition->state_to = $state13;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -653,9 +653,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state12;
                     $transition->state_to = $state14;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -672,9 +672,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state12;
                     $transition->state_to = $state15;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -691,9 +691,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state14;
                     $transition->state_to = $state16;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -710,9 +710,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state13;
                     $transition->state_to = $state17;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -729,9 +729,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state16;
                     $transition->state_to = $state17;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -748,9 +748,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state15;
                     $transition->state_to = $state17;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -767,9 +767,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state17;
                     $transition->state_to = $state18;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -786,9 +786,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state18;
                     $transition->state_to = $state19;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -805,9 +805,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state19;
                     $transition->state_to = $state20;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();
@@ -824,9 +824,9 @@ class StateTransitionDiagramController extends Controller
                     $transition->description = '';
                     $transition->state_from = $state20;
                     $transition->state_to = $state21;
-                $transition->name_property = 'не важно';
-                $transition->operator_property = 0;
-                $transition->value_property = 'не важно';
+                    $transition->name_property = 'не важно';
+                    $transition->operator_property = 0;
+                    $transition->value_property = 'не важно';
                     $this->log($transition->save());
 
                     $transition_property = new TransitionProperty();

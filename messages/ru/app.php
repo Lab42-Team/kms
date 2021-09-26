@@ -33,6 +33,7 @@ return [
     'NAV_ADD_LEVEL' => 'Уровень',
     'NAV_ADD_EVENT' => 'Событие',
     'NAV_ADD_MECHANISM' => 'Механизм',
+    'NAV_ADD_STATE' => 'Состояние',
 
     'NAV_IMPORT' => 'Импортировать',
     'NAV_EXPORT' => 'Экспортировать',
@@ -369,6 +370,7 @@ return [
     'IMPORT_FORM' => 'Импортирование',
 
     /* Заголовки модальных форм STDE*/
+    'STATE_ADD_NEW_STATE' => 'Добавить новое состояние',
     'TRANSITION_ADD_NEW_TRANSITION' => 'Добавить новый переход',
 
     /* Сообщения */

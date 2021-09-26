@@ -50,7 +50,7 @@ $config = [
                     'eete/tree-diagrams/<_eet>',
                 '/tree-diagrams/<_eet:(view|update|delete|visual-diagram|add-level|add-event|add-mechanism|delete-level|correctness|creation-template|import|move-level|upload-ontology|convert-ontology)>/<id:\d+>' =>
                     'eete/tree-diagrams/<_eet>',
-                '/state-transition-diagrams/<_std:(visual-diagram)>/<id:\d+>' =>
+                '/state-transition-diagrams/<_std:(visual-diagram|add-state)>/<id:\d+>' =>
                     'stde/state-transition-diagrams/<_std>',
                 '/state-transition-diagrams/<_std:(add-transition|save-indent)>' =>
                     'stde/state-transition-diagrams/<_std>',

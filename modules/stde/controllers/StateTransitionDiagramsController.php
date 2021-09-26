@@ -29,6 +29,7 @@ class StateTransitionDiagramsController extends Controller
     public function actionVisualDiagram($id)
     {
 
+        $state_model = new State();
         $transition_model = new Transition();
 
         $states_model_all = State::find()->where(['diagram' => $id])->all();
@@ -56,6 +57,7 @@ class StateTransitionDiagramsController extends Controller
 
         return $this->render('visual-diagram', [
             'model' => $this->findModel($id),
+            'state_model' => $state_model,
             'transition_model' => $transition_model,
             'states_model_all' => $states_model_all,
             'transitions_model_all' => $transitions_model_all,
@@ -77,6 +79,59 @@ class StateTransitionDiagramsController extends Controller
             return $model;
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    /**
+     * Добавление нового состояния.
+     *
+     * @param $id - id дерева событий
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionAddState($id)
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+            // Формирование модели уровня
+            $model = new State();
+            // Задание id диаграммы
+            $model->diagram = $id;
+
+            // Определение полей модели уровня и валидация формы
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                // Условие проверки является ли состояние инициирующим
+                $i = State::find()->where(['diagram' => $id, 'type' => State::INITIAL_STATE_TYPE])->count();
+                // Если инициирующие состояние есть
+                if ($i > '0') {
+                    // Тип присваивается константа "COMMON_STATE_TYPE" как начальное (инициирующее) состояние
+                    $model->type = State::COMMON_STATE_TYPE;
+                } else {
+                    // Тип присваивается константа "INITIAL_STATE_TYPE" как обычное состояния
+                    $model->type = State::INITIAL_STATE_TYPE;
+                }
+
+                // Успешный ввод данных
+                $data["success"] = true;
+                // Добавление нового уровня в БД
+                $model->save();
+                // Формирование данных о новом уровне
+                $data["id"] = $model->id;
+                $data["name"] = $model->name;
+                $data["description"] = $model->description;
+                $data["indent_x"] = $model->indent_x;
+                $data["indent_y"] = $model->indent_y;
+            } else
+                $data = ActiveForm::validate($model);
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
     }
 
 
@@ -110,6 +165,8 @@ class StateTransitionDiagramsController extends Controller
                 $data["id"] = $model->id;
                 $data["name"] = $model->name;
                 $data["description"] = $model->description;
+                $data["state_from"] = $model->state_from;
+                $data["state_to"] = $model->state_to;
 
                 // ----------Формирование модели условия
                 $transition_property = new TransitionProperty();

@@ -118,10 +118,20 @@ use app\modules\stde\models\TransitionProperty;
                         //сделать div двигаемым
                         var div_transition = document.getElementById('transition_' + data['id']);
                         instance.draggable(div_transition);
+                        //добавляем элемент div_transition в группу с именем group_field
+                        instance.addToGroup('group_field', div_transition);
 
-                        //---------добавить его в группу
 
-                        //---------добавить новое в массивы связи и условий для изменений
+                        //добавлены новые записи в массивы связи для изменений
+                        var j = 0;
+                        $.each(mas_data_transition, function (i, elem) {
+                            j = j + 1;
+                        });
+                        mas_data_transition[j] = {id:data['id'], name:data['name'], description:data['description'],
+                            state_from:parseInt(data['state_from'], 10), state_to:parseInt(data['state_to'], 10)};
+
+
+                        //---------------------добавлены новые записи в массивы условий для изменений
 
 
 
