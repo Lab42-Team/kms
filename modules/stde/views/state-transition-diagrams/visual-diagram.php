@@ -29,6 +29,12 @@ foreach ($states_model_all as $s){
     array_push($states_mas, [$s->id, $s->indent_x, $s->indent_y, $s->name, $s->description]);
 }
 
+// создаем массив из state_property для передачи в js
+$states_property_mas = array();
+foreach ($states_property_model_all as $sp){
+    array_push($states_property_mas, [$sp->id, $sp->name, $sp->description, $sp->operator, $sp->value, $sp->state]);
+}
+
 // создаем массив из transition для передачи в jsplumb
 $transitions_mas = array();
 foreach ($transitions_model_all as $t){
@@ -41,6 +47,11 @@ foreach ($transitions_model_all as $t){
 <?= $this->render('_modal_form_state_editor', [
     'model' => $model,
     'state_model' => $state_model,
+]) ?>
+
+<?= $this->render('_modal_form_state_property_editor', [
+    'model' => $model,
+    'state_property_model' => $state_property_model,
 ]) ?>
 
 <?= $this->render('_modal_form_transition_editor', [
@@ -66,10 +77,11 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var current_connection; //текущее соединение
     var id_state_from = 0; //id состояние из которого выходит связь
     var id_state_to = 0; //id состояния к которому выходит связь
+    var state_id_on_click = 0; //id состояния к которому назначается свойство
 
     var states_mas = <?php echo json_encode($states_mas); ?>;//прием массива состояний из php
+    var states_property_mas = <?php echo json_encode($states_property_mas); ?>;//------------------------прием массива переходов из php
     var transitions_mas = <?php echo json_encode($transitions_mas); ?>;//прием массива переходов из php
-
 
     var mas_data_state = {};
     var q = 0;
@@ -125,6 +137,37 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     });
 
     //console.log(mas_data_transition);
+
+
+    var mas_data_state_property = {};
+    var q = 0;
+    var id = "";
+    var name = "";
+    var description = "";
+    var operator = "";
+    var value = "";
+    var state = "";
+    $.each(states_property_mas, function (i, mas) {
+        $.each(mas, function (j, elem) {
+            if (j == 0) {id = elem;}//записываем id
+            if (j == 1) {name = elem;}
+            if (j == 2) {description = elem;}
+            if (j == 3) {operator = elem;}
+            if (j == 4) {value = elem;}
+            if (j == 5) {state = elem;}
+            mas_data_state_property[q] = {
+                "id":id,
+                "name":name,
+                "description":description,
+                "operator":operator,
+                "value":value,
+                "state":state,
+            }
+        });
+        q = q+1;
+    });
+
+    //console.log(mas_data_state_property);
 
 
     //-----начало кода jsPlumb-----
@@ -380,6 +423,17 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         }
     });
 
+
+    // добавление свойства состояния
+    $(document).on('click', '.add-state-property', function() {
+        if (!guest) {
+            var state = $(this).attr('id');
+            state_id_on_click = parseInt(state.match(/\d+/));
+            $("#addStatePropertyModalForm").modal("show");
+        }
+    });
+
+
 </script>
 
 
@@ -403,6 +457,20 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     <div id="state_edit_<?= $state->id ?>" class="edit-state glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                     <div id="state_add_property_<?= $state->id ?>" class="add-state-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
                 </div>
+
+                <!-- отображение свойств состояний -->
+                <?php foreach ($states_property_model_all as $state_property): ?>
+                    <?php if ($state_property->state == $state->id){ ?>
+                        <div id="state_property_<?= $state_property->id ?>" class="div-state-property">
+                            <?= $state_property->name ?> <?= $state_property->getOperatorName() ?> <?= $state_property->value ?>
+                            <div class="button-state-property">
+                                <div id="state_property_edit_<?= $state_property->id ?>" class="edit-state-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
+                                <div id="state_property_del_<?= $state_property->id ?>" class="del-state-property glyphicon-trash"  title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php endforeach; ?>
+
             </div>
         <?php endforeach; ?>
 
@@ -429,6 +497,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                         </div>
                     <?php } ?>
                 <?php endforeach; ?>
+
             </div>
         <?php endforeach; ?>
 

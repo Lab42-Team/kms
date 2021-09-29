@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\bootstrap\ActiveForm;
 use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
+use app\modules\stde\models\StateProperty;
 use app\modules\stde\models\Transition;
 use app\modules\stde\models\TransitionProperty;
 
@@ -30,9 +31,20 @@ class StateTransitionDiagramsController extends Controller
     {
 
         $state_model = new State();
+        $state_property_model = new StateProperty();
         $transition_model = new Transition();
 
         $states_model_all = State::find()->where(['diagram' => $id])->all();
+
+        $states_property_all = StateProperty::find()->all();
+        $states_property_model_all = array();//массив связей
+        foreach ($states_property_all as $sp){
+            foreach ($states_model_all as $s){
+                if ($sp->state == $s->id){
+                    array_push($states_property_model_all, $sp);
+                }
+            }
+        }
 
         $transitions_all = Transition::find()->all();
         $transitions_model_all = array();//массив связей
@@ -58,8 +70,10 @@ class StateTransitionDiagramsController extends Controller
         return $this->render('visual-diagram', [
             'model' => $this->findModel($id),
             'state_model' => $state_model,
+            'state_property_model' => $state_property_model,
             'transition_model' => $transition_model,
             'states_model_all' => $states_model_all,
+            'states_property_model_all' => $states_property_model_all,
             'transitions_model_all' => $transitions_model_all,
             'transitions_property_model_all' => $transitions_property_model_all,
         ]);
@@ -125,6 +139,51 @@ class StateTransitionDiagramsController extends Controller
                 $data["description"] = $model->description;
                 $data["indent_x"] = $model->indent_x;
                 $data["indent_y"] = $model->indent_y;
+            } else
+                $data = ActiveForm::validate($model);
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Добавление нового свойства состояния.
+     *
+     * @param $id - id дерева событий
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionAddStateProperty()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+            // Формирование модели уровня
+            $model = new StateProperty();
+
+            $model->state = Yii::$app->request->post('state_id_on_click');
+
+            // Определение полей модели уровня и валидация формы
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                // Успешный ввод данных
+                $data["success"] = true;
+                // Добавление нового уровня в БД
+                $model->save();
+                // Формирование данных о новом уровне
+                $data["id"] = $model->id;
+                $data["name"] = $model->name;
+                $data["description"] = $model->description;
+                $data["operator"] = $model->operator;
+                $data["operator_name"] = $model->getOperatorName();
+                $data["value"] = $model->value;
+                $data["state"] = $model->state;
+
             } else
                 $data = ActiveForm::validate($model);
             // Возвращение данных

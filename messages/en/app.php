@@ -371,6 +371,7 @@ return [
 
     /* Заголовки модальных форм STDE*/
     'STATE_ADD_NEW_STATE' => 'Add new state',
+    'PROPERTY_ADD_NEW_PROPERTY' => 'Add new state property',
     'TRANSITION_ADD_NEW_TRANSITION' => 'Add new transition',
 
     /* Cообщения */

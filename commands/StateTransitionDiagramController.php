@@ -7,6 +7,7 @@ use yii\console\Controller;
 use app\modules\main\models\User;
 use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
+use app\modules\stde\models\StateProperty;
 use app\modules\stde\models\Transition;
 use app\modules\stde\models\TransitionProperty;
 
@@ -50,6 +51,24 @@ class StateTransitionDiagramController extends Controller
                 $this->log($state->save());
                 $state0 = $state->id;
 
+
+                    $state = new StateProperty();
+                    $state->name = 'Свойство 1';
+                    $state->description = 'Описание свойства 1';
+                    $state->operator = '0';
+                    $state->value = '1';
+                    $state->state = $state0;
+                    $this->log($state->save());
+
+                    $state = new StateProperty();
+                    $state->name = 'Свойство 2';
+                    $state->description = 'Описание свойства 2';
+                    $state->operator = '0';
+                    $state->value = '2';
+                    $state->state = $state0;
+                    $this->log($state->save());
+
+
                 $state = new State();
                 $state->name = 'Состояние 1';
                 $state->type = State::COMMON_STATE_TYPE;
@@ -60,6 +79,22 @@ class StateTransitionDiagramController extends Controller
                 $this->log($state->save());
                 $state1 = $state->id;
 
+                    $state = new StateProperty();
+                    $state->name = 'Свойство 1';
+                    $state->description = 'Описание свойства 1';
+                    $state->operator = '0';
+                    $state->value = '1';
+                    $state->state = $state1;
+                    $this->log($state->save());
+
+                    $state = new StateProperty();
+                    $state->name = 'Свойство 2';
+                    $state->description = 'Описание свойства 2';
+                    $state->operator = '0';
+                    $state->value = '2';
+                    $state->state = $state1;
+                    $this->log($state->save());
+
                 $state = new State();
                 $state->name = 'Состояние 2';
                 $state->type = State::COMMON_STATE_TYPE;
@@ -69,6 +104,24 @@ class StateTransitionDiagramController extends Controller
                 $state->diagram = $diagram->id;
                 $this->log($state->save());
                 $state2 = $state->id;
+
+                    $state = new StateProperty();
+                    $state->name = 'Свойство 1';
+                    $state->description = 'Описание свойства 1';
+                    $state->operator = '0';
+                    $state->value = '1';
+                    $state->state = $state2;
+                    $this->log($state->save());
+
+                    $state = new StateProperty();
+                    $state->name = 'Свойство 2';
+                    $state->description = 'Описание свойства 2';
+                    $state->operator = '0';
+                    $state->value = '2';
+                    $state->state = $state2;
+                    $this->log($state->save());
+
+
 
                     $transition = new Transition();
                     $transition->name = 'Переход 1';

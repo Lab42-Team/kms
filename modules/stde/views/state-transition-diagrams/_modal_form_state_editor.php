@@ -99,7 +99,7 @@ use app\modules\main\models\Lang;
                         });
 
 
-                        //добавлены новые записи в массивы состояний для изменений
+                        //добавлены новые записи в массив состояний для изменений
                         var j = 0;
                         $.each(mas_data_state, function (i, elem) {
                             j = j + 1;

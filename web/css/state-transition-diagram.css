@@ -11,6 +11,7 @@
     position:relative;
 }
 
+
 /* -Стили для состояний- */
 .div-state {
     /* форма*/
@@ -50,8 +51,7 @@
     word-wrap: break-word; /* перенос строк */
 }
 
-
-/*кнопки событий*/
+/*кнопки состояний*/
 .edit-state {
     position: absolute;
     right: 30px;
@@ -102,6 +102,53 @@
     display:block;
 }
 .content-state:hover .add-state-property {
+    display:block;
+}
+
+
+/* -Стили для свойств состояний- */
+.div-state-property {
+    position: relative;
+    min-height:25px;
+    min-width: 150px;
+    border-top:2px dashed #337ab7;
+    padding-left: 2px;
+    padding-right: 2px;
+    display: table;
+    font-size: 80%;
+}
+
+.button-state-property{
+    height: 25px;
+    width: 40px;
+    float: right;
+}
+
+/*кнопки свойств состояний*/
+.edit-state-property {
+    position: absolute;
+    right: 30px;
+    bottom: 3px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
+.del-state-property {
+    position: absolute;
+    right: 10px;
+    bottom: 3px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+/*показать скрытые кнопки*/
+.div-state-property:hover .edit-state-property {
+    display:block;
+}
+.div-state-property:hover .del-state-property {
     display:block;
 }
 
