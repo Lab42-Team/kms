@@ -424,6 +424,37 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     });
 
 
+    // редактирование состояния
+    $(document).on('click', '.edit-state', function() {
+        if (!guest) {
+            var state = $(this).attr('id');
+            state_id_on_click = parseInt(state.match(/\d+/));
+
+            var div_state = document.getElementById("state_" + state_id_on_click);
+
+            $.each(mas_data_state, function (i, elem) {
+                if (elem.id == state_id_on_click) {
+                    document.forms["edit-state-form"].reset();
+                    document.forms["edit-state-form"].elements["State[name]"].value = elem.name;
+                    document.forms["edit-state-form"].elements["State[description]"].value = elem.description;
+
+                    $("#editStateModalForm").modal("show");
+                }
+            });
+        }
+    });
+
+
+    // удаление события
+    $(document).on('click', '.del-state', function() {
+        if (!guest) {
+            var del = $(this).attr('id');
+            state_id_on_click = parseInt(del.match(/\d+/));
+            $("#deleteStateModalForm").modal("show");
+        }
+    });
+
+
     // добавление свойства состояния
     $(document).on('click', '.add-state-property', function() {
         if (!guest) {

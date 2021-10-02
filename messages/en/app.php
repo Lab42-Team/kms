@@ -371,6 +371,8 @@ return [
 
     /* Заголовки модальных форм STDE*/
     'STATE_ADD_NEW_STATE' => 'Add new state',
+    'STATE_EDIT_STATE' => 'State change',
+    'STATE_DELETE_STATE' => 'State delete',
     'PROPERTY_ADD_NEW_PROPERTY' => 'Add new state property',
     'TRANSITION_ADD_NEW_TRANSITION' => 'Add new transition',
 
@@ -385,12 +387,16 @@ return [
     'ALERT_INITIAL_LEVEL' => 'The initial level is deleted, so the mechanisms at the next level will be deleted!',
     'ALERT_DELETE_LEVEL' => 'When deleting, all the elements on the level will be deleted!',
 
+    /* Техсты модальных форм EETE*/
     'RELATIONSHIP_PAGE_DELETE_CONNECTION_TEXT' => 'Are you sure you want to delete the connection?',
     'DELETE_LEVEL_TEXT' => 'Are you sure you want to delete the level?',
     'DELETE_EVENT_TEXT' => 'Are you sure you want to delete the event?',
     'DELETE_MECHANISM_TEXT' => 'Are you sure you want to delete the mechanism?',
     'DELETE_PARAMETER_TEXT' => 'Are you sure you want to delete the parameter?',
     'DELETE_COMMENT_TEXT' => 'Are you sure you want to delete the comment?',
+
+    /* Техсты модальных форм STDE*/
+    'DELETE_STATE_TEXT' => 'Are you sure you want to delete the state?',
 
     'CONNECTION_DELETE' => 'Delete',
 

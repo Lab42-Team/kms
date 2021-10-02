@@ -53,7 +53,7 @@ $config = [
 
                 '/state-transition-diagrams/<_std:(visual-diagram|add-state)>/<id:\d+>' =>
                     'stde/state-transition-diagrams/<_std>',
-                '/state-transition-diagrams/<_std:(add-state-property|add-transition|save-indent)>' =>
+                '/state-transition-diagrams/<_std:(edit-state|delete-state|add-state-property|add-transition|save-indent)>' =>
                     'stde/state-transition-diagrams/<_std>',
             ],
         ],

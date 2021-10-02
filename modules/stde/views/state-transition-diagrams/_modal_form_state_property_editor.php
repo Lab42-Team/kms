@@ -9,7 +9,7 @@ use app\modules\stde\models\StateProperty;
 ?>
 
 
-<!-- Модальное окно добавления нового события -->
+<!-- Модальное окно добавления нового свойства состояния -->
 <?php Modal::begin([
     'id' => 'addStatePropertyModalForm',
     'header' => '<h3>' . Yii::t('app', 'PROPERTY_ADD_NEW_PROPERTY') . '</h3>',
