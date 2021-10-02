@@ -373,7 +373,9 @@ return [
     'STATE_ADD_NEW_STATE' => 'Добавить новое состояние',
     'STATE_EDIT_STATE' => 'Изменение состояния',
     'STATE_DELETE_STATE' => 'Удаление состояния',
-    'PROPERTY_ADD_NEW_PROPERTY' => 'Добавить новое свойство состояния',
+    'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY' => 'Добавить новое свойство состояния',
+    'STATE_PROPERTY_EDIT_STATE_PROPERTY' => 'Изменение свойство состояния',
+    'STATE_PROPERTY_DELETE_STATE_PROPERTY' => 'Удаление свойство состояния',
     'TRANSITION_ADD_NEW_TRANSITION' => 'Добавить новый переход',
 
     /* Сообщения */
@@ -397,6 +399,7 @@ return [
 
     /* Техсты модальных форм STDE*/
     'DELETE_STATE_TEXT' => 'Вы действительно хотите удалить состояние?',
+    'DELETE_STATE_PROPERTY_TEXT' => 'Вы действительно хотите удалить свойство состояния?',
 
     'CONNECTION_DELETE' => 'Удалить',
 

@@ -78,6 +78,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var id_state_from = 0; //id состояние из которого выходит связь
     var id_state_to = 0; //id состояния к которому выходит связь
     var state_id_on_click = 0; //id состояния к которому назначается свойство
+    var state_property_id_on_click = 0; //id свойство состояния
 
     var states_mas = <?php echo json_encode($states_mas); ?>;//прием массива состояний из php
     var states_property_mas = <?php echo json_encode($states_property_mas); ?>;//------------------------прием массива переходов из php
@@ -445,7 +446,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     });
 
 
-    // удаление события
+    // удаление состояния
     $(document).on('click', '.del-state', function() {
         if (!guest) {
             var del = $(this).attr('id');
@@ -461,6 +462,40 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var state = $(this).attr('id');
             state_id_on_click = parseInt(state.match(/\d+/));
             $("#addStatePropertyModalForm").modal("show");
+        }
+    });
+
+
+    // изменение  состояния
+    $(document).on('click', '.edit-state-property', function() {
+        if (!guest) {
+            var state_property = $(this).attr('id');
+            state_property_id_on_click = parseInt(state_property.match(/\d+/));
+
+            console.log(state_property_id_on_click);
+
+            $.each(mas_data_state_property, function (i, elem) {
+                if (elem.id == state_property_id_on_click) {
+                    document.forms["edit-state-property-form"].reset();
+                    document.forms["edit-state-property-form"].elements["StateProperty[name]"].value = elem.name;
+                    document.forms["edit-state-property-form"].elements["StateProperty[description]"].value = elem.description;
+                    document.forms["edit-state-property-form"].elements["StateProperty[operator]"].value = elem.operator;
+                    document.forms["edit-state-property-form"].elements["StateProperty[value]"].value = elem.value;
+                    $("#editStatePropertyModalForm").modal("show");
+                }
+            });
+        }
+    });
+
+
+    // удаление состояния
+    $(document).on('click', '.del-state-property', function() {
+        if (!guest) {
+            var state_property = $(this).attr('id');
+            state_property_id_on_click = parseInt(state_property.match(/\d+/));
+            $("#deleteStatePropertyModalForm").modal("show");
+            // Обновление формы редактора
+            instance.repaintEverything();
         }
     });
 

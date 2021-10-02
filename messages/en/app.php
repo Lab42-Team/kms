@@ -373,7 +373,9 @@ return [
     'STATE_ADD_NEW_STATE' => 'Add new state',
     'STATE_EDIT_STATE' => 'State change',
     'STATE_DELETE_STATE' => 'State delete',
-    'PROPERTY_ADD_NEW_PROPERTY' => 'Add new state property',
+    'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY' => 'Add new state property',
+    'STATE_PROPERTY_EDIT_STATE_PROPERTY' => 'State property change',
+    'STATE_PROPERTY_DELETE_STATE_PROPERTY' => 'State property delete',
     'TRANSITION_ADD_NEW_TRANSITION' => 'Add new transition',
 
     /* Cообщения */
@@ -397,6 +399,7 @@ return [
 
     /* Техсты модальных форм STDE*/
     'DELETE_STATE_TEXT' => 'Are you sure you want to delete the state?',
+    'DELETE_STATE_PROPERTY_TEXT' => 'Are you sure you want to delete the state property?',
 
     'CONNECTION_DELETE' => 'Delete',
 

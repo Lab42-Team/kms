@@ -12,7 +12,7 @@ use app\modules\stde\models\StateProperty;
 <!-- Модальное окно добавления нового свойства состояния -->
 <?php Modal::begin([
     'id' => 'addStatePropertyModalForm',
-    'header' => '<h3>' . Yii::t('app', 'PROPERTY_ADD_NEW_PROPERTY') . '</h3>',
+    'header' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -118,6 +118,215 @@ use app\modules\stde\models\StateProperty;
     'label' => Yii::t('app', 'BUTTON_ADD'),
     'options' => [
         'id' => 'add-state-property-button',
+        'class' => 'btn-success',
+        'style' => 'margin:5px'
+    ]
+]); ?>
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_CANCEL'),
+    'options' => [
+        'class' => 'btn-danger',
+        'style' => 'margin:5px',
+        'data-dismiss'=>'modal'
+    ]
+]); ?>
+
+<?php ActiveForm::end(); ?>
+
+<?php Modal::end(); ?>
+
+
+
+<!-- Модальное окно изменения свойства состояния -->
+<?php Modal::begin([
+    'id' => 'editStatePropertyModalForm',
+    'header' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_EDIT_STATE_PROPERTY') . '</h3>',
+]); ?>
+
+<!-- Скрипт модального окна -->
+<script type="text/javascript">
+    // Выполнение скрипта при загрузке страницы
+    $(document).ready(function() {
+        // Обработка нажатия кнопки сохранения
+        $("#edit-state-property-button").click(function(e) {
+            e.preventDefault();
+            var form = $("#edit-state-property-form");
+            // Ajax-запрос
+            $.ajax({
+                //переход на экшен левел
+                url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
+                '/state-transition-diagrams/edit-state-property'?>",
+                type: "post",
+                data: form.serialize() + "&state_property_id_on_click=" + state_property_id_on_click,
+                dataType: "json",
+                success: function(data) {
+                    // Если валидация прошла успешно (нет ошибок ввода)
+                    if (data['success']) {
+                        // Скрывание модального окна
+                        $("#editStatePropertyModalForm").modal("hide");
+
+                        //изменение div свойства состояния
+                        var div_state_property = document.getElementById('state_property_' + state_property_id_on_click);
+                        div_state_property.innerHTML = data['name'] + " " + data['operator_name'] + " " + data['value'];
+
+                        var div_button_state_property = document.createElement('div');
+                        div_button_state_property.className = 'button-state-property';
+                        div_state_property.append(div_button_state_property);
+
+                        var div_edit_state_property = document.createElement('div');
+                        div_edit_state_property.id = 'state_property_edit_' + data['id'];
+                        div_edit_state_property.className = 'edit-state-property glyphicon-pencil';
+                        div_edit_state_property.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_button_state_property.append(div_edit_state_property);
+
+                        var div_del_state_property = document.createElement('div');
+                        div_del_state_property.id = 'state_property_del_' + data['id'];
+                        div_del_state_property.className = 'del-state-property glyphicon-trash';
+                        div_del_state_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_button_state_property.append(div_del_state_property);
+
+                        //изменена запись в массиве свойств состояний
+                        $.each(mas_data_state_property, function (i, elem) {
+                            if (elem.id == data['id']){
+                                mas_data_state_property[i].name = data['name'];
+                                mas_data_state_property[i].description = data['description'];
+                                mas_data_state_property[i].operator = data['operator'];
+                                mas_data_state_property[i].value = data['value'];
+                            }
+                        });
+
+                        document.getElementById('edit-state-property-form').reset();
+                    } else {
+                        // Отображение ошибок ввода
+                        viewErrors("#edit-state-property-form", data);
+                    }
+                },
+                error: function() {
+                    alert('Error!');
+                }
+            });
+        });
+    });
+</script>
+
+<?php $form = ActiveForm::begin([
+    'id' => 'edit-state-property-form',
+    'enableClientValidation' => true,
+]); ?>
+
+<?= $form->errorSummary($state_property_model); ?>
+
+<?= $form->field($state_property_model, 'name')->textInput(['maxlength' => true]) ?>
+
+<?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
+
+<?= $form->field($state_property_model, 'operator')->dropDownList(StateProperty::getOperatorArray()) ?>
+
+<?= $form->field($state_property_model, 'value')->textInput(['maxlength' => true]) ?>
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_SAVE'),
+    'options' => [
+        'id' => 'edit-state-property-button',
+        'class' => 'btn-success',
+        'style' => 'margin:5px'
+    ]
+]); ?>
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_CANCEL'),
+    'options' => [
+        'class' => 'btn-danger',
+        'style' => 'margin:5px',
+        'data-dismiss'=>'modal'
+    ]
+]); ?>
+
+<?php ActiveForm::end(); ?>
+
+<?php Modal::end(); ?>
+
+
+
+<!-- Модальное окно удаления свойство состояния -->
+<?php Modal::begin([
+    'id' => 'deleteStatePropertyModalForm',
+    'header' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_DELETE_STATE_PROPERTY') . '</h3>',
+]); ?>
+
+<!-- Скрипт модального окна -->
+<script type="text/javascript">
+    // Выполнение скрипта при загрузке страницы
+    $(document).ready(function() {
+        // Обработка нажатия кнопки сохранения
+        $("#delete-state-property-button").click(function(e) {
+            e.preventDefault();
+            // Ajax-запрос
+            $.ajax({
+                //переход на экшен левел
+                url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
+                '/state-transition-diagrams/delete-state-property'?>",
+                type: "post",
+                data: "YII_CSRF_TOKEN=<?= Yii::$app->request->csrfToken ?>" + "&state_property_id_on_click=" + state_property_id_on_click,
+                dataType: "json",
+                success: function(data) {
+                    // Если валидация прошла успешно (нет ошибок ввода)
+                    if (data['success']) {
+                        $("#deleteStatePropertyModalForm").modal("hide");
+
+                        //удаление div свойства состояния
+                        var div_state_property = document.getElementById('state_property_' + state_property_id_on_click);
+                        div_state_property.remove(); // удаляем
+
+                        //удалена запись в массиве свойств состояний
+                        var temporary_mas_data_state_property = {};
+                        var q = 0;
+                        $.each(mas_data_state_property, function (i, elem) {
+                            if (state_property_id_on_click != elem.id){
+                                temporary_mas_data_state_property[q] = {
+                                    "id":elem.id,
+                                    "name":elem.name,
+                                    "description":elem.description,
+                                    "operator":elem.operator,
+                                    "value":elem.value,
+                                };
+                                q = q+1;
+                            }
+                        });
+                        mas_data_state_property = temporary_mas_data_state_property;
+
+                        //обновление поля visual_diagram_field для размещения элементов
+                        mousemoveState();
+                        // Обновление формы редактора
+                        instance.repaintEverything();
+                    } else {
+                        // Отображение ошибок ввода
+                        viewErrors("#delete-state-property-form", data);
+                    }
+                },
+                error: function() {
+                    alert('Error!');
+                }
+            });
+        });
+    });
+</script>
+
+<?php $form = ActiveForm::begin([
+    'id' => 'delete-state-property-form',
+]); ?>
+
+<div class="modal-body">
+    <p style="font-size: 14px">
+        <?php echo Yii::t('app', 'DELETE_STATE_PROPERTY_TEXT'); ?>
+    </p>
+</div>
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_DELETE'),
+    'options' => [
+        'id' => 'delete-state-property-button',
         'class' => 'btn-success',
         'style' => 'margin:5px'
     ]

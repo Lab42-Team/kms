@@ -256,6 +256,69 @@ class StateTransitionDiagramsController extends Controller
 
 
     /**
+     * Изменение свойства состояния.
+     */
+    public function actionEditStateProperty()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = StateProperty::find()->where(['id' => Yii::$app->request->post('state_property_id_on_click')])->one();
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                // Успешный ввод данных
+                $data["success"] = true;
+
+                $data["id"] = $model->id;
+                $data["name"] = $model->name;
+                $data["description"] = $model->description;
+                $data["operator_name"] = $model->getOperatorName();
+                $data["operator"] = $model->operator;
+                $data["value"] = $model->value;
+
+            } else
+                $data = ActiveForm::validate($model);
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Удаление свойства состояния.
+     */
+    public function actionDeleteStateProperty()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = StateProperty::find()->where(['id' => Yii::$app->request->post('state_property_id_on_click')])->one();
+            $model -> delete();
+
+            $data["success"] = true;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
      * Добавление нового перехода.
      *
      */
