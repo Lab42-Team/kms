@@ -79,6 +79,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var id_state_to = 0; //id состояния к которому выходит связь
     var state_id_on_click = 0; //id состояния к которому назначается свойство
     var state_property_id_on_click = 0; //id свойство состояния
+    var transition_id_on_click = 0; //id перехода
 
     var states_mas = <?php echo json_encode($states_mas); ?>;//прием массива состояний из php
     var states_property_mas = <?php echo json_encode($states_property_mas); ?>;//------------------------прием массива переходов из php
@@ -244,7 +245,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                         ['Label', {
                             label: elem.name,
                             location: 0.5, //расположение посередине
-                            cssClass: "transitions-style"
+                            cssClass: "transitions-style",
+                            id:"label_id_"+ elem.id
                         }]
                     ],
                 });
@@ -496,6 +498,49 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#deleteStatePropertyModalForm").modal("show");
             // Обновление формы редактора
             instance.repaintEverything();
+        }
+    });
+
+
+    //скрытие блоков переходов
+    $(document).on('click', '.hide-transition', function() {
+        var transition = $(this).attr('id');
+        var transition_id = parseInt(transition.match(/\d+/));
+
+        //Поиск блока перехода
+        var div_transition = document.getElementById("transition_" + transition_id);
+        div_transition.style.visibility='hidden'
+    });
+
+
+    //изменение перехода
+    $(document).on('click', '.edit-transition', function() {
+        if (!guest) {
+            var transition = $(this).attr('id');
+            transition_id_on_click = parseInt(transition.match(/\d+/));
+
+            $.each(mas_data_transition, function (i, elem) {
+                if (elem.id == transition_id_on_click) {
+                    document.forms["edit-transition-form"].reset();
+                    document.forms["edit-transition-form"].elements["Transition[name]"].value = elem.name;
+                    document.forms["edit-transition-form"].elements["Transition[description]"].value = elem.description;
+                    //Скрытые обязательные поля (заполняем не пустыми значениями)
+                    document.forms["edit-transition-form"].elements["Transition[name_property]"].value = "test";
+                    document.forms["edit-transition-form"].elements["Transition[operator_property]"].value = 0;
+                    document.forms["edit-transition-form"].elements["Transition[value_property]"].value = "test";
+                    $("#editTransitionModalForm").modal("show");
+                }
+            });
+        }
+    });
+
+
+    //удаленеи перехода
+    $(document).on('click', '.del-transition', function() {
+        if (!guest) {
+            var transition = $(this).attr('id');
+            transition_id_on_click = parseInt(transition.match(/\d+/));
+            $("#deleteTransitionModalForm").modal("show");
         }
     });
 

@@ -377,6 +377,8 @@ return [
     'STATE_PROPERTY_EDIT_STATE_PROPERTY' => 'Изменение свойство состояния',
     'STATE_PROPERTY_DELETE_STATE_PROPERTY' => 'Удаление свойство состояния',
     'TRANSITION_ADD_NEW_TRANSITION' => 'Добавить новый переход',
+    'TRANSITION_EDIT_TRANSITION' => 'Изменение перехода',
+    'TRANSITION_DELETE_TRANSITION' => 'Удаление перехода',
 
     /* Сообщения */
     'MAXIMUM_CONNECTIONS' => 'Максимальное количество соединений ',
@@ -400,6 +402,7 @@ return [
     /* Техсты модальных форм STDE*/
     'DELETE_STATE_TEXT' => 'Вы действительно хотите удалить состояние?',
     'DELETE_STATE_PROPERTY_TEXT' => 'Вы действительно хотите удалить свойство состояния?',
+    'DELETE_TRANSITION_TEXT' => 'Вы действительно хотите удалить переход?',
 
     'CONNECTION_DELETE' => 'Удалить',
 

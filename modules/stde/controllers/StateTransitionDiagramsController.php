@@ -378,6 +378,69 @@ class StateTransitionDiagramsController extends Controller
 
 
     /**
+     * Изменение перехода.
+     */
+    public function actionEditTransition()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = Transition::find()->where(['id' => Yii::$app->request->post('transition_id_on_click')])->one();
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                // Успешный ввод данных
+                $data["success"] = true;
+                // Формирование данных об измененном событии
+                $data["id"] = $model->id;
+                $data["name"] = $model->name;
+                $data["description"] = $model->description;
+                $data["state_from"] = $model->state_from;
+                $data["state_to"] = $model->state_to;
+            } else
+                $data = ActiveForm::validate($model);
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Удаление перехода.
+     */
+    public function actionDeleteTransition()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = Transition::find()->where(['id' => Yii::$app->request->post('transition_id_on_click')])->one();
+            $data["state_from"] = $model->state_from;
+            $data["state_to"] = $model->state_to;
+            $model -> delete();
+
+            $data["success"] = true;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
      * Сохранение отступов.
      *
      */

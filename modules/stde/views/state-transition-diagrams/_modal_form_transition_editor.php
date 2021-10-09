@@ -42,7 +42,8 @@ use app\modules\stde\models\TransitionProperty;
                         instance.select(current_connection).setLabel({
                             label: data['name'],
                             location: 0.5, //расположение посередине
-                            cssClass: "transitions-style"
+                            cssClass: "transitions-style",
+                            id:"label_id_"+ data['id']
                         });
 
                         //создаем параметр для новой связи id_transition куда прописываем название связи transition_" +  data['id'] (как замена id)
@@ -174,6 +175,223 @@ use app\modules\stde\models\TransitionProperty;
     'label' => Yii::t('app', 'BUTTON_SAVE'),
     'options' => [
         'id' => 'add-transition-button',
+        'class' => 'btn-success',
+        'style' => 'margin:5px'
+    ]
+]); ?>
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_CANCEL'),
+    'options' => [
+        'class' => 'btn-danger',
+        'style' => 'margin:5px',
+        'data-dismiss'=>'modal'
+    ]
+]); ?>
+
+<?php ActiveForm::end(); ?>
+
+<?php Modal::end(); ?>
+
+
+
+<!-- Модальное окно изменения перехода -->
+<?php Modal::begin([
+    'id' => 'editTransitionModalForm',
+    'header' => '<h3>' . Yii::t('app', 'TRANSITION_EDIT_TRANSITION') . '</h3>',
+]); ?>
+
+<!-- Скрипт модального окна -->
+<script type="text/javascript">
+    // Выполнение скрипта при загрузке страницы
+    $(document).ready(function() {
+        // Обработка нажатия кнопки сохранения
+        $("#edit-transition-button").click(function(e) {
+            e.preventDefault();
+            var form = $("#edit-transition-form");
+            // Ajax-запрос
+            $.ajax({
+                //переход на экшен левел
+                url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
+                '/state-transition-diagrams/edit-transition'?>",
+                type: "post",
+                data: form.serialize() + "&transition_id_on_click=" + transition_id_on_click,
+                dataType: "json",
+                success: function(data) {
+                    // Если валидация прошла успешно (нет ошибок ввода)
+                    if (data['success']) {
+                        // Скрывание модального окна
+                        $("#editTransitionModalForm").modal("hide");
+
+                        //изменение div перехода
+                        var div_transition_name_ = document.getElementById('transition_name_' + data['id']);
+                        div_transition_name_.innerHTML = data['name'];
+
+                        //изменена запись в массиве состояний
+                        $.each(mas_data_transition, function (i, elem) {
+                            if (elem.id == data['id']){
+                                mas_data_transition[i].name = data['name'];
+                                mas_data_transition[i].description = data['description'];
+                            }
+                        });
+
+                        var id_source = "state_" + data['state_from'];
+                        var id_target = "state_" + data['state_to'];
+
+                        //скрытие старого label на связи
+                        var overlay = instance.select({source:id_source, target:id_target});
+                        overlay.hideOverlay("label_id_" + data['id']);
+
+                        //создание нового label с новым наименованием на связи
+                        instance.select({source:id_source, target:id_target}).setLabel({
+                            label: data['name'],
+                            location: 0.5, //расположение посередине
+                            cssClass: "transitions-style",
+                            id:"label_id_"+ data['id']
+                        });
+
+                        document.getElementById('edit-transition-form').reset();
+                    } else {
+                        // Отображение ошибок ввода
+                        viewErrors("#edit-transition-form", data);
+                    }
+                },
+                error: function() {
+                    alert('Error!');
+                }
+            });
+        });
+    });
+</script>
+
+<?php $form = ActiveForm::begin([
+    'id' => 'edit-transition-form',
+    'enableClientValidation' => true,
+]); ?>
+
+<?= $form->errorSummary($transition_model); ?>
+
+<?= $form->field($transition_model, 'name')->textInput(['maxlength' => true]) ?>
+
+<?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
+
+<!-- Скрытые обязательные поля -->
+
+<?= $form->field($transition_model, 'name_property')->hiddenInput()->label(false) ?>
+
+<?= $form->field($transition_model, 'operator_property')->hiddenInput()->label(false) ?>
+
+<?= $form->field($transition_model, 'value_property')->hiddenInput()->label(false) ?>
+
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_SAVE'),
+    'options' => [
+        'id' => 'edit-transition-button',
+        'class' => 'btn-success',
+        'style' => 'margin:5px'
+    ]
+]); ?>
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_CANCEL'),
+    'options' => [
+        'class' => 'btn-danger',
+        'style' => 'margin:5px',
+        'data-dismiss'=>'modal'
+    ]
+]); ?>
+
+<?php ActiveForm::end(); ?>
+
+<?php Modal::end(); ?>
+
+
+
+<!-- Модальное окно удаления перехода -->
+<?php Modal::begin([
+    'id' => 'deleteTransitionModalForm',
+    'header' => '<h3>' . Yii::t('app', 'TRANSITION_DELETE_TRANSITION') . '</h3>',
+]); ?>
+
+    <!-- Скрипт модального окна -->
+    <script type="text/javascript">
+        // Выполнение скрипта при загрузке страницы
+        $(document).ready(function() {
+            // Обработка нажатия кнопки сохранения
+            $("#delete-transition-button").click(function(e) {
+                e.preventDefault();
+                // Ajax-запрос
+                $.ajax({
+                    //переход на экшен левел
+                    url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
+                    '/state-transition-diagrams/delete-transition'?>",
+                    type: "post",
+                    data: "YII_CSRF_TOKEN=<?= Yii::$app->request->csrfToken ?>" + "&transition_id_on_click=" + transition_id_on_click,
+                    dataType: "json",
+                    success: function(data) {
+                        // Если валидация прошла успешно (нет ошибок ввода)
+                        if (data['success']) {
+                            // Скрывание модального окна
+                            $("#deleteTransitionModalForm").modal("hide");
+
+                            //удаление div перехода
+                            var div_transition = document.getElementById('transition_' + transition_id_on_click);
+                            instance.removeFromGroup(div_transition);//удаляем из группы
+                            instance.remove(div_transition);// удаляем состояние
+
+                            //поиск связи
+                            var id_source = "state_" + data['state_from'];
+                            var id_target = "state_" + data['state_to'];
+
+                            var connection = instance.getConnections({
+                                source: id_source,
+                                target: id_target
+                            })[ 0 ];
+
+                            //удаление связи
+                            instance.deleteConnection(connection);
+
+                            //удалена запись в массиве состояний
+                            var temporary_mas_data_transition = {};
+                            var q = 0;
+                            $.each(mas_data_transition, function (i, elem) {
+                                if (transition_id_on_click != elem.id){
+                                    temporary_mas_data_transition[q] = {
+                                        "id":elem.id,
+                                        "name":elem.name,
+                                        "description":elem.description,
+                                        "state_from":elem.state_from,
+                                        "state_to":elem.state_to,
+                                    };
+                                    q = q+1;
+                                }
+                            });
+                            mas_data_transition = temporary_mas_data_transition;
+                        }
+                    },
+                    error: function() {
+                        alert('Error!');
+                    }
+                });
+            });
+        });
+    </script>
+
+<?php $form = ActiveForm::begin([
+    'id' => 'delete-transition-form',
+]); ?>
+
+    <div class="modal-body">
+        <p style="font-size: 14px">
+            <?php echo Yii::t('app', 'DELETE_TRANSITION_TEXT'); ?>
+        </p>
+    </div>
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_DELETE'),
+    'options' => [
+        'id' => 'delete-transition-button',
         'class' => 'btn-success',
         'style' => 'margin:5px'
     ]

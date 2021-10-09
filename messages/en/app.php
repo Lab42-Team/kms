@@ -377,6 +377,8 @@ return [
     'STATE_PROPERTY_EDIT_STATE_PROPERTY' => 'State property change',
     'STATE_PROPERTY_DELETE_STATE_PROPERTY' => 'State property delete',
     'TRANSITION_ADD_NEW_TRANSITION' => 'Add new transition',
+    'TRANSITION_EDIT_TRANSITION' => 'Transition change',
+    'TRANSITION_DELETE_TRANSITION' => 'Transition delete',
 
     /* Cообщения */
     'MAXIMUM_CONNECTIONS' => 'Maximum connections ',
@@ -400,6 +402,7 @@ return [
     /* Техсты модальных форм STDE*/
     'DELETE_STATE_TEXT' => 'Are you sure you want to delete the state?',
     'DELETE_STATE_PROPERTY_TEXT' => 'Are you sure you want to delete the state property?',
+    'DELETE_TRANSITION_TEXT' => 'Are you sure you want to delete the transition?',
 
     'CONNECTION_DELETE' => 'Delete',
 
