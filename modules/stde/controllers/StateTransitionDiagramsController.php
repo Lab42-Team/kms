@@ -33,6 +33,7 @@ class StateTransitionDiagramsController extends Controller
         $state_model = new State();
         $state_property_model = new StateProperty();
         $transition_model = new Transition();
+        $transition_property_model = new TransitionProperty();
 
         $states_model_all = State::find()->where(['diagram' => $id])->all();
 
@@ -72,6 +73,7 @@ class StateTransitionDiagramsController extends Controller
             'state_model' => $state_model,
             'state_property_model' => $state_property_model,
             'transition_model' => $transition_model,
+            'transition_property_model' => $transition_property_model,
             'states_model_all' => $states_model_all,
             'states_property_model_all' => $states_property_model_all,
             'transitions_model_all' => $transitions_model_all,
@@ -428,6 +430,112 @@ class StateTransitionDiagramsController extends Controller
             $model = Transition::find()->where(['id' => Yii::$app->request->post('transition_id_on_click')])->one();
             $data["state_from"] = $model->state_from;
             $data["state_to"] = $model->state_to;
+            $model -> delete();
+
+            $data["success"] = true;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Добавление нового условия.
+     *
+     */
+    public function actionAddTransitionProperty()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+            // Формирование модели уровня
+            $model = new TransitionProperty();
+
+            $model->transition = Yii::$app->request->post('transition_id_on_click');
+
+            // Определение полей модели уровня и валидация формы
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                // Успешный ввод данных
+                $data["success"] = true;
+                // Добавление нового уровня в БД
+                $model->save();
+                // Формирование данных о новом уровне
+                $data["id"] = $model->id;
+                $data["name"] = $model->name;
+                $data["description"] = $model->description;
+                $data["operator"] = $model->operator;
+                $data["operator_name"] = $model->getOperatorName();
+                $data["value"] = $model->value;
+                $data["transition"] = $model->transition;
+
+            } else
+                $data = ActiveForm::validate($model);
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Изменение условия.
+     */
+    public function actionEditTransitionProperty()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = TransitionProperty::find()->where(['id' => Yii::$app->request->post('transition_property_id_on_click')])->one();
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                // Успешный ввод данных
+                $data["success"] = true;
+
+                $data["id"] = $model->id;
+                $data["name"] = $model->name;
+                $data["description"] = $model->description;
+                $data["operator_name"] = $model->getOperatorName();
+                $data["operator"] = $model->operator;
+                $data["value"] = $model->value;
+
+            } else
+                $data = ActiveForm::validate($model);
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Удаление условия.
+     */
+    public function actionDeleteTransitionProperty()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = TransitionProperty::find()->where(['id' => Yii::$app->request->post('transition_property_id_on_click')])->one();
             $model -> delete();
 
             $data["success"] = true;

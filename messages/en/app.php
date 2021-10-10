@@ -379,6 +379,9 @@ return [
     'TRANSITION_ADD_NEW_TRANSITION' => 'Add new transition',
     'TRANSITION_EDIT_TRANSITION' => 'Transition change',
     'TRANSITION_DELETE_TRANSITION' => 'Transition delete',
+    'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY' => 'Add new transition property',
+    'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY' => 'Transition property change',
+    'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY' => 'Transition property delete',
 
     /* Cообщения */
     'MAXIMUM_CONNECTIONS' => 'Maximum connections ',
@@ -403,6 +406,7 @@ return [
     'DELETE_STATE_TEXT' => 'Are you sure you want to delete the state?',
     'DELETE_STATE_PROPERTY_TEXT' => 'Are you sure you want to delete the state property?',
     'DELETE_TRANSITION_TEXT' => 'Are you sure you want to delete the transition?',
+    'DELETE_TRANSITION_PROPERTY_TEXT' => 'Are you sure you want to delete the transition property?',
 
     'CONNECTION_DELETE' => 'Delete',
 

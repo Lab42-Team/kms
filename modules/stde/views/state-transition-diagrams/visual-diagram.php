@@ -41,6 +41,12 @@ foreach ($transitions_model_all as $t){
     array_push($transitions_mas, [$t->id, $t->name, $t->description, $t->state_from, $t->state_to]);
 }
 
+// создаем массив из transition_property для передачи в js
+$transitions_property_mas = array();
+foreach ($transitions_property_model_all as $tp){
+    array_push($transitions_property_mas, [$tp->id, $tp->name, $tp->description, $tp->operator, $tp->value, $tp->transition]);
+}
+
 ?>
 
 
@@ -57,6 +63,11 @@ foreach ($transitions_model_all as $t){
 <?= $this->render('_modal_form_transition_editor', [
     'model' => $model,
     'transition_model' => $transition_model,
+]) ?>
+
+<?= $this->render('_modal_form_transition_property_editor', [
+    'model' => $model,
+    'transition_property_model' => $transition_property_model,
 ]) ?>
 
 
@@ -80,10 +91,12 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var state_id_on_click = 0; //id состояния к которому назначается свойство
     var state_property_id_on_click = 0; //id свойство состояния
     var transition_id_on_click = 0; //id перехода
+    var transition_property_id_on_click = 0;//id условия
 
     var states_mas = <?php echo json_encode($states_mas); ?>;//прием массива состояний из php
-    var states_property_mas = <?php echo json_encode($states_property_mas); ?>;//------------------------прием массива переходов из php
+    var states_property_mas = <?php echo json_encode($states_property_mas); ?>;//прием массива свойств состояний из php
     var transitions_mas = <?php echo json_encode($transitions_mas); ?>;//прием массива переходов из php
+    var transitions_property_mas = <?php echo json_encode($transitions_property_mas); ?>;//прием массива условий из php
 
     var mas_data_state = {};
     var q = 0;
@@ -170,6 +183,37 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     });
 
     //console.log(mas_data_state_property);
+
+
+    var mas_data_transition_property = {};
+    var q = 0;
+    var id = "";
+    var name = "";
+    var description = "";
+    var operator = "";
+    var value = "";
+    var transition = "";
+    $.each(transitions_property_mas, function (i, mas) {
+        $.each(mas, function (j, elem) {
+            if (j == 0) {id = elem;}//записываем id
+            if (j == 1) {name = elem;}
+            if (j == 2) {description = elem;}
+            if (j == 3) {operator = elem;}
+            if (j == 4) {value = elem;}
+            if (j == 5) {transition = elem;}
+            mas_data_transition_property[q] = {
+                "id":id,
+                "name":name,
+                "description":description,
+                "operator":operator,
+                "value":value,
+                "transition":transition,
+            }
+        });
+        q = q+1;
+    });
+
+    console.log(mas_data_transition_property);
 
 
     //-----начало кода jsPlumb-----
@@ -474,8 +518,6 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var state_property = $(this).attr('id');
             state_property_id_on_click = parseInt(state_property.match(/\d+/));
 
-            console.log(state_property_id_on_click);
-
             $.each(mas_data_state_property, function (i, elem) {
                 if (elem.id == state_property_id_on_click) {
                     document.forms["edit-state-property-form"].reset();
@@ -544,6 +586,47 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         }
     });
 
+
+    // добавление условия
+    $(document).on('click', '.add-transition-property', function() {
+        if (!guest) {
+            var transition = $(this).attr('id');
+            transition_id_on_click = parseInt(transition.match(/\d+/));
+            $("#addTransitionPropertyModalForm").modal("show");
+        }
+    });
+
+
+    // изменение условия
+    $(document).on('click', '.edit-transition-property', function() {
+        if (!guest) {
+            var transition_property = $(this).attr('id');
+            transition_property_id_on_click = parseInt(transition_property.match(/\d+/));
+
+            $.each(mas_data_transition_property, function (i, elem) {
+                if (elem.id == transition_property_id_on_click) {
+                    document.forms["edit-transition-property-form"].reset();
+                    document.forms["edit-transition-property-form"].elements["TransitionProperty[name]"].value = elem.name;
+                    document.forms["edit-transition-property-form"].elements["TransitionProperty[description]"].value = elem.description;
+                    document.forms["edit-transition-property-form"].elements["TransitionProperty[operator]"].value = elem.operator;
+                    document.forms["edit-transition-property-form"].elements["TransitionProperty[value]"].value = elem.value;
+                    $("#editTransitionPropertyModalForm").modal("show");
+                }
+            });
+        }
+    });
+
+
+    // удаление условия
+    $(document).on('click', '.del-transition-property', function() {
+        if (!guest) {
+            var transition_property = $(this).attr('id');
+            transition_property_id_on_click = parseInt(transition_property.match(/\d+/));
+            $("#deleteTransitionPropertyModalForm").modal("show");
+            // Обновление формы редактора
+            instance.repaintEverything();
+        }
+    });
 
 </script>
 
