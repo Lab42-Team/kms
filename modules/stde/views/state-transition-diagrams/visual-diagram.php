@@ -213,7 +213,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         q = q+1;
     });
 
-    console.log(mas_data_transition_property);
+    //console.log(mas_data_transition_property);
 
 
     //-----начало кода jsPlumb-----
@@ -228,6 +228,24 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             Overlays:[["PlainArrow", {location:1, width:15, length:15}]], //стрелка
             Container: "visual_diagram_field"
         });
+
+
+        //Распределение state (состояний) на диаграмме
+        $.each(mas_data_state, function (j, elem) {
+            $(".div-state").each(function(i) {
+                var state = $(this).attr('id');
+                var state_id = parseInt(state.match(/\d+/));
+
+                if (elem.id == state_id) {
+                    $(this).css({
+                        left: parseInt(elem.indent_x),
+                        top: parseInt(elem.indent_y)
+                    });
+                }
+            });
+        });
+        mousemoveState();
+
 
         var div_visual_diagram_field = document.getElementById('visual_diagram_field');
         //создаем группу с определенным именем group
@@ -421,28 +439,6 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             }
         });
     };
-
-
-    // Раcпределение всех объектов на диаграмме
-    $(document).ready(function() {
-        //Распределение state (состояний) на диаграмме
-        $.each(mas_data_state, function (j, elem) {
-            $(".div-state").each(function(i) {
-                var state = $(this).attr('id');
-                var state_id = parseInt(state.match(/\d+/));
-
-                if (elem.id == state_id) {
-                    $(this).css({
-                        left: parseInt(elem.indent_x),
-                        top: parseInt(elem.indent_y)
-                    });
-                }
-            });
-        });
-        // Обновление формы редактора
-        instance.repaintEverything();
-        mousemoveState();
-    });
 
 
     //при движении блока состояния расширяем или сужаем поле visual_diagram_field
