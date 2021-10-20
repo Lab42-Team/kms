@@ -48,6 +48,11 @@ class TransitionProperty extends \yii\db\ActiveRecord
             [['operator', 'transition'], 'integer'],
             [['name', 'value'], 'string', 'max' => 255],
             [['description'], 'string'],
+
+            // name, operator, value и transition вместе должны быть уникальны, но только name будет получать сообщение об ошибке
+            ['name', 'unique', 'targetAttribute' => ['name', 'operator', 'value', 'transition'],
+                'message' => Yii::t('app', 'MESSAGE_TRANSITION_PROPERTY_ALREADY_IN_TRANSITION')],
+
             [['transition'], 'exist', 'skipOnError' => true, 'targetClass' => Transition::className(),
                 'targetAttribute' => ['transition' => 'id']],
         ];

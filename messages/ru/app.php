@@ -410,10 +410,14 @@ return [
 
     'CONNECTION_DELETE' => 'Удалить',
 
+    /* Техсты сообщений модальных форм EETE*/
     'MESSAGE_PROBABILITY_ALLOWED_ONLY_UP_TO_HUNDREDTHS' => 'Допускается ввод числа от 0 до 1, и только до сотых',
     'MESSAGE_ELEMENT_NAME_ALREADY_ON_DIAGRAM' => 'Элемент с таким названием уже есть на диаграмме',
     'MESSAGE_PARAMETER_NAME_ALREADY_IN_EVENT' => 'Параметер с таким названием уже есть у события',
     'MESSAGE_LEVEL_NAME_ALREADY_ON_DIAGRAM' => 'Уровень с таким названием уже есть на диаграмме',
+
+    /* Техсты сообщений модальных форм STDE*/
+    'MESSAGE_TRANSITION_PROPERTY_ALREADY_IN_TRANSITION' => 'Условие с таким названием, оператором и значением уже есть у перехода',
 
     /* Текст */
     'TEXT_NODE' => 'Узел ',
