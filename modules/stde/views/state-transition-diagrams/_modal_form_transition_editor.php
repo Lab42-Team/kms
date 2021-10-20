@@ -132,8 +132,19 @@ use app\modules\stde\models\TransitionProperty;
                             state_from:parseInt(data['state_from'], 10), state_to:parseInt(data['state_to'], 10)};
 
 
-                        //---------------------добавлены новые записи в массивы условий для изменений
+                        //добавление новой записи в массив свойств состояний для изменений
+                        var id = data['id_property'];
+                        var name = data['name_property'];
+                        var description = data['description_property'];
+                        var operator = parseInt(data['operator_property'], 10);
+                        var value = data['value_property'];
+                        var transition = data['id'];
 
+                        var j = 0;
+                        $.each(mas_data_transition_property, function (i, elem) {
+                            j = j + 1;
+                        });
+                        mas_data_transition_property[j] = {id:id, name:name, description:description, operator:operator, value:value, transition:transition};
 
 
                         document.getElementById('add-transition-form').reset();
