@@ -383,7 +383,7 @@ return [
     'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY' => 'Изменение условие',
     'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY' => 'Удаление условия',
 
-    /* Сообщения */
+    /* Cообщения EETE*/
     'MAXIMUM_CONNECTIONS' => 'Максимальное количество соединений ',
     'MECHANISMS_SHOULD_NOT_BE_INTERCONNECTED' => 'Механизмы не должны быть связаны между собой',
     'ELEMENTS_NOT_BE_ASSOCIATED_WITH_OTHER_ELEMENTS_HIGHER_LEVEL' => 'Элементы не должны быть связаны с другими элементами на вышестоящем уровне',
@@ -393,6 +393,9 @@ return [
     'ALERT_CHANGE_LEVEL' => 'При изменении уровня, связи будут удалены!',
     'ALERT_INITIAL_LEVEL' => 'Удаляется начальный уровень, поэтому будут удалены механизмы на следующем уровне!',
     'ALERT_DELETE_LEVEL' => 'При удалении будут удалены все элементы на уровне!',
+
+    /* Cообщения STDE*/
+    'THESE_ELEMENTS_ARE_ALREADY_CONNECTED' => 'Эти элементы уже связаны',
 
     /* Техсты модальных форм EETE*/
     'RELATIONSHIP_PAGE_DELETE_CONNECTION_TEXT' => 'Вы действительно хотите удалить связь?',

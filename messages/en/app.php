@@ -383,7 +383,7 @@ return [
     'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY' => 'Transition property change',
     'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY' => 'Transition property delete',
 
-    /* Cообщения */
+    /* Cообщения EETE*/
     'MAXIMUM_CONNECTIONS' => 'Maximum connections ',
     'MECHANISMS_SHOULD_NOT_BE_INTERCONNECTED' => 'The mechanisms should not be interconnected',
     'ELEMENTS_NOT_BE_ASSOCIATED_WITH_OTHER_ELEMENTS_HIGHER_LEVEL' => 'Elements must not be associated with other elements at a higher level',
@@ -393,6 +393,9 @@ return [
     'ALERT_CHANGE_LEVEL' => 'When you change the level, the connection will be deleted!',
     'ALERT_INITIAL_LEVEL' => 'The initial level is deleted, so the mechanisms at the next level will be deleted!',
     'ALERT_DELETE_LEVEL' => 'When deleting, all the elements on the level will be deleted!',
+
+    /* Cообщения STDE*/
+    'THESE_ELEMENTS_ARE_ALREADY_CONNECTED' => 'These elements are already connected',
 
     /* Техсты модальных форм EETE*/
     'RELATIONSHIP_PAGE_DELETE_CONNECTION_TEXT' => 'Are you sure you want to delete the connection?',
