@@ -158,12 +158,6 @@ use app\modules\stde\models\TransitionProperty;
                 }
             });
         });
-
-
-        $("#cancel-add-transition-button").click(function(e) {
-            //удаление связи
-            instance.deleteConnection(current_connection);
-        });
     });
 </script>
 
@@ -200,7 +194,6 @@ use app\modules\stde\models\TransitionProperty;
 <?= Button::widget([
     'label' => Yii::t('app', 'BUTTON_CANCEL'),
     'options' => [
-        'id' => 'cancel-add-transition-button',
         'class' => 'btn-danger',
         'style' => 'margin:5px',
         'data-dismiss'=>'modal'

@@ -219,6 +219,26 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     //console.log(mas_data_transition_property);
 
 
+    $(document).ready(function() {
+        if (!guest){
+            // Обработка закрытия модального окна добавления нового перехода
+            $("#addTransitionModalForm").on("hidden.bs.modal", function() {
+                //удаление связи
+                instance.deleteConnection(current_connection);
+                // Скрытие списка ошибок ввода в модальном окне
+                $("#add-transition-form .error-summary").hide();
+                $("#add-transition-form .form-group").each(function() {
+                    $(this).removeClass("has-error");
+                    $(this).removeClass("has-success");
+                });
+                $("#add-transition-form .help-block").each(function() {
+                    $(this).text("");
+                });
+            });
+        }
+    });
+
+
     //-----начало кода jsPlumb-----
     var instance = "";
     jsPlumb.ready(function () {
