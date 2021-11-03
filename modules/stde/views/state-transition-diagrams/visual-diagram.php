@@ -272,14 +272,14 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
 
         //находим все элементы с классом div-transition и делаем их двигаемыми
-        $(".div-transition").each(function(i) {
-            var id_state = $(this).attr('id');
-            var state = document.getElementById(id_state);
-            //делаем state перетаскиваемыми
-            instance.draggable(state);
-            //добавляем элемент state в группу с именем group_field
-            instance.addToGroup('group_field', state);
-        });
+        //$(".div-transition").each(function(i) {
+        //    var id_state = $(this).attr('id');
+        //    var state = document.getElementById(id_state);
+        //    //делаем state перетаскиваемыми
+        //    instance.draggable(state);
+        //    //добавляем элемент state в группу с именем group_field
+        //    instance.addToGroup('group_field', state);
+        //});
 
 
         var windows = jsPlumb.getSelector(".div-state");
@@ -499,6 +499,52 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             }
             saveIndent(state_id, indent_x, indent_y);
         }
+    });
+
+
+    //перемещение элементов div-transition при перемещении элемента div-state
+    $(document).on('mouseup', '.div-state', function() {
+        var state = $(this).attr('id');
+        var state_id = parseInt(state.match(/\d+/));
+
+        //поиск div-transition связанных с div-state по значению state_id
+        $.each(mas_data_transition, function (i, elem) {
+            if ((elem.state_from == state_id)||(elem.state_to == state_id)) {
+                var ind_x;
+                var ind_y;
+
+                //поиск перехода относящегося к выбранной связи
+                var transition = document.getElementById("transition_" + elem.id);
+
+                //поиск связанных элементов
+                var source = document.getElementById("state_" + elem.state_from);
+                var target = document.getElementById("state_" + elem.state_to);
+
+                var x_source = source.offsetLeft;//нахождение отступа слева от первого элемента
+                var x_target = target.offsetLeft;//нахождение отступа слева от второго элемента
+                var distance_x = Math.abs(x_source - x_target); //расстояние между элементами
+                //нахождение отступа от крайнего слева элемента
+                if (x_source < x_target){
+                    ind_x = x_source;
+                } else {
+                    ind_x = x_target;
+                }
+
+                var y_source = source.offsetTop;//нахождение отступа сверху от первого элемента
+                var y_target = target.offsetTop;//нахождение отступа сверху от второго элемента
+                var distance_y = Math.abs(y_source - y_target); //расстояние между элементами
+                //нахождение отступа от крайнего слева элемента
+                if (y_source < y_target){
+                    ind_y = y_source;
+                } else {
+                    ind_y = y_target;
+                }
+
+                //выравниваем переход по центру между связанными элементами
+                transition.style.left = distance_x/2 + ind_x + 'px';
+                transition.style.top = distance_y/2 + ind_y + 'px';
+            }
+        });
     });
 
 
