@@ -131,7 +131,7 @@ use app\modules\main\models\Lang;
 
 <?= $form->field($state_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($state_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
+<?= $form->field($state_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
 
 <?= Button::widget([
@@ -225,7 +225,7 @@ use app\modules\main\models\Lang;
 
 <?= $form->field($state_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($state_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
+<?= $form->field($state_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
 <?= Button::widget([
     'label' => Yii::t('app', 'BUTTON_SAVE'),

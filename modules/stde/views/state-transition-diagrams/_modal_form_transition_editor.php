@@ -171,16 +171,22 @@ use app\modules\stde\models\TransitionProperty;
 
 <?= $form->field($transition_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
+<?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
+
+
+<label class="control-label transition-properties-block"><?php echo Yii::t('app', 'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY'); ?></label>
+
+<div class="line">
 
 <?= $form->field($transition_model, 'name_property')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($transition_model, 'description_property')->textarea(['maxlength' => true, 'rows'=>6]) ?>
-
-<?= $form->field($transition_model, 'operator_property')->dropDownList(TransitionProperty::getOperatorArray()) ?>
+<?= $form->field($transition_model, 'operator_property')->dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%']) ?>
 
 <?= $form->field($transition_model, 'value_property')->textInput(['maxlength' => true]) ?>
 
+<?= $form->field($transition_model, 'description_property')->textarea(['maxlength' => true, 'rows'=>3]) ?>
+
+</div>
 
 <?= Button::widget([
     'label' => Yii::t('app', 'BUTTON_SAVE'),
@@ -284,7 +290,7 @@ use app\modules\stde\models\TransitionProperty;
 
 <?= $form->field($transition_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
+<?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
 <!-- Скрытые обязательные поля -->
 

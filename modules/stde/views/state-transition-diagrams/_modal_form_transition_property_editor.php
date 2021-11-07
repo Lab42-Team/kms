@@ -99,17 +99,15 @@ use app\modules\stde\models\TransitionProperty;
     'enableClientValidation' => true,
 ]); ?>
 
-
 <?= $form->errorSummary($transition_property_model); ?>
 
 <?= $form->field($transition_property_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($transition_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
-
-<?= $form->field($transition_property_model, 'operator')->dropDownList(TransitionProperty::getOperatorArray()) ?>
+<?= $form->field($transition_property_model, 'operator')->dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%']) ?>
 
 <?= $form->field($transition_property_model, 'value')->textInput(['maxlength' => true]) ?>
 
+<?= $form->field($transition_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
 
 <?= Button::widget([
@@ -217,11 +215,12 @@ use app\modules\stde\models\TransitionProperty;
 
 <?= $form->field($transition_property_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($transition_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
-
-<?= $form->field($transition_property_model, 'operator')->dropDownList(TransitionProperty::getOperatorArray()) ?>
+<?= $form->field($transition_property_model, 'operator')->dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%']) ?>
 
 <?= $form->field($transition_property_model, 'value')->textInput(['maxlength' => true]) ?>
+
+<?= $form->field($transition_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
+
 
 <?= Button::widget([
     'label' => Yii::t('app', 'BUTTON_SAVE'),

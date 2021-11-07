@@ -379,7 +379,7 @@ return [
     'TRANSITION_ADD_NEW_TRANSITION' => 'Добавить новый переход',
     'TRANSITION_EDIT_TRANSITION' => 'Изменение перехода',
     'TRANSITION_DELETE_TRANSITION' => 'Удаление перехода',
-    'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY' => 'Добавить новое усовие',
+    'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY' => 'Добавить новое условие',
     'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY' => 'Изменение условие',
     'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY' => 'Удаление условия',
 

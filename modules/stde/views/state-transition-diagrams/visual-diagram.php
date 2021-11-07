@@ -221,6 +221,32 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
     $(document).ready(function() {
         if (!guest){
+            // Обработка закрытия модального окна добавления нового состояния
+            $("#addStateModalForm").on("hidden.bs.modal", function() {
+                // Скрытие списка ошибок ввода в модальном окне
+                $("#add-state-form .error-summary").hide();
+                $("#add-state-form .form-group").each(function() {
+                    $(this).removeClass("has-error");
+                    $(this).removeClass("has-success");
+                });
+                $("#add-state-form .help-block").each(function() {
+                    $(this).text("");
+                });
+            });
+
+            // Обработка закрытия модального окна добавления нового свойства состояния
+            $("#addStatePropertyModalForm").on("hidden.bs.modal", function() {
+                // Скрытие списка ошибок ввода в модальном окне
+                $("#add-state-property-form .error-summary").hide();
+                $("#add-state-property-form .form-group").each(function() {
+                    $(this).removeClass("has-error");
+                    $(this).removeClass("has-success");
+                });
+                $("#add-state-property-form .help-block").each(function() {
+                    $(this).text("");
+                });
+            });
+
             // Обработка закрытия модального окна добавления нового перехода
             $("#addTransitionModalForm").on("hidden.bs.modal", function() {
                 //удаление связи
@@ -232,6 +258,19 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     $(this).removeClass("has-success");
                 });
                 $("#add-transition-form .help-block").each(function() {
+                    $(this).text("");
+                });
+            });
+
+            // Обработка закрытия модального окна добавления нового условия
+            $("#addTransitionPropertyModalForm").on("hidden.bs.modal", function() {
+                // Скрытие списка ошибок ввода в модальном окне
+                $("#add-transition-property-form .error-summary").hide();
+                $("#add-transition-property-form .form-group").each(function() {
+                    $(this).removeClass("has-error");
+                    $(this).removeClass("has-success");
+                });
+                $("#add-transition-property-form .help-block").each(function() {
                     $(this).text("");
                 });
             });
@@ -748,6 +787,19 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     <div id="state_edit_<?= $state->id ?>" class="edit-state glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                     <div id="state_add_property_<?= $state->id ?>" class="add-state-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
                 </div>
+
+                <!-- отображение разделительной пунктирной линии -->
+                <?php
+                    $line = false;
+                    foreach ($states_property_model_all as $state_property){
+                        if ($state_property->state == $state->id){
+                            $line = true;
+                        }
+                    }
+                ?>
+                <?php if ($line == true){ ?>
+                    <div class="state-property-top"></div>
+                <?php } ?>
 
                 <!-- отображение свойств состояний -->
                 <?php foreach ($states_property_model_all as $state_property): ?>
