@@ -115,12 +115,11 @@ use app\modules\stde\models\StateProperty;
 
 <?= $form->field($state_property_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
-
 <?= $form->field($state_property_model, 'operator')->dropDownList(StateProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%']) ?>
 
 <?= $form->field($state_property_model, 'value')->textInput(['maxlength' => true]) ?>
 
+<?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
 
 <?= Button::widget([
@@ -224,15 +223,17 @@ use app\modules\stde\models\StateProperty;
     'enableClientValidation' => true,
 ]); ?>
 
+
 <?= $form->errorSummary($state_property_model); ?>
 
 <?= $form->field($state_property_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
-
 <?= $form->field($state_property_model, 'operator')->dropDownList(StateProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%']) ?>
 
 <?= $form->field($state_property_model, 'value')->textInput(['maxlength' => true]) ?>
+
+<?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
+
 
 <?= Button::widget([
     'label' => Yii::t('app', 'BUTTON_SAVE'),
