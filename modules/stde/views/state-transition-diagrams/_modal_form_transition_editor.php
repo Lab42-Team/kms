@@ -120,10 +120,10 @@ use app\modules\stde\models\TransitionProperty;
 
 
                         //сделать div двигаемым
-                        var div_transition = document.getElementById('transition_' + data['id']);
-                        instance.draggable(div_transition);
+                        //var div_transition = document.getElementById('transition_' + data['id']);
+                        //instance.draggable(div_transition);
                         //добавляем элемент div_transition в группу с именем group_field
-                        instance.addToGroup('group_field', div_transition);
+                        //instance.addToGroup('group_field', div_transition);
 
 
                         //добавлены новые записи в массивы связи для изменений

@@ -458,9 +458,14 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                 ind_y = y_target;
             }
 
-            //выравниваем переход по центру между связанными элементами
-            transition.style.left = distance_x/2 + ind_x + 'px';
-            transition.style.top = distance_y/2 + ind_y + 'px';
+            if ((distance_x == 0)&&(distance_y == 0)){
+                transition.style.left = ind_x + 'px';
+                transition.style.top = ind_y - 120 + 'px';
+            } else {
+                //выравниваем переход по центру между связанными элементами
+                transition.style.left = distance_x/2 + ind_x + 'px';
+                transition.style.top = distance_y/2 + ind_y + 'px';
+            }
         });
 
 
@@ -569,7 +574,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
 
     //перемещение элементов div-transition при перемещении элемента div-state
-    $(document).on('mouseup', '.div-state', function() {
+    $(document).on('mousemove', '.div-state', function() {
         var state = $(this).attr('id');
         var state_id = parseInt(state.match(/\d+/));
 
@@ -606,9 +611,14 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     ind_y = y_target;
                 }
 
-                //выравниваем переход по центру между связанными элементами
-                transition.style.left = distance_x/2 + ind_x + 'px';
-                transition.style.top = distance_y/2 + ind_y + 'px';
+                if ((distance_x == 0)&&(distance_y == 0)){
+                    transition.style.left = ind_x + 'px';
+                    transition.style.top = ind_y - 120 + 'px';
+                } else {
+                    //выравниваем переход по центру между связанными элементами
+                    transition.style.left = distance_x/2 + ind_x + 'px';
+                    transition.style.top = distance_y/2 + ind_y + 'px';
+                }
             }
         });
     });
