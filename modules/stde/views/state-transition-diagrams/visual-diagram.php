@@ -96,6 +96,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var transition_id_on_click = 0; //id перехода
     var transition_property_id_on_click = 0;//id условия
 
+    var added_transition = false;
+
     var states_mas = <?php echo json_encode($states_mas); ?>;//прием массива состояний из php
     var states_property_mas = <?php echo json_encode($states_property_mas); ?>;//прием массива свойств состояний из php
     var transitions_mas = <?php echo json_encode($transitions_mas); ?>;//прием массива переходов из php
@@ -249,8 +251,14 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
             // Обработка закрытия модального окна добавления нового перехода
             $("#addTransitionModalForm").on("hidden.bs.modal", function() {
-                //удаление связи
-                instance.deleteConnection(current_connection);
+
+                //если это не добавление новой связи
+                if(added_transition != true){
+                    //то удаляем связь
+                    instance.deleteConnection(current_connection);
+                }
+                added_transition = false;
+
                 // Скрытие списка ошибок ввода в модальном окне
                 $("#add-transition-form .error-summary").hide();
                 $("#add-transition-form .form-group").each(function() {

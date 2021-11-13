@@ -35,6 +35,9 @@ use app\modules\stde\models\TransitionProperty;
                 success: function(data) {
                     // Если валидация прошла успешно (нет ошибок ввода)
                     if (data['success']) {
+                        //добавлен переход
+                        added_transition = true;
+
                         // Скрывание модального окна
                         $("#addTransitionModalForm").modal("hide");
 
