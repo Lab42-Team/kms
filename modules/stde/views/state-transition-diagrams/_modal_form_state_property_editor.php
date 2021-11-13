@@ -40,6 +40,15 @@ use app\modules\stde\models\StateProperty;
                         //создание div свойства состояния
                         var div_state = document.getElementById('state_' + state_id_on_click);
 
+                        //если свойство состояния первое
+                        if (data['state_property_count'] == 0){
+                            //добавляем div разделительной линии
+                            var div_line = document.createElement('div');
+                            div_line.id = 'state_line_' + state_id_on_click;
+                            div_line.className = 'state-property-top';
+                            div_state.append(div_line);
+                        }
+
                         var div_property = document.createElement('div');
                         div_property.id = 'state_property_' + data['id'];
                         div_property.className = 'div-state-property';
@@ -273,6 +282,14 @@ use app\modules\stde\models\StateProperty;
                 success: function(data) {
                     // Если валидация прошла успешно (нет ошибок ввода)
                     if (data['success']) {
+
+                        //если свойств состояний больше нет
+                        if (data['state_property_count'] == 0){
+                            //удаление div линии
+                            var div_line = document.getElementById('state_line_' + data['state_id']);
+                            div_line.remove(); // удаляем
+                        }
+
                         $("#deleteStatePropertyModalForm").modal("hide");
 
                         //удаление div свойства состояния

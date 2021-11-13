@@ -251,7 +251,6 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
             // Обработка закрытия модального окна добавления нового перехода
             $("#addTransitionModalForm").on("hidden.bs.modal", function() {
-
                 //если это не добавление новой связи
                 if(added_transition != true){
                     //то удаляем связь
@@ -806,7 +805,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     }
                 ?>
                 <?php if ($line == true){ ?>
-                    <div class="state-property-top"></div>
+                    <div id="state_line_<?= $state->id ?>" class="state-property-top"></div>
                 <?php } ?>
 
                 <!-- отображение свойств состояний -->

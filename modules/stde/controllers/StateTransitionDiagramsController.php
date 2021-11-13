@@ -227,10 +227,14 @@ class StateTransitionDiagramsController extends Controller
             // Установка формата JSON для возвращаемых данных
             $response = Yii::$app->response;
             $response->format = Response::FORMAT_JSON;
-            // Формирование модели уровня
+            // Формирование модели свойства состояния
             $model = new StateProperty();
 
             $model->state = Yii::$app->request->post('state_id_on_click');
+
+            //поиск количества свойст у выбранного состояния
+            $state_property_count = StateProperty::find()->where(['state' => Yii::$app->request->post('state_id_on_click')])->count();
+            $data["state_property_count"] = $state_property_count;
 
             // Определение полей модели уровня и валидация формы
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -308,7 +312,13 @@ class StateTransitionDiagramsController extends Controller
             $response->format = Response::FORMAT_JSON;
 
             $model = StateProperty::find()->where(['id' => Yii::$app->request->post('state_property_id_on_click')])->one();
+            $state_id = $model->state;
             $model -> delete();
+
+            //поиск количества свойст у выбранного состояния
+            $state_property_count = StateProperty::find()->where(['state' => $state_id])->count();
+            $data["state_property_count"] = $state_property_count;
+            $data["state_id"] = $state_id;
 
             $data["success"] = true;
 
