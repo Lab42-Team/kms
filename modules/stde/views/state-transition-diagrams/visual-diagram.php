@@ -822,11 +822,11 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                 <?php foreach ($states_property_model_all as $state_property): ?>
                     <?php if ($state_property->state == $state->id){ ?>
                         <div id="state_property_<?= $state_property->id ?>" class="div-state-property">
-                            <?= $state_property->name ?> <?= $state_property->getOperatorName() ?> <?= $state_property->value ?>
                             <div class="button-state-property">
                                 <div id="state_property_edit_<?= $state_property->id ?>" class="edit-state-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                 <div id="state_property_del_<?= $state_property->id ?>" class="del-state-property glyphicon-trash"  title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
                             </div>
+                            <?= $state_property->name ?> <?= $state_property->getOperatorName() ?> <?= $state_property->value ?>
                         </div>
                     <?php } ?>
                 <?php endforeach; ?>

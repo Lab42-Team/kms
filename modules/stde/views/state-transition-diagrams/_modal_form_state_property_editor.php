@@ -57,7 +57,7 @@ use app\modules\stde\models\StateProperty;
 
                         var div_button_property = document.createElement('div');
                         div_button_property.className = 'button-state-property';
-                        div_property.append(div_button_property);
+                        div_property.prepend(div_button_property);
 
                         var div_edit_property = document.createElement('div');
                         div_edit_property.id = 'state_property_edit_' + data['id'];
@@ -180,7 +180,7 @@ use app\modules\stde\models\StateProperty;
 
                         var div_button_state_property = document.createElement('div');
                         div_button_state_property.className = 'button-state-property';
-                        div_state_property.append(div_button_state_property);
+                        div_state_property.prepend(div_button_state_property);
 
                         var div_edit_state_property = document.createElement('div');
                         div_edit_state_property.id = 'state_property_edit_' + data['id'];

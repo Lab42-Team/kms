@@ -112,12 +112,12 @@
 .div-state-property {
     position: relative;
     min-height:25px;
-    min-width: 150px;
-    padding-left: 2px;
-    padding-right: 2px;
-    display: table;
+    width: 150px;
+    padding-left: 8px;
+    padding-top: 2px;
+    padding-right: 8px;
     font-size: 80%;
-    text-align: center;
+    word-wrap: break-word; /* Перенос слов */
 }
 
 /* -Стиль разделительной линии- */
@@ -126,6 +126,7 @@
 }
 
 .button-state-property{
+    position: relative;
     height: 0px;
     width: 0px;
     float: right;
@@ -134,8 +135,8 @@
 /*кнопки свойств состояний*/
 .edit-state-property {
     position: absolute;
-    right: 30px;
-    bottom: 3px;
+    left: 2px;
+    top: -1px;
     display:none;
     color: #337ab7;
     font-size: 13px;
@@ -144,8 +145,8 @@
 
 .del-state-property {
     position: absolute;
-    right: 10px;
-    bottom: 3px;
+    left: 20px;
+    top: -1px;
     display:none;
     color: #337ab7;
     font-size: 13px;
@@ -153,8 +154,8 @@
 }
 
 .div-state-property:hover .button-state-property {
-    height: 16px;
-    width: 40px;
+    height: 20px;
+    width: 35px;
 }
 
 /*показать скрытые кнопки*/
