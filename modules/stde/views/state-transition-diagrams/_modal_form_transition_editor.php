@@ -183,7 +183,9 @@ use app\modules\stde\models\TransitionProperty;
 
 <?= $form->field($transition_model, 'name_property')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($transition_model, 'operator_property')->dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%']) ?>
+<?= $form->field($transition_model, 'operator_property')->
+    dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
+        label(Yii::t('app', 'TRANSITION_MODEL_OPERATOR_PROPERTY'),['style'=>'margin-left:40%'])?>
 
 <?= $form->field($transition_model, 'value_property')->textInput(['maxlength' => true]) ?>
 

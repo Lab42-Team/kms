@@ -103,7 +103,9 @@ use app\modules\stde\models\TransitionProperty;
 
 <?= $form->field($transition_property_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($transition_property_model, 'operator')->dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%']) ?>
+<?= $form->field($transition_property_model, 'operator')->
+    dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
+        label(Yii::t('app', 'TRANSITION_PROPERTY_MODEL_OPERATOR'),['style'=>'margin-left:40%'])?>
 
 <?= $form->field($transition_property_model, 'value')->textInput(['maxlength' => true]) ?>
 
@@ -215,7 +217,9 @@ use app\modules\stde\models\TransitionProperty;
 
 <?= $form->field($transition_property_model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= $form->field($transition_property_model, 'operator')->dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%']) ?>
+<?= $form->field($transition_property_model, 'operator')->
+    dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
+        label(Yii::t('app', 'TRANSITION_PROPERTY_MODEL_OPERATOR'),['style'=>'margin-left:40%'])?>
 
 <?= $form->field($transition_property_model, 'value')->textInput(['maxlength' => true]) ?>
 
