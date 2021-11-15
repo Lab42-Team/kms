@@ -45,7 +45,7 @@ use app\modules\stde\models\StateProperty;
                             //добавляем div разделительной линии
                             var div_line = document.createElement('div');
                             div_line.id = 'state_line_' + state_id_on_click;
-                            div_line.className = 'state-property-top';
+                            div_line.className = 'div-line';
                             div_state.append(div_line);
                         }
 

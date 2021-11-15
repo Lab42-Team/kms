@@ -107,6 +107,10 @@
     display:block;
 }
 
+/* -Стиль разделительной линии- */
+.div-line {
+    border-top:2px dashed #337ab7;
+}
 
 /* -Стили для свойств состояний- */
 .div-state-property {
@@ -118,11 +122,6 @@
     padding-right: 8px;
     font-size: 80%;
     word-wrap: break-word; /* Перенос слов */
-}
-
-/* -Стиль разделительной линии- */
-.state-property-top {
-    border-top:2px dashed #337ab7;
 }
 
 .button-state-property{
@@ -287,25 +286,26 @@
 .div-transition-property {
     position: relative;
     min-height:25px;
-    min-width: 150px;
-    border-top:2px dashed #337ab7;
-    padding-left: 2px;
-    padding-right: 2px;
-    display: table;
+    width: 150px;
+    padding-left: 8px;
+    padding-top: 2px;
+    padding-right: 8px;
     font-size: 80%;
+    word-wrap: break-word; /* Перенос слов */
 }
 
 .button-transition-property{
-    height: 25px;
-    width: 40px;
+    position: relative;
+    height: 0px;
+    width: 0px;
     float: right;
 }
 
 /*кнопки условий*/
 .edit-transition-property {
     position: absolute;
-    right: 30px;
-    bottom: 3px;
+    left: 2px;
+    top: -1px;
     display:none;
     color: #337ab7;
     font-size: 13px;
@@ -314,13 +314,19 @@
 
 .del-transition-property {
     position: absolute;
-    right: 10px;
-    bottom: 3px;
+    left: 20px;
+    top: -1px;
     display:none;
     color: #337ab7;
     font-size: 13px;
     font-family: "Glyphicons Halflings";
 }
+
+.div-transition-property:hover .button-transition-property {
+    height: 20px;
+    width: 35px;
+}
+
 /*показать скрытые кнопки*/
 .div-transition-property:hover .edit-transition-property {
     display:block;

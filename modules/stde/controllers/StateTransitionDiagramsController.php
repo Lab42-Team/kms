@@ -470,6 +470,10 @@ class StateTransitionDiagramsController extends Controller
 
             $model->transition = Yii::$app->request->post('transition_id_on_click');
 
+            //поиск количества условий
+            $transition_property_count = TransitionProperty::find()->where(['transition' => Yii::$app->request->post('transition_id_on_click')])->count();
+            $data["transition_property_count"] = $transition_property_count;
+
             // Определение полей модели уровня и валидация формы
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 // Успешный ввод данных
@@ -546,7 +550,13 @@ class StateTransitionDiagramsController extends Controller
             $response->format = Response::FORMAT_JSON;
 
             $model = TransitionProperty::find()->where(['id' => Yii::$app->request->post('transition_property_id_on_click')])->one();
+            $transition_id = $model->transition;
             $model -> delete();
+
+            //поиск количества свойст у выбранного состояния
+            $transition_property_count = TransitionProperty::find()->where(['transition' => $transition_id])->count();
+            $data["transition_property_count"] = $transition_property_count;
+            $data["transition_id"] = $transition_id;
 
             $data["success"] = true;
 

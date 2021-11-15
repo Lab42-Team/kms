@@ -815,7 +815,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     }
                 ?>
                 <?php if ($line == true){ ?>
-                    <div id="state_line_<?= $state->id ?>" class="state-property-top"></div>
+                    <div id="state_line_<?= $state->id ?>" class="div-line"></div>
                 <?php } ?>
 
                 <!-- отображение свойств состояний -->
@@ -845,15 +845,28 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     <div id="transition_add_property_<?= $transition->id ?>" class="add-transition-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
                 </div>
 
+                <!-- отображение разделительной пунктирной линии -->
+                <?php
+                    $line = false;
+                    foreach ($transitions_property_model_all as $transition_property){
+                        if ($transition_property->transition == $transition->id){
+                            $line = true;
+                        }
+                    }
+                ?>
+                <?php if ($line == true){ ?>
+                    <div id="transition_line_<?= $transition->id ?>" class="div-line"></div>
+                <?php } ?>
+
                 <!-- отображение условий -->
                 <?php foreach ($transitions_property_model_all as $transition_property): ?>
                     <?php if ($transition_property->transition == $transition->id){ ?>
                         <div id="transition_property_<?= $transition_property->id ?>" class="div-transition-property">
-                            <?= $transition_property->name ?> <?= $transition_property->getOperatorName()?> <?= $transition_property->value ?>
                             <div class="button-transition-property">
                                 <div id="transition_property_edit_<?= $transition_property->id ?>" class="edit-transition-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                 <div id="transition_property_del_<?= $transition_property->id ?>" class="del-transition-property glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
                             </div>
+                            <?= $transition_property->name ?> <?= $transition_property->getOperatorName()?> <?= $transition_property->value ?>
                         </div>
                     <?php } ?>
                 <?php endforeach; ?>

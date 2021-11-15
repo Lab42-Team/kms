@@ -37,8 +37,17 @@ use app\modules\stde\models\TransitionProperty;
                         // Скрывание модального окна
                         $("#addTransitionPropertyModalForm").modal("hide");
 
-                        //создание div свойства состояния
+                        //создание div условия
                         var div_transition = document.getElementById('transition_' + transition_id_on_click);
+
+                        //если свойство состояния первое
+                        if (data['transition_property_count'] == 0){
+                            //добавляем div разделительной линии
+                            var div_line = document.createElement('div');
+                            div_line.id = 'transition_line_' + transition_id_on_click;
+                            div_line.className = 'div-line';
+                            div_transition.append(div_line);
+                        }
 
                         var div_property = document.createElement('div');
                         div_property.id = 'transition_property_' + data['id'];
@@ -48,7 +57,7 @@ use app\modules\stde\models\TransitionProperty;
 
                         var div_button_property = document.createElement('div');
                         div_button_property.className = 'button-transition-property';
-                        div_property.append(div_button_property);
+                        div_property.prepend(div_button_property);
 
                         var div_edit_property = document.createElement('div');
                         div_edit_property.id = 'transition_property_edit_' + data['id'];
@@ -62,8 +71,7 @@ use app\modules\stde\models\TransitionProperty;
                         div_del_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
                         div_button_property.append(div_del_property);
 
-
-                        //добавлены новые записи в массив свойств состояний для изменений
+                        //добавлены новые записи в массив условия для изменений
                         var id = data['id'];
                         var name = data['name'];
                         var description = data['description'];
@@ -164,13 +172,13 @@ use app\modules\stde\models\TransitionProperty;
                         // Скрывание модального окна
                         $("#editTransitionPropertyModalForm").modal("hide");
 
-                        //изменение div свойства состояния
+                        //изменение div условия
                         var div_transition_property = document.getElementById('transition_property_' + transition_property_id_on_click);
                         div_transition_property.innerHTML = data['name'] + " " + data['operator_name'] + " " + data['value'];
 
                         var div_button_transition_property = document.createElement('div');
                         div_button_transition_property.className = 'button-transition-property';
-                        div_transition_property.append(div_button_transition_property);
+                        div_transition_property.prepend(div_button_transition_property);
 
                         var div_edit_transition_property = document.createElement('div');
                         div_edit_transition_property.id = 'transition_property_edit_' + data['id'];
@@ -184,7 +192,7 @@ use app\modules\stde\models\TransitionProperty;
                         div_del_transition_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
                         div_button_transition_property.append(div_del_transition_property);
 
-                        //изменена запись в массиве свойств состояний
+                        //изменена запись в массиве условия
                         $.each(mas_data_transition_property, function (i, elem) {
                             if (elem.id == data['id']){
                                 mas_data_transition_property[i].name = data['name'];
@@ -276,11 +284,18 @@ use app\modules\stde\models\TransitionProperty;
                     if (data['success']) {
                         $("#deleteTransitionPropertyModalForm").modal("hide");
 
-                        //удаление div свойства состояния
+                        //если условия больше нет
+                        if (data['transition_property_count'] == 0){
+                            //удаление div линии
+                            var div_line = document.getElementById('transition_line_' + data['transition_id']);
+                            div_line.remove(); // удаляем
+                        }
+
+                        //удаление div условия
                         var div_transition_property = document.getElementById('transition_property_' + transition_property_id_on_click);
                         div_transition_property.remove(); // удаляем
 
-                        //удалена запись в массиве свойств состояний
+                        //удалена запись в массиве условий
                         var temporary_mas_data_transition_property = {};
                         var q = 0;
                         $.each(mas_data_transition_property, function (i, elem) {

@@ -95,6 +95,11 @@ use app\modules\stde\models\TransitionProperty;
                         div_add_property.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>';
                         div_content_transition.append(div_add_property);
 
+                        //добавляем div разделительной линии
+                        var div_line = document.createElement('div');
+                        div_line.id = 'transition_line_' + data['id'];
+                        div_line.className = 'div-line';
+                        div_transition.append(div_line);
 
                         var div_transition_property_name = document.createElement('div');
                         div_transition_property_name.id = 'transition_property_' + data['id_property'];
@@ -104,7 +109,7 @@ use app\modules\stde\models\TransitionProperty;
 
                         var div_button_transition_property = document.createElement('div');
                         div_button_transition_property.className = 'button-transition-property';
-                        div_transition_property_name.append(div_button_transition_property);
+                        div_transition_property_name.prepend(div_button_transition_property);
 
                         var div_edit_transition_property = document.createElement('div');
                         div_edit_transition_property.id = 'transition_property_edit_' + data['id_property'];
