@@ -46,6 +46,8 @@
 }
 
 .div-state-name {
+    padding-left: 8px;
+    padding-right: 8px;
     font-weight: bold;
     /* текст по центру*/
     position: relative;
@@ -218,6 +220,8 @@
 }
 
 .div-transition-name {
+    padding-left: 8px;
+    padding-right: 8px;
     font-weight: bold;
     /* текст по центру*/
     position: relative;
