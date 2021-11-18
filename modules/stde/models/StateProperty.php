@@ -48,6 +48,11 @@ class StateProperty extends \yii\db\ActiveRecord
             [['operator', 'state'], 'integer'],
             [['name', 'value'], 'string', 'max' => 255],
             [['description'], 'string'],
+
+            // name, operator, value и state вместе должны быть уникальны, но только name будет получать сообщение об ошибке
+            ['name', 'unique', 'targetAttribute' => ['name', 'operator', 'value', 'state'],
+                'message' => Yii::t('app', 'MESSAGE_STATE_PROPERTY_ALREADY_IN_STATE')],
+
             [['state'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(),
                 'targetAttribute' => ['state' => 'id']],
         ];

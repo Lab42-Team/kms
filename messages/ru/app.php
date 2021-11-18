@@ -420,6 +420,7 @@ return [
     'MESSAGE_LEVEL_NAME_ALREADY_ON_DIAGRAM' => 'Уровень с таким названием уже есть на диаграмме',
 
     /* Техсты сообщений модальных форм STDE*/
+    'MESSAGE_STATE_PROPERTY_ALREADY_IN_STATE' => 'Свойство с таким названием, оператором и значением уже есть у состояния',
     'MESSAGE_TRANSITION_PROPERTY_ALREADY_IN_TRANSITION' => 'Условие с таким названием, оператором и значением уже есть у перехода',
 
     /* Текст */
