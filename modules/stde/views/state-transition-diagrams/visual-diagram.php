@@ -16,6 +16,11 @@ $this->params['menu_add'] = [
 ];
 
 $this->params['menu_diagram'] = [
+    ['label' => '<span class="glyphicon glyphicon-import"></span> ' . Yii::t('app', 'NAV_IMPORT'),
+        'url' => Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .'/state-transition-diagrams/import/'. $model->id],
+
+    ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_EXPORT'),
+        'url' => '#', 'linkOptions' => ['data-method' => 'post']],
 ];
 ?>
 

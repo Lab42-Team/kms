@@ -12,6 +12,7 @@ use app\modules\stde\models\State;
 use app\modules\stde\models\StateProperty;
 use app\modules\stde\models\Transition;
 use app\modules\stde\models\TransitionProperty;
+use app\components\StateTransitionXMLGenerator;
 
 /**
  * StateTransitionDiagramsController implements the CRUD actions for State Transition Diagram model.
@@ -67,6 +68,11 @@ class StateTransitionDiagramsController extends Controller
             }
         }
 
+        //экспорт диаграммы
+        if (Yii::$app->request->isPost) {
+            $code_generator = new StateTransitionXMLGenerator();
+            $code_generator->generateSTDXMLCode($id);
+        }
 
         return $this->render('visual-diagram', [
             'model' => $this->findModel($id),

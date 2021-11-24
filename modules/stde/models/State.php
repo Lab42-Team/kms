@@ -131,4 +131,27 @@ class State extends \yii\db\ActiveRecord
     {
         return ArrayHelper::getValue(self::getTypesArray(), $this->type);
     }
+
+    /**
+     * Получение списка типов состояний на английском.
+     *
+     * @return array - массив всех возможных типов диаграмм на английском
+     */
+    public static function getTypesArrayEn()
+    {
+        return [
+            self::INITIAL_STATE_TYPE => 'Initial state',
+            self::COMMON_STATE_TYPE => 'State',
+        ];
+    }
+
+    /**
+     * Получение названия типа состояний на английском.
+     *
+     * @return mixed
+     */
+    public function getTypeNameEn()
+    {
+        return ArrayHelper::getValue(self::getTypesArrayEn(), $this->type);
+    }
 }

@@ -51,7 +51,7 @@ $config = [
                 '/tree-diagrams/<_eet:(view|update|delete|visual-diagram|add-level|add-event|add-mechanism|delete-level|correctness|creation-template|import|move-level|upload-ontology|convert-ontology)>/<id:\d+>' =>
                     'eete/tree-diagrams/<_eet>',
 
-                '/state-transition-diagrams/<_std:(visual-diagram|add-state)>/<id:\d+>' =>
+                '/state-transition-diagrams/<_std:(visual-diagram|add-state|import)>/<id:\d+>' =>
                     'stde/state-transition-diagrams/<_std>',
                 '/state-transition-diagrams/<_std:(edit-state|delete-state|add-state-property|edit-state-property|delete-state-property|add-transition|edit-transition|delete-transition|add-transition-property|edit-transition-property|delete-transition-property|save-indent)>' =>
                     'stde/state-transition-diagrams/<_std>',
