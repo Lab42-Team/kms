@@ -42,8 +42,7 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
             ['import', 'id' => $model->id], ['class' => 'btn btn-primary']
         ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-export"></span> ' .
-            Yii::t('app', 'BUTTON_EXPORT'),
-            ['visual-diagram', 'id' => $model->id],
+            Yii::t('app', 'BUTTON_EXPORT'), $url,
             ['data' => ['method' => 'post'], 'class' => 'btn btn-primary']
         ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-download-alt"></span> ' .

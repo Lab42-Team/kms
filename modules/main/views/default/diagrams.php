@@ -102,8 +102,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'export' => function ($url, $model, $key) {
+                        $url = '#';
+                        $tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
+                        if (!empty($tree_diagram))
+                            $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
+                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
+                            $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
                         return Html::a('<span class="glyphicon glyphicon-export"></span>',
-                            ['visual-diagram', 'id' => $model->id],
+                            $url,
                             [
                                 'data' => ['method' => 'post'],
                                 'title' => Yii::t('app', 'BUTTON_EXPORT'),
