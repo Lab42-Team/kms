@@ -25,7 +25,7 @@ use yii\behaviors\TimestampBehavior;
 class Diagram extends \yii\db\ActiveRecord
 {
     const EVENT_TREE_TYPE = 0;               // Тип диаграммы дерево событий
-    const STATE_TRANSITION_DIAGRAM_TYPE = 1; // Тип диаграммы дерево отказов
+    const STATE_TRANSITION_DIAGRAM_TYPE = 1; // Тип диаграммы переходов состояний
 
     const PUBLIC_STATUS = 0;  // Публичный статус
     const PRIVATE_STATUS = 1; // Приватный статус

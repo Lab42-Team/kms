@@ -6,13 +6,16 @@ use Yii;
 use yii\web\Response;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\bootstrap\ActiveForm;
 use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
 use app\modules\stde\models\StateProperty;
 use app\modules\stde\models\Transition;
 use app\modules\stde\models\TransitionProperty;
+use app\modules\stde\models\Import;
 use app\components\StateTransitionXMLGenerator;
+use app\components\StateTransitionXMLImport;
 
 /**
  * StateTransitionDiagramsController implements the CRUD actions for State Transition Diagram model.
@@ -603,6 +606,80 @@ class StateTransitionDiagramsController extends Controller
             return $response;
         }
         return false;
+    }
+
+
+    /**
+     * Импорт диаграммы.
+     *
+     */
+    public function actionImport($id)
+    {
+        $model = $this->findModel($id);
+        $import_model = new Import();
+
+        //вывод сообщения об очистки если диаграмма не пуста
+        $diagram = Diagram::find()->where(['id' => $id])->one();
+
+        $count = State::find()->where(['diagram' => $id])->count();
+        if ($count > 0){
+            Yii::$app->getSession()->setFlash('warning',
+                Yii::t('app', 'MESSAGE_CLEANING'));
+        }
+
+
+        if (Yii::$app->request->isPost) {
+            $import_model->file_name = UploadedFile::getInstance($import_model, 'file_name');
+
+            if ($import_model->upload()) {
+
+                $file = simplexml_load_file('uploads/temp.xml');
+
+                //определение корректности файла по наличию в нем State (состояний)
+                $i = 0;
+                foreach($file->State as $state) {
+                    $i = $i + 1;
+                }
+                if ($i > 0){
+                    $type = Diagram::STATE_TRANSITION_DIAGRAM_TYPE;
+                } else {
+                    $type = -1;
+                }
+
+                //если тип диаграммы совпадает с типом диаграммы в файле
+                if ($diagram->type == $type) {
+                    //импорт xml файла
+                    $generator = new StateTransitionXMLImport();
+                    $generator->importXMLCode($id, $file);
+
+                    //удаление файла
+                    unlink('uploads/temp.xml');
+
+                    Yii::$app->getSession()->setFlash('success',
+                        Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM'));
+
+                    return $this->render('@app/modules/main/views/default/view', [
+                        'model' => $this->findModel($id),
+                    ]);
+
+                    //return $this->redirect(['/main/state-transition-diagrams/visual-diagram/']);
+                    //return $this->redirect(['view', 'model' => $this->findModel($id)]);
+                } else {
+                    Yii::$app->getSession()->setFlash('error',
+                        Yii::t('app', 'MESSAGE_IMPORT_ERROR_INCOMPATIBLE_MODE'));
+
+                    return $this->render('import', [
+                        'model' => $model,
+                        'import_model' => $import_model,
+                    ]);
+                }
+            }
+        }
+
+        return $this->render('import', [
+            'model' => $model,
+            'import_model' => $import_model,
+        ]);
     }
 
 }

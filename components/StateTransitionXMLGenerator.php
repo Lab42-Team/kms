@@ -103,8 +103,8 @@ class StateTransitionXMLGenerator
                 $transition_element = $xml->createElement('Transition');
                 $transition_element->setAttribute('id', $t_elem->id);
                 $transition_element->setAttribute('name', $t_elem->name);
-                $transition_element->setAttribute('left-state-id', $t_elem->state_from);
-                $transition_element->setAttribute('right-state-id', $t_elem->state_to);
+                $transition_element->setAttribute('state-from', $t_elem->state_from);
+                $transition_element->setAttribute('state-to', $t_elem->state_to);
                 $transition_element->setAttribute('description', $t_elem->description);
                 $diagram_element->appendChild($transition_element);
 
@@ -112,7 +112,6 @@ class StateTransitionXMLGenerator
                 self::drawingTransitionProperty($xml, $t_elem->id, $transition_element);
             }
         }
-
 
         // Сохранение RDF-файла
         $xml->formatOutput = true;
