@@ -2,11 +2,24 @@
 
 return [
     /* Текст на главной странице */
-    'WELCOME_TO_EETE' => 'Welcome to Extended Event Tree Editor!',
-    'EETE_NAME' => 'Extended Event Tree Editor (EETE)',
-    'EETE_DEFINITION' => 'is a web-based tool for building advanced Event Tree diagrams.',
-    'EVENT_TREE_DEFINITION' => 'Event tree is an algorithm for considering events originating from the main event (emergency). Event tree is used to determine and analyze the sequence (options) of accident development including complex interactions between technical safety systems. Crisp logic is used in its construction. In the general case, this method can also be used to analyze failures, accidents and emergencies, where the initial state is considered as the main event, i.e. the state of technical object at the time of the start of its operation.',
+    'WELCOME_TO_KMS' => 'Welcome to Knowledge Modeling System!',
+    'KMS_NAME' => 'Knowledge Modeling System (KMS)',
+    'KMS_DEFINITION' => 'is a web-based service that offers the possibility of visual modeling of subject knowledge.',
+    'DIAGRAM_TYPES' => 'Visual modeling of knowledge can be carried out using:',
+    'FIRST_TYPE' => 'classical and extended event and fault trees',
+    'SECOND_TYPE' => 'state transition diagrams',
+
+    'EVENT_TREE_NAME' => 'Event Tree (ET)',
+    'EVENT_TREE_DEFINITION' => 'is an algorithm for considering events originating from the main event (emergency). Event tree is used to determine and analyze the sequence (options) of accident development including complex interactions between technical safety systems. Crisp logic is used in its construction. In the general case, this method can also be used to analyze failures, accidents and emergencies, where the initial state is considered as the main event, i.e. the state of technical object at the time of the start of its operation.',
     'ADVANCED_EVENT_TREE_DEFINITION' => 'We have proposed to expand the existing model of event trees and the visual notation of their presentation in order to obtain more complete information about the investigated processes of development of failures and accidents. In particular, based on the results of the system analysis of the problem of studying the dynamics of the technical state of a mechanical system, the stages of development of the indicated processes (submicrolevel, microlevel, mesolevel, macrolevel) and the elements of their description (mechanism and kinetics) are identified. In turn, kinetics, considered as a sequence of events, should be detailed by describing the parameters (characteristics) of events. As a result, a tree template was obtained in a generalized form that describes the stages, the sequence of events (kinetics) and the mechanisms of their occurrence.',
+    'EVENT_TREE_CREATION' => 'Classic and extended event tree diagrams are design to',
+    'EET_EDITOR' => 'Extended Event Tree Editor (EETE)',
+
+    'STATE_TRANSITION_DIAGRAM_NAME' => 'State Transition Diagram (STD)',
+    'STATE_TRANSITION_DIAGRAM_DEFINITION' => 'is a graphical representation of a finite state machine represented in the form of a graph. This graph describes the states of the object and their changes, which together characterize its behavior. The main difference from the previous model is the ability to create loops.',
+    'STATE_TRANSITION_DIAGRAM_CREATION' => 'State transition diagrams are design to',
+    'STD_EDITOR' => 'State Transition Diagram Editor (STDE)',
+
     'YOU_CAN_SEE_THE_CREATED' => 'You can see the created ',
     'DIAGRAMS' => 'diagrams',
     'WARNING_FOR_DIAGRAM_CREATION' => 'Building diagrams is available only to authorized users!',
