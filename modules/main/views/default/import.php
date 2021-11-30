@@ -10,19 +10,19 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'DIAGRAMS_PAGE_DIAGRA
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="tree-diagram-import">
+<div class="main-import">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin([
-        'id' => 'import-tree-diagram-form', 'options' => ['enctype' => 'multipart/form-data']
+        'id' => 'import-main-form', 'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
     <?= $form->field($import_model, 'file_name')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('<span class="glyphicon glyphicon-floppy-disk"></span> ' . Yii::t('app', 'BUTTON_IMPORT'),
-            ['class' => 'btn btn-success', 'name'=>'import-tree-diagram-button']) ?>
+            ['class' => 'btn btn-success', 'name'=>'import-main-button']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

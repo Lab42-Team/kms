@@ -3,16 +3,20 @@
 namespace app\modules\main\controllers;
 
 use app\modules\eete\models\TreeDiagram;
-use app\modules\main\models\Diagram;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use app\modules\main\models\LoginForm;
 use app\modules\main\models\ContactForm;
 use app\modules\main\models\DiagramSearch;
+use app\modules\main\models\Diagram;
+use app\modules\main\models\Import;
+use app\modules\stde\models\State;
+use app\components\StateTransitionXMLImport;
 
 class DefaultController extends Controller
 {
@@ -242,4 +246,75 @@ class DefaultController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * Импорт диаграммы.
+     *
+     */
+    public function actionImport($id)
+    {
+        $model = $this->findModel($id);
+        $import_model = new Import();
+
+        //вывод сообщения об очистки если диаграмма не пуста
+        $diagram = Diagram::find()->where(['id' => $id])->one();
+
+        $count = State::find()->where(['diagram' => $id])->count();
+        if ($count > 0){
+            Yii::$app->getSession()->setFlash('warning',
+                Yii::t('app', 'MESSAGE_CLEANING'));
+        }
+
+        //обработка импорта
+        if (Yii::$app->request->isPost) {
+            $import_model->file_name = UploadedFile::getInstance($import_model, 'file_name');
+
+            if ($import_model->upload()) {
+
+                $file = simplexml_load_file('uploads/temp.xml');
+
+                //определение корректности файла по наличию в нем State (состояний)
+                $i = 0;
+                foreach($file->State as $state) {
+                    $i = $i + 1;
+                }
+                if ($i > 0){
+                    $type = Diagram::STATE_TRANSITION_DIAGRAM_TYPE;
+                } else {
+                    $type = -1;
+                }
+
+                //если тип диаграммы совпадает с типом диаграммы в файле
+                if ($diagram->type == $type) {
+                    //импорт xml файла
+                    $generator = new StateTransitionXMLImport();
+                    $generator->importXMLCode($id, $file);
+
+                    //удаление файла
+                    unlink('uploads/temp.xml');
+
+                    Yii::$app->getSession()->setFlash('success',
+                        Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM'));
+
+                    return $this->render('view', [
+                        'model' => $this->findModel($id),
+                    ]);
+                } else {
+                    Yii::$app->getSession()->setFlash('error',
+                        Yii::t('app', 'MESSAGE_IMPORT_ERROR_INCOMPATIBLE_MODE'));
+
+                    return $this->render('import', [
+                        'model' => $model,
+                        'import_model' => $import_model,
+                    ]);
+                }
+            }
+        }
+
+        return $this->render('import', [
+            'model' => $model,
+            'import_model' => $import_model,
+        ]);
+    }
+
 }

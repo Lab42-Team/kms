@@ -45,13 +45,12 @@ $config = [
                 'contact' => 'main/default/contact',
                 'sing-in' => 'main/default/sing-in',
                 '<_dgm:(diagrams|create)>' => 'main/default/<_dgm>',
-                '<_dgm:(view|update|delete)>/<id:\d+>' => 'main/default/<_dgm>',
+                '<_dgm:(view|update|delete|import)>/<id:\d+>' => 'main/default/<_dgm>',
                 '/tree-diagrams/<_eet:(index|create|edit-level|edit-event|edit-mechanism|delete-event|delete-mechanism|add-relationship|delete-relationship|add-parameter|edit-parameter|delete-parameter|add-event-comment|edit-event-comment|delete-event-comment|add-level-comment|edit-level-comment|delete-level-comment|save-indent)>' =>
                     'eete/tree-diagrams/<_eet>',
                 '/tree-diagrams/<_eet:(view|update|delete|visual-diagram|add-level|add-event|add-mechanism|delete-level|correctness|creation-template|import|move-level|upload-ontology|convert-ontology)>/<id:\d+>' =>
                     'eete/tree-diagrams/<_eet>',
-
-                '/state-transition-diagrams/<_std:(visual-diagram|add-state|import)>/<id:\d+>' =>
+                '/state-transition-diagrams/<_std:(visual-diagram|add-state)>/<id:\d+>' =>
                     'stde/state-transition-diagrams/<_std>',
                 '/state-transition-diagrams/<_std:(edit-state|delete-state|add-state-property|edit-state-property|delete-state-property|add-transition|edit-transition|delete-transition|add-transition-property|edit-transition-property|delete-transition-property|save-indent)>' =>
                     'stde/state-transition-diagrams/<_std>',

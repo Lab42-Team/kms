@@ -21,13 +21,6 @@ if (!empty($tree_diagram))
     $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
 if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
     $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
-
-$url_import = '#';
-$tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
-if (!empty($tree_diagram))
-$url_import = ['/eete/tree-diagrams/import/', 'id' => $tree_diagram->id];
-if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
-$url_import = ['/stde/state-transition-diagrams/import/', 'id' => $model->id];
 ?>
 
 <?= $this->render('_modal_form_diagrams', ['model' => $model]); ?>
@@ -45,7 +38,7 @@ $url_import = ['/stde/state-transition-diagrams/import/', 'id' => $model->id];
             ['update', 'id' => $model->id], ['class' => 'btn btn-primary']
         ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-import"></span> ' .
-            Yii::t('app', 'BUTTON_IMPORT'), $url_import, ['class' => 'btn btn-primary']
+            Yii::t('app', 'BUTTON_IMPORT'), ['import', 'id' => $model->id], ['class' => 'btn btn-primary']
         ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-export"></span> ' .
             Yii::t('app', 'BUTTON_EXPORT'), $url,

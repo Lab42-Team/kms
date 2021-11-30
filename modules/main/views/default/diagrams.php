@@ -93,14 +93,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'import' => function ($url, $model, $key) {
-                        $url = '#';
-                        $tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
-                        if (!empty($tree_diagram))
-                            $url = ['/eete/tree-diagrams/import/', 'id' => $tree_diagram->id];
-                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
-                            $url = ['/stde/state-transition-diagrams/import/', 'id' => $model->id];
                         return Html::a('<span class="glyphicon glyphicon-import"></span>',
-                            $url,
+                            ['import', 'id' => $model->id],
                             [
                                 'title' => Yii::t('app', 'BUTTON_IMPORT'),
                                 'aria-label' => Yii::t('app', 'BUTTON_IMPORT')
