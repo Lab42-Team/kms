@@ -46,9 +46,9 @@ $config = [
                 'sing-in' => 'main/default/sing-in',
                 '<_dgm:(diagrams|create)>' => 'main/default/<_dgm>',
                 '<_dgm:(view|update|delete|import)>/<id:\d+>' => 'main/default/<_dgm>',
-                '/tree-diagrams/<_eet:(index|create|edit-level|edit-event|edit-mechanism|delete-event|delete-mechanism|add-relationship|delete-relationship|add-parameter|edit-parameter|delete-parameter|add-event-comment|edit-event-comment|delete-event-comment|add-level-comment|edit-level-comment|delete-level-comment|save-indent)>' =>
+                '/tree-diagrams/<_eet:(edit-level|edit-event|edit-mechanism|delete-event|delete-mechanism|add-relationship|delete-relationship|add-parameter|edit-parameter|delete-parameter|add-event-comment|edit-event-comment|delete-event-comment|add-level-comment|edit-level-comment|delete-level-comment|save-indent)>' =>
                     'eete/tree-diagrams/<_eet>',
-                '/tree-diagrams/<_eet:(view|update|delete|visual-diagram|add-level|add-event|add-mechanism|delete-level|correctness|creation-template|import|move-level|upload-ontology|convert-ontology)>/<id:\d+>' =>
+                '/tree-diagrams/<_eet:(visual-diagram|add-level|add-event|add-mechanism|delete-level|correctness|creation-template|move-level|upload-ontology|convert-ontology)>/<id:\d+>' =>
                     'eete/tree-diagrams/<_eet>',
                 '/state-transition-diagrams/<_std:(visual-diagram|add-state)>/<id:\d+>' =>
                     'stde/state-transition-diagrams/<_std>',

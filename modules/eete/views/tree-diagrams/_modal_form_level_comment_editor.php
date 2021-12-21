@@ -5,8 +5,8 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use app\modules\main\models\Lang;
 
-/* @var $node_model app\modules\editor\models\Level */
-/* @var $array_levels app\modules\editor\controllers\TreeDiagramsController */
+/* @var $node_model app\modules\eete\models\Level */
+/* @var $array_levels app\modules\eete\controllers\TreeDiagramsController */
 
 ?>
 

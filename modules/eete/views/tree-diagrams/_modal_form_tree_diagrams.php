@@ -1,6 +1,6 @@
 <?php
 
-/* @var $model app\modules\editor\models\TreeDiagram */
+/* @var $model app\modules\eete\models\TreeDiagram */
 
 use yii\helpers\Html;
 use yii\bootstrap\Modal;

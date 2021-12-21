@@ -4,11 +4,12 @@ namespace app\commands;
 
 use yii\helpers\Console;
 use yii\console\Controller;
-use app\modules\editor\models\TreeDiagram;
-use app\modules\editor\models\Level;
-use app\modules\editor\models\Node;
-use app\modules\editor\models\Sequence;
-use app\modules\editor\models\Parameter;
+use app\modules\main\models\Diagram;
+use app\modules\eete\models\TreeDiagram;
+use app\modules\eete\models\Level;
+use app\modules\eete\models\Node;
+use app\modules\eete\models\Sequence;
+use app\modules\eete\models\Parameter;
 use app\modules\main\models\User;
 
 
@@ -30,16 +31,20 @@ class EventTreesController extends Controller
         $user = User::find()->where(['username' => 'admin'])->one();
         if ($user != null){
             //Элемент "деталь" из блока надежность
-            $tree_diagram = new TreeDiagram();
-            if ($tree_diagram->find()->where(['name' => 'Элемент "деталь" из блока надежность'])->count() == 0) {
+            $diagram = new Diagram();
+            if ($diagram->find()->where(['name' => 'Элемент "деталь" из блока надежность'])->count() == 0) {
+                $diagram = new Diagram();
+                $diagram->name = 'Элемент "деталь" из блока надежность';
+                $diagram->description = 'Элемент "деталь" из блока надежность';
+                $diagram->type = Diagram::EVENT_TREE_TYPE;
+                $diagram->status = Diagram::PUBLIC_STATUS;
+                $diagram->author = $user->id;
+                $diagram->correctness = Diagram::NOT_CHECKED_CORRECT;
+                $this->log($diagram->save());
+
                 $tree_diagram = new TreeDiagram();
-                $tree_diagram->name = 'Элемент "деталь" из блока надежность';
-                $tree_diagram->description = 'Элемент "деталь" из блока надежность';
-                $tree_diagram->type = TreeDiagram::EVENT_TREE_TYPE;
-                $tree_diagram->status = TreeDiagram::PUBLIC_STATUS;
-                $tree_diagram->author = $user->id;
+                $tree_diagram->diagram = $diagram->id;
                 $tree_diagram->mode = TreeDiagram::CLASSIC_TREE_MODE;
-                $tree_diagram->correctness = TreeDiagram::NOT_CHECKED_CORRECT;
                 $tree_diagram->tree_view = TreeDiagram::ORDINARY_TREE_VIEW;
                 $this->log($tree_diagram->save());
 
@@ -367,19 +372,22 @@ class EventTreesController extends Controller
 
 
             //Последствия в результате разрушения емкости
-            $tree_diagram = new TreeDiagram();
-            if ($tree_diagram->find()->where(['name' => 'Последствия в результате разрушения емкости'])->count() == 0) {
+            $diagram = new Diagram();
+            if ($diagram->find()->where(['name' => 'Последствия в результате разрушения емкости'])->count() == 0) {
+                $diagram = new Diagram();
+                $diagram->name = 'Последствия в результате разрушения емкости';
+                $diagram->description = 'Последствия в результате разрушения емкости «16/1 цеха 71-75»';
+                $diagram->type = Diagram::EVENT_TREE_TYPE;
+                $diagram->status = Diagram::PUBLIC_STATUS;
+                $diagram->author = $user->id;
+                $diagram->correctness = Diagram::NOT_CHECKED_CORRECT;
+                $this->log($diagram->save());
+
                 $tree_diagram = new TreeDiagram();
-                $tree_diagram->name = 'Последствия в результате разрушения емкости';
-                $tree_diagram->description = 'Последствия в результате разрушения емкости «16/1 цеха 71-75»';
-                $tree_diagram->type = TreeDiagram::EVENT_TREE_TYPE;
-                $tree_diagram->status = TreeDiagram::PUBLIC_STATUS;
-                $tree_diagram->author = $user->id;
+                $tree_diagram->diagram = $diagram->id;
                 $tree_diagram->mode = TreeDiagram::EXTENDED_TREE_MODE;
-                $tree_diagram->correctness = TreeDiagram::NOT_CHECKED_CORRECT;
                 $tree_diagram->tree_view = TreeDiagram::ORDINARY_TREE_VIEW;
                 $this->log($tree_diagram->save());
-
 
                 //первый уровень
                 $level = new Level();
@@ -652,19 +660,22 @@ class EventTreesController extends Controller
 
 
             //Тестовая
-            $tree_diagram = new TreeDiagram();
-            if ($tree_diagram->find()->where(['name' => 'Тестовая'])->count() == 0) {
+            $diagram = new Diagram();
+            if ($diagram->find()->where(['name' => 'Тестовая'])->count() == 0) {
+                $diagram = new Diagram();
+                $diagram->name = 'Тестовая';
+                $diagram->description = 'Тестовая диаграмма';
+                $diagram->type = Diagram::EVENT_TREE_TYPE;
+                $diagram->status = Diagram::PUBLIC_STATUS;
+                $diagram->author = $user->id;
+                $diagram->correctness = Diagram::NOT_CHECKED_CORRECT;
+                $this->log($diagram->save());
+
                 $tree_diagram = new TreeDiagram();
-                $tree_diagram->name = 'Тестовая';
-                $tree_diagram->description = 'Тестовая диаграмма';
-                $tree_diagram->type = TreeDiagram::EVENT_TREE_TYPE;
-                $tree_diagram->status = TreeDiagram::PUBLIC_STATUS;
-                $tree_diagram->author = $user->id;
+                $tree_diagram->diagram = $diagram->id;
                 $tree_diagram->mode = TreeDiagram::EXTENDED_TREE_MODE;
-                $tree_diagram->correctness = TreeDiagram::NOT_CHECKED_CORRECT;
                 $tree_diagram->tree_view = TreeDiagram::ORDINARY_TREE_VIEW;
                 $this->log($tree_diagram->save());
-
 
                 //первый уровень
                 $level = new Level();

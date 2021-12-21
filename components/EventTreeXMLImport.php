@@ -2,11 +2,13 @@
 
 namespace app\components;
 
-use app\modules\editor\models\Level;
-use app\modules\editor\models\Node;
-use app\modules\editor\models\Sequence;
-use app\modules\editor\models\Parameter;
-use app\modules\editor\models\TreeDiagram;
+use app\modules\main\models\Diagram;
+use app\modules\eete\models\Level;
+use app\modules\eete\models\Node;
+use app\modules\eete\models\Sequence;
+use app\modules\eete\models\Parameter;
+use app\modules\eete\models\TreeDiagram;
+
 
 /**
  * Class EventTreeXMLImport - Класс реализующий импорт деревьев событий в формате XML (EETD).
@@ -52,12 +54,13 @@ class EventTreeXMLImport
 
                     // Ннахождение parent_node из таблицы $array_nodes если родитель не определен,
                     // но присутствует значение parent_node в xml
-                    if ($node_id == null && (integer)$child['parent_node'] <> 0)
+                    if ($node_id == null && (integer)$child['parent_node'] <> 0){
                         for ($i = 0; $i < self::$j; $i++)
-                             if ((integer)$child['parent_node'] == self::$array_nodes[$i]['node_template'])
-                                 $node_model->parent_node = self::$array_nodes[$i]['node'];
-                    else
+                            if ((integer)$child['parent_node'] == self::$array_nodes[$i]['node_template'])
+                                $node_model->parent_node = self::$array_nodes[$i]['node'];
+                    } else {
                         $node_model->parent_node = $node_id;
+                    }
                     $node_model->tree_diagram = $tree_diagram_id;
                     $node_model->level_id = $level_id;
                     $node_model->save();
@@ -141,8 +144,9 @@ class EventTreeXMLImport
         self::$j = 0;
 
         $tree_diagram_model = TreeDiagram::find()->where(['id' => $id])->one();
-        $tree_diagram_model->description = (string)$file['description'];
-        $tree_diagram_model->save();
+        $diagram_model = Diagram::find()->where(['id' => $tree_diagram_model->diagram])->one();
+        $diagram_model->description = (string)$file['description'];
+        $diagram_model->save();
 
         $parent_level = null;
         foreach($file->Level as $level) {

@@ -22,7 +22,7 @@ use yii\widgets\Pjax;
 use app\modules\main\models\Lang;
 use app\modules\eete\models\TreeDiagram;
 
-$this->title = Yii::t('app', 'TREE_DIAGRAMS_PAGE_VISUAL_DIAGRAM') . ' - ' . $model->name;
+$this->title = Yii::t('app', 'DIAGRAMS_PAGE_VISUAL_DIAGRAM') . ' - ' . $model->name;
 
 $this->params['menu_add'] = [
     ['label' => Yii::t('app', 'NAV_ADD_LEVEL'), 'url' => '#',
@@ -38,7 +38,7 @@ $this->params['menu_add'] = [
 
 $this->params['menu_diagram'] = [
     ['label' => '<span class="glyphicon glyphicon-import"></span> ' . Yii::t('app', 'NAV_IMPORT'),
-        'url' => Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .'/tree-diagrams/import/'. $model->id],
+        'url' => Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .'/import/'. $model->id],
 
     ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_EXPORT'),
         'url' => '#', 'linkOptions' => ['data-method' => 'post']],
@@ -95,6 +95,7 @@ foreach ($initial_event_model_all as $i){
 
 <?= $this->render('_modal_form_level_editor', [
     'model' => $model,
+    'model_tree_diagram' => $model_tree_diagram,
     'level_model' => $level_model,
     'array_levels' => $array_levels,
 ]) ?>
@@ -106,6 +107,7 @@ foreach ($initial_event_model_all as $i){
 
 <?= $this->render('_modal_form_event_editor', [
     'model' => $model,
+    'model_tree_diagram' => $model_tree_diagram,
     'node_model' => $node_model,
     'array_levels' => $array_levels,
     'array_levels_initial_without' => $array_levels_initial_without,
@@ -114,6 +116,7 @@ foreach ($initial_event_model_all as $i){
 
 <?= $this->render('_modal_form_mechanism_editor', [
     'model' => $model,
+    'model_tree_diagram' => $model_tree_diagram,
     'node_model' => $node_model,
     'array_levels_initial_without' => $array_levels_initial_without,
 ]) ?>
@@ -151,7 +154,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     $(document).ready(function() {
 
         //скрывание наименование уровня при классическом режиме построения деревьев событий
-        if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model->mode ?>){
+        if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model_tree_diagram->mode ?>){
             var div_level = document.getElementsByClassName("div-level-name");
             $.each(div_level, function (i, level) {
                 level.hidden = true;
@@ -164,7 +167,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var nav_add_mechanism = document.getElementById('nav_add_mechanism');
 
             // Включение переходов на модальные окна
-            if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> != <?= $model->mode ?>){
+            if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> != <?= $model_tree_diagram->mode ?>){
                 nav_add_level.className = 'enabled';
                 nav_add_level.setAttribute("data-target", "#addLevelModalForm");
                 if (('<?php echo $level_model_count; ?>' > 0)&&('<?php echo $the_initial_event_is; ?>' == 0)){
@@ -227,7 +230,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addEventModalForm").on("show.bs.modal", function() {
                 //если начальное событие есть тогда
                 var initial_event = document.getElementsByClassName("div-initial-event");
-                if ((initial_event.length == 0)||(<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model->mode ?>)){
+                if ((initial_event.length == 0)||(<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model_tree_diagram->mode ?>)){
                     //блокировка изменения левела
                     document.forms["add-event-form"].elements["Node[level_id]"].style.display = "none";
                     document.getElementById('add_label_level').style.display = "none";
@@ -940,7 +943,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             alert.style = style = "display:none;";
 
             //если событие инициирующее
-            if ((div_node.getAttribute("class").search("div-initial-event") >= 0) || (<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model->mode ?>)) {
+            if ((div_node.getAttribute("class").search("div-initial-event") >= 0) || (<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model_tree_diagram->mode ?>)) {
                 $.each(mas_data_node, function (i, elem) {
                     if (elem.id == node_id_on_click) {
                         document.forms["edit-event-form"].reset();
@@ -1195,7 +1198,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         $.ajax({
             //переход на экшен левел
             url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
-            '/tree-diagrams/correctness/' . $model->id ?>",
+            '/tree-diagrams/correctness/' . $model_tree_diagram->id ?>",
             type: "post",
             data: "YII_CSRF_TOKEN=<?= Yii::$app->request->csrfToken ?>",
             dataType: "json",

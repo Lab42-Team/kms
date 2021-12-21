@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\bootstrap\ActiveForm;
+use app\modules\main\models\Diagram;
 use app\modules\eete\models\Level;
 use app\modules\eete\models\Node;
 use app\modules\eete\models\Sequence;
@@ -66,37 +67,37 @@ class TreeDiagramsController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
-        if (!Yii::$app->user->isGuest) {
-            $searchModel = new TreeDiagramSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $templates = TreeDiagram::find()->where(['tree_view' => TreeDiagram::TEMPLATE_TREE_VIEW])->all();
+    //public function actionIndex()
+    //{
+    //    if (!Yii::$app->user->isGuest) {
+    //        $searchModel = new TreeDiagramSearch();
+    //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    //        $templates = TreeDiagram::find()->where(['tree_view' => TreeDiagram::TEMPLATE_TREE_VIEW])->all();
 
-            $array_template = array();
-            $i = 0;
-            if ($templates != null){
-                foreach ($templates as $elem){
-                    $array_template[$i]['label'] = $elem->name;
-                    $array_template[$i]['url'] = 'creation-template/' . $elem->id;
-                    $i = $i + 1;
-                }
-            } else {
-                $array_template[0]['label'] = Yii::t('app', 'TEMPLATES_DIAGRAMS_NOT_FOUND');
-                $array_template[0]['url'] = '';
-            }
-        } else {
-            $searchModel = new TreeDiagramSearch();
-            $dataProvider = $searchModel->searchPublic(Yii::$app->request->queryParams);
-            $array_template = array();
-        }
+    //        $array_template = array();
+    //        $i = 0;
+    //        if ($templates != null){
+    //            foreach ($templates as $elem){
+    //                $array_template[$i]['label'] = $elem->name;
+    //                $array_template[$i]['url'] = 'creation-template/' . $elem->id;
+    //                $i = $i + 1;
+    //            }
+    //        } else {
+    //            $array_template[0]['label'] = Yii::t('app', 'TEMPLATES_DIAGRAMS_NOT_FOUND');
+    //            $array_template[0]['url'] = '';
+    //        }
+    //    } else {
+    //        $searchModel = new TreeDiagramSearch();
+    //        $dataProvider = $searchModel->searchPublic(Yii::$app->request->queryParams);
+    //        $array_template = array();
+    //    }
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'array_template' => $array_template,
-        ]);
-    }
+    //    return $this->render('index', [
+    //        'searchModel' => $searchModel,
+    //        'dataProvider' => $dataProvider,
+    //        'array_template' => $array_template,
+    //    ]);
+    //}
 
     /**
      * Displays a single TreeDiagram model.
@@ -105,12 +106,12 @@ class TreeDiagramsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+    //public function actionView($id)
+    //{
+    //    return $this->render('view', [
+    //        'model' => $this->findModel($id),
+    //    ]);
+    //}
 
     /**
      * Creates a new TreeDiagram model.
@@ -118,32 +119,32 @@ class TreeDiagramsController extends Controller
      *
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new TreeDiagram();
-        $model->author = Yii::$app->user->identity->getId();
-        $model->correctness = TreeDiagram::NOT_CHECKED_CORRECT;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success',
-                Yii::t('app', 'TREE_DIAGRAMS_PAGE_MESSAGE_CREATE_TREE_DIAGRAM'));
+    //public function actionCreate()
+    //{
+    //    $model = new TreeDiagram();
+    //    $model->author = Yii::$app->user->identity->getId();
+    //    $model->correctness = TreeDiagram::NOT_CHECKED_CORRECT;
+    //    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //        Yii::$app->getSession()->setFlash('success',
+    //            Yii::t('app', 'TREE_DIAGRAMS_PAGE_MESSAGE_CREATE_TREE_DIAGRAM'));
+    //
+    //            if ($model->mode == TreeDiagram::CLASSIC_TREE_MODE){
+    //                // Создание пустого уровня
+    //                $level = new Level();
+    //                $level->tree_diagram = $model->id;
+    //                $level->name = "Only";
+    //                $level->description = "";
+    //                $level->parent_level = null;
+    //                $level->save();
+    //            }
 
-                if ($model->mode == TreeDiagram::CLASSIC_TREE_MODE){
-                    // Создание пустого уровня
-                    $level = new Level();
-                    $level->tree_diagram = $model->id;
-                    $level->name = "Only";
-                    $level->description = "";
-                    $level->parent_level = null;
-                    $level->save();
-                }
+    //        return $this->redirect(['view', 'id' => $model->id]);
+    //    }
 
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+    //    return $this->render('create', [
+    //        'model' => $model,
+    //    ]);
+    //}
 
     /**
      * Updates an existing TreeDiagram model.
@@ -153,18 +154,18 @@ class TreeDiagramsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    //public function actionUpdate($id)
+    //{
+    //    $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+    //    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //        return $this->redirect(['view', 'id' => $model->id]);
+    //    }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+    //    return $this->render('update', [
+    //        'model' => $model,
+    //    ]);
+    //}
 
     /**
      * Deletes an existing TreeDiagram model.
@@ -176,11 +177,27 @@ class TreeDiagramsController extends Controller
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+    //public function actionDelete($id)
+    //{
+    //    $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+    //    return $this->redirect(['index']);
+    //}
+
+    /**
+     * Finds the Diagram model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     *
+     * @param $id
+     * @return Diagram|null the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        $tree_diagram = TreeDiagram::find()->where(['id' => $id])->one();
+        if (($model = Diagram::findOne($tree_diagram->diagram)) !== null)
+            return $model;
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     /**
@@ -191,14 +208,12 @@ class TreeDiagramsController extends Controller
      * @return TreeDiagram|null the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModelTreeDiagram($id)
     {
         if (($model = TreeDiagram::findOne($id)) !== null)
             return $model;
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 
     /**
      * Страница визуального редактора деревьев.
@@ -243,6 +258,7 @@ class TreeDiagramsController extends Controller
 
         return $this->render('visual-diagram', [
             'model' => $this->findModel($id),
+            'model_tree_diagram' => $this->findModelTreeDiagram($id),
             'level_model' => $level_model,
             'node_model' => $node_model,
             'parameter_model' => $parameter_model,
@@ -996,6 +1012,7 @@ class TreeDiagramsController extends Controller
             $response->format = Response::FORMAT_JSON;
 
             $model = TreeDiagram::find()->where(['id' => $id])->one();
+            $model_diagram = Diagram::find()->where(['id' => $model->diagram])->one();
 
             //поиск несвязанных элементов
             $not_connected = Node::find()->where(['tree_diagram' => $id, 'parent_node' => null])->andwhere(['!=', 'type', Node::INITIAL_EVENT_TYPE])->all();
@@ -1054,11 +1071,11 @@ class TreeDiagramsController extends Controller
 
             //изменение
             if (($not_connected != null) || ($empty_level != null) || ($level_without_mechanism != null)){
-                $model->correctness = TreeDiagram::INCORRECTLY_CORRECT;
-                $model->save();
+                $model_diagram->correctness = Diagram::INCORRECTLY_CORRECT;
+                $model_diagram->save();
             } else {
-                $model->correctness = TreeDiagram::CORRECTLY_CORRECT;
-                $model->save();
+                $model_diagram->correctness = Diagram::CORRECTLY_CORRECT;
+                $model_diagram->save();
             }
 
             // Возвращение данных
@@ -1068,7 +1085,7 @@ class TreeDiagramsController extends Controller
         return false;
     }
 
-
+//---------------исправить этот
     public function actionCreationTemplate($id)
     {
         //поиск TreeDiagram шаблона
@@ -1170,75 +1187,63 @@ class TreeDiagramsController extends Controller
 
 
 
-    public function actionImport($id)
-    {
-        $model = $this->findModel($id);
-        $import_model = new Import();
-
+    //public function actionImport($id)
+    //{
+    //    $model = $this->findModel($id);
+    //    $import_model = new Import();
         //вывод сообщения об очистки если диаграмма не пуста
-        $tree_diagram = TreeDiagram::find()->where(['id' => $id])->one();
-        if ($tree_diagram->mode == TreeDiagram::EXTENDED_TREE_MODE){
-            $count = Level::find()->where(['tree_diagram' => $id])->count();
-            if ($count > 0){
-                Yii::$app->getSession()->setFlash('warning',
-                    Yii::t('app', 'MESSAGE_CLEANING'));
-            }
-        }
-        if ($tree_diagram->mode == TreeDiagram::CLASSIC_TREE_MODE){
-            $count = Node::find()->where(['tree_diagram' => $id])->count();
-            if ($count > 0){
-                Yii::$app->getSession()->setFlash('warning',
-                    Yii::t('app', 'MESSAGE_CLEANING'));
-            }
-        }
-
-
-        if (Yii::$app->request->isPost) {
-            $import_model->file_name = UploadedFile::getInstance($import_model, 'file_name');
-
-            if ($import_model->upload()) {
-
-                $file = simplexml_load_file('uploads/temp.xml');
-
+    //    $tree_diagram = TreeDiagram::find()->where(['id' => $id])->one();
+    //    if ($tree_diagram->mode == TreeDiagram::EXTENDED_TREE_MODE){
+    //        $count = Level::find()->where(['tree_diagram' => $id])->count();
+    //        if ($count > 0){
+    //            Yii::$app->getSession()->setFlash('warning',
+    //                Yii::t('app', 'MESSAGE_CLEANING'));
+    //        }
+    //    }
+    //    if ($tree_diagram->mode == TreeDiagram::CLASSIC_TREE_MODE){
+    //        $count = Node::find()->where(['tree_diagram' => $id])->count();
+    //        if ($count > 0){
+    //            Yii::$app->getSession()->setFlash('warning',
+    //                Yii::t('app', 'MESSAGE_CLEANING'));
+    //        }
+    //    }
+    //    if (Yii::$app->request->isPost) {
+    //        $import_model->file_name = UploadedFile::getInstance($import_model, 'file_name');
+    //        if ($import_model->upload()) {
+    //            $file = simplexml_load_file('uploads/temp.xml');
                 //выявление расширенного или классического дерева
-                if (((string) $file["mode"] == "Расширенное дерево") or ((string) $file["mode"] == "Extended tree")){
-                    $mode = TreeDiagram::EXTENDED_TREE_MODE;
-                }
-                if (((string) $file["mode"] == "Классическое дерево") or ((string) $file["mode"] == "Classic tree")){
-                    $mode = TreeDiagram::CLASSIC_TREE_MODE;
-                }
-
-                if ($tree_diagram->mode == $mode) {
+    //            if (((string) $file["mode"] == "Расширенное дерево") or ((string) $file["mode"] == "Extended tree")){
+    //                $mode = TreeDiagram::EXTENDED_TREE_MODE;
+    //            }
+    //            if (((string) $file["mode"] == "Классическое дерево") or ((string) $file["mode"] == "Classic tree")){
+    //                $mode = TreeDiagram::CLASSIC_TREE_MODE;
+    //            }
+    //            if ($tree_diagram->mode == $mode) {
                     //импорт xml файла
-                    $generator = new EventTreeXMLImport();
-                    $generator->importXMLCode($id, $file);
-
+    //                $generator = new EventTreeXMLImport();
+    //                $generator->importXMLCode($id, $file);
                     //удаление файла
-                    unlink('uploads/temp.xml');
-
-                    Yii::$app->getSession()->setFlash('success',
-                        Yii::t('app', 'TREE_DIAGRAMS_PAGE_MESSAGE_IMPORT_TREE_DIAGRAM'));
-
-                    return $this->render('view', [
-                        'model' => $this->findModel($id),
-                    ]);
-                } else {
-                    Yii::$app->getSession()->setFlash('error',
-                        Yii::t('app', 'MESSAGE_IMPORT_ERROR_INCOMPATIBLE_MODE'));
-
-                    return $this->render('import', [
-                        'model' => $model,
-                        'import_model' => $import_model,
-                    ]);
-                }
-            }
-        }
-
-        return $this->render('import', [
-            'model' => $model,
-            'import_model' => $import_model,
-        ]);
-    }
+    //                unlink('uploads/temp.xml');
+    //                Yii::$app->getSession()->setFlash('success',
+    //                    Yii::t('app', 'TREE_DIAGRAMS_PAGE_MESSAGE_IMPORT_TREE_DIAGRAM'));
+    //                return $this->render('view', [
+    //                    'model' => $this->findModel($id),
+    //                ]);
+    //            } else {
+    //                Yii::$app->getSession()->setFlash('error',
+    //                    Yii::t('app', 'MESSAGE_IMPORT_ERROR_INCOMPATIBLE_MODE'));
+    //                return $this->render('import', [
+    //                    'model' => $model,
+    //                    'import_model' => $import_model,
+    //                ]);
+    //            }
+    //        }
+    //    }
+    //    return $this->render('import', [
+    //        'model' => $model,
+    //        'import_model' => $import_model,
+    //    ]);
+    //}
 
 
     public function actionSaveIndent()

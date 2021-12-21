@@ -2,7 +2,6 @@
 
 namespace app\modules\main\controllers;
 
-use app\modules\eete\models\TreeDiagram;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -15,8 +14,12 @@ use app\modules\main\models\ContactForm;
 use app\modules\main\models\DiagramSearch;
 use app\modules\main\models\Diagram;
 use app\modules\main\models\Import;
+use app\modules\eete\models\TreeDiagram;
+use app\modules\eete\models\Level;
+use app\modules\eete\models\Node;
 use app\modules\stde\models\State;
 use app\components\StateTransitionXMLImport;
+use app\components\EventTreeXMLImport;
 
 class DefaultController extends Controller
 {
@@ -172,10 +175,20 @@ class DefaultController extends Controller
             if ($model->type == Diagram::EVENT_TREE_TYPE) {
                 // Создание диаграммы дерева событий
                 $tree_diagram_model = new TreeDiagram();
-                $tree_diagram_model->mode = TreeDiagram::EXTENDED_TREE_MODE;
-                $tree_diagram_model->tree_view = TreeDiagram::ORDINARY_TREE_VIEW;
+                $tree_diagram_model->mode = $model->mode_tree_diagram;
+                $tree_diagram_model->tree_view = $model->tree_view_tree_diagram;
                 $tree_diagram_model->diagram = $model->id;
                 $tree_diagram_model->save();
+
+                if ($model->mode_tree_diagram == TreeDiagram::CLASSIC_TREE_MODE){
+                    // Создание пустого уровня
+                    $level = new Level();
+                    $level->tree_diagram = $tree_diagram_model->id;
+                    $level->name = "Only";
+                    $level->description = "";
+                    $level->parent_level = null;
+                    $level->save();
+                }
             }
             Yii::$app->getSession()->setFlash('success',
                 Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM'));
@@ -265,6 +278,25 @@ class DefaultController extends Controller
                 Yii::t('app', 'MESSAGE_CLEANING'));
         }
 
+        //вывод сообщения об очистки если диаграмма не пуста если диаграмма событий
+        $tree_diagram = TreeDiagram::find()->where(['diagram' => $id])->one();
+        if ($tree_diagram != null){
+            if ($tree_diagram->mode == TreeDiagram::EXTENDED_TREE_MODE){
+                $count = Level::find()->where(['tree_diagram' => $tree_diagram->id])->count();
+                if ($count > 0){
+                    Yii::$app->getSession()->setFlash('warning',
+                        Yii::t('app', 'MESSAGE_CLEANING'));
+                }
+            }
+            if ($tree_diagram->mode == TreeDiagram::CLASSIC_TREE_MODE){
+                $count = Node::find()->where(['tree_diagram' => $tree_diagram->id])->count();
+                if ($count > 0){
+                    Yii::$app->getSession()->setFlash('warning',
+                        Yii::t('app', 'MESSAGE_CLEANING'));
+                }
+            }
+        }
+
         //обработка импорта
         if (Yii::$app->request->isPost) {
             $import_model->file_name = UploadedFile::getInstance($import_model, 'file_name');
@@ -280,15 +312,42 @@ class DefaultController extends Controller
                 }
                 if ($i > 0){
                     $type = Diagram::STATE_TRANSITION_DIAGRAM_TYPE;
+                    $mode = -1;
                 } else {
                     $type = -1;
                 }
 
+                if (((string) $file["type"] == "Дерево событий") or ((string) $file["type"] == "Event tree")){
+                    $type = Diagram::EVENT_TREE_TYPE;
+                    //выявление расширенного или классического дерева
+                    if (((string) $file["mode"] == "Расширенное дерево") or ((string) $file["mode"] == "Extended tree")){
+                        $mode = TreeDiagram::EXTENDED_TREE_MODE;
+                    }
+                    if (((string) $file["mode"] == "Классическое дерево") or ((string) $file["mode"] == "Classic tree")){
+                        $mode = TreeDiagram::CLASSIC_TREE_MODE;
+                    }
+                }
+
                 //если тип диаграммы совпадает с типом диаграммы в файле
-                if ($diagram->type == $type) {
+                if (($diagram->type == $type) and ($mode == -1)) {
                     //импорт xml файла
                     $generator = new StateTransitionXMLImport();
                     $generator->importXMLCode($id, $file);
+
+                    //удаление файла
+                    unlink('uploads/temp.xml');
+
+                    Yii::$app->getSession()->setFlash('success',
+                        Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM'));
+
+                    return $this->render('view', [
+                        'model' => $this->findModel($id),
+                    ]);
+                } elseif (($diagram->type == $type) and ($tree_diagram->mode == $mode)){
+
+                    //импорт xml файла
+                    $generator = new EventTreeXMLImport();
+                    $generator->importXMLCode($tree_diagram->id, $file);
 
                     //удаление файла
                     unlink('uploads/temp.xml');

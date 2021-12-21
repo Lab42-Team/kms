@@ -54,10 +54,12 @@ class StateTransitionXMLImport
         foreach($file->State as $state) {
             $state_model = new State();
             $state_model->name = (string)$state['name'];
-            if ((string)$state['type'] == 'Initial state')
+            if ((string)$state['type'] == 'Initial state'){
                 $state_model->type = State::INITIAL_STATE_TYPE;
-            if ((string)$state['type'] == 'State')
+            }
+            if ((string)$state['type'] == 'State'){
                 $state_model->type = State::COMMON_STATE_TYPE;
+            }
             $state_model->description = (string)$state['description'];
             $state_model->diagram = $id;
             $state_model->save();
@@ -75,20 +77,27 @@ class StateTransitionXMLImport
                     $state_property_model = new StateProperty();
                     $state_property_model->name = (string)$state_property['name'];
                     $state_property_model->description = (string)$state_property['description'];
-                    if ((string)$state_property['operator'] == '=')
+                    if ((string)$state_property['operator'] == '='){
                         $state_property_model->operator = StateProperty::EQUALLY_OPERATOR;
-                    if ((string)$state_property['operator'] == '>')
+                    }
+                    if ((string)$state_property['operator'] == '>'){
                         $state_property_model->operator = StateProperty::MORE_OPERATOR;
-                    if ((string)$state_property['operator'] == '<')
+                    }
+                    if ((string)$state_property['operator'] == '<'){
                         $state_property_model->operator = StateProperty::LESS_OPERATOR;
-                    if ((string)$state_property['operator'] == '>=')
+                    }
+                    if ((string)$state_property['operator'] == '>='){
                         $state_property_model->operator = StateProperty::MORE_EQUAL_OPERATOR;
-                    if ((string)$state_property['operator'] == '<=')
+                    }
+                    if ((string)$state_property['operator'] == '<='){
                         $state_property_model->operator = StateProperty::LESS_EQUAL_OPERATOR;
-                    if ((string)$state_property['operator'] == '≠')
+                    }
+                    if ((string)$state_property['operator'] == '≠'){
                         $state_property_model->operator = StateProperty::NOT_EQUAL_OPERATOR;
-                    if ((string)$state_property['operator'] == '≈')
+                    }
+                    if ((string)$state_property['operator'] == '≈'){
                         $state_property_model->operator = StateProperty::APPROXIMATELY_EQUAL_OPERATOR;
+                    }
                     $state_property_model->value = (string)$state_property['value'];
                     $state_property_model->state = $state_model->id;
                     $state_property_model->save();
@@ -102,12 +111,14 @@ class StateTransitionXMLImport
             $transition_model->name = (string)$transition['name'];
             $transition_model->description = (string)$transition['description'];
             for ($i = 0; $i < self::$j; $i++){
-                if ((integer)$transition['state-from'] == self::$array_states[$i]['state_template'])
+                if ((integer)$transition['state-from'] == self::$array_states[$i]['state_template']){
                     $transition_model->state_from = self::$array_states[$i]['state'];
+                }
             }
             for ($i = 0; $i < self::$j; $i++){
-                if ((integer)$transition['state-to'] == self::$array_states[$i]['state_template'])
+                if ((integer)$transition['state-to'] == self::$array_states[$i]['state_template']){
                     $transition_model->state_to = self::$array_states[$i]['state'];
+                }
             }
             $transition_model->name_property = "0";
             $transition_model->operator_property = 1;
@@ -120,20 +131,27 @@ class StateTransitionXMLImport
                     $transition_property_model = new TransitionProperty();
                     $transition_property_model->name = (string)$transition_property['name'];
                     $transition_property_model->description = (string)$transition_property['description'];
-                    if ((string)$transition_property['operator'] == '=')
+                    if ((string)$transition_property['operator'] == '='){
                         $transition_property_model->operator = TransitionProperty::EQUALLY_OPERATOR;
-                    if ((string)$transition_property['operator'] == '>')
+                    }
+                    if ((string)$transition_property['operator'] == '>'){
                         $transition_property_model->operator = TransitionProperty::MORE_OPERATOR;
-                    if ((string)$transition_property['operator'] == '<')
+                    }
+                    if ((string)$transition_property['operator'] == '<'){
                         $transition_property_model->operator = TransitionProperty::LESS_OPERATOR;
-                    if ((string)$transition_property['operator'] == '>=')
+                    }
+                    if ((string)$transition_property['operator'] == '>='){
                         $transition_property_model->operator = TransitionProperty::MORE_EQUAL_OPERATOR;
-                    if ((string)$transition_property['operator'] == '<=')
+                    }
+                    if ((string)$transition_property['operator'] == '<='){
                         $transition_property_model->operator = TransitionProperty::LESS_EQUAL_OPERATOR;
-                    if ((string)$transition_property['operator'] == '≠')
+                    }
+                    if ((string)$transition_property['operator'] == '≠'){
                         $transition_property_model->operator = TransitionProperty::NOT_EQUAL_OPERATOR;
-                    if ((string)$transition_property['operator'] == '≈')
+                    }
+                    if ((string)$transition_property['operator'] == '≈'){
                         $transition_property_model->operator = TransitionProperty::APPROXIMATELY_EQUAL_OPERATOR;
+                    }
                     $transition_property_model->value = (string)$transition_property['value'];
                     $transition_property_model->transition = $transition_model->id;
                     $transition_property_model->save();

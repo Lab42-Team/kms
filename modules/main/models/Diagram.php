@@ -24,6 +24,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class Diagram extends \yii\db\ActiveRecord
 {
+    public $mode_tree_diagram;
+    public $tree_view_tree_diagram;
+
     const EVENT_TREE_TYPE = 0;               // Тип диаграммы дерево событий
     const STATE_TRANSITION_DIAGRAM_TYPE = 1; // Тип диаграммы переходов состояний
 
@@ -50,7 +53,7 @@ class Diagram extends \yii\db\ActiveRecord
         return [
             [['name', 'author'], 'required'],
             [['type', 'status', 'author', 'correctness'], 'default', 'value' => null],
-            [['type', 'status', 'author', 'correctness'], 'integer'],
+            [['type', 'status', 'author', 'correctness', 'mode_tree_diagram', 'tree_view_tree_diagram'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 600],
             [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(),
@@ -73,6 +76,8 @@ class Diagram extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'DIAGRAM_MODEL_STATUS'),
             'correctness' => Yii::t('app', 'DIAGRAM_MODEL_CORRECTNESS'),
             'author' => Yii::t('app', 'DIAGRAM_MODEL_AUTHOR'),
+            'mode_tree_diagram' => Yii::t('app', 'TREE_DIAGRAM_MODEL_MODE'),
+            'tree_view_tree_diagram' => Yii::t('app', 'TREE_DIAGRAM_MODEL_TREE_VIEW'),
         ];
     }
 

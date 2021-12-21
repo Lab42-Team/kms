@@ -109,7 +109,7 @@ div.top > div {
 .div-mechanism {
     width:69px;
     height:80px;
-    background-image:url(/web/images/triangle.png);
+    background-image:url(../images/triangle.png);
     /* текст по центру для дочерних блоков div-mechanism-m*/
     position: absolute;
 }
@@ -139,7 +139,7 @@ div.top > div {
 .div-mechanism:hover {
     width:69px;
     height:80px;
-    background-image:url(/web/images/triangle_activ.png);
+    background-image:url(../images/triangle_activ.png);
     cursor: pointer;
 }
 

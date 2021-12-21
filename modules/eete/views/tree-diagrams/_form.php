@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\modules\editor\models\TreeDiagram;
+use app\modules\eete\models\TreeDiagram;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\editor\models\TreeDiagram */
+/* @var $model app\modules\eete\models\TreeDiagram */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

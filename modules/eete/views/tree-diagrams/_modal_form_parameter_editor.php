@@ -4,10 +4,10 @@ use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use app\modules\main\models\Lang;
-use app\modules\editor\models\Parameter;
+use app\modules\eete\models\Parameter;
 
-/* @var $node_model app\modules\editor\models\Node */
-/* @var $array_levels app\modules\editor\controllers\TreeDiagramsController */
+/* @var $node_model app\modules\eete\models\Node */
+/* @var $array_levels app\modules\eete\controllers\TreeDiagramsController */
 
 ?>
 

@@ -5,8 +5,8 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use app\modules\main\models\Lang;
 
-/* @var $node_model app\modules\editor\models\Node */
-/* @var $array_levels_initial_without app\modules\editor\controllers\TreeDiagramsController */
+/* @var $node_model app\modules\eete\models\Node */
+/* @var $array_levels_initial_without app\modules\eete\controllers\TreeDiagramsController */
 
 ?>
 
@@ -35,7 +35,7 @@ use app\modules\main\models\Lang;
                 $.ajax({
                     //переход на экшен левел
                     url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
-                    '/tree-diagrams/add-mechanism/' . $model->id ?>",
+                    '/tree-diagrams/add-mechanism/' . $model_tree_diagram->id ?>",
                     type: "post",
                     data: form.serialize(),
                     dataType: "json",
