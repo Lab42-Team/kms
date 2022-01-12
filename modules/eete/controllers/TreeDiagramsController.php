@@ -920,6 +920,10 @@ class TreeDiagramsController extends Controller
 
             $model->node = Yii::$app->request->post('node_id_on_click');
 
+            //поиск количества параметров у выбранного узла
+            $parameter_count = Parameter::find()->where(['node' => Yii::$app->request->post('node_id_on_click')])->count();
+            $data["parameter_count"] = $parameter_count;
+
             // Определение полей модели уровня и валидация формы
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 // Успешный ввод данных
@@ -989,8 +993,13 @@ class TreeDiagramsController extends Controller
             $response->format = Response::FORMAT_JSON;
 
             $model = Parameter::find()->where(['id' => Yii::$app->request->post('parameter_id_on_click')])->one();
-            $data["node"] = $model->node;
+            $node_id = $model->node;
             $model -> delete();
+
+            //поиск количества свойст у выбранного состояния
+            $parameter_count = Parameter::find()->where(['node' => $node_id])->count();
+            $data["parameter_count"] = $parameter_count;
+            $data["node"] = $node_id;
 
             $data["success"] = true;
 

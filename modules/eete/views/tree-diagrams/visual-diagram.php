@@ -1812,14 +1812,27 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                     <div id="node_show_comment_<?= $initial_event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
                                 </div>
 
+                                <!-- отображение разделительной пунктирной линии -->
+                                <?php
+                                $line = false;
+                                foreach ($parameter_model_all as $parameter_value){
+                                    if ($parameter_value->node == $initial_event_value->id){
+                                        $line = true;
+                                    }
+                                }
+                                ?>
+                                <?php if ($line == true){ ?>
+                                    <div id="line_<?= $initial_event_value->id ?>" class="div-line"></div>
+                                <?php } ?>
+
                                 <?php foreach ($parameter_model_all as $parameter_value): ?>
                                     <?php if ($parameter_value->node == $initial_event_value->id){ ?>
                                         <div id="parameter_<?= $parameter_value->id ?>" class="div-parameter">
-                                            <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                             <div class="button-parameter">
                                                 <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                                 <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
                                             </div>
+                                            <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                         </div>
                                     <?php } ?>
                                 <?php endforeach; ?>
@@ -1854,14 +1867,27 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                 <div id="node_show_comment_<?= $event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
                                             </div>
 
+                                            <!-- отображение разделительной пунктирной линии -->
+                                            <?php
+                                            $line = false;
+                                            foreach ($parameter_model_all as $parameter_value){
+                                                if ($parameter_value->node == $event_value->id){
+                                                    $line = true;
+                                                }
+                                            }
+                                            ?>
+                                            <?php if ($line == true){ ?>
+                                                <div id="line_<?= $event_value->id ?>" class="div-line"></div>
+                                            <?php } ?>
+
                                             <?php foreach ($parameter_model_all as $parameter_value): ?>
                                                 <?php if ($parameter_value->node == $event_value->id){ ?>
                                                     <div id="parameter_<?= $parameter_value->id ?>" class="div-parameter">
-                                                        <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                                         <div class="button-parameter">
                                                             <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                                             <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash"  title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
                                                         </div>
+                                                        <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                                     </div>
                                                 <?php } ?>
                                             <?php endforeach; ?>
