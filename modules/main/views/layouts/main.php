@@ -11,6 +11,7 @@ use app\widgets\Alert;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\components\widgets\WLang;
+use app\modules\main\models\User;
 
 AppAsset::register($this);
 ?>
@@ -49,8 +50,8 @@ AppAsset::register($this);
                 ],
 
                 !Yii::$app->user->isGuest ? (
-                    // условие проверки есть ли visual-diagram в URL
-                    preg_match("/visual-diagram/", Url::current([], false)) == 1 ?
+                    // Условие проверки есть ли visual-diagram в URL
+                    preg_match('/visual-diagram/', Url::current([], false)) == 1 ?
                     [
                         'label' => '<span class="glyphicon glyphicon-plus"></span> ' .
                             Yii::t('app', 'NAV_ADD'),
@@ -59,14 +60,27 @@ AppAsset::register($this);
                 ) : false,
 
                 !Yii::$app->user->isGuest ? (
-                    // условие проверки есть ли visual-diagram в URL
-                    preg_match("/visual-diagram/", Url::current([], false)) == 1 ?
+                    // Условие проверки есть ли visual-diagram в URL
+                    preg_match('/visual-diagram/', Url::current([], false)) == 1 ?
                     [
                         'label' => '<span class="glyphicon glyphicon-blackboard"></span> ' .
                             Yii::t('app', 'NAV_DIAGRAM'),
                         'items' => $this->params['menu_diagram']
                     ] : false
                 ) : false,
+
+                !Yii::$app->user->isGuest ? (
+                    Yii::$app->user->identity->role == User::ROLE_ADMINISTRATOR ? [
+                        'label' => '<span class="glyphicon glyphicon-list-alt"></span> ' .
+                            Yii::t('app', 'NAV_USERS'),
+                        'url' => ['/main/user/list']
+                    ] : false
+                    ) : ([
+                        'label' => '<span class="glyphicon glyphicon-envelope"></span> ' .
+                            Yii::t('app', 'NAV_CONTACT_US'),
+                        'url' => ['/main/default/contact']
+                    ]
+                ),
             ])
         ]);
 
@@ -76,23 +90,29 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-right'],
             'encodeLabels' => false,
             'items' => array_filter([
-                [
-                    'label' => '<span class="glyphicon glyphicon-user"></span> ' .
-                        Yii::t('app', 'NAV_ACCOUNT'), 'url' => ['#'],
-                    'items' => array_filter([
-                        ['label' => '<span class="glyphicon glyphicon-envelope"></span> ' .
-                            Yii::t('app', 'NAV_CONTACT_US'), 'url' => ['/main/default/contact']],
-                        Yii::$app->user->isGuest ? (
-                        ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' .
-                            Yii::t('app', 'NAV_SIGN_IN'), 'url' => ['/main/default/sing-in']]
-                        ) : (
+                !Yii::$app->user->isGuest ? (
+                    [
+                        'label' => '<span class="glyphicon glyphicon-home"></span> ' .
+                            Yii::t('app', 'NAV_ACCOUNT'), 'url' => ['#'],
+                        'items' => array_filter([
+                            ['label' => '<span class="glyphicon glyphicon-user"></span> ' .
+                                Yii::t('app', 'NAV_PROFILE'),
+                                'url' => '/user/profile/' . Yii::$app->user->identity->getId()],
+                            ['label' => '<span class="glyphicon glyphicon-envelope"></span> ' .
+                                Yii::t('app', 'NAV_CONTACT_US'), 'url' => ['/main/default/contact']],
                             ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' .
                                 Yii::t('app', 'NAV_SIGN_OUT'). ' (' .
                                 Yii::$app->user->identity->username . ')',
                                 'url' => ['/main/default/sing-out'], 'linkOptions' => ['data-method' => 'post']]
-                        )
-                    ])
-                ],
+                        ])
+                    ]
+                ) : (
+                    [
+                        'label' => '<span class="glyphicon glyphicon-log-in"></span> ' .
+                            Yii::t('app', 'NAV_SIGN_IN'),
+                        'url' => ['/main/default/sing-in']
+                    ]
+                ),
             ])
         ]);
 
@@ -112,7 +132,7 @@ AppAsset::register($this);
             <p class="pull-left"><?= ' &copy; ' . date('Y') . ' ' .
                 Yii::t('app', 'FOOTER_INSTITUTE') ?></p>
             <p class="pull-right"><?= Yii::t('app', 'FOOTER_POWERED_BY') .
-                ' <a href="mailto:DorodnyxNikita@gmail.com">' . Yii::$app->params['adminEmail'] . '</a>' ?></p>
+                ' <a href="https://github.com/Lab42-Team">Lab42-Team</a>' ?></p>
         </div>
     </footer>
 

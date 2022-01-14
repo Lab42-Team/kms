@@ -22,6 +22,7 @@ class m191115_101913_user extends Migration
             'email_confirm_token' => $this->string(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string(),
+            'role' => $this->smallInteger()->notNull()->defaultValue(0),
             'status' => $this->smallInteger()->notNull()->defaultValue(0),
             'full_name' => $this->string()->notNull(),
             'email' => $this->string(),

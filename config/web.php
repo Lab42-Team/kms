@@ -54,6 +54,9 @@ $config = [
                     'stde/state-transition-diagrams/<_std>',
                 '/state-transition-diagrams/<_std:(edit-state|delete-state|add-state-property|edit-state-property|delete-state-property|add-transition|edit-transition|delete-transition|add-transition-property|edit-transition-property|delete-transition-property|save-indent)>' =>
                     'stde/state-transition-diagrams/<_std>',
+                '/user/<_usr:(list|create)>' => 'main/user/<_usr>',
+                '/user/<_usr:(view|update|delete|profile|update-profile|change-password)>/<id:\d+>' =>
+                    'main/user/<_usr>',
             ],
         ],
         'cache' => [

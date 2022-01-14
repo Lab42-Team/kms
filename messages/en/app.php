@@ -32,7 +32,7 @@ return [
     'NAV_HOME' => 'Home',
     'NAV_ACCOUNT' => 'Account',
     'NAV_SIGNED_IN_AS' => 'Signed in as',
-    'NAV_YOUR_PROFILE' => 'Your profile',
+    'NAV_PROFILE' => 'Profile',
     'NAV_HELP' => 'Help',
     'NAV_CONTACT_US' => 'Contact us',
     'NAV_SIGN_UP' => 'Sign up',
@@ -41,6 +41,7 @@ return [
     'NAV_DIAGRAMS' => 'Diagrams',
     'NAV_DIAGRAM' => 'Diagram',
     'NAV_BACK_LIST' => 'Back to the list',
+    'NAV_USERS' => 'Users',
 
     'NAV_ADD' => 'Add',
     'NAV_ADD_LEVEL' => 'Level',
@@ -99,6 +100,27 @@ return [
     'NOTICE_TEXT' => 'this important information.',
 
     /* Страницы сайта */
+    /* Страница пользователей */
+    'USERS_PAGE_USER' => 'User',
+    'USERS_PAGE_USERS' => 'Users',
+    'USERS_PAGE_CREATE_USER' => 'Create user',
+    'USERS_PAGE_VIEW_USER' => 'View user',
+    'USERS_PAGE_UPDATE_USER_INFORMATION' => 'Update user information',
+    'USERS_PAGE_DELETE_USER' => 'Delete user',
+    'USERS_PAGE_MODAL_FORM_TEXT' => 'Are you sure that you want to delete this user?',
+    /* Сообщения на страницах администрирования пользователей */
+    'USERS_PAGE_MESSAGE_ADD_NEW_USER' => 'You have successfully added a new user.',
+    'USERS_PAGE_MESSAGE_UPDATED_USER_INFORMATION' => 'You have successfully updated user information.',
+    'USERS_PAGE_MESSAGE_NOT_DELETE_USER' => 'You can not delete yourself.',
+    'USERS_PAGE_MESSAGE_DELETED_USER' => 'You have successfully deleted user.',
+    'USERS_PAGE_MESSAGE_UPDATED_YOUR_ACCOUNT_INFORMATION' => 'You have successfully updated your account information.',
+    'USERS_PAGE_MESSAGE_UPDATED_YOUR_PASSWORD' => 'You have successfully changed your password.',
+    /* Страница профиля пользователя */
+    'USER_PAGE_PROFILE' => 'Profile',
+    'USER_PAGE_UPDATE_PROFILE' => 'Update profile',
+    'USER_PAGE_UPDATE_ACCOUNT_INFORMATION' => 'Update account information',
+    'USER_PAGE_UPDATE_PASSWORD' => 'Change password',
+
     /* Страница диаграмм */
     'DIAGRAMS_PAGE_DIAGRAM' => 'Diagram',
     'DIAGRAMS_PAGE_DIAGRAMS' => 'Diagrams',
@@ -185,6 +207,7 @@ return [
     'USER_MODEL_EMAIL_CONFIRM_TOKEN' => 'E-mail confirm token',
     'USER_MODEL_PASSWORD_HASH' => 'Password hash',
     'USER_MODEL_PASSWORD_RESET_TOKEN' => 'Password reset token',
+    'USER_MODEL_ROLE' => 'Role',
     'USER_MODEL_STATUS' => 'Status',
     'USER_MODEL_FULL_NAME' => 'Full name',
     'USER_MODEL_EMAIL' => 'E-mail',

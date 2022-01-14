@@ -32,7 +32,7 @@ return [
     'NAV_HOME' => 'Главная',
     'NAV_ACCOUNT' => 'Учётная запись',
     'NAV_SIGNED_IN_AS' => 'Вы вошли как',
-    'NAV_YOUR_PROFILE' => 'Ваш профиль',
+    'NAV_PROFILE' => 'Профиль',
     'NAV_HELP' => 'Помощь',
     'NAV_CONTACT_US' => 'Обратная связь',
     'NAV_SIGN_UP' => 'Регистрация',
@@ -41,6 +41,7 @@ return [
     'NAV_DIAGRAMS' => 'Диаграммы',
     'NAV_DIAGRAM' => 'Диаграмма',
     'NAV_BACK_LIST' => 'Вернуться к списку',
+    'NAV_USERS' => 'Пользователи',
 
     'NAV_ADD' => 'Добавить',
     'NAV_ADD_LEVEL' => 'Уровень',
@@ -99,6 +100,27 @@ return [
     'NOTICE_TEXT' => 'на эту важную информацию.',
 
     /* Страницы сайта */
+    /* Страница администрирования пользователей */
+    'USERS_PAGE_USER' => 'Пользователь',
+    'USERS_PAGE_USERS' => 'Пользователи',
+    'USERS_PAGE_CREATE_USER' => 'Создать пользователя',
+    'USERS_PAGE_VIEW_USER' => 'Просмотр пользователя',
+    'USERS_PAGE_UPDATE_USER_INFORMATION' => 'Обновить данные пользователя',
+    'USERS_PAGE_DELETE_USER' => 'Удалить пользователя',
+    'USERS_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данного пользователя?',
+    /* Сообщения на страницах администрирования пользователей */
+    'USERS_PAGE_MESSAGE_ADD_NEW_USER' => 'Вы успешно добавили нового пользователя.',
+    'USERS_PAGE_MESSAGE_UPDATED_USER_INFORMATION' => 'Вы успешно обновили данные пользователя.',
+    'USERS_PAGE_MESSAGE_NOT_DELETE_USER' => 'Вы не можете удалить себя.',
+    'USERS_PAGE_MESSAGE_DELETED_USER' => 'Вы успешно удалили пользователя.',
+    'USERS_PAGE_MESSAGE_UPDATED_YOUR_ACCOUNT_INFORMATION' => 'Вы успешно обновили данные своего аккаунта.',
+    'USERS_PAGE_MESSAGE_UPDATED_YOUR_PASSWORD' => 'Вы успешно поменяли пароль.',
+    /* Страница профиля пользователя */
+    'USER_PAGE_PROFILE' => 'Профиль',
+    'USER_PAGE_UPDATE_PROFILE' => 'Обновить профиль',
+    'USER_PAGE_UPDATE_ACCOUNT_INFORMATION' => 'Обновить учетные данные',
+    'USER_PAGE_UPDATE_PASSWORD' => 'Поменять пароль',
+
     /* Страница диаграмм */
     'DIAGRAMS_PAGE_DIAGRAM' => 'Диаграмма',
     'DIAGRAMS_PAGE_DIAGRAMS' => 'Диаграммы',
@@ -185,6 +207,7 @@ return [
     'USER_MODEL_EMAIL_CONFIRM_TOKEN' => 'Метка подтверждения электронной почты',
     'USER_MODEL_PASSWORD_HASH' => 'Хэш пароля',
     'USER_MODEL_PASSWORD_RESET_TOKEN' => 'Метка сброса пароля',
+    'USER_MODEL_ROLE' => 'Роль',
     'USER_MODEL_STATUS' => 'Статус',
     'USER_MODEL_FULL_NAME' => 'Фамилия Имя Отчество',
     'USER_MODEL_EMAIL' => 'Электронная почта',

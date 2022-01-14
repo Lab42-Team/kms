@@ -20,6 +20,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $email_confirm_token
  * @property string $password_hash
  * @property string $password_reset_token
+ * @property int $role
  * @property int $status
  * @property string $full_name
  * @property string $email
@@ -28,10 +29,21 @@ use yii\behaviors\TimestampBehavior;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    const CHANGE_PASSWORD_SCENARIO = 'change_password_hash'; // Сценарий изменения пароля пользователя
+    const CREATE_NEW_USER_SCENARIO = 'create_new_user';      // Сценарий создания нового пользователя
+
+    // Роли пользователей
+    const ROLE_ADMINISTRATOR = 0; // Администратор
+    const ROLE_USER  = 1;         // Пользователь
+
+    // Статус пользователей
+    const STATUS_ACTIVE   = 0; // Активный
+    const STATUS_INACTIVE = 1; // Неактивный
+
     public $password;
 
     /**
-     * {@inheritdoc}
+     * @return string table name
      */
     public static function tableName()
     {
@@ -39,7 +51,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return array the validation rules
      */
     public function rules()
     {
@@ -49,20 +61,20 @@ class User extends ActiveRecord implements IdentityInterface
             ['username', 'string', 'min' => 5, 'max' => 100],
             ['username', 'unique', 'targetClass' => self::className(),
                 'message' => Yii::t('app', 'USER_MODEL_MESSAGE_USERNAME')],
-            ['password', 'required', 'on' => 'create_and_update_password_hash'],
-            ['password', 'string', 'min' => 5, 'on' => 'create_and_update_password_hash'],
+            ['password', 'required', 'on' => [self::CHANGE_PASSWORD_SCENARIO, self::CREATE_NEW_USER_SCENARIO]],
+            ['password', 'string', 'min' => 5, 'on' => [self::CHANGE_PASSWORD_SCENARIO, self::CREATE_NEW_USER_SCENARIO]],
             [['full_name', 'email'], 'required'],
             ['full_name', 'match', 'pattern' => '/^[ А-Яа-яs,]+$/u',
                 'message' => Yii::t('app', 'USER_MODEL_MESSAGE_FULL_NAME')],
             [['full_name'], 'string', 'min' => 5, 'max' => 100],
             [['email'], 'string', 'max' => 255],
             [['status'], 'default', 'value' => null],
-            [['status'], 'integer'],
+            [['role', 'status'], 'integer'],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @return array customized attribute labels
      */
     public function attributeLabels()
     {
@@ -76,9 +88,17 @@ class User extends ActiveRecord implements IdentityInterface
             'email_confirm_token' => Yii::t('app', 'USER_MODEL_EMAIL_CONFIRM_TOKEN'),
             'password_hash' => Yii::t('app', 'USER_MODEL_PASSWORD_HASH'),
             'password_reset_token' => Yii::t('app', 'USER_MODEL_PASSWORD_RESET_TOKEN'),
+            'role' => Yii::t('app', 'USER_MODEL_ROLE'),
             'status' => Yii::t('app', 'USER_MODEL_STATUS'),
             'full_name' => Yii::t('app', 'USER_MODEL_FULL_NAME'),
             'email' => Yii::t('app', 'USER_MODEL_EMAIL'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
         ];
     }
 
@@ -88,13 +108,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function getDiagrams()
     {
         return $this->hasMany(Diagram::className(), ['author' => 'id']);
-    }
-
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
     }
 
     /**
@@ -286,5 +299,51 @@ class User extends ActiveRecord implements IdentityInterface
     public static function getAllUsersArray()
     {
         return ArrayHelper::map(self::find()->all(), 'id', 'username');
+    }
+
+    /**
+     * Получение списка названий всех ролей пользователей.
+     *
+     * @return array - массив всех возможных названий ролей пользователей
+     */
+    public static function getRoles()
+    {
+        return [
+            self::ROLE_ADMINISTRATOR => 'Администратор',
+            self::ROLE_USER => 'Пользователь',
+        ];
+    }
+
+    /**
+     * Получение названия роли пользователя.
+     *
+     * @return mixed
+     */
+    public function getRoleName()
+    {
+        return ArrayHelper::getValue(self::getRoles(), $this->role);
+    }
+
+    /**
+     * Получение списка названий всех статусов пользователей.
+     *
+     * @return array - массив всех возможных названий статусов пользователей
+     */
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_ACTIVE => 'Активный',
+            self::STATUS_INACTIVE => 'Неактивный',
+        ];
+    }
+
+    /**
+     * Получение названия статуса пользователя.
+     *
+     * @return mixed
+     */
+    public function getStatusName()
+    {
+        return ArrayHelper::getValue(self::getStatuses(), $this->status);
     }
 }

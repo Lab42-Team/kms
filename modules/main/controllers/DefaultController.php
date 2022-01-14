@@ -366,6 +366,6 @@ class DefaultController extends Controller
         if (($model = Diagram::findOne($id)) !== null)
             return $model;
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'ERROR_MESSAGE_PAGE_NOT_FOUND'));
     }
 }
