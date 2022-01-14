@@ -128,7 +128,6 @@ return [
     'DIAGRAMS_PAGE_VIEW_DIAGRAM' => 'View diagram',
     'DIAGRAMS_PAGE_UPDATE_DIAGRAM' => 'Update diagram',
     'DIAGRAMS_PAGE_DELETE_DIAGRAM' => 'Delete diagram',
-    'DIAGRAMS_PAGE_VISUAL_DIAGRAM' => 'Visual diagram',
     'DIAGRAMS_PAGE_IMPORT_DIAGRAM' => 'Import visual diagram',
     'DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Are you sure that you want to delete this diagram?',
     'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Upload ontology',

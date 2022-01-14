@@ -22,7 +22,7 @@ use yii\widgets\Pjax;
 use app\modules\main\models\Lang;
 use app\modules\eete\models\TreeDiagram;
 
-$this->title = Yii::t('app', 'DIAGRAMS_PAGE_VISUAL_DIAGRAM') . ' - ' . $model->name;
+$this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAM') . ' - ' . $model->name;
 
 $this->params['menu_add'] = [
     ['label' => Yii::t('app', 'NAV_ADD_LEVEL'), 'url' => '#',

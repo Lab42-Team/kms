@@ -128,7 +128,6 @@ return [
     'DIAGRAMS_PAGE_VIEW_DIAGRAM' => 'Просмотр диаграммы',
     'DIAGRAMS_PAGE_UPDATE_DIAGRAM' => 'Изменить диаграмму',
     'DIAGRAMS_PAGE_DELETE_DIAGRAM' => 'Удалить диаграмму',
-    'DIAGRAMS_PAGE_VISUAL_DIAGRAM' => 'Визуальная диаграмма',
     'DIAGRAMS_PAGE_IMPORT_DIAGRAM' => 'Импортирование визуальной диаграммы',
     'DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данную диаграмму?',
     'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Загрузить онтологию',

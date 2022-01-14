@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use app\modules\main\models\Lang;
 
-$this->title = Yii::t('app', 'DIAGRAMS_PAGE_VISUAL_DIAGRAM') . ' - ' . $model->name;
+$this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAM') . ' - ' . $model->name;
 
 $this->params['menu_add'] = [
     ['label' => Yii::t('app', 'NAV_ADD_STATE'), 'url' => '#',
