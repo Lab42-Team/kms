@@ -8,7 +8,6 @@ use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
-use app\modules\editor\models\TreeDiagram;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -25,7 +24,7 @@ use app\modules\editor\models\TreeDiagram;
  * @property string $full_name
  * @property string $email
  *
- * @property TreeDiagram[] $treeDiagrams
+ * @property Diagram[] $diagrams
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -86,9 +85,9 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTreeDiagrams()
+    public function getDiagrams()
     {
-        return $this->hasMany(TreeDiagram::className(), ['author' => 'id']);
+        return $this->hasMany(Diagram::className(), ['author' => 'id']);
     }
 
     public function behaviors()

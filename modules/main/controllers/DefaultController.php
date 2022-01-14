@@ -245,59 +245,41 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds the Diagram model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     *
-     * @param $id
-     * @return Diagram|null the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Diagram::findOne($id)) !== null)
-            return $model;
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    /**
      * Импорт диаграммы.
      *
+     * @param $id - идентификатор диаграммы
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionImport($id)
     {
         $model = $this->findModel($id);
         $import_model = new Import();
 
-        //вывод сообщения об очистки если диаграмма не пуста
+        // Вывод сообщения об очистки если диаграмма не пуста
         $diagram = Diagram::find()->where(['id' => $id])->one();
-
         $count = State::find()->where(['diagram' => $id])->count();
-        if ($count > 0){
-            Yii::$app->getSession()->setFlash('warning',
-                Yii::t('app', 'MESSAGE_CLEANING'));
-        }
+        if ($count > 0)
+            Yii::$app->getSession()->setFlash('warning', Yii::t('app', 'MESSAGE_CLEANING'));
 
-        //вывод сообщения об очистки если диаграмма не пуста если диаграмма событий
+        // Вывод сообщения об очистки если диаграмма не пуста (если диаграмма событий)
         $tree_diagram = TreeDiagram::find()->where(['diagram' => $id])->one();
-        if ($tree_diagram != null){
-            if ($tree_diagram->mode == TreeDiagram::EXTENDED_TREE_MODE){
+        if ($tree_diagram != null) {
+            if ($tree_diagram->mode == TreeDiagram::EXTENDED_TREE_MODE) {
                 $count = Level::find()->where(['tree_diagram' => $tree_diagram->id])->count();
-                if ($count > 0){
-                    Yii::$app->getSession()->setFlash('warning',
-                        Yii::t('app', 'MESSAGE_CLEANING'));
-                }
+                if ($count > 0)
+                    Yii::$app->getSession()->setFlash('warning', Yii::t('app', 'MESSAGE_CLEANING'));
             }
-            if ($tree_diagram->mode == TreeDiagram::CLASSIC_TREE_MODE){
+            if ($tree_diagram->mode == TreeDiagram::CLASSIC_TREE_MODE) {
                 $count = Node::find()->where(['tree_diagram' => $tree_diagram->id])->count();
-                if ($count > 0){
-                    Yii::$app->getSession()->setFlash('warning',
-                        Yii::t('app', 'MESSAGE_CLEANING'));
-                }
+                if ($count > 0)
+                    Yii::$app->getSession()->setFlash('warning', Yii::t('app', 'MESSAGE_CLEANING'));
             }
         }
 
-        //обработка импорта
+        // Обработка импорта
         if (Yii::$app->request->isPost) {
             $import_model->file_name = UploadedFile::getInstance($import_model, 'file_name');
 
@@ -305,36 +287,32 @@ class DefaultController extends Controller
 
                 $file = simplexml_load_file('uploads/temp.xml');
 
-                //определение корректности файла по наличию в нем State (состояний)
+                // Определение корректности файла по наличию в нем State (состояний)
                 $i = 0;
-                foreach($file->State as $state) {
-                    $i = $i + 1;
-                }
-                if ($i > 0){
+                foreach($file->State as $state)
+                    $i++;
+                if ($i > 0) {
                     $type = Diagram::STATE_TRANSITION_DIAGRAM_TYPE;
                     $mode = -1;
-                } else {
+                } else
                     $type = -1;
-                }
 
-                if (((string) $file["type"] == "Дерево событий") or ((string) $file["type"] == "Event tree")){
+                if (((string)$file["type"] == "Дерево событий") or ((string)$file["type"] == "Event tree")) {
                     $type = Diagram::EVENT_TREE_TYPE;
-                    //выявление расширенного или классического дерева
-                    if (((string) $file["mode"] == "Расширенное дерево") or ((string) $file["mode"] == "Extended tree")){
+                    // Выявление расширенного или классического дерева
+                    if (((string)$file["mode"] == "Расширенное дерево") or ((string)$file["mode"] == "Extended tree"))
                         $mode = TreeDiagram::EXTENDED_TREE_MODE;
-                    }
-                    if (((string) $file["mode"] == "Классическое дерево") or ((string) $file["mode"] == "Classic tree")){
+                    if (((string)$file["mode"] == "Классическое дерево") or ((string)$file["mode"] == "Classic tree"))
                         $mode = TreeDiagram::CLASSIC_TREE_MODE;
-                    }
                 }
 
-                //если тип диаграммы совпадает с типом диаграммы в файле
+                // Если тип диаграммы совпадает с типом диаграммы в файле
                 if (($diagram->type == $type) and ($mode == -1)) {
-                    //импорт xml файла
+                    // Импорт xml файла
                     $generator = new StateTransitionXMLImport();
                     $generator->importXMLCode($id, $file);
 
-                    //удаление файла
+                    // Удаление файла
                     unlink('uploads/temp.xml');
 
                     Yii::$app->getSession()->setFlash('success',
@@ -343,13 +321,12 @@ class DefaultController extends Controller
                     return $this->render('view', [
                         'model' => $this->findModel($id),
                     ]);
-                } elseif (($diagram->type == $type) and ($tree_diagram->mode == $mode)){
-
-                    //импорт xml файла
+                } elseif (($diagram->type == $type) and ($tree_diagram->mode == $mode)) {
+                    // Импорт xml файла
                     $generator = new EventTreeXMLImport();
                     $generator->importXMLCode($tree_diagram->id, $file);
 
-                    //удаление файла
+                    // Удаление файла
                     unlink('uploads/temp.xml');
 
                     Yii::$app->getSession()->setFlash('success',
@@ -376,4 +353,19 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * Finds the Diagram model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     *
+     * @param $id
+     * @return Diagram|null the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Diagram::findOne($id)) !== null)
+            return $model;
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }

@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Extended Event Tree Editor';
+$this->title = 'Knowledge Modeling System';
 ?>
 
 <div class="main-default-index">

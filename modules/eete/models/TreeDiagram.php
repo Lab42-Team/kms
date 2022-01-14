@@ -26,8 +26,8 @@ class TreeDiagram extends \yii\db\ActiveRecord
     const EXTENDED_TREE_MODE = 0; // Расширенное дерево
     const CLASSIC_TREE_MODE = 1;  // Классическое дерево
 
-    const ORDINARY_TREE_VIEW = 0; // обычное дерево
-    const TEMPLATE_TREE_VIEW = 1; // шаблонное дерево
+    const ORDINARY_TREE_VIEW = 0; // Обычное дерево
+    const TEMPLATE_TREE_VIEW = 1; // Шаблонное дерево
 
     /**
      * @return string table name
