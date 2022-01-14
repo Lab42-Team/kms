@@ -2,10 +2,17 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\modules\main\models\User;
+
+/* @var $this yii\web\View */
+/* @var $model app\modules\main\models\Diagram */
+/* @var $import_model app\modules\main\models\Diagram */
 
 $this->title = Yii::t('app', 'DIAGRAMS_PAGE_IMPORT_DIAGRAM');
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAMS'), 'url' => ['diagrams']];
+$this->params['breadcrumbs'][] = Yii::$app->user->identity->role == User::ROLE_ADMINISTRATOR ?
+    ['label' => Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAMS'), 'url' => ['diagrams']] :
+    ['label' => Yii::t('app', 'DIAGRAMS_PAGE_MY_DIAGRAMS'), 'url' => ['my-diagrams']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAM') . ' - ' . $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

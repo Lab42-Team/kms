@@ -43,11 +43,21 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-left'],
             'encodeLabels' => false,
             'items' => array_filter([
-                [
-                    'label' => '<span class="glyphicon glyphicon-list"></span> ' .
-                        Yii::t('app', 'NAV_DIAGRAMS'),
-                    'url' => ['/main/default/diagrams']
-                ],
+                !Yii::$app->user->isGuest ? (
+                    [
+                        'label' => '<span class="glyphicon glyphicon-list"></span> ' .
+                            Yii::t('app', 'NAV_MY_DIAGRAMS'),
+                        'url' => ['/main/default/my-diagrams']
+                    ]
+                ) : false,
+
+                (Yii::$app->user->isGuest or Yii::$app->user->identity->role == User::ROLE_ADMINISTRATOR) ? (
+                    [
+                        'label' => '<span class="glyphicon glyphicon-list"></span> ' .
+                            Yii::t('app', 'NAV_DIAGRAMS'),
+                        'url' => ['/main/default/diagrams']
+                    ]
+                ): false,
 
                 !Yii::$app->user->isGuest ? (
                     // Условие проверки есть ли visual-diagram в URL

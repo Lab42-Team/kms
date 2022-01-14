@@ -18,6 +18,7 @@ use app\modules\eete\models\TreeDiagram;
 use app\modules\eete\models\Level;
 use app\modules\eete\models\Node;
 use app\modules\stde\models\State;
+use app\modules\main\models\User;
 use app\components\StateTransitionXMLImport;
 use app\components\EventTreeXMLImport;
 
@@ -137,9 +138,25 @@ class DefaultController extends Controller
     public function actionDiagrams()
     {
         $searchModel = new DiagramSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, null);
 
         return $this->render('diagrams', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists diagram models for user.
+     *
+     * @return mixed
+     */
+    public function actionMyDiagrams()
+    {
+        $searchModel = new DiagramSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, Yii::$app->user->identity->getId());
+
+        return $this->render('my-diagrams', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -241,7 +258,8 @@ class DefaultController extends Controller
         Yii::$app->getSession()->setFlash('success',
             Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM'));
 
-        return $this->redirect(['diagrams']);
+        return $this->redirect(Yii::$app->user->identity->role == User::ROLE_ADMINISTRATOR ? ['diagrams'] :
+            ['my-diagrams']);
     }
 
     /**

@@ -38,6 +38,7 @@ return [
     'NAV_SIGN_UP' => 'Регистрация',
     'NAV_SIGN_IN' => 'Вход',
     'NAV_SIGN_OUT' => 'Выход',
+    'NAV_MY_DIAGRAMS' => 'Мои диаграммы',
     'NAV_DIAGRAMS' => 'Диаграммы',
     'NAV_DIAGRAM' => 'Диаграмма',
     'NAV_BACK_LIST' => 'Вернуться к списку',
@@ -124,6 +125,7 @@ return [
     /* Страница диаграмм */
     'DIAGRAMS_PAGE_DIAGRAM' => 'Диаграмма',
     'DIAGRAMS_PAGE_DIAGRAMS' => 'Диаграммы',
+    'DIAGRAMS_PAGE_MY_DIAGRAMS' => 'Мои диаграммы',
     'DIAGRAMS_PAGE_CREATE_DIAGRAM' => 'Создать диаграмму',
     'DIAGRAMS_PAGE_VIEW_DIAGRAM' => 'Просмотр диаграммы',
     'DIAGRAMS_PAGE_UPDATE_DIAGRAM' => 'Изменить диаграмму',

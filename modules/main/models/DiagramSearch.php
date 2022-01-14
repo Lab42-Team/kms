@@ -2,6 +2,7 @@
 
 namespace app\modules\main\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -34,9 +35,10 @@ class DiagramSearch extends Diagram
      * Creates data provider instance with search query applied.
      *
      * @param array $params
+     * @param integer $user_id
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $user_id)
     {
         $query = Diagram::find();
 
@@ -61,7 +63,7 @@ class DiagramSearch extends Diagram
             'type' => $this->type,
             'status' => $this->status,
             'correctness' => $this->correctness,
-            'author' => $this->author,
+            'author' => null ? $this->author : $user_id, // Выборка диаграмм по автору, если указан его id
         ]);
 
         $query->andFilterWhere(['ilike', 'name', $this->name])
@@ -70,6 +72,12 @@ class DiagramSearch extends Diagram
         return $dataProvider;
     }
 
+    /**
+     * Creates data provider instance with search query applied.
+     *
+     * @param $params
+     * @return ActiveDataProvider
+     */
     public function searchPublic($params)
     {
         $query = Diagram::find();

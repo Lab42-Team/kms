@@ -38,6 +38,7 @@ return [
     'NAV_SIGN_UP' => 'Sign up',
     'NAV_SIGN_IN' => 'Sign in',
     'NAV_SIGN_OUT' => 'Sign out',
+    'NAV_MY_DIAGRAMS' => 'My diagrams',
     'NAV_DIAGRAMS' => 'Diagrams',
     'NAV_DIAGRAM' => 'Diagram',
     'NAV_BACK_LIST' => 'Back to the list',
@@ -124,6 +125,7 @@ return [
     /* Страница диаграмм */
     'DIAGRAMS_PAGE_DIAGRAM' => 'Diagram',
     'DIAGRAMS_PAGE_DIAGRAMS' => 'Diagrams',
+    'DIAGRAMS_PAGE_MY_DIAGRAMS' => 'My diagrams',
     'DIAGRAMS_PAGE_CREATE_DIAGRAM' => 'Create diagram',
     'DIAGRAMS_PAGE_VIEW_DIAGRAM' => 'View diagram',
     'DIAGRAMS_PAGE_UPDATE_DIAGRAM' => 'Update diagram',
