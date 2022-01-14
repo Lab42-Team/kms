@@ -2,9 +2,11 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\modules\main\models\User;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $searchModel app\modules\main\models\UserSearch */
 
 $this->title = Yii::t('app', 'USERS_PAGE_USERS');
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,20 +23,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
-            'id',
+            ['class' => 'yii\grid\SerialColumn'],
             'username',
             [
                 'attribute'=>'role',
                 'value' => function($data) {
                     return ($data->role !== null) ? $data->getRoleName() : null;
                 },
+                'filter' => User::getRoles(),
             ],
             [
                 'attribute'=>'status',
                 'value' => function($data) {
                     return ($data->status !== null) ? $data->getStatusName() : null;
                 },
+                'filter' => User::getStatuses(),
             ],
             [
                 'attribute'=>'full_name',

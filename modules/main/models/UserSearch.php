@@ -6,9 +6,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * DiagramSearch represents the model behind the search form of `app\modules\main\models\Diagram`.
+ * UserSearch represents the model behind the search form of `app\modules\main\models\User`.
  */
-class DiagramSearch extends Diagram
+class UserSearch extends User
 {
     /**
      * {@inheritdoc}
@@ -16,8 +16,9 @@ class DiagramSearch extends Diagram
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'type', 'status', 'correctness', 'author'], 'integer'],
-            [['name', 'description'], 'safe'],
+            [['id', 'created_at', 'updated_at', 'role', 'status'], 'integer'],
+            [['username', 'full_name', 'email', 'auth_key', 'email_confirm_token', 'password_hash',
+                'password_reset_token'], 'safe'],
         ];
     }
 
@@ -38,7 +39,7 @@ class DiagramSearch extends Diagram
      */
     public function search($params)
     {
-        $query = Diagram::find();
+        $query = User::find();
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
@@ -58,21 +59,24 @@ class DiagramSearch extends Diagram
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'type' => $this->type,
+            'role' => $this->role,
             'status' => $this->status,
-            'correctness' => $this->correctness,
-            'author' => $this->author,
         ]);
 
-        $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'description', $this->description]);
+        $query->andFilterWhere(['ilike', 'username', $this->username])
+            ->andFilterWhere(['ilike', 'full_name', $this->full_name])
+            ->andFilterWhere(['ilike', 'email', $this->email])
+            ->andFilterWhere(['ilike', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['ilike', 'email_confirm_token', $this->email_confirm_token])
+            ->andFilterWhere(['ilike', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['ilike', 'password_reset_token', $this->password_reset_token]);
 
         return $dataProvider;
     }
 
     public function searchPublic($params)
     {
-        $query = Diagram::find();
+        $query = User::find();
 
         // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
@@ -92,14 +96,17 @@ class DiagramSearch extends Diagram
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'type' => $this->type,
-            'status' => Diagram::PUBLIC_STATUS,
-            'correctness' => $this->correctness,
-            'author' => $this->author,
+            'role' => $this->role,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'description', $this->description]);
+        $query->andFilterWhere(['ilike', 'username', $this->username])
+            ->andFilterWhere(['ilike', 'full_name', $this->full_name])
+            ->andFilterWhere(['ilike', 'email', $this->email])
+            ->andFilterWhere(['ilike', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['ilike', 'email_confirm_token', $this->email_confirm_token])
+            ->andFilterWhere(['ilike', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['ilike', 'password_reset_token', $this->password_reset_token]);
 
         return $dataProvider;
     }

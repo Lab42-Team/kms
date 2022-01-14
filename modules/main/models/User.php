@@ -68,7 +68,7 @@ class User extends ActiveRecord implements IdentityInterface
                 'message' => Yii::t('app', 'USER_MODEL_MESSAGE_FULL_NAME')],
             [['full_name'], 'string', 'min' => 5, 'max' => 100],
             [['email'], 'string', 'max' => 255],
-            [['status'], 'default', 'value' => null],
+            [['role', 'status'], 'default', 'value' => null],
             [['role', 'status'], 'integer'],
         ];
     }
