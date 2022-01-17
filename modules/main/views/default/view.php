@@ -46,10 +46,12 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
             Yii::t('app', 'BUTTON_EXPORT'), $url,
             ['data' => ['method' => 'post'], 'class' => 'btn btn-primary']
         ) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-download-alt"></span> ' .
-            Yii::t('app', 'BUTTON_UPLOAD_ONTOLOGY'),
-            ['upload-ontology', 'id' => $model->id], ['class' => 'btn btn-primary']
-        ) ?>
+        <?= $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ?
+            Html::a('<span class="glyphicon glyphicon-download-alt"></span> ' .
+                Yii::t('app', 'BUTTON_UPLOAD_ONTOLOGY'),
+                ['upload-ontology', 'id' => $model->id], ['class' => 'btn btn-primary']
+            ) : false
+        ?>
         <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' .
             Yii::t('app', 'BUTTON_DELETE'), ['#'], [
             'class' => 'btn btn-danger',
