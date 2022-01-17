@@ -2,30 +2,50 @@
 
 namespace app\components;
 
-use app\modules\editor\models\Level;
-use app\modules\editor\models\Node;
-use app\modules\editor\models\Parameter;
-use app\modules\editor\models\Sequence;
-use app\modules\editor\models\TreeDiagram;
+use app\modules\main\models\Diagram;
+use app\modules\eete\models\TreeDiagram;
+use app\modules\eete\models\Level;
+use app\modules\eete\models\Node;
+use app\modules\eete\models\Parameter;
+use app\modules\eete\models\Sequence;
+use app\modules\stde\models\State;
+use app\modules\stde\models\StateProperty;
+use app\modules\stde\models\Transition;
+use app\modules\stde\models\TransitionProperty;
 
 /**
- * Class OWLOntologyImporter - Класс реализующий импорт OWL-онтологий в классическое дерево событий.
+ * Class OWLOntologyImporter - Класс реализующий импорт OWL-онтологий в
+ * диаграммы (деревья событий или переходов состояний).
  * @package app\components
  */
 class OWLOntologyImporter
 {
     /**
-     * Очистка диаграммы.
+     * Очистка диаграммы дерева событий.
      *
-     * @param $id - идентификатор диаграммы
+     * @param $id - идентификатор диаграммы дерева событий
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public static function cleanDiagram($id)
+    public static function cleanEventTreeDiagram($id)
     {
         $nodes = Node::find()->where(['tree_diagram' => $id])->all();
         foreach ($nodes as $node)
             $node->delete();
+    }
+
+    /**
+     * Очистка диаграммы переходов состояний.
+     *
+     * @param $id - идентификатор диаграммы переходов состояний
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public static function cleanStateTransitionDiagram($id)
+    {
+        $states = State::find()->where(['diagram' => $id])->all();
+        foreach ($states as $state)
+            $state->delete();
     }
 
     /**
@@ -122,11 +142,11 @@ class OWLOntologyImporter
                                 foreach ($element->children($namespaces[$prefix]) as $child)
                                     // Обход всех атрибутов данного элемента с учетом пространства имен
                                     foreach ($namespaces as $prefix => $namespace)
-                                        foreach ($child->attributes($prefix, true) as $attribute_name => $attribute_value)
+                                        foreach ($child->attributes($prefix, true) as $attribute_name1 => $attribute_value1)
                                             // Если совпадает название искомого элемента и его атрибута
-                                            if ($child->getName() == 'domain' && $attribute_name == 'resource') {
+                                            if ($child->getName() == 'domain' && $attribute_name1 == 'resource') {
                                                 // Извлечение значения атрибута у текущего элемента (класса онтологии)
-                                                $class = explode('#', (string)$attribute_value);
+                                                $class = explode('#', (string)$attribute_value1);
                                                 $datatype_properties[$class[1]] = [[$datatype_property[1], null]];
                                             }
                         }
@@ -175,14 +195,14 @@ class OWLOntologyImporter
                                                 }
                                 // Добавление свойства-значения для класса
                                 if (isset($class[1]) && isset($datatype_property_name))
-                                    if (isset($datatype_properties[$class[1]])) {
-                                        $item = $datatype_properties[$class[1]];
-                                        array_push($item, [$datatype_property_name, $datatype_property_value]);
-                                        $datatype_properties[$class[1]] = $item;
-                                    } else {
+//                                    if (isset($datatype_properties[$class[1]])) {
+//                                        $item = $datatype_properties[$class[1]];
+//                                        array_push($item, [$datatype_property_name, $datatype_property_value]);
+//                                        $datatype_properties[$class[1]] = [[$datatype_property_name, 'VVV']];//$item;
+//                                    } else {
                                         $datatype_properties[$class[1]] = [[$datatype_property_name,
                                             $datatype_property_value]];
-                                    }
+//                                    }
                             }
                     }
                 }
@@ -218,6 +238,7 @@ class OWLOntologyImporter
                             $array = explode('#', (string)$attribute_value);
                             //
                             array_push($object_property_names, $array[1]);
+                            $object_property_name = $array[1];
                             // Обход всех тегов внутри элемента с учетом пространства имен
                             foreach ($namespaces as $prefix => $namespace)
                                 foreach ($element->children($namespaces[$prefix]) as $child)
@@ -237,7 +258,7 @@ class OWLOntologyImporter
                                         }
                             // Формирование массива объектных свойств (отношений между классами)
                             if (isset($domain_class))
-                                array_push($object_properties, [$domain_class, $range_class]);
+                                $object_properties[$object_property_name] = [$domain_class, $range_class];
                         }
                 // Если текущий элемент является классом
                 if ($element->getName() == 'Class') {
@@ -356,16 +377,86 @@ class OWLOntologyImporter
                         $subclasses[$class] = $item;
                     } else
                         $subclasses[$class] = [$subclass];
-                } else
-                    if (isset($subclass))
-                        $subclasses[$subclass] = null;
+                }
             }
 
         return $subclasses;
     }
 
     /**
-     * Конвертация OWL-онтологии в классическую диаграмму дерева событий.
+     * Получение массива всех индивидов (экземпляров классов) с их свойствами и комментариями из онтологии.
+     *
+     * @param $xml_rows - XML-строки из OWL-файла онтологии
+     * @return array - массив всех индивидов извлеченных из онтологии, содержащих комментарии (описания индивидов),
+     * ссылки на их классы, свойства-значений и объектные свойства (отношения)
+     */
+    public function getIndividuals($xml_rows)
+    {
+        // Массив для хранения извлекаемых индивидов
+        $individuals = array();
+        // Получение всех пространств имен объявленых в XML-документе онтологии
+        $namespaces = $xml_rows->getDocNamespaces(true);
+        // Обход всех тегов внутри корневого элемента с учетом пространства имен
+        foreach ($namespaces as $prefix => $namespace)
+            foreach ($xml_rows->children($namespaces[$prefix]) as $element) {
+                $individual_name = null;
+                $comment = null;
+                $type = null;
+                $datatype_properties = array();
+                $object_properties = array();
+                // Обход всех атрибутов данного элемента с учетом пространства имен
+                foreach ($namespaces as $prefix => $namespace)
+                    foreach ($element->attributes($prefix, true) as $attribute_name => $attribute_value)
+                        // Если текущий элемент является индивидом с определенным атрибутом
+                        if ($element->getName() == 'NamedIndividual' && $attribute_name == 'about') {
+                            // Извлечение значения атрибута у текущего элемента (индивида онтологии)
+                            $array = explode('#', (string)$attribute_value);
+                            $individual_name = $array[1];
+                        }
+                // Если текуший элемент является индивидом
+                if ($element->getName() == 'NamedIndividual')
+                    foreach ($namespaces as $prefix => $namespace)
+                        // Обход всех тегов внутри элемента индивида с учетом пространства имен
+                        foreach ($element->children($namespaces[$prefix]) as $child) {
+                            // Если текущий элемент является комментарием
+                            if ($child->getName() == 'comment')
+                                $comment = (string)$child;
+                            // Если текущий элемент является ссылкой на класс
+                            if ($child->getName() == 'type')
+                                // Определение класса для индивида по ссылке в атрибуте элемента
+                                foreach ($namespaces as $prefix => $namespace)
+                                    foreach ($child->attributes($prefix, true) as $attribute_name => $attribute_value)
+                                        if ($attribute_name == 'resource') {
+                                            $array = explode('#', (string)$attribute_value);
+                                            $type = $array[1];
+                                        }
+                            // Если текущий элемент не является комментарием и ссылкой на класс
+                            if ($child->getName() != 'comment' and $child->getName() != 'type') {
+                                $attribute_exist = false;
+                                // Определение объектного свойства для индивида
+                                foreach ($namespaces as $prefix => $namespace)
+                                    foreach ($child->attributes($prefix, true) as $attribute_name => $attribute_value)
+                                        if ($attribute_name == 'resource') {
+                                            $attribute_exist = true;
+                                            $array = explode('#', (string)$attribute_value);
+                                            $object_properties[$child->getName()] = $array[1];
+                                        }
+                                // Определение свойства-значения для индивида
+                                if ($attribute_exist == false)
+                                    $datatype_properties[$child->getName()] = (string)$child;
+                            }
+                        }
+                // Формирование массива индивидов с комментарием, ссылкой на его класс,
+                // свойствами-значениями и объектными свойствами
+                if (isset($individual_name))
+                    $individuals[$individual_name] = [$comment, $type, $datatype_properties, $object_properties];
+            }
+
+        return $individuals;
+    }
+
+    /**
+     * Конвертация OWL-онтологии в диаграмму дерева событий.
      *
      * @param $id - идентификатор диаграммы
      * @param $xml_rows - XML-строки из OWL-файла онтологии
@@ -375,10 +466,10 @@ class OWLOntologyImporter
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function convertOWLOntology($id, $xml_rows, $selected_classes, $hierarchy, $relation)
+    public function convertOWLOntologyToEventTreeDiagram($id, $xml_rows, $selected_classes, $hierarchy, $relation)
     {
         // Удаление всех узлов на диаграмме дерева событий
-        self::cleanDiagram($id);
+        self::cleanEventTreeDiagram($id);
 
         // Получение комментария (описания) онтологии
         $comment = self::getOntologyDescription($xml_rows);
@@ -505,7 +596,229 @@ class OWLOntologyImporter
                 }
             }
         }
+    }
 
-        return $object_properties;
+    /**
+     * Конвертация OWL-онтологии в диаграмму переходов состояний.
+     *
+     * @param $id - идентификатор диаграммы переходов состояний
+     * @param $xml_rows - XML-строки из OWL-файла онтологии
+     * @param $class_flag - индикатор интерпретации классов
+     * @param $class_property_flag - индикатор учета свойств-знаечний классов
+     * @param $class_hierarchy_flag - индикатор учета иерархических отношений между классами
+     * @param $class_relation_flag - индикатор учета объектных свойств классов (отношений между классами)
+     * @param $individual_flag - индикатор интерпретации индивидов (экземпляров классов)
+     * @param $individual_property_flag - индикатор учета свойств-знаечний индивидов
+     * @param $individual_is_a_flag - индикатор учета отношений между индивидом и его классом
+     * @param $individual_relation_flag - - индикатор учета объектных свойств индивидов (отношений между индивидами)
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function convertOWLOntologyToStateTransitionDiagram($id, $xml_rows, $class_flag, $class_property_flag,
+                                                               $class_hierarchy_flag, $class_relation_flag,
+                                                               $individual_flag, $individual_property_flag,
+                                                               $individual_is_a_flag, $individual_relation_flag)
+    {
+        // Удаление всех узлов на диаграмме переходов состояний
+        self::cleanStateTransitionDiagram($id);
+
+        // Получение комментария (описания) онтологии
+        $comment = self::getOntologyDescription($xml_rows);
+        // Обновление описания диаграммы переходов состояний
+        $diagram = Diagram::findOne($id);
+        $diagram->description = $comment;
+        $diagram->save();
+
+        // Если пользователь указал интерпретацию классов
+        if ($class_flag) {
+            // Получение массива всех классов с комментариями из онтологии
+            $classes = self::getClasses($xml_rows);
+            // Если пользователь указал учет свойств-знаечний классов
+            if ($class_property_flag)
+                // Получение массива свойств-знаечний для всех классов из онтологии
+                $datatype_properties = self::getDatatypeProperties($xml_rows);
+            // Обход всех классов, извлеченных из онтологии
+            foreach ($classes as $item) {
+                // Поиск состояний в данной диаграмме переходов состояний
+                $states = State::find()->where(['diagram' => $diagram->id])->all();
+                // Создание нового состояния
+                $state_model = new State();
+                $state_model->name = $item[0];
+                $state_model->type = empty($states) ? State::INITIAL_STATE_TYPE : State::COMMON_STATE_TYPE;
+                $state_model->description = $item[1];
+                $state_model->indent_x = 0;
+                $state_model->indent_y = 0;
+                $state_model->diagram = $diagram->id;
+                $state_model->save();
+                // Если пользователь указал учет свойств-знаечний классов
+                if ($class_property_flag)
+                    // Обход всех свойств-значений классов, извлеченных из онтологии
+                    foreach ($datatype_properties as $class => $items)
+                        if ($item[0] == $class)
+                            foreach ($items as $datatype_property) {
+                                // Создание нового свойства для состояния
+                                $state_property_model = new StateProperty();
+                                $state_property_model->name = $datatype_property[0];
+                                $state_property_model->value = $datatype_property[1] != null ? $datatype_property[1] :
+                                    'None';
+                                $state_property_model->operator = StateProperty::EQUALLY_OPERATOR;
+                                $state_property_model->state = $state_model->id;
+                                $state_property_model->save();
+                            }
+            }
+
+            // Если пользователь указал учет иерархических отношений между классами
+            if ($class_hierarchy_flag) {
+                $relation_index = 1;
+                // Получение массива иерархических отношений между классами из онтологии
+                $subclasses = self::getSubClasses($xml_rows);
+                // Обход всех иерархических отношений между классами
+                foreach ($subclasses as $parent_class => $current_subclasses)
+                    if (isset($current_subclasses))
+                        foreach ($current_subclasses as $subclass) {
+                            // Поиск классов имеющих иерархические отношения среди всех классов
+                            $parent_class_exists = false;
+                            $subclass_exists = false;
+                            foreach ($classes as $item) {
+                                if ($item[0] == $parent_class)
+                                    $parent_class_exists = true;
+                                if ($item[0] == $subclass)
+                                    $subclass_exists = true;
+                            }
+                            // Если такие классы есть
+                            if ($parent_class_exists && $subclass_exists) {
+                                // Поиск состояний в БД
+                                $state_from = State::find()->where(['name' => $parent_class])->one();
+                                $state_to = State::find()->where(['name' => $subclass])->one();
+                                // Если состояния найдены
+                                if (!empty($state_from) && !empty($state_to)) {
+                                    // Создание нового перехода
+                                    $transition_model = new Transition();
+                                    $transition_model->name = 'relation-' . $relation_index;
+                                    $transition_model->state_from = $state_from->id;
+                                    $transition_model->state_to = $state_to->id;
+                                    $transition_model->name_property = 'name property';
+                                    $transition_model->operator_property = TransitionProperty::EQUALLY_OPERATOR;
+                                    $transition_model->value_property = 'value property';
+                                    $transition_model->save();
+                                    // Увеличение индекса отношения
+                                    $relation_index++;
+                                }
+                            }
+                        }
+            }
+
+            // Если пользователь указал учет объектных свойств классов (отношений между классами)
+            if ($class_relation_flag) {
+                // Получение массива объектных свойств для всех классов из онтологии
+                $object_properties = self::getObjectProperties($xml_rows);
+                // Обход всех отношений (объектных свойств) между классами
+                foreach ($object_properties as $object_property_name => $object_property) {
+                    // Поиск "левого" класса из отношения среди выбранных пользователем классов
+                    $domain_class_exists = false;
+                    foreach ($classes as $item) {
+                        if ($item[0] == $object_property[0])
+                            $domain_class_exists = true;
+                    }
+                    // Обход всех "правых" классов
+                    foreach ($object_property[1] as $range_class) {
+                        // Поиск "правого" класса из отношения среди выбранных пользователем классов
+                        $range_class_exists = false;
+                        foreach ($classes as $item) {
+                            if ($item[0] == $range_class)
+                                $range_class_exists = true;
+                        }
+                        // Если такие классы есть
+                        if ($domain_class_exists && $range_class_exists) {
+                            // Поиск состояний в БД
+                            $state_from = State::find()->where(['name' => $object_property[0]])->one();
+                            $state_to = State::find()->where(['name' => $range_class])->one();
+                            // Если состояния найдены
+                            if (!empty($state_from) && !empty($state_to)) {
+                                // Создание нового перехода
+                                $transition_model = new Transition();
+                                $transition_model->name = $object_property_name;
+                                $transition_model->state_from = $state_from->id;
+                                $transition_model->state_to = $state_to->id;
+                                $transition_model->name_property = 'name property';
+                                $transition_model->operator_property = TransitionProperty::EQUALLY_OPERATOR;
+                                $transition_model->value_property = 'value property';
+                                $transition_model->save();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Если пользователь указал интерпретацию индивидов (экземпляров классов)
+        if ($individual_flag) {
+            // Получение массива всех индивидов с комментариями из онтологии
+            $individuals = self::getIndividuals($xml_rows);
+            // Обход всех классов, извлеченных из онтологии
+            foreach ($individuals as $individual_name => $item) {
+                // Поиск состояний в данной диаграмме переходов состояний
+                $states = State::find()->where(['diagram' => $diagram->id])->all();
+                // Создание нового состояния
+                $state_model = new State();
+                $state_model->name = $individual_name;
+                $state_model->type = empty($states) ? State::INITIAL_STATE_TYPE : State::COMMON_STATE_TYPE;
+                $state_model->description = $item[0];
+                $state_model->indent_x = 0;
+                $state_model->indent_y = 0;
+                $state_model->diagram = $diagram->id;
+                $state_model->save();
+                // Если пользователь указал учет свойств-знаечний индивидов
+                if ($individual_property_flag) {
+                    // Обход массива свойств-значений индивида
+                    foreach ($item[2] as $datatype_property_name => $datatype_property_value) {
+                        // Создание нового свойства для состояния
+                        $state_property_model = new StateProperty();
+                        $state_property_model->name = $datatype_property_name;
+                        $state_property_model->value = $datatype_property_value;
+                        $state_property_model->operator = StateProperty::EQUALLY_OPERATOR;
+                        $state_property_model->state = $state_model->id;
+                        $state_property_model->save();
+                    }
+                }
+                // Если пользователь указал учет отношения между классом и его индивидом
+                if ($individual_is_a_flag) {
+                    // Поиск состояний в БД
+                    $state_from = State::find()->where(['name' => $individual_name])->one();
+                    $state_to = State::find()->where(['name' => $item[1]])->one();
+                    // Если состояния найдены
+                    if (!empty($state_from) && !empty($state_to)) {
+                        // Создание нового перехода
+                        $transition_model = new Transition();
+                        $transition_model->name = 'is a';
+                        $transition_model->state_from = $state_from->id;
+                        $transition_model->state_to = $state_to->id;
+                        $transition_model->name_property = 'name property';
+                        $transition_model->operator_property = TransitionProperty::EQUALLY_OPERATOR;
+                        $transition_model->value_property = 'value property';
+                        $transition_model->save();
+                    }
+                }
+                // Если пользователь указал учет объектных свойств индивидов (отношений между индивидами)
+                if ($individual_relation_flag) {
+                    // Поиск состояния в БД
+                    $state_from = State::find()->where(['name' => $individual_name])->one();
+                    // Обход массива объектных свойств индивида
+                    foreach ($item[3] as $object_property_name => $object_property_value) {
+                        // Поиск состояния в БД
+                        $state_to = State::find()->where(['name' => $object_property_value])->one();
+                        // Создание нового перехода
+                        $transition_model = new Transition();
+                        $transition_model->name = $object_property_name;
+                        $transition_model->state_from = $state_from->id;
+                        $transition_model->state_to = $state_to->id;
+                        $transition_model->name_property = 'name property';
+                        $transition_model->operator_property = TransitionProperty::EQUALLY_OPERATOR;
+                        $transition_model->value_property = 'value property';
+                        $transition_model->save();
+                    }
+                }
+            }
+        }
     }
 }
