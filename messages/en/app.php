@@ -139,6 +139,7 @@ return [
     'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'You have successfully updated diagram.',
     'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM' => 'You have successfully deleted diagram.',
     'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM' => 'You have successfully imported diagram.',
+    'DIAGRAMS_PAGE_MESSAGE_WARNING_BEFORE_UPLOAD_ONTOLOGY' => 'Attention! All previous diagram elements will be deleted.',
     'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'You have successfully uploaded ontology.',
 
     /* Страница диаграммы деревьев событий */
@@ -185,8 +186,14 @@ return [
     'LOGIN_FORM_MESSAGE_NOT_CONFIRMED_ACCOUNT' => 'Your account is not confirmed.',
     /* OWLFileForm */
     'OWL_FILE_FORM_OWL_FILE' => 'OWL ontology file',
-    'OWL_FILE_FORM_SUBCLASS_OF' => 'Inheritance relationship (class-subclass)',
-    'OWL_FILE_FORM_OBJECT_PROPERTY' => 'Relationship between classes (object properties)',
+    'OWL_FILE_FORM_CLASS' => 'Import classes',
+    'OWL_FILE_FORM_SUBCLASS_RELATION' => 'Consider class hierarchy',
+    'OWL_FILE_FORM_CLASS_OBJECT_PROPERTY' => 'Consider object properties of classes',
+    'OWL_FILE_FORM_CLASS_DATATYPE_PROPERTY' => 'Consider datatype properties of classes',
+    'OWL_FILE_FORM_INDIVIDUAL' => 'Import individuals (class instances)',
+    'OWL_FILE_FORM_IS_A_RELATION' => 'Consider relationships between class and its individuals',
+    'OWL_FILE_FORM_INDIVIDUAL_OBJECT_PROPERTY' => 'Consider object properties of individuals',
+    'OWL_FILE_FORM_INDIVIDUAL_DATATYPE_PROPERTY' => 'Consider datatype properties of individuals',
 
     /* Модели */
     /* Lang */

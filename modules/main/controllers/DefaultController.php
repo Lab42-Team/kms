@@ -2,6 +2,7 @@
 
 namespace app\modules\main\controllers;
 
+use app\components\OWLOntologyImporter;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -19,6 +20,7 @@ use app\modules\eete\models\Level;
 use app\modules\eete\models\Node;
 use app\modules\stde\models\State;
 use app\modules\main\models\User;
+use app\modules\main\models\OWLFileForm;
 use app\components\StateTransitionXMLImport;
 use app\components\EventTreeXMLImport;
 
@@ -368,6 +370,57 @@ class DefaultController extends Controller
         return $this->render('import', [
             'model' => $model,
             'import_model' => $import_model,
+        ]);
+    }
+
+    /**
+     * Загрузка онтологии в формате OWL и ее преобразование в диаграмму переходов состояния.
+     *
+     * @param $id - идентификатор диаграммы переходов состояний
+     * @return string|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionUploadOntology($id)
+    {
+        // Поиск модели диаграммы переходов состояний по id
+        $model = $this->findModel($id);
+        // Создание формы файла OWL-онтологии
+        $owl_file_form = new OWLFileForm();
+        // Если POST-запрос
+        if (Yii::$app->request->isPost) {
+            // Загрузка файла с формы
+            $owl_file = UploadedFile::getInstance($owl_file_form, 'owl_file');
+            $owl_file_form->owl_file = $owl_file;
+            // Валидация поля файла
+            if ($owl_file_form->validate(['owl_file'])) {
+                // Загрузка полей формы
+                if ($owl_file_form->load(Yii::$app->request->post())) {
+                    // Получение XML-строк из OWL-файла онтологии
+                    $xml_rows = simplexml_load_file($owl_file->tempName);
+                    // Создание объекта класса импортера онтологии
+                    $owl_ontology_importer = new OWLOntologyImporter();
+                    // Конвертация OWL-онтологии в диаграмму переходов состояний
+                    $owl_ontology_importer->convertOWLOntologyToStateTransitionDiagram($id, $xml_rows,
+                        $owl_file_form->class, $owl_file_form->class_datatype_property,
+                        $owl_file_form->subclass_relation, $owl_file_form->class_object_property,
+                        $owl_file_form->individual, $owl_file_form->individual_datatype_property,
+                        $owl_file_form->is_a_relation, $owl_file_form->individual_object_property);
+                    // Вывод сообщения об успешной загрузке файла онтологии
+                    Yii::$app->getSession()->setFlash('success',
+                        Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY'));
+
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+        }
+
+        // Вывод сообщения с предупреждением перед загрузкой онтологии
+        Yii::$app->getSession()->setFlash('warning',
+            Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_WARNING_BEFORE_UPLOAD_ONTOLOGY'));
+
+        return $this->render('upload-ontology', [
+            'model' => $model,
+            'owl_file_form' => $owl_file_form
         ]);
     }
 

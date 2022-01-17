@@ -139,6 +139,7 @@ return [
     'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'Вы успешно обновили данную диаграмму.',
     'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM' => 'Вы успешно удалили диаграмму.',
     'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM' => 'Вы успешно импортировали диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_WARNING_BEFORE_UPLOAD_ONTOLOGY' => 'Внимание! Все предыдущие элементы диаграммы будут удалены.',
     'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'Вы успешно загрузили файл OWL-онтологии.',
 
     /* Страница диаграммы деревьев событий */
@@ -185,8 +186,14 @@ return [
     'LOGIN_FORM_MESSAGE_NOT_CONFIRMED_ACCOUNT' => 'Ваш аккаунт не подтвержден.',
     /* OWLFileForm */
     'OWL_FILE_FORM_OWL_FILE' => 'Файл онтологии в формате OWL',
-    'OWL_FILE_FORM_SUBCLASS_OF' => 'Отношение наследования (класс-подкласс)',
-    'OWL_FILE_FORM_OBJECT_PROPERTY' => 'Отношение между классами (объектные свойства)',
+    'OWL_FILE_FORM_CLASS' => 'Импортировать классы',
+    'OWL_FILE_FORM_SUBCLASS_RELATION' => 'Учитывать иерархию классов',
+    'OWL_FILE_FORM_CLASS_OBJECT_PROPERTY' => 'Учитывать объектные свойства классов',
+    'OWL_FILE_FORM_CLASS_DATATYPE_PROPERTY' => 'Учитывать свойства-значений классов',
+    'OWL_FILE_FORM_INDIVIDUAL' => 'Импортировать индивиды (экземпляры классов)',
+    'OWL_FILE_FORM_IS_A_RELATION' => 'Учитывать отношения между классом и его индивидами',
+    'OWL_FILE_FORM_INDIVIDUAL_OBJECT_PROPERTY' => 'Учитывать объектные свойства индивидов',
+    'OWL_FILE_FORM_INDIVIDUAL_DATATYPE_PROPERTY' => 'Учитывать свойства-значений индивидов',
 
     /* Модели */
     /* Lang */

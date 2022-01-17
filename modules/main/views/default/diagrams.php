@@ -118,14 +118,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'upload-ontology' => function ($url, $model, $key) {
-                        return Html::a(
+                        return $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ? Html::a(
                             '<span class="glyphicon glyphicon-download-alt"></span>',
                             ['upload-ontology', 'id' => $model->id],
                             [
                                 'title' => Yii::t('app', 'BUTTON_UPLOAD_ONTOLOGY'),
                                 'aria-label' => Yii::t('app', 'BUTTON_UPLOAD_ONTOLOGY')
                             ]
-                        );
+                        ) : false;
                     },
                 ]
             ]
