@@ -61,8 +61,6 @@ use app\modules\eete\models\TreeDiagram;
 
         <?= $form->field($model, 'mode_tree_diagram')->dropDownList(TreeDiagram::getModesArray()) ?>
 
-        <?= $form->field($model, 'tree_view_tree_diagram')->dropDownList(TreeDiagram::getTreeViewArray()) ?>
-
     </div>
 
     <div class="form-group">

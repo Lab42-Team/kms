@@ -26,9 +26,6 @@ class TreeDiagram extends \yii\db\ActiveRecord
     const EXTENDED_TREE_MODE = 0; // Расширенное дерево
     const CLASSIC_TREE_MODE = 1;  // Классическое дерево
 
-    const ORDINARY_TREE_VIEW = 0; // Обычное дерево
-    const TEMPLATE_TREE_VIEW = 1; // Шаблонное дерево
-
     /**
      * @return string table name
      */
@@ -43,8 +40,8 @@ class TreeDiagram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mode', 'tree_view'], 'default', 'value' => null],
-            [['mode', 'tree_view'], 'integer'],
+            [['mode'], 'default', 'value' => null],
+            [['mode'], 'integer'],
             [['diagram'], 'exist', 'skipOnError' => true, 'targetClass' => Diagram::className(),
                 'targetAttribute' => ['diagram' => 'id']],
         ];
@@ -60,7 +57,6 @@ class TreeDiagram extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'TREE_DIAGRAM_MODEL_CREATED_AT'),
             'updated_at' => Yii::t('app', 'TREE_DIAGRAM_MODEL_UPDATED_AT'),
             'mode' => Yii::t('app', 'TREE_DIAGRAM_MODEL_MODE'),
-            'tree_view' => Yii::t('app', 'TREE_DIAGRAM_MODEL_TREE_VIEW'),
             'diagram' => Yii::t('app', 'TREE_DIAGRAM_MODEL_DIAGRAM'),
         ];
     }
@@ -116,29 +112,6 @@ class TreeDiagram extends \yii\db\ActiveRecord
     public function getModesNameEn()
     {
         return ArrayHelper::getValue(self::getModesArrayEn(), $this->mode);
-    }
-
-    /**
-     * Получение списка режимов деревьев диаграмм.
-     *
-     * @return array - массив всех возможных статусов
-     */
-    public static function getTreeViewArray()
-    {
-        return [
-            self::ORDINARY_TREE_VIEW => Yii::t('app', 'TREE_DIAGRAM_MODEL_ORDINARY_TREE_VIEW'),
-            self::TEMPLATE_TREE_VIEW => Yii::t('app', 'TREE_DIAGRAM_MODEL_TEMPLATE_TREE_VIEW'),
-        ];
-    }
-
-    /**
-     * Получение названия типа диаграмм.
-     *
-     * @return mixed
-     */
-    public function getTreeViewName()
-    {
-        return ArrayHelper::getValue(self::getTreeViewArray(), $this->tree_view);
     }
 
     /**

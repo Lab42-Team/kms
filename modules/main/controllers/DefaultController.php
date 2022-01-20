@@ -16,9 +16,14 @@ use app\modules\main\models\DiagramSearch;
 use app\modules\main\models\Diagram;
 use app\modules\main\models\Import;
 use app\modules\eete\models\TreeDiagram;
+use app\modules\eete\models\Sequence;
 use app\modules\eete\models\Level;
 use app\modules\eete\models\Node;
+use app\modules\eete\models\Parameter;
 use app\modules\stde\models\State;
+use app\modules\stde\models\StateProperty;
+use app\modules\stde\models\Transition;
+use app\modules\stde\models\TransitionProperty;
 use app\modules\main\models\User;
 use app\modules\main\models\OWLFileForm;
 use app\components\StateTransitionXMLImport;
@@ -142,9 +147,30 @@ class DefaultController extends Controller
         $searchModel = new DiagramSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, null);
 
+        if (!Yii::$app->user->isGuest) {
+            //поиск всех диаграмм
+            $templates = Diagram::find()->all();
+
+            $array_template = array();
+            $i = 0;
+            if ($templates != null){
+                foreach ($templates as $elem){
+                    $array_template[$i]['label'] = $elem->name;
+                    $array_template[$i]['url'] = 'creation-template/' . $elem->id;
+                    $i = $i + 1;
+                }
+            } else {
+                $array_template[0]['label'] = Yii::t('app', 'TEMPLATES_DIAGRAMS_NOT_FOUND');
+                $array_template[0]['url'] = '';
+            }
+        } else {
+            $array_template = array();
+        }
+
         return $this->render('diagrams', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'array_template' => $array_template,
         ]);
     }
 
@@ -158,9 +184,30 @@ class DefaultController extends Controller
         $searchModel = new DiagramSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, Yii::$app->user->identity->getId());
 
+        if (!Yii::$app->user->isGuest) {
+            //поиск всех диаграмм принадлежащих пользователю
+            $templates = Diagram::find()->where(['author' => Yii::$app->user->identity->getId()])->all();
+
+            $array_template = array();
+            $i = 0;
+            if ($templates != null){
+                foreach ($templates as $elem){
+                    $array_template[$i]['label'] = $elem->name;
+                    $array_template[$i]['url'] = 'creation-template/' . $elem->id;
+                    $i = $i + 1;
+                }
+            } else {
+                $array_template[0]['label'] = Yii::t('app', 'TEMPLATES_DIAGRAMS_NOT_FOUND');
+                $array_template[0]['url'] = '';
+            }
+        } else {
+            $array_template = array();
+        }
+
         return $this->render('my-diagrams', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'array_template' => $array_template,
         ]);
     }
 
@@ -195,7 +242,6 @@ class DefaultController extends Controller
                 // Создание диаграммы дерева событий
                 $tree_diagram_model = new TreeDiagram();
                 $tree_diagram_model->mode = $model->mode_tree_diagram;
-                $tree_diagram_model->tree_view = $model->tree_view_tree_diagram;
                 $tree_diagram_model->diagram = $model->id;
                 $tree_diagram_model->save();
 
@@ -438,5 +484,206 @@ class DefaultController extends Controller
             return $model;
 
         throw new NotFoundHttpException(Yii::t('app', 'ERROR_MESSAGE_PAGE_NOT_FOUND'));
+    }
+
+
+    /**
+     * Создание диаграммы из другой диаграммы
+     *
+     * @param $id - идентификатор диаграммы
+     * @return string|Response
+     */
+    public function actionCreationTemplate($id)
+    {
+        //поиск Diagram шаблона
+        $template_diagram = Diagram::find()->where(['id' => $id])->one();
+
+        //создание новой diagram из шаблона
+        $diagram = new Diagram();
+        $diagram->author = Yii::$app->user->identity->getId();
+        $diagram->correctness = Diagram::NOT_CHECKED_CORRECT;
+        $diagram->name =  Yii::t('app', 'DIAGRAM_CREATED_FROM') . $template_diagram->name;
+        $diagram->description = $template_diagram->description;
+        $diagram->type = $template_diagram->type;
+        $diagram->status = $template_diagram->status;
+        $diagram->save();
+
+        if ($template_diagram->type == Diagram::EVENT_TREE_TYPE){
+
+            $template_tree_diagram = TreeDiagram::find()->where(['diagram' => $id])->one();
+
+            $tree_diagram = new TreeDiagram();
+            $tree_diagram->diagram = $diagram->id;
+            $tree_diagram->mode = $template_tree_diagram->mode;
+            $tree_diagram->save();
+
+            //массив node (для копирования связей)
+            $array_nodes = array();
+            $j = 0;
+
+            $template_level_count = Level::find()->where(['tree_diagram' => $template_tree_diagram->id])->count();
+            $template_parent_level = null;
+            $parent_level = null;
+            for ($i = 1; $i <= $template_level_count; $i++) {
+                $template_level = Level::find()->where(['parent_level' => $template_parent_level, 'tree_diagram' => $template_tree_diagram->id])->one();
+
+                //создание нового level из шаблона
+                $level = new Level();
+                $level->name = $template_level->name;
+                $level->description = $template_level->description;
+                $level->parent_level = $parent_level;
+                $level->tree_diagram = $tree_diagram->id;
+                $level->comment =  $template_level->comment;
+                $level->save();
+
+                $template_parent_level = $template_level->id;
+                $parent_level = $level->id;
+
+                $template_sequences = Sequence::find()->where(['level' => $template_parent_level, 'tree_diagram' => $template_tree_diagram->id])->all();
+                foreach ($template_sequences as $s){
+
+                    $template_node = Node::find()->where(['id' => $s->node])->one();
+                    //создание нового node из шаблона
+                    $node = new Node();
+                    $node->name = $template_node->name;
+                    $node->certainty_factor = $template_node->certainty_factor;
+                    $node->description = $template_node->description;
+                    $node->operator = $template_node->operator;
+                    $node->type = $template_node->type;
+                    $node->parent_node = $template_node->parent_node;
+                    $node->tree_diagram = $tree_diagram->id;
+                    $node->level_id = $parent_level;
+                    $node->indent_x = $template_node->indent_x;
+                    $node->indent_y = $template_node->indent_y;
+                    $node->comment =  $template_node->comment;
+                    $node->save();
+
+                    $array_nodes[$j]['node_template'] = $template_node->id;
+                    $array_nodes[$j]['node'] = $node->id;
+                    $j = $j+1;
+
+                    //поиск всех parameter из шаблона по id node
+                    $template_parameters = Parameter::find()->where(['node' => $template_node->id])->all();
+                    foreach ($template_parameters as $p){
+                        //создание нового parameter из шаблона
+                        $parameter = new Parameter();
+                        $parameter->name = $p->name;
+                        $parameter->description = $p->description;
+                        $parameter->operator = $p->operator;
+                        $parameter->value = $p->value;
+                        $parameter->node = $node->id;
+                        $parameter->save();
+                    }
+
+                    //создание нового sequence из шаблона
+                    $sequence = new Sequence();
+                    $sequence->tree_diagram = $tree_diagram->id;
+                    $sequence->level = $parent_level;
+                    $sequence->node = $node->id;
+                    $sequence_model_count = Sequence::find()->where(['tree_diagram' => $diagram->id])->count();
+                    $sequence->priority = $sequence_model_count;
+                    $sequence->save();
+                }
+            }
+
+            //обновление связей
+            $nodes = Node::find()->where(['tree_diagram' => $tree_diagram->id])->all();
+            foreach ($nodes as $n){
+                for ($i = 0; $i < $j; $i++) {
+                    if ($n->parent_node == $array_nodes[$i]['node_template']){
+                        $n->parent_node = $array_nodes[$i]['node'];
+                        $n->updateAttributes(['parent_node']);
+                    }
+                }
+            }
+        } elseif ($template_diagram->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE){
+            //массив state (для копирования связей)
+            $array_states = array();
+            $j = 0;
+
+            $template_states = State::find()->where(['diagram' => $id])->all();
+            foreach ($template_states as $template_state){
+                //создание нового state из шаблона
+                $state = new State();
+                $state->name = $template_state->name;
+                $state->type = $template_state->type;
+                $state->description = $template_state->description;
+                $state->indent_x = $template_state->indent_x;
+                $state->indent_y = $template_state->indent_y;
+                $state->diagram = $diagram->id;
+                $state->save();
+
+                $array_states[$j]['state_template'] = $template_state->id;
+                $array_states[$j]['state'] = $state->id;
+                $j = $j+1;
+
+                //поиск всех state_propertys из шаблона по id state
+                $template_state_propertys = StateProperty::find()->where(['state' => $template_state->id])->all();
+                foreach ($template_state_propertys as $template_state_property){
+                    //создание нового state_property из шаблона
+                    $state_property = new StateProperty();
+                    $state_property->name = $template_state_property->name;
+                    $state_property->description = $template_state_property->description;
+                    $state_property->operator = $template_state_property->operator;
+                    $state_property->value = $template_state_property->value;
+                    $state_property->state = $state->id;
+                    $state_property->save();
+                }
+            }
+
+            //подбор всех Transition
+            $transition_all = Transition::find()->all();
+            $template_transitions = array();//массив связей
+            foreach ($transition_all as $t){
+                foreach ($template_states as $s){
+                    if ($t->state_from == $s->id){
+                        array_push($template_transitions, $t);
+                    }
+                }
+            }
+
+            if ($template_transitions != null) {
+                foreach ($template_transitions as $template_transition){
+                    //создание нового transition из шаблона
+                    $transition = new Transition();
+                    $transition->name = $template_transition->name;
+                    $transition->description = $template_transition->description;
+                    for ($i = 0; $i < $j; $i++) {
+                        if ($template_transition->state_from == $array_states[$i]['state_template']){
+                            $transition->state_from = $array_states[$i]['state'];
+                            $transition->updateAttributes(['state_from']);
+                        }
+                    }
+                    for ($i = 0; $i < $j; $i++) {
+                        if ($template_transition->state_to == $array_states[$i]['state_template']){
+                            $transition->state_to = $array_states[$i]['state'];
+                            $transition->updateAttributes(['state_to']);
+                        }
+                    }
+                    $transition->name_property = "0";
+                    $transition->operator_property = 1;
+                    $transition->value_property = "0";
+                    $transition->save();
+
+                    //поиск всех transition_propertys из шаблона по id state
+                    $template_transition_propertys = TransitionProperty::find()->where(['transition' => $template_transition->id])->all();
+                    foreach ($template_transition_propertys as $template_transition_property){
+                        //создание нового transition_property из шаблона
+                        $transition_property = new TransitionProperty();
+                        $transition_property->name = $template_transition_property->name;
+                        $transition_property->description = $template_transition_property->description;
+                        $transition_property->operator = $template_transition_property->operator;
+                        $transition_property->value = $template_transition_property->value;
+                        $transition_property->transition = $transition->id;
+                        $transition_property->save();
+                    }
+                }
+            }
+        }
+
+        Yii::$app->getSession()->setFlash('success',
+            Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM'));
+
+        return $this->redirect(['view', 'id' => $diagram->id]);
     }
 }

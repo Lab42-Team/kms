@@ -43,7 +43,7 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-left'],
             'encodeLabels' => false,
             'items' => array_filter([
-                !Yii::$app->user->isGuest and Yii::$app->user->identity->role == User::ROLE_USER ? (
+                (!Yii::$app->user->isGuest and Yii::$app->user->identity->role == User::ROLE_USER) ? (
                     [
                         'label' => '<span class="glyphicon glyphicon-th-list"></span> ' .
                             Yii::t('app', 'NAV_MY_DIAGRAMS'),

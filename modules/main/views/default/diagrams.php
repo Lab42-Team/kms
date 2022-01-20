@@ -5,11 +5,12 @@
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $array_template app\modules\main\controllers\DefaultController */
 
-use app\modules\eete\models\TreeDiagram;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\ButtonDropdown;
 use app\modules\main\models\User;
 use app\modules\main\models\Diagram;
+use app\modules\eete\models\TreeDiagram;
 
 $this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAMS');
 
@@ -27,6 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' .
                 Yii::t('app', 'DIAGRAMS_PAGE_CREATE_DIAGRAM'),
                 ['create'], ['class' => 'btn btn-success']) ?>
+            <?= ButtonDropdown::widget([
+                'label' => '<span class="glyphicon glyphicon-share"></span> ' .
+                    Yii::t('app', 'DIAGRAMS_PAGE_CREATE_FROM_TEMPLATE'),
+                'encodeLabel' => false,
+                'options' => [
+                    'class' => 'btn btn-primary',
+                ],
+                'dropdown' => [
+                    'items' => $array_template,
+                ],
+            ]); ?>
         </div>
     <?php endif; ?>
 

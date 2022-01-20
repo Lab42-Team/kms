@@ -45,7 +45,6 @@ class EventTreesController extends Controller
                 $tree_diagram = new TreeDiagram();
                 $tree_diagram->diagram = $diagram->id;
                 $tree_diagram->mode = TreeDiagram::CLASSIC_TREE_MODE;
-                $tree_diagram->tree_view = TreeDiagram::ORDINARY_TREE_VIEW;
                 $this->log($tree_diagram->save());
 
                 //первый уровень
@@ -386,7 +385,6 @@ class EventTreesController extends Controller
                 $tree_diagram = new TreeDiagram();
                 $tree_diagram->diagram = $diagram->id;
                 $tree_diagram->mode = TreeDiagram::EXTENDED_TREE_MODE;
-                $tree_diagram->tree_view = TreeDiagram::ORDINARY_TREE_VIEW;
                 $this->log($tree_diagram->save());
 
                 //первый уровень
@@ -674,7 +672,6 @@ class EventTreesController extends Controller
                 $tree_diagram = new TreeDiagram();
                 $tree_diagram->diagram = $diagram->id;
                 $tree_diagram->mode = TreeDiagram::EXTENDED_TREE_MODE;
-                $tree_diagram->tree_view = TreeDiagram::ORDINARY_TREE_VIEW;
                 $this->log($tree_diagram->save());
 
                 //первый уровень

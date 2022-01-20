@@ -134,6 +134,7 @@ return [
     'DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данную диаграмму?',
     'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Загрузить онтологию',
     'DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Преобразование онтологии',
+    'DIAGRAMS_PAGE_CREATE_FROM_TEMPLATE' => 'Создать диаграмму по шаблону',
     /* Сообщения на страницах администрирования диаграмм */
     'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM' => 'Вы успешно создали новую диаграмму.',
     'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'Вы успешно обновили данную диаграмму.',
@@ -142,10 +143,8 @@ return [
     'DIAGRAMS_PAGE_MESSAGE_WARNING_BEFORE_UPLOAD_ONTOLOGY' => 'Внимание! Все предыдущие элементы диаграммы будут удалены.',
     'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'Вы успешно загрузили файл OWL-онтологии.',
 
-    /* Страница диаграммы деревьев событий */
-    'TREE_DIAGRAMS_PAGE_CREATE_EVENT_TREE_FROM_TEMPLATE' => 'Создать дерево событий по шаблону',
-    /* Дерево событий созданного из шаблона */
-    'TREE_DIAGRAMS_CREATED_FROM' => 'Диаграмма созданная из ',
+    /* Диаграмма созданная из шаблона */
+    'DIAGRAM_CREATED_FROM' => 'Диаграмма созданная из ',
     'TEMPLATES_DIAGRAMS_NOT_FOUND' => 'Шаблоны диаграмм не найдены',
 
     /* Страница импорта онтологии */
