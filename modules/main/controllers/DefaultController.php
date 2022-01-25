@@ -148,18 +148,45 @@ class DefaultController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, null);
 
         if (!Yii::$app->user->isGuest) {
-            //поиск всех диаграмм
-            $templates = Diagram::find()->all();
-
-            $array_template = array();
+            //подбор диаграмм EVENT_TREE_TYPE
+            $event_tree_templates = Diagram::find()->where(['type' => Diagram::EVENT_TREE_TYPE])->all();
+            $array_event_tree_template = array();
             $i = 0;
-            if ($templates != null){
-                foreach ($templates as $elem){
-                    $array_template[$i]['label'] = $elem->name;
-                    $array_template[$i]['url'] = 'creation-template/' . $elem->id;
+            if ($event_tree_templates != null){
+                foreach ($event_tree_templates as $elem){
+                    $array_event_tree_template[$i]['label'] = $elem->name;
+                    $array_event_tree_template[$i]['url'] = 'creation-template/' . $elem->id;
                     $i = $i + 1;
                 }
-            } else {
+            }
+
+            //подбор диаграмм STATE_TRANSITION_DIAGRAM_TYPE
+            $state_transition_diagram_templates = Diagram::find()->where(['type' => Diagram::STATE_TRANSITION_DIAGRAM_TYPE])->all();
+            $array_state_transition_diagram_template = array();
+            $i = 0;
+            if ($state_transition_diagram_templates != null){
+                foreach ($state_transition_diagram_templates as $elem){
+                    $array_state_transition_diagram_template[$i]['label'] = $elem->name;
+                    $array_state_transition_diagram_template[$i]['url'] = 'creation-template/' . $elem->id;
+                    $i = $i + 1;
+                }
+            }
+
+            //добавление диаграмм в массив $array_template для вывода группой
+            $array_template = array();
+            $i = 0;
+            if ($array_event_tree_template != null){
+                $array_template[$i]['label'] = Yii::t('app', 'DIAGRAM_MODEL_EVENT_TREE_TYPE');
+                $array_template[$i]['items'] = $array_event_tree_template;
+                $i = $i + 1;
+            }
+            if ($array_state_transition_diagram_template != null){
+                $array_template[$i]['label'] = Yii::t('app', 'DIAGRAM_MODEL_STATE_TRANSITION_DIAGRAM_TYPE');
+                $array_template[$i]['items'] = $array_state_transition_diagram_template;
+                $i = $i + 1;
+            }
+
+            if ($array_template == null){
                 $array_template[0]['label'] = Yii::t('app', 'TEMPLATES_DIAGRAMS_NOT_FOUND');
                 $array_template[0]['url'] = '';
             }
@@ -185,18 +212,45 @@ class DefaultController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, Yii::$app->user->identity->getId());
 
         if (!Yii::$app->user->isGuest) {
-            //поиск всех диаграмм принадлежащих пользователю
-            $templates = Diagram::find()->where(['author' => Yii::$app->user->identity->getId()])->all();
-
-            $array_template = array();
+            //подбор диаграмм EVENT_TREE_TYPE принадлежащих пользователю
+            $event_tree_templates = Diagram::find()->where(['type' => Diagram::EVENT_TREE_TYPE, 'author' => Yii::$app->user->identity->getId()])->all();
+            $array_event_tree_template = array();
             $i = 0;
-            if ($templates != null){
-                foreach ($templates as $elem){
-                    $array_template[$i]['label'] = $elem->name;
-                    $array_template[$i]['url'] = 'creation-template/' . $elem->id;
+            if ($event_tree_templates != null){
+                foreach ($event_tree_templates as $elem){
+                    $array_event_tree_template[$i]['label'] = $elem->name;
+                    $array_event_tree_template[$i]['url'] = 'creation-template/' . $elem->id;
                     $i = $i + 1;
                 }
-            } else {
+            }
+
+            //подбор диаграмм STATE_TRANSITION_DIAGRAM_TYPE принадлежащих пользователю
+            $state_transition_diagram_templates = Diagram::find()->where(['type' => Diagram::STATE_TRANSITION_DIAGRAM_TYPE, 'author' => Yii::$app->user->identity->getId()])->all();
+            $array_state_transition_diagram_template = array();
+            $i = 0;
+            if ($state_transition_diagram_templates != null){
+                foreach ($state_transition_diagram_templates as $elem){
+                    $array_state_transition_diagram_template[$i]['label'] = $elem->name;
+                    $array_state_transition_diagram_template[$i]['url'] = 'creation-template/' . $elem->id;
+                    $i = $i + 1;
+                }
+            }
+
+            //добавление диаграмм в массив $array_template для вывода группой
+            $array_template = array();
+            $i = 0;
+            if ($array_event_tree_template != null){
+                $array_template[$i]['label'] = Yii::t('app', 'DIAGRAM_MODEL_EVENT_TREE_TYPE');
+                $array_template[$i]['items'] = $array_event_tree_template;
+                $i = $i + 1;
+            }
+            if ($array_state_transition_diagram_template != null){
+                $array_template[$i]['label'] = Yii::t('app', 'DIAGRAM_MODEL_STATE_TRANSITION_DIAGRAM_TYPE');
+                $array_template[$i]['items'] = $array_state_transition_diagram_template;
+                $i = $i + 1;
+            }
+
+            if ($array_template == null){
                 $array_template[0]['label'] = Yii::t('app', 'TEMPLATES_DIAGRAMS_NOT_FOUND');
                 $array_template[0]['url'] = '';
             }
