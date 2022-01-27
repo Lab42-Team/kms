@@ -274,8 +274,15 @@ class DefaultController extends Controller
      */
     public function actionView($id)
     {
+        $visible = true;
+        $model = $this->findModel($id);
+        if ($model->type != Diagram::EVENT_TREE_TYPE) {
+            $visible = false;
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'visible' => $visible,
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace app\modules\main\models;
 
+use app\modules\eete\models\TreeDiagram;
 use Yii;
 use yii\helpers\ArrayHelper;
 use app\modules\main\models\User;
@@ -188,5 +189,16 @@ class Diagram extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'author']);
+    }
+
+    /**
+     * Получение TreeDiagram.
+     *
+     * @return \yii\db\ActiveQuery
+     * @property TreeDiagram[] $treeDiagram
+     */
+    public function getTreeDiagram()
+    {
+        return $this->hasOne(TreeDiagram::className(), ['diagram' => 'id']);
     }
 }

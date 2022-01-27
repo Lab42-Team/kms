@@ -92,22 +92,14 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
                 },
                 'filter' => Diagram::getStatusesArray(),
             ],
-//            [
-//                'attribute' => 'mode',
-//                'format' => 'raw',
-//                'value' => function($data) {
-//                    return $data->getModesName();
-//                },
-//                'filter' => TreeDiagram::getModesArray(),
-//            ],
-//            [
-//                'attribute' => 'tree_view',
-//                'format' => 'raw',
-//                'value' => function($data) {
-//                    return $data->getTreeViewName();
-//                },
-//                'filter' => TreeDiagram::getTreeViewArray(),
-//            ],
+            [
+                'attribute' => Yii::t('app', 'TREE_DIAGRAM_MODEL_MODE'),
+                'format' => 'raw',
+                'value' => function($data) {
+                    return $data->treeDiagram->getModesName();
+                },
+                'visible' => $visible,
+            ],
             [
                 'attribute' => 'correctness',
                 'format' => 'raw',
