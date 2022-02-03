@@ -29,8 +29,9 @@ class UserController extends Controller
         $model->setPassword('admin');
         $model->generateAuthKey();
         $model->full_name = 'Администратор';
-        $model->email = 'primer@gmail.com';
-        $model->status = 1;
+        $model->email = 'dorodnyxnikita@gmail.com';
+        $model->role = User::ROLE_ADMINISTRATOR;
+        $model->status = User::STATUS_ACTIVE;
         $this->log($model->save());
     }
 

@@ -4,13 +4,12 @@ namespace app\components;
 
 use Yii;
 use DOMDocument;
-use app\modules\editor\models\TreeDiagram;
-use app\modules\editor\models\Level;
-use app\modules\editor\models\Node;
-use app\modules\editor\models\Parameter;
-use app\modules\editor\models\Sequence;
-
-
+use app\modules\main\models\Diagram;
+use app\modules\eete\models\TreeDiagram;
+use app\modules\eete\models\Level;
+use app\modules\eete\models\Node;
+use app\modules\eete\models\Parameter;
+use app\modules\eete\models\Sequence;
 
 
 class EventTreeXMLGenerator
@@ -100,17 +99,18 @@ class EventTreeXMLGenerator
         if (!file_exists($file))
             fopen($file, 'w');
 
-
         // Создание документа DOM с кодировкой UTF8
         $xml = new DomDocument('1.0', 'UTF-8');
-        $diagram = TreeDiagram::find()->where(['id' => $id])->one();
+
+        $tree_diagram = TreeDiagram::find()->where(['id' => $id])->one();
+        $diagram = Diagram::find()->where(['id' => $tree_diagram->diagram])->one();
         // Создание корневого узла Diagram
         $diagram_element = $xml->createElement('Diagram');
         $diagram_element->setAttribute('id', $diagram->id);
         $diagram_element->setAttribute('type', $diagram->getTypeNameEn());
         $diagram_element->setAttribute('name', $diagram->name);
         $diagram_element->setAttribute('description', $diagram->description);
-        $diagram_element->setAttribute('mode', $diagram->getModesNameEn()); // Расширенное дерево // Классическое дерево
+        $diagram_element->setAttribute('mode', $tree_diagram->getModesNameEn()); // Расширенное дерево // Классическое дерево
         // Добавление корневого узла Diagram в XML-документ
         $xml->appendChild($diagram_element);
 

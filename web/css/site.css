@@ -126,6 +126,15 @@ form#export-file-form {
     outline: none;
 }
 
+/* Стили слоев для чекбоксов на форме загрузки онтологии */
+.field-owlfileform-class_datatype_property, .field-owlfileform-individual_datatype_property {
+    margin-bottom: 0;
+}
+.field-owlfileform-class_datatype_property > .help-block, .field-owlfileform-individual_datatype_property > .help-block {
+    display: inline;
+    margin-bottom: 0;
+}
+
 @media(max-width:767px) {
     .nav li > form > button.logout {
         display: block;

@@ -1,36 +1,36 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\editor\models\TreeDiagramSearch */
+/* @var $searchModel app\modules\main\models\DiagramSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $array_template app\modules\editor\controllers\TreeDiagramsController */
+/* @var $array_template app\modules\main\controllers\DefaultController */
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use app\modules\main\models\User;
-use app\modules\editor\models\TreeDiagram;
 use yii\bootstrap\ButtonDropdown;
+use app\modules\main\models\User;
+use app\modules\main\models\Diagram;
+use app\modules\eete\models\TreeDiagram;
 
-$this->title = Yii::t('app', 'TREE_DIAGRAMS_PAGE_TREE_DIAGRAMS');
+$this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAMS');
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php $this->registerCssFile('/css/index.css', ['position'=>yii\web\View::POS_HEAD]); ?>
 
-<div class="tree-diagram-index">
+<div class="diagrams">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (!Yii::$app->user->isGuest): ?>
         <div class="buttons">
             <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' .
-                Yii::t('app', 'TREE_DIAGRAMS_PAGE_CREATE_TREE_DIAGRAM'),
+                Yii::t('app', 'DIAGRAMS_PAGE_CREATE_DIAGRAM'),
                 ['create'], ['class' => 'btn btn-success']) ?>
-
             <?= ButtonDropdown::widget([
                 'label' => '<span class="glyphicon glyphicon-share"></span> ' .
-                    Yii::t('app', 'TREE_DIAGRAMS_PAGE_CREATE_CHART_FROM_TEMPLATE'),
+                    Yii::t('app', 'DIAGRAMS_PAGE_CREATE_FROM_TEMPLATE'),
                 'encodeLabel' => false,
                 'options' => [
                     'class' => 'btn btn-primary',
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($data) {
                     return $data->getTypeName();
                 },
-                'filter' => TreeDiagram::getTypesArray(),
+                'filter' => Diagram::getTypesArray(),
             ],
             [
                 'attribute' => 'status',
@@ -62,16 +62,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($data) {
                     return $data->getStatusName();
                 },
-                'filter' => Yii::$app->user->isGuest ? '' : TreeDiagram::getStatusesArray(),
+                'filter' => Yii::$app->user->isGuest ? '' : Diagram::getStatusesArray(),
                 'visible' => !Yii::$app->user->isGuest,
             ],
+
             [
-                'attribute' => 'mode',
+                'attribute' => 'correctness',
                 'format' => 'raw',
                 'value' => function($data) {
-                    return $data->getModesName();
+                    return $data->getCorrectnessName();
                 },
-                'filter' => Yii::$app->user->isGuest ? '': TreeDiagram::getModesArray(),
+                'filter' => Yii::$app->user->isGuest ? '': Diagram::getCorrectnessArray(),
                 'visible' => !Yii::$app->user->isGuest,
             ],
             [
@@ -83,36 +84,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => User::getAllUsersArray(),
             ],
             [
-                'attribute' => 'tree_view',
-                'format' => 'raw',
-                'value' => function($data) {
-                    return $data->getTreeViewName();
-                },
-                'filter' => Yii::$app->user->isGuest ? '': TreeDiagram::getTreeViewArray(),
-                'visible' => !Yii::$app->user->isGuest,
-            ],
-            [
-                'attribute' => 'correctness',
-                'format' => 'raw',
-                'value' => function($data) {
-                    return $data->getСorrectnessName();
-                },
-                'filter' => Yii::$app->user->isGuest ? '': TreeDiagram::getСorrectnessArray(),
-                'visible' => !Yii::$app->user->isGuest,
-            ],
-            [
                 'class' => 'yii\grid\ActionColumn',
                 'headerOptions' => ['class' => 'action-column'],
                 'template' => Yii::$app->user->isGuest ? '{visual-diagram} {view}' :
                     '{visual-diagram} {view} {update} {delete} {import} {export} {upload-ontology}',
                 'buttons' => [
-                    'visual-diagram' => function ($model) {
-                        $icon = Html::tag('span', '', ['class' => "glyphicon glyphicon-blackboard"]);
-                        $url = $model;
-                        return Html::a($icon, $url,[
-                            'title' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM'),
-                            'aria-label' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM')
-                        ]);
+                    'visual-diagram' => function ($url, $model, $key) {
+                        $url = '#';
+                        $tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
+                        if (!empty($tree_diagram))
+                            $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
+                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
+                            $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
+                        return Html::a('<span class="glyphicon glyphicon-blackboard"></span>',
+                            $url,
+                            [
+                                'title' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM'),
+                                'aria-label' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM')
+                            ]
+                        );
                     },
                     'import' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-import"></span>',
@@ -124,8 +114,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'export' => function ($url, $model, $key) {
+                        $url = '#';
+                        $tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
+                        if (!empty($tree_diagram))
+                            $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
+                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
+                            $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
                         return Html::a('<span class="glyphicon glyphicon-export"></span>',
-                            ['visual-diagram', 'id' => $model->id],
+                            $url,
                             [
                                 'data' => ['method' => 'post'],
                                 'title' => Yii::t('app', 'BUTTON_EXPORT'),
@@ -134,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'upload-ontology' => function ($url, $model, $key) {
-                        return $model->mode == TreeDiagram::CLASSIC_TREE_MODE ? Html::a(
+                        return $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ? Html::a(
                             '<span class="glyphicon glyphicon-download-alt"></span>',
                             ['upload-ontology', 'id' => $model->id],
                             [

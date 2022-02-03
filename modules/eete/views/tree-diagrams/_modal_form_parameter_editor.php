@@ -4,10 +4,10 @@ use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use app\modules\main\models\Lang;
-use app\modules\editor\models\Parameter;
+use app\modules\eete\models\Parameter;
 
-/* @var $node_model app\modules\editor\models\Node */
-/* @var $array_levels app\modules\editor\controllers\TreeDiagramsController */
+/* @var $node_model app\modules\eete\models\Node */
+/* @var $array_levels app\modules\eete\controllers\TreeDiagramsController */
 
 ?>
 
@@ -41,6 +41,15 @@ use app\modules\editor\models\Parameter;
 
                             var div_event = document.getElementById('node_' + node_id_on_click);
 
+                            //если свойство состояния первое
+                            if (data['parameter_count'] == 0){
+                                //добавляем div разделительной линии
+                                var div_line = document.createElement('div');
+                                div_line.id = 'line_' + node_id_on_click;
+                                div_line.className = 'div-line';
+                                div_event.append(div_line);
+                            }
+
                             var div_parameter = document.createElement('div');
                             div_parameter.id = 'parameter_' + data['id'];
                             div_parameter.className = 'div-parameter';
@@ -49,7 +58,7 @@ use app\modules\editor\models\Parameter;
 
                             var div_button_parameter = document.createElement('div');
                             div_button_parameter.className = 'button-parameter';
-                            div_parameter.append(div_button_parameter);
+                            div_parameter.prepend(div_button_parameter);
 
                             var div_edit_parameter = document.createElement('div');
                             div_edit_parameter.id = 'edit_parameter_' + data['id'];
@@ -179,7 +188,7 @@ use app\modules\editor\models\Parameter;
 
                         var div_button_parameter = document.createElement('div');
                         div_button_parameter.className = 'button-parameter';
-                        div_parameter.append(div_button_parameter);
+                        div_parameter.prepend(div_button_parameter);
 
                         var div_edit_parameter = document.createElement('div');
                         div_edit_parameter.id = 'edit_parameter_' + data['id'];
@@ -273,6 +282,14 @@ use app\modules\editor\models\Parameter;
                     success: function(data) {
                         // Если валидация прошла успешно (нет ошибок ввода)
                         if (data['success']) {
+
+                            //если свойств состояний больше нет
+                            if (data['parameter_count'] == 0){
+                                //удаление div линии
+                                var div_line = document.getElementById('line_' + data['node']);
+                                div_line.remove(); // удаляем
+                            }
+
                             $("#deleteParameterModalForm").modal("hide");
 
                             var temporary_mas_data_parameter = {};

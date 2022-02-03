@@ -2,11 +2,24 @@
 
 return [
     /* Текст на главной странице */
-    'WELCOME_TO_EETE' => 'Добро пожаловать в Extended Event Tree Editor!',
-    'EETE_NAME' => 'Extended Event Tree Editor (EETE)',
-    'EETE_DEFINITION' =>  '&mdash; это веб-средство предназначенное для построения расширенных диаграмм Деревьев Событий.',
-    'EVENT_TREE_DEFINITION' => 'Дерево событий &mdash; алгоритм рассмотрения событий, исходящих от основного события (аварийной ситуации). ДС используется для определения и анализа последовательности (вариантов) развития аварии, включающей сложные взаимодействия между техническими системами обеспечения безопасности. При его построении используется прямая логика. В общем случае данный метод можно использовать и для анализа отказов, аварий и чрезвычайных ситуаций, где в качестве основного события рассматривается исходное состояние, т.е. состояние технического объекта в момент начала его эксплуатации.',
-    'ADVANCED_EVENT_TREE_DEFINITION' => 'Нами предложено расширить существующую модель деревьев событий и визуальную нотацию их представления для получения более полной информации об исследуемых процессах развития отказов и аварий. В частности, на основании результатов системного анализа проблемы исследования динамики технического состояния механической системы выделены стадии развития обозначенных процессов (субмикроуровень, микроуровень, мезоуровень, макроуровень) и элементы их описания (механизм и кинетика). В свою очередь кинетика, рассматриваемая как последовательность событий, должна быть детализирована описанием параметров (характеристик) событий. В результате в обобщенном виде получен шаблон дерева, описывающий стадии, последовательность событий (кинетика) и механизмы их возникновения.',
+    'WELCOME_TO_KMS' => 'Добро пожаловать в Knowledge Modeling System!',
+    'KMS_NAME' => 'Knowledge Modeling System (KMS)',
+    'KMS_DEFINITION' =>  '&mdash; это ресурс, предлагающий возможность визуального моделирования предметных знаний.',
+    'DIAGRAM_TYPES' => 'Визуальное моделирование знаний может быть осуществлено с использованием:',
+    'FIRST_TYPE' => 'классических и расширенных деревьев событий и отказов',
+    'SECOND_TYPE' => 'диаграмм переходов состояний',
+
+    'EVENT_TREE_NAME' => 'Дерево событий (Event Tree, ET)',
+    'EVENT_TREE_DEFINITION' => '&mdash; алгоритм моделирования событий, исходящих от некого основного (корневого) события. Деревья событий используется для определения и анализа последовательности (вариантов) развития событий (например, аварийных ситуаций), включающей сложные взаимодействия между техническими системами обеспечения безопасности. При его построении используется прямая логика. В общем случае данный метод можно использовать и для анализа отказов, аварий и чрезвычайных ситуаций, где в качестве основного события рассматривается исходное состояние, т.е. состояние технического объекта в момент начала его эксплуатации.',
+    'ADVANCED_EVENT_TREE_DEFINITION' => 'Нашей исследовательской группой предложено расширить существующую модель деревьев событий и визуальную нотацию их представления для получения более полной информации об исследуемых процессах развития отказов и аварий. В частности, на основании результатов системного анализа проблемы исследования динамики технического состояния механической системы выделены стадии развития обозначенных процессов (субмикроуровень, микроуровень, мезоуровень, макроуровень) и элементы их описания (механизм и кинетика). В свою очередь кинетика, рассматриваемая как последовательность событий, должна быть детализирована описанием параметров (характеристик) событий. В результате в обобщенном виде получен шаблон дерева, описывающий стадии, последовательность событий (кинетика) и механизмы их возникновения.',
+    'EVENT_TREE_CREATION' => 'Построение классических и расширенных деревьев реализуется в редакторе &mdash;',
+    'EET_EDITOR' => 'Extended Event Tree Editor (EETE)',
+
+    'STATE_TRANSITION_DIAGRAM_NAME' => 'Диаграмма переходов состояний (State Transition Diagram, STD)',
+    'STATE_TRANSITION_DIAGRAM_DEFINITION' => '&mdash; графическая форма представления конечного автомата, представимого в виде графа, позволяющая описывать состояния объекта и их изменения, которые в совокупности характеризуют его поведение. Основное отличие от предыдущей модели заключается в возможности создания циклов.',
+    'STATE_TRANSITION_DIAGRAM_CREATION' => 'Построение диаграмм переходов состояний реализуется в редакторе &mdash;',
+    'STD_EDITOR' => 'State Transition Diagram Editor (STDE)',
+
     'YOU_CAN_SEE_THE_CREATED' => 'Вы можете посмотреть список созданных ранее ',
     'DIAGRAMS' => 'диаграмм',
     'WARNING_FOR_DIAGRAM_CREATION' => 'Построение диаграмм доступно только авторизованным пользователям!',
@@ -19,27 +32,28 @@ return [
     'NAV_HOME' => 'Главная',
     'NAV_ACCOUNT' => 'Учётная запись',
     'NAV_SIGNED_IN_AS' => 'Вы вошли как',
-    'NAV_YOUR_PROFILE' => 'Ваш профиль',
+    'NAV_PROFILE' => 'Профиль',
     'NAV_HELP' => 'Помощь',
     'NAV_CONTACT_US' => 'Обратная связь',
     'NAV_SIGN_UP' => 'Регистрация',
     'NAV_SIGN_IN' => 'Вход',
     'NAV_SIGN_OUT' => 'Выход',
-    'NAV_TREE_DIAGRAMS' => 'Диаграммы',
-    'NAV_TREE_DIAGRAM' => 'Диаграмма',
+    'NAV_MY_DIAGRAMS' => 'Мои диаграммы',
+    'NAV_DIAGRAMS' => 'Диаграммы',
+    'NAV_DIAGRAM' => 'Диаграмма',
     'NAV_BACK_LIST' => 'Вернуться к списку',
+    'NAV_USERS' => 'Пользователи',
 
     'NAV_ADD' => 'Добавить',
     'NAV_ADD_LEVEL' => 'Уровень',
     'NAV_ADD_EVENT' => 'Событие',
     'NAV_ADD_MECHANISM' => 'Механизм',
+    'NAV_ADD_STATE' => 'Состояние',
 
     'NAV_IMPORT' => 'Импортировать',
     'NAV_EXPORT' => 'Экспортировать',
     'NAV_VERIFY' => 'Проверить',
     'NAV_ALIGNMENT' => 'Выравнивание',
-
-    'NAV_ACCOUNT' => 'Аккаунт',
 
     /* Пункты правого меню */
     'SIDE_NAV_POSSIBLE_ACTIONS' => 'Возможные действия',
@@ -87,27 +101,50 @@ return [
     'NOTICE_TEXT' => 'на эту важную информацию.',
 
     /* Страницы сайта */
-    /* Страница диаграммы */
-    'TREE_DIAGRAMS_PAGE_TREE_DIAGRAM' => 'Диаграмма',
-    'TREE_DIAGRAMS_PAGE_TREE_DIAGRAMS' => 'Диаграммы',
-    'TREE_DIAGRAMS_PAGE_CREATE_TREE_DIAGRAM' => 'Создать диаграмму',
-    'TREE_DIAGRAMS_PAGE_VIEW_TREE_DIAGRAM' => 'Просмотр диаграммы',
-    'TREE_DIAGRAMS_PAGE_UPDATE_TREE_DIAGRAM' => 'Изменить диаграмму',
-    'TREE_DIAGRAMS_PAGE_DELETE_TREE_DIAGRAM' => 'Удалить диаграмму',
-    'TREE_DIAGRAMS_PAGE_VISUAL_DIAGRAM' => 'Визуальная диаграмма',
-    'TREE_DIAGRAMS_PAGE_IMPORT_TREE_DIAGRAM' => 'Импортирование визуальной диаграммы',
-    'TREE_DIAGRAMS_PAGE_CREATE_CHART_FROM_TEMPLATE' => 'Создать диаграмму по шаблону',
-    'TREE_DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данную диаграмму?',
-    'TREE_DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Загрузить онтологию',
-    'TREE_DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Преобразование онтологии',
-    /* Сообщения на страницах администрирования событий */
-    'TREE_DIAGRAMS_PAGE_MESSAGE_CREATE_TREE_DIAGRAM' => 'Вы успешно создали новую диаграмму.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_UPDATED_TREE_DIAGRAM' => 'Вы успешно обновили данную диаграмму.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_DELETED_TREE_DIAGRAM' => 'Вы успешно удалили диаграмму.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_IMPORT_TREE_DIAGRAM' => 'Вы успешно импортировали диаграмму.',
-    'TREE_DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'Вы успешно загрузили файл OWL-онтологии.',
-    /* Имя диаграммы созданной из шаблона */
-    'TREE_DIAGRAMS_CREATED_FROM' => 'Диаграмма созданная из ',
+    /* Страница администрирования пользователей */
+    'USERS_PAGE_USER' => 'Пользователь',
+    'USERS_PAGE_USERS' => 'Пользователи',
+    'USERS_PAGE_CREATE_USER' => 'Создать пользователя',
+    'USERS_PAGE_VIEW_USER' => 'Просмотр пользователя',
+    'USERS_PAGE_UPDATE_USER_INFORMATION' => 'Обновить данные пользователя',
+    'USERS_PAGE_DELETE_USER' => 'Удалить пользователя',
+    'USERS_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данного пользователя?',
+    /* Сообщения на страницах администрирования пользователей */
+    'USERS_PAGE_MESSAGE_ADD_NEW_USER' => 'Вы успешно добавили нового пользователя.',
+    'USERS_PAGE_MESSAGE_UPDATED_USER_INFORMATION' => 'Вы успешно обновили данные пользователя.',
+    'USERS_PAGE_MESSAGE_NOT_DELETE_USER' => 'Вы не можете удалить себя.',
+    'USERS_PAGE_MESSAGE_DELETED_USER' => 'Вы успешно удалили пользователя.',
+    'USERS_PAGE_MESSAGE_UPDATED_YOUR_ACCOUNT_INFORMATION' => 'Вы успешно обновили данные своего аккаунта.',
+    'USERS_PAGE_MESSAGE_UPDATED_YOUR_PASSWORD' => 'Вы успешно поменяли пароль.',
+    /* Страница профиля пользователя */
+    'USER_PAGE_PROFILE' => 'Профиль',
+    'USER_PAGE_UPDATE_PROFILE' => 'Обновить профиль',
+    'USER_PAGE_UPDATE_ACCOUNT_INFORMATION' => 'Обновить учетные данные',
+    'USER_PAGE_UPDATE_PASSWORD' => 'Поменять пароль',
+
+    /* Страница диаграмм */
+    'DIAGRAMS_PAGE_DIAGRAM' => 'Диаграмма',
+    'DIAGRAMS_PAGE_DIAGRAMS' => 'Диаграммы',
+    'DIAGRAMS_PAGE_MY_DIAGRAMS' => 'Мои диаграммы',
+    'DIAGRAMS_PAGE_CREATE_DIAGRAM' => 'Создать диаграмму',
+    'DIAGRAMS_PAGE_VIEW_DIAGRAM' => 'Просмотр диаграммы',
+    'DIAGRAMS_PAGE_UPDATE_DIAGRAM' => 'Изменить диаграмму',
+    'DIAGRAMS_PAGE_DELETE_DIAGRAM' => 'Удалить диаграмму',
+    'DIAGRAMS_PAGE_IMPORT_DIAGRAM' => 'Импортирование визуальной диаграммы',
+    'DIAGRAMS_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данную диаграмму?',
+    'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Загрузить онтологию',
+    'DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Преобразование онтологии',
+    'DIAGRAMS_PAGE_CREATE_FROM_TEMPLATE' => 'Создать диаграмму по шаблону',
+    /* Сообщения на страницах администрирования диаграмм */
+    'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM' => 'Вы успешно создали новую диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'Вы успешно обновили данную диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM' => 'Вы успешно удалили диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM' => 'Вы успешно импортировали диаграмму.',
+    'DIAGRAMS_PAGE_MESSAGE_WARNING_BEFORE_UPLOAD_ONTOLOGY' => 'Внимание! Все предыдущие элементы диаграммы будут удалены.',
+    'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'Вы успешно загрузили файл OWL-онтологии.',
+
+    /* Диаграмма созданная из шаблона */
+    'DIAGRAM_CREATED_FROM' => 'Диаграмма созданная из ',
     'TEMPLATES_DIAGRAMS_NOT_FOUND' => 'Шаблоны диаграмм не найдены',
 
     /* Страница импорта онтологии */
@@ -148,8 +185,14 @@ return [
     'LOGIN_FORM_MESSAGE_NOT_CONFIRMED_ACCOUNT' => 'Ваш аккаунт не подтвержден.',
     /* OWLFileForm */
     'OWL_FILE_FORM_OWL_FILE' => 'Файл онтологии в формате OWL',
-    'OWL_FILE_FORM_SUBCLASS_OF' => 'Отношение наследования (класс-подкласс)',
-    'OWL_FILE_FORM_OBJECT_PROPERTY' => 'Отношение между классами (объектные свойства)',
+    'OWL_FILE_FORM_CLASS' => 'Импортировать классы',
+    'OWL_FILE_FORM_SUBCLASS_RELATION' => 'Учитывать иерархию классов',
+    'OWL_FILE_FORM_CLASS_OBJECT_PROPERTY' => 'Учитывать объектные свойства классов',
+    'OWL_FILE_FORM_CLASS_DATATYPE_PROPERTY' => 'Учитывать свойства-значений классов',
+    'OWL_FILE_FORM_INDIVIDUAL' => 'Импортировать индивиды (экземпляры классов)',
+    'OWL_FILE_FORM_IS_A_RELATION' => 'Учитывать отношения между классом и его индивидами',
+    'OWL_FILE_FORM_INDIVIDUAL_OBJECT_PROPERTY' => 'Учитывать объектные свойства индивидов',
+    'OWL_FILE_FORM_INDIVIDUAL_DATATYPE_PROPERTY' => 'Учитывать свойства-значений индивидов',
 
     /* Модели */
     /* Lang */
@@ -171,6 +214,7 @@ return [
     'USER_MODEL_EMAIL_CONFIRM_TOKEN' => 'Метка подтверждения электронной почты',
     'USER_MODEL_PASSWORD_HASH' => 'Хэш пароля',
     'USER_MODEL_PASSWORD_RESET_TOKEN' => 'Метка сброса пароля',
+    'USER_MODEL_ROLE' => 'Роль',
     'USER_MODEL_STATUS' => 'Статус',
     'USER_MODEL_FULL_NAME' => 'Фамилия Имя Отчество',
     'USER_MODEL_EMAIL' => 'Электронная почта',
@@ -179,32 +223,38 @@ return [
     'USER_MODEL_MESSAGE_UPDATED_YOUR_DETAILS' => 'Вы успешно изменили свои данные.',
     'USER_MODEL_MESSAGE_UPDATED_YOUR_PASSWORD' => 'Вы успешно изменили пароль.',
 
+    /* Diagram */
+    'DIAGRAM_MODEL_ID' => 'ID',
+    'DIAGRAM_MODEL_CREATED_AT' => 'Создана',
+    'DIAGRAM_MODEL_UPDATED_AT' => 'Обновлена',
+    'DIAGRAM_MODEL_NAME' => 'Название',
+    'DIAGRAM_MODEL_DESCRIPTION' => 'Описание',
+    'DIAGRAM_MODEL_TYPE' => 'Тип',
+    'DIAGRAM_MODEL_STATUS' => 'Статус',
+    'DIAGRAM_MODEL_CORRECTNESS' => 'Корректность',
+    'DIAGRAM_MODEL_AUTHOR' => 'Автор',
+    /* Значения полей типов диаграмм */
+    'DIAGRAM_MODEL_EVENT_TREE_TYPE' => 'Дерево событий',
+    'DIAGRAM_MODEL_STATE_TRANSITION_DIAGRAM_TYPE' => 'Диаграмма переходов состояний',
+    /* Значения полей статусов */
+    'DIAGRAM_MODEL_PUBLIC_STATUS' => 'Публичный',
+    'DIAGRAM_MODEL_PRIVATE_STATUS' => 'Частный',
+    /* Значения корректности диаграммы */
+    'DIAGRAM_MODEL_NOT_CHECKED_CORRECT' => 'Не проверялась',
+    'DIAGRAM_MODEL_CORRECTLY_CORRECT' => 'Корректно',
+    'DIAGRAM_MODEL_INCORRECTLY_CORRECT' => 'Некорректно',
+
     /* TreeDiagram */
     'TREE_DIAGRAM_MODEL_ID' => 'ID',
     'TREE_DIAGRAM_MODEL_CREATED_AT' => 'Создана',
     'TREE_DIAGRAM_MODEL_UPDATED_AT' => 'Обновлена',
-    'TREE_DIAGRAM_MODEL_NAME' => 'Название',
-    'TREE_DIAGRAM_MODEL_DESCRIPTION' => 'Описание',
-    'TREE_DIAGRAM_MODEL_TYPE' => 'Тип',
-    'TREE_DIAGRAM_MODEL_STATUS' => 'Статус',
-    'TREE_DIAGRAM_MODEL_AUTHOR' => 'Автор',
     'TREE_DIAGRAM_MODEL_MODE' => 'Режим',
-    'TREE_DIAGRAM_MODEL_CORRECTNESS' => 'Корректность',
     'TREE_DIAGRAM_MODEL_TREE_VIEW' => 'Вид дерева',
-    /* Значения полей типов диаграмм*/
-    'TREE_DIAGRAM_MODEL_EVENT_TREE_TYPE' => 'Дерево событий',
-    'TREE_DIAGRAM_MODEL_FAULT_TREE_TYPE' => 'Дерево отказов',
-    /* Значения полей статусов*/
-    'TREE_DIAGRAM_MODEL_PUBLIC_STATUS' => 'Публичный',
-    'TREE_DIAGRAM_MODEL_PRIVATE_STATUS' => 'Частный',
-    /* Значения режимов деревьев диаграмм*/
+    'TREE_DIAGRAM_MODEL_DIAGRAM' => 'Диаграмма',
+    /* Значения режимов деревьев диаграмм */
     'TREE_DIAGRAM_MODEL_EXTENDED_TREE_MODE' => 'Расширенное дерево',
     'TREE_DIAGRAM_MODEL_CLASSIC_TREE_MODE' => 'Классическое дерево',
-    /* Значения корректности диаграммы*/
-    'TREE_DIAGRAM_MODEL_NOT_CHECKED_CORRECT' => 'Не проверялась ',
-    'TREE_DIAGRAM_MODEL_CORRECTLY_CORRECT' => 'Корректно',
-    'TREE_DIAGRAM_MODEL_INCORRECTLY_CORRECT' => 'Некорректно',
-    /* Значения вида дерева диаграмм*/
+    /* Значения вида дерева диаграмм */
     'TREE_DIAGRAM_MODEL_ORDINARY_TREE_VIEW' => 'Обычное дерево',
     'TREE_DIAGRAM_MODEL_TEMPLATE_TREE_VIEW' => 'Шаблонное дерево',
 
@@ -269,12 +319,75 @@ return [
     'SEQUENCE_MODEL_NODE' => 'Узел',
     'SEQUENCE_MODEL_PRIORITY' => 'Приоритет',
 
+    /* State */
+    'STATE_MODEL_ID' => 'ID',
+    'STATE_MODEL_CREATED_AT' => 'Создано',
+    'STATE_MODEL_UPDATED_AT' => 'Обновлено',
+    'STATE_MODEL_NAME' => 'Название',
+    'STATE_MODEL_TYPE' => 'Тип',
+    'STATE_MODEL_DESCRIPTION' => 'Описание',
+    'STATE_MODEL_INDENT_X' => 'Отступ по X',
+    'STATE_MODEL_INDENT_Y' => 'Отступ по Y',
+    'STATE_MODEL_DIAGRAM' => 'Диаграмма',
+    /* Значения типов состояний */
+    'STATE_MODEL_INITIAL_STATE_TYPE' => 'Начальное состояние',
+    'STATE_MODEL_COMMON_STATE_TYPE' => 'Состояние',
+
+    /* StateProperty */
+    'STATE_PROPERTY_MODEL_ID' => 'ID',
+    'STATE_PROPERTY_MODEL_CREATED_AT' => 'Создано',
+    'STATE_PROPERTY_MODEL_UPDATED_AT' => 'Обновлено',
+    'STATE_PROPERTY_MODEL_NAME' => 'Название',
+    'STATE_PROPERTY_MODEL_DESCRIPTION' => 'Описание',
+    'STATE_PROPERTY_MODEL_OPERATOR' => 'Оператор',
+    'STATE_PROPERTY_MODEL_VALUE' => 'Значение',
+    'STATE_PROPERTY_MODEL_STATE' => 'Состояние',
+    /* Значения операторов */
+    'STATE_PROPERTY_MODEL_EQUALLY_OPERATOR' => '=',
+    'STATE_PROPERTY_MODEL_MORE_OPERATOR' => '>',
+    'STATE_PROPERTY_MODEL_LESS_OPERATOR' => '<',
+    'STATE_PROPERTY_MODEL_MORE_EQUAL_OPERATOR' => '>=',
+    'STATE_PROPERTY_MODEL_LESS_EQUAL_OPERATOR' => '<=',
+    'STATE_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
+    'STATE_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
+
+    /* Transition */
+    'TRANSITION_MODEL_ID' => 'ID',
+    'TRANSITION_MODEL_CREATED_AT' => 'Создан',
+    'TRANSITION_MODEL_UPDATED_AT' => 'Обновлен',
+    'TRANSITION_MODEL_NAME' => 'Название',
+    'TRANSITION_MODEL_DESCRIPTION' => 'Описание',
+    'TRANSITION_MODEL_STATE_FROM' => 'Состояние из',
+    'TRANSITION_MODEL_STATE_TO' => 'Состояние в',
+    'TRANSITION_MODEL_NAME_PROPERTY' => 'Название условия',
+    'TRANSITION_MODEL_DESCRIPTION_PROPERTY' => 'Описание условия',
+    'TRANSITION_MODEL_OPERATOR_PROPERTY' => 'Оператор условия',
+    'TRANSITION_MODEL_VALUE_PROPERTY' => 'Значение условия',
+
+    /* TransitionProperty */
+    'TRANSITION_PROPERTY_MODEL_ID' => 'ID',
+    'TRANSITION_PROPERTY_MODEL_CREATED_AT' => 'Создано',
+    'TRANSITION_PROPERTY_MODEL_UPDATED_AT' => 'Обновлено',
+    'TRANSITION_PROPERTY_MODEL_NAME' => 'Название',
+    'TRANSITION_PROPERTY_MODEL_DESCRIPTION' => 'Описание',
+    'TRANSITION_PROPERTY_MODEL_OPERATOR' => 'Оператор',
+    'TRANSITION_PROPERTY_MODEL_VALUE' => 'Значение',
+    'TRANSITION_PROPERTY_MODEL_TRANSITION' => 'Переход',
+    /* Значения операторов */
+    'TRANSITION_PROPERTY_MODEL_EQUALLY_OPERATOR' => '=',
+    'TRANSITION_PROPERTY_MODEL_MORE_OPERATOR' => '>',
+    'TRANSITION_PROPERTY_MODEL_LESS_OPERATOR' => '<',
+    'TRANSITION_PROPERTY_MODEL_MORE_EQUAL_OPERATOR' => '>=',
+    'TRANSITION_PROPERTY_MODEL_LESS_EQUAL_OPERATOR' => '<=',
+    'TRANSITION_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
+    'TRANSITION_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'Имя файла',
     'MESSAGE_CLEANING' => 'При импорте все элементы диаграммы будут удалены',
     'MESSAGE_IMPORT_ERROR_INCOMPATIBLE_MODE' => 'Режим импортируемого файла не совпадает с режимом диаграммы',
 
-    /* Заголовки модальных форм */
+    /* Заголовки модальных форм EETE*/
     'LEVEL_ADD_NEW_LEVEL' => 'Добавить новый уровень',
     'LEVEL_EDIT_LEVEL' => 'Изменение уровня',
     'LEVEL_DELETE_LEVEL' => 'Удаление уровня',
@@ -299,7 +412,21 @@ return [
     'DELETE_RELATIONSHIP' => 'Удаление связи',
     'IMPORT_FORM' => 'Импортирование',
 
-    /* Сообщения */
+    /* Заголовки модальных форм STDE*/
+    'STATE_ADD_NEW_STATE' => 'Добавить новое состояние',
+    'STATE_EDIT_STATE' => 'Изменение состояния',
+    'STATE_DELETE_STATE' => 'Удаление состояния',
+    'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY' => 'Добавить новое свойство состояния',
+    'STATE_PROPERTY_EDIT_STATE_PROPERTY' => 'Изменение свойство состояния',
+    'STATE_PROPERTY_DELETE_STATE_PROPERTY' => 'Удаление свойство состояния',
+    'TRANSITION_ADD_NEW_TRANSITION' => 'Добавить новый переход',
+    'TRANSITION_EDIT_TRANSITION' => 'Изменение перехода',
+    'TRANSITION_DELETE_TRANSITION' => 'Удаление перехода',
+    'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY' => 'Добавить новое условие',
+    'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY' => 'Изменение условие',
+    'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY' => 'Удаление условия',
+
+    /* Cообщения EETE*/
     'MAXIMUM_CONNECTIONS' => 'Максимальное количество соединений ',
     'MECHANISMS_SHOULD_NOT_BE_INTERCONNECTED' => 'Механизмы не должны быть связаны между собой',
     'ELEMENTS_NOT_BE_ASSOCIATED_WITH_OTHER_ELEMENTS_HIGHER_LEVEL' => 'Элементы не должны быть связаны с другими элементами на вышестоящем уровне',
@@ -310,6 +437,10 @@ return [
     'ALERT_INITIAL_LEVEL' => 'Удаляется начальный уровень, поэтому будут удалены механизмы на следующем уровне!',
     'ALERT_DELETE_LEVEL' => 'При удалении будут удалены все элементы на уровне!',
 
+    /* Cообщения STDE*/
+    'THESE_ELEMENTS_ARE_ALREADY_CONNECTED' => 'Эти элементы уже связаны',
+
+    /* Техсты модальных форм EETE*/
     'RELATIONSHIP_PAGE_DELETE_CONNECTION_TEXT' => 'Вы действительно хотите удалить связь?',
     'DELETE_LEVEL_TEXT' => 'Вы действительно хотите удалить уровень?',
     'DELETE_EVENT_TEXT' => 'Вы действительно хотите удалить событие?',
@@ -317,12 +448,23 @@ return [
     'DELETE_PARAMETER_TEXT' => 'Вы действительно хотите удалить параметр?',
     'DELETE_COMMENT_TEXT' => 'Вы действительно хотите удалить комментарий?',
 
+    /* Техсты модальных форм STDE*/
+    'DELETE_STATE_TEXT' => 'Вы действительно хотите удалить состояние?',
+    'DELETE_STATE_PROPERTY_TEXT' => 'Вы действительно хотите удалить свойство состояния?',
+    'DELETE_TRANSITION_TEXT' => 'Вы действительно хотите удалить переход?',
+    'DELETE_TRANSITION_PROPERTY_TEXT' => 'Вы действительно хотите удалить условие?',
+
     'CONNECTION_DELETE' => 'Удалить',
 
+    /* Техсты сообщений модальных форм EETE*/
     'MESSAGE_PROBABILITY_ALLOWED_ONLY_UP_TO_HUNDREDTHS' => 'Допускается ввод числа от 0 до 1, и только до сотых',
     'MESSAGE_ELEMENT_NAME_ALREADY_ON_DIAGRAM' => 'Элемент с таким названием уже есть на диаграмме',
     'MESSAGE_PARAMETER_NAME_ALREADY_IN_EVENT' => 'Параметер с таким названием уже есть у события',
     'MESSAGE_LEVEL_NAME_ALREADY_ON_DIAGRAM' => 'Уровень с таким названием уже есть на диаграмме',
+
+    /* Техсты сообщений модальных форм STDE*/
+    'MESSAGE_STATE_PROPERTY_ALREADY_IN_STATE' => 'Свойство с таким названием, оператором и значением уже есть у состояния',
+    'MESSAGE_TRANSITION_PROPERTY_ALREADY_IN_TRANSITION' => 'Условие с таким названием, оператором и значением уже есть у перехода',
 
     /* Текст */
     'TEXT_NODE' => 'Узел ',

@@ -18,7 +18,6 @@ class m191115_102554_tree_diagram extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'mode' => $this->smallInteger()->notNull()->defaultValue(0),
-            'tree_view' => $this->smallInteger()->notNull()->defaultValue(0),
             'diagram' => $this->integer()->notNull(),
         ], $tableOptions);
 

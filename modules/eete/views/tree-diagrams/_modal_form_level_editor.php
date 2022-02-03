@@ -5,7 +5,8 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use app\modules\main\models\Lang;
 
-/* @var $level_model app\modules\editor\models\Level */
+/* @var $level_model app\modules\eete\models\Level */
+/* @var $model_tree_diagram app\modules\eete\models\TreeDiagram */
 ?>
 
 <!-- Модальное окно добавления нового уровня -->
@@ -26,7 +27,7 @@ use app\modules\main\models\Lang;
                 $.ajax({
                     //переход на экшен левел
                     url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
-                        '/tree-diagrams/add-level/' . $model->id ?>",
+                        '/tree-diagrams/add-level/' . $model_tree_diagram->id ?>",
                     type: "post",
                     data: form.serialize(),
                     dataType: "json",
@@ -280,7 +281,7 @@ use app\modules\main\models\Lang;
             $.ajax({
                 //переход на экшен левел
                 url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
-                '/tree-diagrams/delete-level/' . $model->id ?>",
+                '/tree-diagrams/delete-level/' . $model_tree_diagram->id ?>",
                 type: "post",
                 data: "YII_CSRF_TOKEN=<?= Yii::$app->request->csrfToken ?>" + "&level_id_on_click=" + level_id_on_click,
                 dataType: "json",
@@ -552,7 +553,7 @@ use app\modules\main\models\Lang;
             $.ajax({
                 //переход на экшен левел
                 url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
-                '/tree-diagrams/move-level/' . $model->id ?>",
+                '/tree-diagrams/move-level/' . $model_tree_diagram->id ?>",
                 type: "post",
                 data: form.serialize() + "&level_id_on_click=" + level_id_on_click,
                 dataType: "json",

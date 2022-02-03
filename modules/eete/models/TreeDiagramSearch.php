@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\editor\models;
+namespace app\modules\eete\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -16,8 +16,7 @@ class TreeDiagramSearch extends TreeDiagram
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'type', 'status', 'author', 'mode', 'correctness', 'tree_view'], 'integer'],
-            [['name', 'description'], 'safe'],
+            [['id', 'created_at', 'updated_at', 'mode', 'tree_view', 'diagram'], 'integer'],
         ];
     }
 
@@ -58,16 +57,10 @@ class TreeDiagramSearch extends TreeDiagram
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'type' => $this->type,
-            'status' => $this->status,
             'mode' => $this->mode,
-            'author' => $this->author,
-            'correctness' => $this->correctness,
             'tree_view' => $this->tree_view,
+            'diagram' => $this->diagram,
         ]);
-
-        $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;
     }
@@ -94,16 +87,10 @@ class TreeDiagramSearch extends TreeDiagram
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'type' => $this->type,
-            'status' => TreeDiagram::PUBLIC_STATUS,
             'mode' => TreeDiagram::EXTENDED_TREE_MODE,
-            'author' => $this->author,
-            'correctness' => $this->correctness,
             'tree_view' => $this->tree_view,
+            'diagram' => $this->diagram,
         ]);
-
-        $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;
     }

@@ -4,11 +4,11 @@ use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use app\modules\main\models\Lang;
-use app\modules\editor\models\Node;
-use app\modules\editor\models\TreeDiagram;
+use app\modules\eete\models\Node;
+use app\modules\eete\models\TreeDiagram;
 
-/* @var $node_model app\modules\editor\models\Node */
-/* @var $array_levels app\modules\editor\controllers\TreeDiagramsController */
+/* @var $node_model app\modules\eete\models\Node */
+/* @var $array_levels app\modules\eete\controllers\TreeDiagramsController */
 
 ?>
 
@@ -22,7 +22,7 @@ use app\modules\editor\models\TreeDiagram;
     $("#addEventModalForm").on("show.bs.modal", function() {
         //если начальное событие есть тогда
         var initial_event = document.getElementsByClassName("div-initial-event");
-        if ((initial_event.length == 0)||(<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model->mode ?>)){
+        if ((initial_event.length == 0)||(<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model_tree_diagram->mode ?>)){
             //блокировка изменения левела
             document.forms["add-event-form"].elements["Node[level_id]"].style.display = "none";
             document.getElementById('add_label_level').style.display = "none";
@@ -51,7 +51,7 @@ use app\modules\editor\models\TreeDiagram;
                 $.ajax({
                     //переход на экшен левел
                     url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
-                        '/tree-diagrams/add-event/' . $model->id ?>",
+                        '/tree-diagrams/add-event/' . $model_tree_diagram->id ?>",
                     type: "post",
                     data: form.serialize(),
                     dataType: "json",
@@ -252,7 +252,7 @@ use app\modules\editor\models\TreeDiagram;
 
 <?= $form->field($node_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
 
-<?php if ((TreeDiagram::CLASSIC_TREE_MODE == $model->mode) or ($the_initial_event_is == 0) ){ ?>
+<?php if ((TreeDiagram::CLASSIC_TREE_MODE == $model_tree_diagram->mode) or ($the_initial_event_is == 0) ){ ?>
     <?= $form->field($node_model, 'level_id')->dropDownList($array_levels)->
                     label(Yii::t('app', 'NODE_MODEL_LEVEL_ID'), ['id' => 'add_label_level']); ?>
 <?php } else { ?>

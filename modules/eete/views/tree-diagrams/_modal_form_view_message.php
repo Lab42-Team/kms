@@ -4,7 +4,7 @@ use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 
-/* @var $array_levels app\modules\editor\controllers\TreeDiagramsController */
+/* @var $array_levels app\modules\eete\controllers\TreeDiagramsController */
 
 ?>
 

@@ -1,29 +1,28 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\editor\models\TreeDiagram */
-/* @var $level_model app\modules\editor\models\Level */
-/* @var $node_model app\modules\editor\models\Node */
-/* @var $level_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $level_model_count app\modules\editor\controllers\TreeDiagramsController */
-/* @var $initial_event_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $sequence_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $event_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $mechanism_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $array_levels app\modules\editor\controllers\TreeDiagramsController */
-/* @var $array_levels_initial_without app\modules\editor\controllers\TreeDiagramsController */
-/* @var $node_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $parameter_model_all app\modules\editor\controllers\TreeDiagramsController */
-/* @var $parameter_model app\modules\editor\controllers\TreeDiagramsController */
-/* @var $the_initial_event_is app\modules\editor\controllers\TreeDiagramsController */
+/* @var $model app\modules\eete\models\TreeDiagram */
+/* @var $level_model app\modules\eete\models\Level */
+/* @var $node_model app\modules\eete\models\Node */
+/* @var $level_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $level_model_count app\modules\eete\controllers\TreeDiagramsController */
+/* @var $initial_event_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $sequence_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $event_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $mechanism_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $array_levels app\modules\eete\controllers\TreeDiagramsController */
+/* @var $array_levels_initial_without app\modules\eete\controllers\TreeDiagramsController */
+/* @var $node_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $parameter_model_all app\modules\eete\controllers\TreeDiagramsController */
+/* @var $parameter_model app\modules\eete\controllers\TreeDiagramsController */
+/* @var $the_initial_event_is app\modules\eete\controllers\TreeDiagramsController */
 
-use yii\bootstrap\ButtonDropdown;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use app\modules\main\models\Lang;
-use app\modules\editor\models\TreeDiagram;
+use app\modules\eete\models\TreeDiagram;
 
-$this->title = Yii::t('app', 'TREE_DIAGRAMS_PAGE_VISUAL_DIAGRAM') . ' - ' . $model->name;
+$this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAM') . ' - ' . $model->name;
 
 $this->params['menu_add'] = [
     ['label' => Yii::t('app', 'NAV_ADD_LEVEL'), 'url' => '#',
@@ -39,7 +38,7 @@ $this->params['menu_add'] = [
 
 $this->params['menu_diagram'] = [
     ['label' => '<span class="glyphicon glyphicon-import"></span> ' . Yii::t('app', 'NAV_IMPORT'),
-        'url' => Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .'/tree-diagrams/import/'. $model->id],
+        'url' => Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .'/import/'. $model->id],
 
     ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_EXPORT'),
         'url' => '#', 'linkOptions' => ['data-method' => 'post']],
@@ -96,6 +95,7 @@ foreach ($initial_event_model_all as $i){
 
 <?= $this->render('_modal_form_level_editor', [
     'model' => $model,
+    'model_tree_diagram' => $model_tree_diagram,
     'level_model' => $level_model,
     'array_levels' => $array_levels,
 ]) ?>
@@ -107,6 +107,7 @@ foreach ($initial_event_model_all as $i){
 
 <?= $this->render('_modal_form_event_editor', [
     'model' => $model,
+    'model_tree_diagram' => $model_tree_diagram,
     'node_model' => $node_model,
     'array_levels' => $array_levels,
     'array_levels_initial_without' => $array_levels_initial_without,
@@ -115,6 +116,7 @@ foreach ($initial_event_model_all as $i){
 
 <?= $this->render('_modal_form_mechanism_editor', [
     'model' => $model,
+    'model_tree_diagram' => $model_tree_diagram,
     'node_model' => $node_model,
     'array_levels_initial_without' => $array_levels_initial_without,
 ]) ?>
@@ -152,7 +154,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     $(document).ready(function() {
 
         //скрывание наименование уровня при классическом режиме построения деревьев событий
-        if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model->mode ?>){
+        if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model_tree_diagram->mode ?>){
             var div_level = document.getElementsByClassName("div-level-name");
             $.each(div_level, function (i, level) {
                 level.hidden = true;
@@ -165,7 +167,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var nav_add_mechanism = document.getElementById('nav_add_mechanism');
 
             // Включение переходов на модальные окна
-            if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> != <?= $model->mode ?>){
+            if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> != <?= $model_tree_diagram->mode ?>){
                 nav_add_level.className = 'enabled';
                 nav_add_level.setAttribute("data-target", "#addLevelModalForm");
                 if (('<?php echo $level_model_count; ?>' > 0)&&('<?php echo $the_initial_event_is; ?>' == 0)){
@@ -228,7 +230,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addEventModalForm").on("show.bs.modal", function() {
                 //если начальное событие есть тогда
                 var initial_event = document.getElementsByClassName("div-initial-event");
-                if ((initial_event.length == 0)||(<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model->mode ?>)){
+                if ((initial_event.length == 0)||(<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model_tree_diagram->mode ?>)){
                     //блокировка изменения левела
                     document.forms["add-event-form"].elements["Node[level_id]"].style.display = "none";
                     document.getElementById('add_label_level').style.display = "none";
@@ -941,7 +943,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             alert.style = style = "display:none;";
 
             //если событие инициирующее
-            if ((div_node.getAttribute("class").search("div-initial-event") >= 0) || (<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model->mode ?>)) {
+            if ((div_node.getAttribute("class").search("div-initial-event") >= 0) || (<?= TreeDiagram::CLASSIC_TREE_MODE ?> == <?= $model_tree_diagram->mode ?>)) {
                 $.each(mas_data_node, function (i, elem) {
                     if (elem.id == node_id_on_click) {
                         document.forms["edit-event-form"].reset();
@@ -1196,7 +1198,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         $.ajax({
             //переход на экшен левел
             url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
-            '/tree-diagrams/correctness/' . $model->id ?>",
+            '/tree-diagrams/correctness/' . $model_tree_diagram->id ?>",
             type: "post",
             data: "YII_CSRF_TOKEN=<?= Yii::$app->request->csrfToken ?>",
             dataType: "json",
@@ -1810,14 +1812,27 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                     <div id="node_show_comment_<?= $initial_event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
                                 </div>
 
+                                <!-- отображение разделительной пунктирной линии -->
+                                <?php
+                                $line = false;
+                                foreach ($parameter_model_all as $parameter_value){
+                                    if ($parameter_value->node == $initial_event_value->id){
+                                        $line = true;
+                                    }
+                                }
+                                ?>
+                                <?php if ($line == true){ ?>
+                                    <div id="line_<?= $initial_event_value->id ?>" class="div-line"></div>
+                                <?php } ?>
+
                                 <?php foreach ($parameter_model_all as $parameter_value): ?>
                                     <?php if ($parameter_value->node == $initial_event_value->id){ ?>
                                         <div id="parameter_<?= $parameter_value->id ?>" class="div-parameter">
-                                            <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                             <div class="button-parameter">
                                                 <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                                 <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
                                             </div>
+                                            <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                         </div>
                                     <?php } ?>
                                 <?php endforeach; ?>
@@ -1852,14 +1867,27 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                 <div id="node_show_comment_<?= $event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
                                             </div>
 
+                                            <!-- отображение разделительной пунктирной линии -->
+                                            <?php
+                                            $line = false;
+                                            foreach ($parameter_model_all as $parameter_value){
+                                                if ($parameter_value->node == $event_value->id){
+                                                    $line = true;
+                                                }
+                                            }
+                                            ?>
+                                            <?php if ($line == true){ ?>
+                                                <div id="line_<?= $event_value->id ?>" class="div-line"></div>
+                                            <?php } ?>
+
                                             <?php foreach ($parameter_model_all as $parameter_value): ?>
                                                 <?php if ($parameter_value->node == $event_value->id){ ?>
                                                     <div id="parameter_<?= $parameter_value->id ?>" class="div-parameter">
-                                                        <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                                         <div class="button-parameter">
                                                             <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                                             <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash"  title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
                                                         </div>
+                                                        <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                                     </div>
                                                 <?php } ?>
                                             <?php endforeach; ?>
