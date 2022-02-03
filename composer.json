@@ -1,6 +1,6 @@
 {
-    "name": "nikita-dorodnykh/kms",
-    "description": "Web-based application for visual modeling diagrams",
+    "name": "lab42-team/kms",
+    "description": "A web-based application for visual modeling diagrams",
     "keywords": ["editor", "visual modeling", "event-tree", "state transition diagram"],
     "type": "project",
     "license": "BSD-3-Clause",
