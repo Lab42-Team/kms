@@ -416,6 +416,7 @@ return [
     'STATE_ADD_NEW_STATE' => 'Add new state',
     'STATE_EDIT_STATE' => 'State change',
     'STATE_DELETE_STATE' => 'State delete',
+    'STATE_COPY_STATE' => 'State copy',
     'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY' => 'Add new state property',
     'STATE_PROPERTY_EDIT_STATE_PROPERTY' => 'State property change',
     'STATE_PROPERTY_DELETE_STATE_PROPERTY' => 'State property delete',

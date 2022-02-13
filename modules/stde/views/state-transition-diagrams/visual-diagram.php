@@ -660,6 +660,26 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     });
 
 
+    // копирование состояния
+    $(document).on('click', '.copy-state', function() {
+        if (!guest) {
+            var state = $(this).attr('id');
+            state_id_on_click = parseInt(state.match(/\d+/));
+
+            var div_state = document.getElementById("state_" + state_id_on_click);
+
+            $.each(mas_data_state, function (i, elem) {
+                if (elem.id == state_id_on_click) {
+                    document.forms["copy-state-form"].reset();
+                    //document.forms["copy-state-form"].elements["State[name]"].value = elem.name;
+                    document.forms["copy-state-form"].elements["State[description]"].value = elem.description;
+                    $("#copyStateModalForm").modal("show");
+                }
+            });
+        }
+    });
+
+
     // добавление свойства состояния
     $(document).on('click', '.add-state-property', function() {
         if (!guest) {
@@ -808,6 +828,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     <div id="state_del_<?= $state->id ?>" class="del-state glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
                     <div id="state_edit_<?= $state->id ?>" class="edit-state glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                     <div id="state_add_property_<?= $state->id ?>" class="add-state-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
+                    <div id="state_copy_<?= $state->id ?>" class="copy-state glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"></div>
                 </div>
 
                 <!-- отображение разделительной пунктирной линии -->

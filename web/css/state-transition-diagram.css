@@ -86,6 +86,16 @@
     font-family: "Glyphicons Halflings";
 }
 
+.copy-state {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
+
 .add-state-property {
     position: absolute;
     bottom: 5px;
@@ -103,6 +113,9 @@
     display:block;
 }
 .content-state:hover .connect-state {
+    display:block;
+}
+.content-state:hover .copy-state {
     display:block;
 }
 .content-state:hover .add-state-property {

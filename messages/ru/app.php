@@ -416,6 +416,7 @@ return [
     'STATE_ADD_NEW_STATE' => 'Добавить новое состояние',
     'STATE_EDIT_STATE' => 'Изменение состояния',
     'STATE_DELETE_STATE' => 'Удаление состояния',
+    'STATE_COPY_STATE' => 'Копирование состояния',
     'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY' => 'Добавить новое свойство состояния',
     'STATE_PROPERTY_EDIT_STATE_PROPERTY' => 'Изменение свойство состояния',
     'STATE_PROPERTY_DELETE_STATE_PROPERTY' => 'Удаление свойство состояния',

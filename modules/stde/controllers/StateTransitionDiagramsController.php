@@ -131,18 +131,18 @@ class StateTransitionDiagramsController extends Controller
                 $i = State::find()->where(['diagram' => $id, 'type' => State::INITIAL_STATE_TYPE])->count();
                 // Если инициирующие состояние есть
                 if ($i > '0') {
-                    // Тип присваивается константа "COMMON_STATE_TYPE" как начальное (инициирующее) состояние
+                    // Тип присваивается константа "COMMON_STATE_TYPE" как обычное состояние
                     $model->type = State::COMMON_STATE_TYPE;
                 } else {
-                    // Тип присваивается константа "INITIAL_STATE_TYPE" как обычное состояния
+                    // Тип присваивается константа "INITIAL_STATE_TYPE" как начальное (инициирующее) состояния
                     $model->type = State::INITIAL_STATE_TYPE;
                 }
 
                 // Успешный ввод данных
                 $data["success"] = true;
-                // Добавление нового уровня в БД
+                // Добавление нового состояния в БД
                 $model->save();
-                // Формирование данных о новом уровне
+                // Формирование данных о новом состоянии
                 $data["id"] = $model->id;
                 $data["name"] = $model->name;
                 $data["description"] = $model->description;
@@ -211,6 +211,78 @@ class StateTransitionDiagramsController extends Controller
 
             $data["success"] = true;
 
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Копирование состояния.
+     */
+    public function actionCopyState()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $state = State::find()->where(['id' => Yii::$app->request->post('state_id_on_click')])->one();
+
+            // Формирование модели уровня
+            $model = new State();
+            // Задание id диаграммы
+            $model->diagram = $state->diagram;
+            $model->indent_x = 20;
+            $model->indent_y = 20;
+
+            // Определение полей модели уровня и валидация формы
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                // Тип присваивается константа "COMMON_STATE_TYPE" как обычное состояние
+                $model->type = State::COMMON_STATE_TYPE;
+                // Добавление нового состояния в БД
+                $model->save();
+
+                $i = 0;
+                //копирование свойств состояний
+                $state_property = StateProperty::find()->where(['state' => $state->id])->all();
+                foreach ($state_property as $sp){
+                    $new_state_property = new StateProperty();
+                    $new_state_property->name = $sp->name;
+                    $new_state_property->description = $sp->description;
+                    $new_state_property->operator = $sp->operator;
+                    $new_state_property->value = $sp->value;
+                    $new_state_property->state = $model->id;
+                    $new_state_property->save();
+
+                    $data["state_property_id_$i"] = $new_state_property->id;
+                    $data["state_property_name_$i"] = $new_state_property->name;
+                    $data["state_property_description_$i"] = $new_state_property->description;
+                    $data["state_property_operator_$i"] = $new_state_property->operator;
+                    $data["state_property_operator_name_$i"] = $new_state_property->getOperatorName();
+                    $data["state_property_value_$i"] = $new_state_property->value;
+
+                    $i = $i + 1;
+                }
+
+                // Успешный ввод данных
+                $data["success"] = true;
+
+                // Формирование данных о новом состоянии
+                $data["id"] = $model->id;
+
+                $data["name"] = $model->name;
+                $data["description"] = $model->description;
+                $data["indent_x"] = $model->indent_x;
+                $data["indent_y"] = $model->indent_y;
+                $data["i"] = $i;
+            } else
+                $data = ActiveForm::validate($model);
             // Возвращение данных
             $response->data = $data;
             return $response;
