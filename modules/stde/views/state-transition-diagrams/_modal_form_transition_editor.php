@@ -50,7 +50,7 @@ use app\modules\stde\models\TransitionProperty;
                         });
 
                         //создаем параметр для новой связи id_transition куда прописываем название связи transition_" +  data['id'] (как замена id)
-                        instance.select(current_connection).setParameter('id_transition',"transition_connect_" +  data['id']);
+                        current_connection.setParameter('id_transition',"transition_connect_" +  data['id']);
 
                         //создание div переходов и условий
                         var div_visual_diagram_field = document.getElementById('visual_diagram_field');
