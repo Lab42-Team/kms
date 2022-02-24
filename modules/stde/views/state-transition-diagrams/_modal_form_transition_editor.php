@@ -42,7 +42,7 @@ use app\modules\stde\models\TransitionProperty;
                         $("#addTransitionModalForm").modal("hide");
 
                         //присваиваем наименование и свойства новой связи
-                        instance.select(current_connection).setLabel({
+                        current_connection.setLabel({
                             label: data['name'],
                             location: 0.5, //расположение посередине
                             cssClass: "transitions-style",

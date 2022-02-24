@@ -355,38 +355,6 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
         var windows = jsPlumb.getSelector(".div-state");
 
-        //проверка перед построением переходов (связей)
-        instance.bind("beforeDrop", function (info) {
-            var source_id = info.sourceId;
-            var target_id = info.targetId;
-
-            id_state_from = parseInt(source_id.match(/\d+/));
-            id_state_to = parseInt(target_id.match(/\d+/));
-
-            var connection_is = false;
-
-            //проверка на наличие связи
-            $.each(mas_data_transition, function (i, elem) {
-                if ((elem.state_from == id_state_from)&&(elem.state_to == id_state_to)) {
-                    //если связь существует тогда true
-                    connection_is = true;
-                }
-            });
-
-            //если связь существует
-            if (connection_is == true){
-                var message = "<?php echo Yii::t('app', 'THESE_ELEMENTS_ARE_ALREADY_CONNECTED'); ?>";
-                document.getElementById("message-text").lastChild.nodeValue = message;
-                $("#viewMessageErrorLinkingItemsModalForm").modal("show");
-                //тогда отказ
-                return false;
-            } else {
-                //иначе построенеие
-                return true;
-            }
-        });
-
-
         //построение переходов (связей)
         instance.batch(function () {
 
@@ -484,15 +452,6 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                 current_connection = connection.connection;
                 id_state_from = parseInt(source_id.match(/\d+/));
                 id_state_to = parseInt(target_id.match(/\d+/));
-
-                //-------------здесь баг с переименованием всех одинаковых связей
-                //instance.select(current_connection).setParameter('id_transition',"transition_connect_");
-                //instance.select(current_connection).setLabel({
-                //    label: 'name',
-                //    location: 0.5, //расположение посередине
-                //    cssClass: "transitions-style"
-                //});
-                // модальную форму скрыть перед использованием
 
                 $("#addTransitionModalForm").modal("show");
             }
