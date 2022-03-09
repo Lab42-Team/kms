@@ -21,6 +21,9 @@ $this->params['menu_diagram'] = [
 
     ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_EXPORT'),
         'url' => '#', 'linkOptions' => ['data-method' => 'post']],
+
+    ['label' => '<span class="glyphicon glyphicon-object-align-vertical"></span> ' . Yii::t('app', 'NAV_ALIGNMENT'),
+        'url' => '#', 'options' => ['id'=>'nav_alignment']],
 ];
 ?>
 
@@ -763,6 +766,42 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             // Обновление формы редактора
             instance.repaintEverything();
         }
+    });
+
+
+    //равномерное распределение и выравнивание элементов по диаграмме
+    $('#nav_alignment').on('click', function() {
+        //переменные отступа
+        var left = 10;
+        var top = 10;
+        var col = 0;
+
+        $(".div-state").each(function(i) {
+            $(this).css({
+                left: left,
+                top: top
+            });
+            left = left + 300;
+            col = col + 1;
+            if (col == 4){
+                top = top + 250;
+                left = 10;
+                col = 0;
+            }
+        });
+
+        mousemoveState();
+        // Обновление формы редактора
+        instance.repaintEverything();
+
+        //сохранение местоположения
+        $(".div-state").each(function(i) {
+            var state = $(this).attr('id');
+            var state_id = parseInt(state.match(/\d+/));
+            var indent_x = $(this).position().left;
+            var indent_y = $(this).position().top;
+            saveIndent(state_id, indent_x, indent_y);
+        });
     });
 
 </script>
