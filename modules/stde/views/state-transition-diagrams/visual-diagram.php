@@ -516,10 +516,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
     //при движении блока состояния расширяем или сужаем поле visual_diagram_field
     $(document).on('mousemove', '.div-state', function() {
-        var id_state = $(this).attr('id');
         mousemoveState();
+        // Обновление формы редактора
+        instance.repaintEverything();
     });
-
 
     //сохранение расположения элемента
     $(document).on('mouseup', '.div-state', function() {
@@ -790,10 +790,6 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             }
         });
 
-        mousemoveState();
-        // Обновление формы редактора
-        instance.repaintEverything();
-
         //сохранение местоположения
         $(".div-state").each(function(i) {
             var state = $(this).attr('id');
@@ -802,6 +798,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var indent_y = $(this).position().top;
             saveIndent(state_id, indent_x, indent_y);
         });
+        mousemoveState();
+        // Обновление формы редактора
+        instance.repaintEverything();
     });
 
 </script>
