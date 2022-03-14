@@ -94,16 +94,16 @@ class EventTreeXMLGenerator
 
     public function generateEETDXMLCode($id)
     {
+        $tree_diagram = TreeDiagram::find()->where(['id' => $id])->one();
+        $diagram = Diagram::find()->where(['id' => $tree_diagram->diagram])->one();
+        $arr = explode(' ',trim($diagram->name));
         // Определение наименования файла
-        $file = 'eetd_file.xml';
+        $file = $diagram->id.'_'.$arr[0].'.xml';
         if (!file_exists($file))
             fopen($file, 'w');
-
         // Создание документа DOM с кодировкой UTF8
         $xml = new DomDocument('1.0', 'UTF-8');
 
-        $tree_diagram = TreeDiagram::find()->where(['id' => $id])->one();
-        $diagram = Diagram::find()->where(['id' => $tree_diagram->diagram])->one();
         // Создание корневого узла Diagram
         $diagram_element = $xml->createElement('Diagram');
         $diagram_element->setAttribute('id', $diagram->id);

@@ -52,14 +52,14 @@ class StateTransitionXMLGenerator
 
     public function generateSTDXMLCode($id)
     {
+        $diagram = Diagram::find()->where(['id' => $id])->one();
+        $arr = explode(' ',trim($diagram->name));
         // Определение наименования файла
-        $file = 'std_file.xml';
+        $file = $diagram->id.'_'.$arr[0].'.xml';
         if (!file_exists($file))
             fopen($file, 'w');
-
         // Создание документа DOM с кодировкой UTF8
         $xml = new DomDocument('1.0', 'UTF-8');
-        $diagram = Diagram::find()->where(['id' => $id])->one();
         // Создание корневого узла Diagram
         $diagram_element = $xml->createElement('Diagram');
         $diagram_element->setAttribute('id', $diagram->id);
