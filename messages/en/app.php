@@ -85,6 +85,7 @@ return [
     'BUTTON_UPLOAD' => 'Upload',
     'BUTTON_UPLOAD_ONTOLOGY' => 'Upload ontology',
     'BUTTON_CONVERT' => 'Convert',
+    'BUTTON_COPY' => 'Copy',
 
     /* Общие сообщения об ошибках */
     'ERROR_MESSAGE_PAGE_NOT_FOUND' => 'Page not found.',

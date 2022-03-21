@@ -25,6 +25,9 @@ $config = [
         'stde'=> [
             'class' => 'app\modules\stde\Module',
         ],
+        'api' => [
+            'class' => 'app\modules\api\Module',
+        ]
     ],
 
     'components' => [
@@ -57,6 +60,12 @@ $config = [
                 '/user/<_usr:(list|create)>' => 'main/user/<_usr>',
                 '/user/<_usr:(view|update|delete|profile|update-profile|change-password)>/<id:\d+>' =>
                     'main/user/<_usr>',
+                '/api/get-all-state-transition-diagrams-list' => 'api/api/get-all-state-transition-diagrams-list',
+                '/api/get-all-event-tree-diagrams-list' => 'api/api/get-all-event-tree-diagrams-list',
+                '/api/export-state-transition-diagram/<id:\d+>' => 'api/api/export-state-transition-diagram',
+                '/api/export-event-tree-diagram/<id:\d+>' => 'api/api/export-event-tree-diagram',
+                '/api/import-state-transition-diagram/<id:\d+>' => 'api/api/import-state-transition-diagram',
+                '/api/import-event-tree-diagram/<id:\d+>' => 'api/api/import-event-tree-diagram',
             ],
         ],
         'cache' => [
