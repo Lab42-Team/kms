@@ -196,7 +196,12 @@ use app\modules\eete\models\TreeDiagram;
                                 dropOptions: { hoverClass: "dragHover" },
                                 anchor: "Top",
                                 allowLoopback: false, // Нельзя создать кольцевую связь
-                                maxConnections: -1,
+                                maxConnections: 1,
+                                onMaxConnections: function (info, e) {
+                                    var message = "<?php echo Yii::t('app', 'MAXIMUM_CONNECTIONS'); ?>" + info.maxConnections;
+                                    document.getElementById("message-text").lastChild.nodeValue = message;
+                                    $("#viewMessageErrorLinkingItemsModalForm").modal("show");
+                                }
                             });
 
 
@@ -379,7 +384,12 @@ use app\modules\eete\models\TreeDiagram;
                                 dropOptions: { hoverClass: "dragHover" },
                                 anchor: "Top",
                                 allowLoopback: false, // Нельзя создать кольцевую связь
-                                maxConnections: -1,
+                                maxConnections: 1,
+                                onMaxConnections: function (info, e) {
+                                    var message = "<?php echo Yii::t('app', 'MAXIMUM_CONNECTIONS'); ?>" + info.maxConnections;
+                                    document.getElementById("message-text").lastChild.nodeValue = message;
+                                    $("#viewMessageErrorLinkingItemsModalForm").modal("show");
+                                }
                             });
 
                             //поиск комментария
