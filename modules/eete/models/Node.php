@@ -66,10 +66,6 @@ class Node extends \yii\db\ActiveRecord
             [['certainty_factor'],  'number', 'max' => 1, 'min' => 0, 'numberPattern' => '/^[0-9]{1}(\.[0-9]{0,2})?$/',
                 'message' => Yii::t('app', 'MESSAGE_PROBABILITY_ALLOWED_ONLY_UP_TO_HUNDREDTHS')],
 
-            // name и tree_diagram вместе должны быть уникальны, но только name будет получать сообщение об ошибке
-            ['name', 'unique', 'targetAttribute' => ['name', 'tree_diagram'],
-                'message' => Yii::t('app', 'MESSAGE_ELEMENT_NAME_ALREADY_ON_DIAGRAM')],
-
             [['comment'], 'string'],
 
             [['parent_node'], 'exist', 'skipOnError' => true, 'targetClass' => Node::className(),
