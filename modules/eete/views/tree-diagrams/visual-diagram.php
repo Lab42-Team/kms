@@ -20,6 +20,7 @@
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use app\modules\main\models\Lang;
+use app\modules\eete\models\Node;
 use app\modules\eete\models\TreeDiagram;
 
 $this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAM') . ' - ' . $model->name;
@@ -1193,6 +1194,194 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     });
 
 
+    // копирование события
+    $(document).on('click', '.copy-event', function() {
+        if (!guest) {
+            var node = $(this).attr('id');
+            node_id_on_click = parseInt(node.match(/\d+/));
+
+            $.ajax({
+                url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
+                '/tree-diagrams/copy-event'?>",
+                type: "post",
+                data: "YII_CSRF_TOKEN=<?= Yii::$app->request->csrfToken ?>" + "&node_id_on_click=" + node_id_on_click,
+                dataType: "json",
+                success: function(data) {
+                    if (data['success']) {
+                        var div_level_layer = document.getElementById('level_description_' + data['id_level']);
+
+                        var div_event = document.createElement('div');
+                        div_event.id = 'node_' + data['id'];
+                        div_event.className = 'div-event node';
+                        div_level_layer.append(div_event);
+
+                        var div_content_event = document.createElement('div');
+                        div_content_event.className = 'content-event';
+                        div_event.append(div_content_event);
+
+                        var div_event_name = document.createElement('div');
+                        div_event_name.id = 'node_name_' + data['id'];
+                        div_event_name.className = 'div-event-name' ;
+                        if ((data['certainty_factor'] == "")||(data['certainty_factor'] == 0)||(data['certainty_factor'] == null)){
+                            div_event_name.innerHTML = data['name'];
+                        } else {
+                            div_event_name.innerHTML = data['name'] + ' (' + data['certainty_factor'] + ')';
+                        }
+                        div_content_event.append(div_event_name);
+
+                        var div_ep = document.createElement('div');
+                        div_ep.className = 'ep ep-event glyphicon-share-alt' ;
+                        div_ep.title = '<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>' ;
+                        div_content_event.append(div_ep);
+
+                        var div_del = document.createElement('div');
+                        div_del.id = 'node_del_' + data['id'];
+                        div_del.className = 'del del-event glyphicon-trash' ;
+                        div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_content_event.append(div_del);
+
+                        var div_edit = document.createElement('div');
+                        div_edit.id = 'node_edit_' + data['id'];
+                        div_edit.className = 'edit edit-event glyphicon-pencil' ;
+                        div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_content_event.append(div_edit);
+
+                        var div_add_parameter = document.createElement('div');
+                        div_add_parameter.id = 'node_add_parameter_' + data['id'];
+                        div_add_parameter.className = 'param add-parameter glyphicon-plus' ;
+                        div_add_parameter.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>';
+                        div_content_event.append(div_add_parameter);
+
+                        var div_show_comment = document.createElement('div');
+                        div_show_comment.id = 'node_show_comment_' + data['id'];
+                        div_show_comment.className = 'show-event-comment glyphicon-paperclip' ;
+                        div_show_comment.title = '<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>' ;
+                        div_content_event.append(div_show_comment);
+
+                        var div_copy = document.createElement('div');
+                        div_copy.id = 'node_copy_' + data['id'];
+                        div_copy.className = 'copy-event glyphicon-plus-sign' ;
+                        div_copy.title = '<?php echo Yii::t('app', 'BUTTON_COPY'); ?>' ;
+                        div_content_event.append(div_copy);
+
+
+                        //применяем к новым элементам свойства plumb
+                        //находим DOM элемент description уровня (идентификатор div level_description)
+                        var div_level_id = document.getElementById('level_description_'+ data['id_level']);
+                        var g_name = 'group'+ data['id_level']; //определяем имя группы
+                        var grp = instance.getGroup(g_name);//определяем существует ли группа с таким именем
+                        if (grp == 0){
+                            //если группа не существует то создаем группу с определенным именем group_name
+                            instance.addGroup({
+                                el: div_level_id,
+                                id: g_name,
+                                draggable: false, //перетаскивание группы
+                                //constrain: true, //запрет на перетаскивание элементов за группу (false перетаскивать можно)
+                                dropOverride:true,
+                            });
+                        }
+                        //находим DOM элемент node (идентификатор div node)
+                        var div_node_id = document.getElementById('node_'+ data['id']);
+                        //делаем node перетаскиваемым
+                        instance.draggable(div_node_id);
+                        //добавляем элемент div_node_id в группу с именем group_name
+                        instance.addToGroup(g_name, div_node_id);
+
+
+                        instance.makeSource(div_node_id, {
+                            filter: ".ep",
+                            anchor: "Bottom",
+                        });
+
+                        instance.makeTarget(div_node_id, {
+                            dropOptions: { hoverClass: "dragHover" },
+                            anchor: "Top",
+                            allowLoopback: false, // Нельзя создать кольцевую связь
+                            maxConnections: 1,
+                            onMaxConnections: function (info, e) {
+                                var message = "<?php echo Yii::t('app', 'MAXIMUM_CONNECTIONS'); ?>" + info.maxConnections;
+                                document.getElementById("message-text").lastChild.nodeValue = message;
+                                $("#viewMessageErrorLinkingItemsModalForm").modal("show");
+                            }
+                        });
+
+
+                        var level = parseInt(data['id_level'], 10);
+                        var node = data['id'];
+                        var name = data['name'];
+                        var parent_node = data['parent_node'];
+                        var description = data['description'];
+                        var certainty_factor = data['certainty_factor'];
+                        var removed = sequence_mas.push([level, node]);
+
+                        var j = 0;
+                        $.each(mas_data_node, function (i, elem) {
+                            j = j + 1;
+                        });
+                        mas_data_node[j] = {id:node, parent_node:parent_node, name:name, description:description, certainty_factor:certainty_factor,};
+
+                        $.pjax.reload({container: '#pjax_event_editor'});
+                        $.pjax.xhr = null;
+
+
+                        //добавляем параметры для копируемого события
+                        for (var i = 0; i < data['i']; i++) {
+                            //добавляем div разделительной линии для первого события
+                            if (i == 0){
+                                //добавляем div разделительной линии
+                                var div_line = document.createElement('div');
+                                div_line.id = 'line_' + data['id'];
+                                div_line.className = 'div-line';
+                                div_event.append(div_line);
+                            }
+
+                            var div_parameter = document.createElement('div');
+                            div_parameter.id = 'parameter_' + data['parameter_id_'+i];
+                            div_parameter.className = 'div-parameter';
+                            div_parameter.innerHTML = data['parameter_name_'+i] + " " + data['parameter_operator_name_'+i] + " " + data['parameter_value_'+i];
+                            div_event.append(div_parameter);
+
+                            var div_button_parameter = document.createElement('div');
+                            div_button_parameter.className = 'button-parameter';
+                            div_parameter.prepend(div_button_parameter);
+
+                            var div_edit_parameter = document.createElement('div');
+                            div_edit_parameter.id = 'edit_parameter_' + data['parameter_id_'+i];
+                            div_edit_parameter.className = 'edit edit-parameter glyphicon-pencil';
+                            div_edit_parameter.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                            div_button_parameter.append(div_edit_parameter);
+
+                            var div_del_parameter = document.createElement('div');
+                            div_del_parameter.id = 'del_parameter_' + data['parameter_id_'+i];
+                            div_del_parameter.className = 'del del-parameter glyphicon-trash';
+                            div_del_parameter.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                            div_button_parameter.append(div_del_parameter);
+
+
+                            var id = data['parameter_id_'+i];
+                            var name = data['parameter_name_'+i];
+                            var description = data['parameter_description_'+i];
+                            var operator = data['parameter_operator_'+i];
+                            var value = data['parameter_value_'+i];
+
+                            var j = 0;
+                            $.each(mas_data_parameter, function (i, elem) {
+                                j = j + 1;
+                            });
+                            mas_data_parameter[j] = {id:id, name:name, description:description, operator:operator, value:value};
+                        }
+                    }
+                },
+                error: function () {
+                    alert('Error!');
+                }
+            });
+
+
+        }
+    });
+
+
     //проверка диаграммы на корректность
     $('#nav_correctness').on('click', function() {
         $.ajax({
@@ -1810,6 +1999,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                     <div id="node_edit_<?= $initial_event_value->id ?>" class="edit edit-event glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                     <div id="node_add_parameter_<?= $initial_event_value->id ?>" class="param add-parameter glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
                                     <div id="node_show_comment_<?= $initial_event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
+                                    <div id="node_copy_<?= $initial_event_value->id ?>" class="copy-event glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"></div>
                                 </div>
 
                                 <!-- отображение разделительной пунктирной линии -->
@@ -1865,6 +2055,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                 <div id="node_edit_<?= $event_value->id ?>" class="edit edit-event glyphicon-pencil"  title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
                                                 <div id="node_add_parameter_<?= $event_value->id ?>" class="param add-parameter glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
                                                 <div id="node_show_comment_<?= $event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
+                                                <div id="node_copy_<?= $event_value->id ?>" class="copy-event glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"></div>
                                             </div>
 
                                             <!-- отображение разделительной пунктирной линии -->

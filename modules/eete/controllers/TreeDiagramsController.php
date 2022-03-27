@@ -783,6 +783,93 @@ class TreeDiagramsController extends Controller
         return false;
     }
 
+
+    /**
+     * Копирование события.
+     */
+    public function actionCopyEvent()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            //поиск копируемого события
+            $event = Node::find()->where(['id' => Yii::$app->request->post('node_id_on_click')])->one();
+
+            // Формирование модели копированного события
+            $model = new Node();
+            $model->name = $event->name;
+            $model->certainty_factor = $event->certainty_factor;
+            $model->description = $event->description;
+            $model->operator = $event->operator;
+            $model->type = Node::EVENT_TYPE;
+            $model->tree_diagram = $event->tree_diagram;
+            $model->indent_x = 20;
+            $model->indent_y = 20;
+            $model->level_id = 1;//для обхода обязательности заполнения
+            $model->save();
+
+            //поиск связи копируемого события с уровнем для определения уровня
+            $sequence = Sequence::find()->where(['node' => $event->id])->one();
+
+            //создаем связь между копированным событием и уровнем
+            $new_sequence = new Sequence();
+            $new_sequence->tree_diagram = $sequence->tree_diagram;
+            $new_sequence->level = $sequence->level;
+            $new_sequence->node = $model->id;
+            $new_sequence_model_count = Sequence::find()->where(['tree_diagram' => $sequence->tree_diagram])->count();
+            $new_sequence->priority = $new_sequence_model_count;
+            $new_sequence->save();
+
+            $i = 0;
+            //копирование параметров
+            $parameters = Parameter::find()->where(['node' => $event->id])->all();
+            foreach ($parameters as $p) {
+                $new_parameter = new Parameter();
+                $new_parameter->name = $p->name;
+                $new_parameter->description = $p->description;
+                $new_parameter->operator = $p->operator;
+                $new_parameter->value = $p->value;
+                $new_parameter->node = $model->id;
+                $new_parameter->save();
+
+                $data["parameter_id_$i"] = $new_parameter->id;
+                $data["parameter_name_$i"] = $new_parameter->name;
+                $data["parameter_description_$i"] = $new_parameter->description;
+                $data["parameter_operator_$i"] = $new_parameter->operator;
+                $data["parameter_operator_name_$i"] = $new_parameter->getOperatorName();
+                $data["parameter_value_$i"] = $new_parameter->value;
+
+                $i = $i + 1;
+            }
+
+            // Успешный ввод данных
+            $data["success"] = true;
+
+            // Формирование данных о новом состоянии
+            $data["id"] = $model->id;
+            $data["name"] = $model->name;
+            $data["certainty_factor"] = $model->certainty_factor;
+            $data["description"] = $model->description;
+            $data["parent_node"] = $model->parent_node;
+            $data["type"] = $model->type;
+            $data["indent_x"] = $model->indent_x;
+            $data["indent_y"] = $model->indent_y;
+            $data["i"] = $i;
+            $data["id_level"] = $new_sequence->level;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
     public function actionAddParameter()
     {
         //Ajax-запрос
