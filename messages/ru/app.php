@@ -399,6 +399,7 @@ return [
     'EVENT_ADD_NEW_EVENT' => 'Добавить новое событие',
     'EVENT_EDIT_EVENT' => 'Изменение события',
     'EVENT_DELETE_EVENT' => 'Удаление события',
+    'EVENT_COPY_EVENT' => 'Копирование события',
     'EVENT_ADD_NEW_COMMENT' => 'Добавить новый комментарий события',
     'EVENT_EDIT_COMMENT' => 'Изменить комментарий события',
     'EVENT_DELETE_COMMENT' => 'Удалить комментарий события',

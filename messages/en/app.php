@@ -399,6 +399,7 @@ return [
     'EVENT_ADD_NEW_EVENT' => 'Add new event',
     'EVENT_EDIT_EVENT' => 'Event change',
     'EVENT_DELETE_EVENT' => 'Delete event',
+    'EVENT_COPY_EVENT' => 'Copy event',
     'EVENT_ADD_NEW_COMMENT' => 'Add new event comment',
     'EVENT_EDIT_COMMENT' => 'Change event comment',
     'EVENT_DELETE_COMMENT' => 'Delete event comment',
