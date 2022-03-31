@@ -1201,8 +1201,20 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             node_id_on_click = parseInt(node.match(/\d+/));
             //если тип диаграммы расширенная
             if (<?= TreeDiagram::EXTENDED_TREE_MODE ?> == <?= $model_tree_diagram->mode ?>){
-                document.forms["copy-event-form"].reset();
-                $("#copyEventModalForm").modal("show");
+                //определение количества уровней
+                var length = 0
+                $.each(mas_data_level, function (i, mas) {
+                    length = length + 1;
+                });
+                //если уровней на диаграмме = 1
+                if (length == 1){
+                    var message = "<?php echo Yii::t('app', 'YOU_CANNOT_PLACE_MORE_THAN_ONE_EVENT_PER_ENTRY_LEVEL'); ?>";
+                    document.getElementById("message-copy-event-text").lastChild.nodeValue = message;
+                    $("#viewMessageErrorCopyEventModalForm").modal("show");
+                } else {
+                    document.forms["copy-event-form"].reset();
+                    $("#copyEventModalForm").modal("show");
+                }
             } else {
                 $.ajax({
                     url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .

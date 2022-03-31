@@ -413,6 +413,7 @@ return [
     'VALIDATION' => 'Проверка корректности',
     'DELETE_RELATIONSHIP' => 'Удаление связи',
     'IMPORT_FORM' => 'Импортирование',
+    'ERROR_COPY_EVENT' => 'Ошибка копирования события',
 
     /* Заголовки модальных форм STDE*/
     'STATE_ADD_NEW_STATE' => 'Добавить новое состояние',
@@ -435,7 +436,7 @@ return [
     'ELEMENTS_NOT_BE_ASSOCIATED_WITH_OTHER_ELEMENTS_HIGHER_LEVEL' => 'Элементы не должны быть связаны с другими элементами на вышестоящем уровне',
     'LEVEL_MUST_BEGIN_WITH_MECHANISM' => 'Уровень должен начинаться с механизма',
     'INITIAL_EVENT_SHOULD_NOT_BE_INCOMING_CONNECTIONS' => 'У начального события не должно быть входящих соединений',
-
+    'YOU_CANNOT_PLACE_MORE_THAN_ONE_EVENT_PER_ENTRY_LEVEL' => 'Нельзя разместить больше одного события на начальный уровень',
     'ALERT_CHANGE_LEVEL' => 'При изменении уровня, связи будут удалены!',
     'ALERT_INITIAL_LEVEL' => 'Удаляется начальный уровень, поэтому будут удалены механизмы на следующем уровне!',
     'ALERT_DELETE_LEVEL' => 'При удалении будут удалены все элементы на уровне!',

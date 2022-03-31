@@ -65,3 +65,33 @@ use yii\bootstrap\Button;
 <?php ActiveForm::end(); ?>
 
 <?php Modal::end(); ?>
+
+
+
+    <!-- Модальное окно для вывода сообщений об ошибках при копировании события -->
+<?php Modal::begin([
+    'id' => 'viewMessageErrorCopyEventModalForm',
+    'header' => '<h3>' . Yii::t('app', 'ERROR_COPY_EVENT') . '</h3>',
+]); ?>
+
+    <div class="modal-body">
+        <p id="message-copy-event-text" style="font-size: 14px">
+        </p>
+    </div>
+
+<?php $form = ActiveForm::begin([
+    'id' => 'view-message-modal-form',
+]); ?>
+
+<?= Button::widget([
+    'label' => Yii::t('app', 'BUTTON_OK'),
+    'options' => [
+        'class' => 'btn-success',
+        'style' => 'margin:5px',
+        'data-dismiss'=>'modal'
+    ]
+]); ?>
+
+<?php ActiveForm::end(); ?>
+
+<?php Modal::end(); ?>

@@ -413,6 +413,7 @@ return [
     'VALIDATION' => 'Validation',
     'DELETE_RELATIONSHIP' => 'Deleting connection',
     'IMPORT_FORM' => 'Import',
+    'ERROR_COPY_EVENT' => 'Event copy error',
 
     /* Заголовки модальных форм STDE*/
     'STATE_ADD_NEW_STATE' => 'Add new state',
@@ -435,7 +436,7 @@ return [
     'ELEMENTS_NOT_BE_ASSOCIATED_WITH_OTHER_ELEMENTS_HIGHER_LEVEL' => 'Elements must not be associated with other elements at a higher level',
     'LEVEL_MUST_BEGIN_WITH_MECHANISM' => 'The level must begin with a mechanism',
     'INITIAL_EVENT_SHOULD_NOT_BE_INCOMING_CONNECTIONS' => 'In the initial event should not be incoming connections',
-
+    'YOU_CANNOT_PLACE_MORE_THAN_ONE_EVENT_PER_ENTRY_LEVEL' => 'You cannot place more than one event per entry level',
     'ALERT_CHANGE_LEVEL' => 'When you change the level, the connection will be deleted!',
     'ALERT_INITIAL_LEVEL' => 'The initial level is deleted, so the mechanisms at the next level will be deleted!',
     'ALERT_DELETE_LEVEL' => 'When deleting, all the elements on the level will be deleted!',
