@@ -48,7 +48,7 @@ $config = [
                 'contact' => 'main/default/contact',
                 'sing-in' => 'main/default/sing-in',
                 '<_dgm:(my-diagrams|diagrams|create)>' => 'main/default/<_dgm>',
-                '<_dgm:(view|update|delete|import|upload-ontology|creation-template)>/<id:\d+>' => 'main/default/<_dgm>',
+                '<_dgm:(view|update|delete|import|upload-ontology|creation-template|upload-csv)>/<id:\d+>' => 'main/default/<_dgm>',
                 '/tree-diagrams/<_eet:(edit-level|edit-event|edit-mechanism|delete-event|delete-mechanism|add-relationship|delete-relationship|add-parameter|edit-parameter|delete-parameter|copy-event|copy-event-to-level|add-event-comment|edit-event-comment|delete-event-comment|add-level-comment|edit-level-comment|delete-level-comment|save-indent)>' =>
                     'eete/tree-diagrams/<_eet>',
                 '/tree-diagrams/<_eet:(visual-diagram|add-level|add-event|add-mechanism|delete-level|correctness|move-level|upload-ontology|convert-ontology)>/<id:\d+>' =>

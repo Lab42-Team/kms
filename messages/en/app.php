@@ -86,6 +86,7 @@ return [
     'BUTTON_UPLOAD_ONTOLOGY' => 'Upload ontology',
     'BUTTON_CONVERT' => 'Convert',
     'BUTTON_COPY' => 'Copy',
+    'BUTTON_UPLOAD_CSV' => 'Upload CSV',
 
     /* Общие сообщения об ошибках */
     'ERROR_MESSAGE_PAGE_NOT_FOUND' => 'Page not found.',
@@ -136,6 +137,7 @@ return [
     'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Upload ontology',
     'DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Convert ontology',
     'DIAGRAMS_PAGE_CREATE_FROM_TEMPLATE' => 'Create a chart from a template',
+    'DIAGRAMS_PAGE_UPLOAD_CSV' => 'Upload CSV',
     /* Сообщения на страницах администрирования диаграмм */
     'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM' => 'You have successfully created a new diagram.',
     'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'You have successfully updated diagram.',
@@ -143,6 +145,7 @@ return [
     'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM' => 'You have successfully imported diagram.',
     'DIAGRAMS_PAGE_MESSAGE_WARNING_BEFORE_UPLOAD_ONTOLOGY' => 'Attention! All previous diagram elements will be deleted.',
     'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'You have successfully uploaded ontology.',
+    'DIAGRAMS_PAGE_MESSAGE_UPLOAD_CSV' => 'You have successfully uploaded CSV.',
 
     /* Диаграмма созданная из шаблона */
     'DIAGRAM_CREATED_FROM' => 'Chart created from ',

@@ -51,8 +51,8 @@ class State extends \yii\db\ActiveRecord
             [['description'], 'string'],
 
             // name и diagram вместе должны быть уникальны, но только name будет получать сообщение об ошибке
-            ['name', 'unique', 'targetAttribute' => ['name', 'diagram'],
-                'message' => Yii::t('app', 'MESSAGE_ELEMENT_NAME_ALREADY_ON_DIAGRAM')],
+            //['name', 'unique', 'targetAttribute' => ['name', 'diagram'],
+            //    'message' => Yii::t('app', 'MESSAGE_ELEMENT_NAME_ALREADY_ON_DIAGRAM')],
 
             [['diagram'], 'exist', 'skipOnError' => true, 'targetClass' => Diagram::className(),
                 'targetAttribute' => ['diagram' => 'id']],

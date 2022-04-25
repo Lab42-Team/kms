@@ -15,6 +15,7 @@ use app\modules\main\models\ContactForm;
 use app\modules\main\models\DiagramSearch;
 use app\modules\main\models\Diagram;
 use app\modules\main\models\Import;
+use app\modules\main\models\ImportCSV;
 use app\modules\eete\models\TreeDiagram;
 use app\modules\eete\models\Sequence;
 use app\modules\eete\models\Level;
@@ -28,6 +29,7 @@ use app\modules\main\models\User;
 use app\modules\main\models\OWLFileForm;
 use app\components\StateTransitionXMLImport;
 use app\components\EventTreeXMLImport;
+use app\components\StateTransitionCSVloader;
 
 class DefaultController extends Controller
 {
@@ -746,5 +748,58 @@ class DefaultController extends Controller
             Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM'));
 
         return $this->redirect(['view', 'id' => $diagram->id]);
+    }
+
+
+    /**
+     * Создание диаграммы из csv файла
+     *
+     * @param $id - идентификатор диаграммы
+     * @return string|Response
+     */
+    public function actionUploadCsv($id)
+    {
+        //Массив для хранения значений csv файла
+        $csv = [];
+
+        // Поиск модели диаграммы переходов состояний по id
+        $model = $this->findModel($id);
+        $import_model = new ImportCSV();
+
+        // Обработка импорта
+        if (Yii::$app->request->isPost) {
+            $import_model->file_name = UploadedFile::getInstance($import_model, 'file_name');
+
+            if ($import_model->upload()) {
+
+                //открываем файл
+                $file = fopen('uploads/temp.csv', 'r');
+
+                if ($file !== false) {
+                    //просматриваем файл и заносим значения в массив $csv
+                    while (!feof($file) ) {
+                        $csv[] = fgetcsv($file, 0, ';');
+                    }
+                    fclose($file);
+
+                    //создаем диаграмму на основе $csv
+                    $generator = new StateTransitionCSVloader();
+                    $generator->uploadCSV($id, $csv);
+                }
+
+                // Удаление файла
+                unlink('uploads/temp.csv');
+
+                Yii::$app->getSession()->setFlash('success',
+                    Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_UPLOAD_CSV'));
+
+                return $this->redirect(['view', 'id' => $id]);
+            }
+        }
+
+        return $this->render('upload-csv', [
+            'model' => $model,
+            'import_model' => $import_model,
+        ]);
     }
 }

@@ -52,6 +52,12 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
                 ['upload-ontology', 'id' => $model->id], ['class' => 'btn btn-primary']
             ) : false
         ?>
+        <?= $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ?
+            Html::a('<span class="glyphicon glyphicon-download-alt"></span> ' .
+                Yii::t('app', 'BUTTON_UPLOAD_CSV'),
+                ['upload-csv', 'id' => $model->id], ['class' => 'btn btn-primary']
+            ) : false
+        ?>
         <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' .
             Yii::t('app', 'BUTTON_DELETE'), ['#'], [
             'class' => 'btn btn-danger',
