@@ -449,6 +449,7 @@ class DefaultController extends Controller
 
                     return $this->render('view', [
                         'model' => $this->findModel($id),
+                        'visible' => false,
                     ]);
                 } elseif (($diagram->type == $type) and ($tree_diagram->mode == $mode)) {
                     // Импорт xml файла
@@ -463,6 +464,7 @@ class DefaultController extends Controller
 
                     return $this->render('view', [
                         'model' => $this->findModel($id),
+                        'visible' => true,
                     ]);
                 } else {
                     Yii::$app->getSession()->setFlash('error',
