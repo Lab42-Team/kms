@@ -8,7 +8,7 @@ use app\modules\main\models\User;
 /* @var $model app\modules\main\models\Diagram */
 /* @var $import_model app\modules\main\models\Diagram */
 
-$this->title = Yii::t('app', 'DIAGRAMS_PAGE_UPLOAD_CSV');
+$this->title = Yii::t('app', 'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE');
 
 $this->params['breadcrumbs'][] = Yii::$app->user->identity->role == User::ROLE_ADMINISTRATOR ?
     ['label' => Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAMS'), 'url' => ['diagrams']] :
@@ -20,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="upload-csv">
 
     <h1><?= Html::encode($this->title) ?></h1>
+
+    <h3><?= Yii::t('app', 'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE_TEXT') ?></h3>
 
     <?php $form = ActiveForm::begin([
         'id' => 'import-main-form', 'options' => ['enctype' => 'multipart/form-data']

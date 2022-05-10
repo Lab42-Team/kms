@@ -793,7 +793,7 @@ class DefaultController extends Controller
                 unlink('uploads/temp.csv');
 
                 Yii::$app->getSession()->setFlash('success',
-                    Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_UPLOAD_CSV'));
+                    Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_UPLOAD_DECISION_TABLE'));
 
                 return $this->redirect(['view', 'id' => $id]);
             }

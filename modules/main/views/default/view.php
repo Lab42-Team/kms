@@ -54,7 +54,7 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
         ?>
         <?= $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ?
             Html::a('<span class="glyphicon glyphicon-download-alt"></span> ' .
-                Yii::t('app', 'BUTTON_UPLOAD_CSV'),
+                Yii::t('app', 'BUTTON_DECISION_TABLE'),
                 ['upload-csv', 'id' => $model->id], ['class' => 'btn btn-primary']
             ) : false
         ?>

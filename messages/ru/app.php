@@ -86,7 +86,7 @@ return [
     'BUTTON_UPLOAD_ONTOLOGY' => 'Загрузить онтологию',
     'BUTTON_CONVERT' => 'Преобразовать',
     'BUTTON_COPY' => 'Копировать',
-    'BUTTON_UPLOAD_CSV' => 'Загрузить CSV',
+    'BUTTON_DECISION_TABLE' => 'Загрузить таблицу решений',
 
     /* Общие сообщения об ошибках */
     'ERROR_MESSAGE_PAGE_NOT_FOUND' => 'Страница не найдена.',
@@ -137,7 +137,7 @@ return [
     'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Загрузить онтологию',
     'DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Преобразование онтологии',
     'DIAGRAMS_PAGE_CREATE_FROM_TEMPLATE' => 'Создать диаграмму по шаблону',
-    'DIAGRAMS_PAGE_UPLOAD_CSV' => 'Загрузить CSV',
+    'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE' => 'Загрузить таблицу решений',
     /* Сообщения на страницах администрирования диаграмм */
     'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM' => 'Вы успешно создали новую диаграмму.',
     'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'Вы успешно обновили данную диаграмму.',
@@ -145,7 +145,9 @@ return [
     'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM' => 'Вы успешно импортировали диаграмму.',
     'DIAGRAMS_PAGE_MESSAGE_WARNING_BEFORE_UPLOAD_ONTOLOGY' => 'Внимание! Все предыдущие элементы диаграммы будут удалены.',
     'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'Вы успешно загрузили файл OWL-онтологии.',
-    'DIAGRAMS_PAGE_MESSAGE_UPLOAD_CSV' => 'Вы успешно загрузили файл CSV.',
+    'DIAGRAMS_PAGE_MESSAGE_UPLOAD_DECISION_TABLE' => 'Вы успешно загрузили файл таблицу решений.',
+
+    'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE_TEXT' => 'Выберите файл в формате CSV и кодировке UTF-8.',
 
     /* Диаграмма созданная из шаблона */
     'DIAGRAM_CREATED_FROM' => 'Диаграмма созданная из ',
