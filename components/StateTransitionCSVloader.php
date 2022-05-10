@@ -31,6 +31,28 @@ class StateTransitionCSVloader
     }
 
 
+    //меняем кодировку значений массива
+    public function encodingArray($array)
+    {
+        $row = count($array);//количество строк в массиве
+        $col = count($array[0]);//количество столбцов в массиве
+
+        $cod = mb_detect_encoding($array[0][0], ['windows-1251', 'UTF-8']);
+
+        if ($cod == 'Windows-1251'){
+            for ($i = 0; $i <= $row-1; $i++) {
+                for ($j = 0; $j <= $col-1; $j++) {
+                    if(!empty($array[$i][$j])){
+                        $text = $array[$i][$j];
+                        $array[$i][$j] = iconv('CP1251', 'UTF-8', $text);
+                    }
+                }
+            }
+        }
+
+        return $array;
+    }
+
     /**
      * Нахождение индекса столбца переходов.
      *
@@ -61,6 +83,8 @@ class StateTransitionCSVloader
     //получаем значения StateProperty разбирая csv массив
     public function parsingCSV($csv)
     {
+        $csv = self::encodingArray($csv);
+
         $column_transitions = self::searchColumnTransitions($csv);
 
         $row = count($csv);//количество строк в csv массиве
@@ -87,6 +111,11 @@ class StateTransitionCSVloader
             }
             $i++;
         }
+
+        //удаляем пустые значения из массива
+        $tmp_states = array_map('array_filter', $tmp_states);
+        $tmp_states = array_filter( $tmp_states );
+
         //сдвигаем индексы массива
         $states = array_values($tmp_states);
 
@@ -97,7 +126,7 @@ class StateTransitionCSVloader
     public function uploadCSV($id, $csv)
     {
         self::cleanDiagram($id);
-
+        $csv = self::encodingArray($csv);
         $array = self::parsingCSV($csv);
 
         $state_name = mb_substr($csv[0][0], 0, mb_strpos($csv[0][0], '::'));//наименование State (текст до ::)
