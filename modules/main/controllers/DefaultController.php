@@ -761,6 +761,8 @@ class DefaultController extends Controller
      */
     public function actionUploadCsv($id)
     {
+
+        $f = 0;
         //Массив для хранения значений csv файла
         $csv = [];
 
@@ -784,18 +786,30 @@ class DefaultController extends Controller
                     }
                     fclose($file);
 
-                    //создаем диаграмму на основе $csv
-                    $generator = new StateTransitionCSVloader();
-                    $generator->uploadCSV($id, $csv);
+                    $cod = mb_check_encoding($csv[0][0], 'UTF-8');
+
+                    if ($cod == 1){
+                        //создаем диаграмму на основе $csv
+                        $generator = new StateTransitionCSVloader();
+                        $generator->uploadCSV($id, $csv);
+
+                        // Удаление файла
+                        unlink('uploads/temp.csv');
+
+                        Yii::$app->getSession()->setFlash('success',
+                            Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_UPLOAD_DECISION_TABLE'));
+
+                        return $this->redirect(['view', 'id' => $id]);
+
+                    } else {
+                        Yii::$app->getSession()->setFlash('error',
+                            Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_INVALID_ENCODING'));
+                        return $this->render('upload-csv', [
+                            'model' => $model,
+                            'import_model' => $import_model,
+                        ]);
+                    }
                 }
-
-                // Удаление файла
-                unlink('uploads/temp.csv');
-
-                Yii::$app->getSession()->setFlash('success',
-                    Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_UPLOAD_DECISION_TABLE'));
-
-                return $this->redirect(['view', 'id' => $id]);
             }
         }
 

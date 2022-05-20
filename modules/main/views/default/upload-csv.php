@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <h3><?= Yii::t('app', 'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE_TEXT') ?></h3>
+    <div class="alert-info alert"><?= Yii::t('app', 'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE_TEXT') ?></div>
 
     <?php $form = ActiveForm::begin([
         'id' => 'import-main-form', 'options' => ['enctype' => 'multipart/form-data']

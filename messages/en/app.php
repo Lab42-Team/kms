@@ -148,6 +148,7 @@ return [
     'DIAGRAMS_PAGE_MESSAGE_UPLOAD_DECISION_TABLE' => 'You have successfully uploaded decision table.',
 
     'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE_TEXT' => 'Select a file in CSV format and UTF-8 encoding.',
+    'DIAGRAMS_PAGE_MESSAGE_INVALID_ENCODING' => 'File encoding does not match UTF-8 encoding.',
 
     /* Диаграмма созданная из шаблона */
     'DIAGRAM_CREATED_FROM' => 'Chart created from ',

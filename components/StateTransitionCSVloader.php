@@ -32,26 +32,26 @@ class StateTransitionCSVloader
 
 
     //меняем кодировку значений массива
-    public function encodingArray($array)
-    {
-        $row = count($array);//количество строк в массиве
-        $col = count($array[0]);//количество столбцов в массиве
+    //public function encodingArray($array)
+    //{
+    //    $row = count($array);//количество строк в массиве
+    //    $col = count($array[0]);//количество столбцов в массиве
 
-        $cod = mb_detect_encoding($array[0][0], ['windows-1251', 'UTF-8']);
+    //    $cod = mb_detect_encoding($array[0][0], ['windows-1251', 'UTF-8']);
 
-        if ($cod == 'Windows-1251'){
-            for ($i = 0; $i <= $row-1; $i++) {
-                for ($j = 0; $j <= $col-1; $j++) {
-                    if(!empty($array[$i][$j])){
-                        $text = $array[$i][$j];
-                        $array[$i][$j] = iconv('CP1251', 'UTF-8', $text);
-                    }
-                }
-            }
-        }
-
-        return $array;
-    }
+    //    if ($cod == 'Windows-1251'){
+    //        for ($i = 0; $i <= $row-1; $i++) {
+    //            for ($j = 0; $j <= $col-1; $j++) {
+    //                if(!empty($array[$i][$j])){
+    //                    $text = $array[$i][$j];
+    //                    $array[$i][$j] = iconv('CP1251', 'UTF-8', $text);
+    //                }
+    //            }
+    //        }
+    //    }
+    //
+    //    return $array;
+    //}
 
     /**
      * Нахождение индекса столбца переходов.
@@ -83,7 +83,7 @@ class StateTransitionCSVloader
     //получаем значения StateProperty разбирая csv массив
     public function parsingCSV($csv)
     {
-        $csv = self::encodingArray($csv);
+        //$csv = self::encodingArray($csv);
 
         $column_transitions = self::searchColumnTransitions($csv);
 
@@ -97,7 +97,9 @@ class StateTransitionCSVloader
             if ($i == 0){
                 $states[$i][0] = mb_substr($csv[$i][$column_transitions-1], mb_strpos($csv[$i][$column_transitions-1], '::') + mb_strlen('::'));//наименования StateProperty (текст после ::)
             } else {
-                $states[$i][0] = $csv[$i][$column_transitions-1];//значение StateProperty
+                if ($csv[$i]){
+                    $states[$i][0] = $csv[$i][$column_transitions-1];//значение StateProperty
+                }
             }
         }
 
@@ -126,7 +128,7 @@ class StateTransitionCSVloader
     public function uploadCSV($id, $csv)
     {
         self::cleanDiagram($id);
-        $csv = self::encodingArray($csv);
+        //$csv = self::encodingArray($csv);
         $array = self::parsingCSV($csv);
 
         $state_name = mb_substr($csv[0][0], 0, mb_strpos($csv[0][0], '::'));//наименование State (текст до ::)
@@ -174,50 +176,52 @@ class StateTransitionCSVloader
         $col_csv = count($csv[0]); //количество столбцов в массиве $csv
 
         for ($i = 1; $i <= $row_csv-1; $i++) {
-            //проверка есть ли связь (откуда $csv[$i][$column_transitions-1])(куда $csv[$i][$column_transitions+1])
-            if (($csv[$i][$column_transitions-1] != null) and ($csv[$i][$column_transitions+1] != null)){
+            if ($csv[$i]){
+                //проверка есть ли связь (откуда $csv[$i][$column_transitions-1])(куда $csv[$i][$column_transitions+1])
+                if (($csv[$i][$column_transitions-1] != null) and ($csv[$i][$column_transitions+1] != null)){
 
-                //поиск id state откуда
-                for ($j = 1; $j <= $row-1; $j++) {
-                    if($array[$j][0] == $csv[$i][$column_transitions-1]){
-                        $state_from = $array[$j][$col];
-                    }
-                }
-                //поиск id state куда
-                for ($j = 1; $j <= $row-1; $j++) {
-                    if($array[$j][0] == $csv[$i][$column_transitions+1]){
-                        $state_to = $array[$j][$col];
-                    }
-                }
-
-                //создаем Transition
-                $transition = new Transition();
-                $transition->name = mb_substr($csv[0][$column_transitions], 0, mb_strpos($csv[0][$column_transitions], '::')); //наименование Transition (текст до ::)
-                $transition->description = '';
-                $transition->state_from = $state_from;
-                $transition->state_to = $state_to;
-                $transition->name_property = 'Условие 1';
-                $transition->operator_property = 0;
-                $transition->value_property = '111';
-                $transition->save();
-                $transition_id = $transition->id;
-
-                //просматриваем колонки в поисках значений TransitionProperty
-                for ($c = 0; $c <= $col_csv-1; $c++) {
-                    //кроме
-                    if (($c != $column_transitions-1) and ($c != $column_transitions+1)){
-                        //создаем TransitionProperty
-                        $transition_property = new TransitionProperty();
-                        $transition_property->name = mb_substr($csv[0][$c], mb_strpos($csv[0][$c], '::') + mb_strlen('::'));//наименование TransitionProperty (текст после ::)
-                        $transition_property->description = '';
-                        $transition_property->operator = TransitionProperty::EQUALLY_OPERATOR;
-                        if ($csv[$i][$c] == null){
-                            $transition_property->value = 0; //----------??????? значение с 0 не создается
-                        } else {
-                            $transition_property->value = $csv[$i][$c];
+                    //поиск id state откуда
+                    for ($j = 1; $j <= $row-1; $j++) {
+                        if($array[$j][0] == $csv[$i][$column_transitions-1]){
+                            $state_from = $array[$j][$col];
                         }
-                        $transition_property->transition = $transition_id;
-                        $transition_property->save();
+                    }
+                    //поиск id state куда
+                    for ($j = 1; $j <= $row-1; $j++) {
+                        if($array[$j][0] == $csv[$i][$column_transitions+1]){
+                            $state_to = $array[$j][$col];
+                        }
+                    }
+
+                    //создаем Transition
+                    $transition = new Transition();
+                    $transition->name = mb_substr($csv[0][$column_transitions], 0, mb_strpos($csv[0][$column_transitions], '::')); //наименование Transition (текст до ::)
+                    $transition->description = '';
+                    $transition->state_from = $state_from;
+                    $transition->state_to = $state_to;
+                    $transition->name_property = 'Условие 1';
+                    $transition->operator_property = 0;
+                    $transition->value_property = '111';
+                    $transition->save();
+                    $transition_id = $transition->id;
+
+                    //просматриваем колонки в поисках значений TransitionProperty
+                    for ($c = 0; $c <= $col_csv-1; $c++) {
+                        //кроме
+                        if (($c != $column_transitions-1) and ($c != $column_transitions+1)){
+                            //создаем TransitionProperty
+                            $transition_property = new TransitionProperty();
+                            $transition_property->name = mb_substr($csv[0][$c], mb_strpos($csv[0][$c], '::') + mb_strlen('::'));//наименование TransitionProperty (текст после ::)
+                            $transition_property->description = '';
+                            $transition_property->operator = TransitionProperty::EQUALLY_OPERATOR;
+                            if ($csv[$i][$c] == null){
+                                $transition_property->value = 0; //----------??????? значение с 0 не создается
+                            } else {
+                                $transition_property->value = $csv[$i][$c];
+                            }
+                            $transition_property->transition = $transition_id;
+                            $transition_property->save();
+                        }
                     }
                 }
             }

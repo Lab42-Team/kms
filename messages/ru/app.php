@@ -148,6 +148,7 @@ return [
     'DIAGRAMS_PAGE_MESSAGE_UPLOAD_DECISION_TABLE' => 'Вы успешно загрузили файл таблицу решений.',
 
     'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE_TEXT' => 'Выберите файл в формате CSV и кодировке UTF-8.',
+    'DIAGRAMS_PAGE_MESSAGE_INVALID_ENCODING' => 'Кодировка файла не соответствует кодировке UTF-8.',
 
     /* Диаграмма созданная из шаблона */
     'DIAGRAM_CREATED_FROM' => 'Диаграмма созданная из ',
