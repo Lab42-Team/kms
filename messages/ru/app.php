@@ -54,6 +54,7 @@ return [
     'NAV_EXPORT' => 'Экспортировать',
     'NAV_VERIFY' => 'Проверить',
     'NAV_ALIGNMENT' => 'Выравнивание',
+    'NAV_UNLOAD_DECISION_TABLE' => 'Выгрузить таблицу решений',
 
     /* Пункты правого меню */
     'SIDE_NAV_POSSIBLE_ACTIONS' => 'Возможные действия',

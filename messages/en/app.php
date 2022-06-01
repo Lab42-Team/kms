@@ -54,6 +54,7 @@ return [
     'NAV_EXPORT' => 'Export',
     'NAV_VERIFY' => 'Verify',
     'NAV_ALIGNMENT' => 'Alignment',
+    'NAV_UNLOAD_DECISION_TABLE' => 'Unload decision table',
 
     /* Пункты правого меню */
     'SIDE_NAV_POSSIBLE_ACTIONS' => 'Possible actions',

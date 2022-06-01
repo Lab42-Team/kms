@@ -14,6 +14,7 @@ use app\modules\stde\models\StateProperty;
 use app\modules\stde\models\Transition;
 use app\modules\stde\models\TransitionProperty;
 use app\components\StateTransitionXMLGenerator;
+use app\components\DecisionTableGenerator;
 
 /**
  * StateTransitionDiagramsController implements the CRUD actions for State Transition Diagram model.
@@ -71,8 +72,14 @@ class StateTransitionDiagramsController extends Controller
 
         //экспорт диаграммы
         if (Yii::$app->request->isPost) {
-            $code_generator = new StateTransitionXMLGenerator();
-            $code_generator->generateSTDXMLCode($id);
+            if (Yii::$app->request->post('value', null) == 'xml'){
+                $code_generator = new StateTransitionXMLGenerator();
+                $code_generator->generateSTDXMLCode($id);
+            }
+            if (Yii::$app->request->post('value', null) == 'csv'){
+                $code_generator = new DecisionTableGenerator();
+                $code_generator->generateCSVCode($id);
+            }
         }
 
         return $this->render('visual-diagram', [

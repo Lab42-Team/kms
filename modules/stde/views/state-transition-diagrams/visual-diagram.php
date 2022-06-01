@@ -20,10 +20,17 @@ $this->params['menu_diagram'] = [
         'url' => Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .'/import/'. $model->id],
 
     ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_EXPORT'),
-        'url' => '#', 'linkOptions' => ['data-method' => 'post']],
+        'url' => '#', 'linkOptions' => ['data-method' => 'post', 'data-params' => [
+        'value' => 'xml',
+    ]]],
 
     ['label' => '<span class="glyphicon glyphicon-object-align-vertical"></span> ' . Yii::t('app', 'NAV_ALIGNMENT'),
         'url' => '#', 'options' => ['id'=>'nav_alignment']],
+
+    ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_UNLOAD_DECISION_TABLE'),
+        'url' => '#', 'linkOptions' => ['data-method' => 'post', 'data-params' => [
+        'value' => 'csv',
+    ]]],
 ];
 ?>
 
