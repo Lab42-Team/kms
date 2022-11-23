@@ -71,7 +71,7 @@ class OWLOntologyImporter
                             if ($child->getName() == 'comment')
                                 $comment = (string)$element->comment;
 
-       return $comment;
+        return $comment;
     }
 
     /**
@@ -200,8 +200,8 @@ class OWLOntologyImporter
 //                                        array_push($item, [$datatype_property_name, $datatype_property_value]);
 //                                        $datatype_properties[$class[1]] = [[$datatype_property_name, 'VVV']];//$item;
 //                                    } else {
-                                        $datatype_properties[$class[1]] = [[$datatype_property_name,
-                                            $datatype_property_value]];
+                                    $datatype_properties[$class[1]] = [[$datatype_property_name,
+                                        $datatype_property_value]];
 //                                    }
                             }
                     }

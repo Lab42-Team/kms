@@ -12,22 +12,22 @@ $this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAM') . ' - ' . $model->name;
 
 $this->params['menu_add'] = [
     ['label' => Yii::t('app', 'NAV_ADD_STATE'), 'url' => '#',
-        'options' => ['data-toggle'=>'modal', 'data-target'=>'#addStateModalForm']],
+        'linkOptions' => ['data-bs-toggle'=>'modal', 'data-bs-target'=>'#addStateModalForm']],
 ];
 
 $this->params['menu_diagram'] = [
-    ['label' => '<span class="glyphicon glyphicon-import"></span> ' . Yii::t('app', 'NAV_IMPORT'),
+    ['label' => '<i class="fa-solid fa-file-import"></i> ' . Yii::t('app', 'NAV_IMPORT'),
         'url' => Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .'/import/'. $model->id],
 
-    ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_EXPORT'),
+    ['label' => '<i class="fa-solid fa-file-export"></i> ' . Yii::t('app', 'NAV_EXPORT'),
         'url' => '#', 'linkOptions' => ['data-method' => 'post', 'data-params' => [
         'value' => 'xml',
     ]]],
 
-    ['label' => '<span class="glyphicon glyphicon-object-align-vertical"></span> ' . Yii::t('app', 'NAV_ALIGNMENT'),
-        'url' => '#', 'options' => ['id'=>'nav_alignment']],
+    ['label' => '<i class="fa-solid fa-align-center"></i> ' . Yii::t('app', 'NAV_ALIGNMENT'),
+        'url' => '#', 'linkOptions' => ['id'=>'nav_alignment']],
 
-    ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_UNLOAD_DECISION_TABLE'),
+    ['label' => '<i class="fa-solid fa-file-export"></i> ' . Yii::t('app', 'NAV_UNLOAD_DECISION_TABLE'),
         'url' => '#', 'linkOptions' => ['data-method' => 'post', 'data-params' => [
         'value' => 'csv',
     ]]],
@@ -371,7 +371,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             for (var i = 0; i < windows.length; i++) {
 
                 instance.makeSource(windows[i], {
-                    filter: ".connect-state",
+                    filter: ".fa-share",
                     anchor: "Continuous", //непрерывный анкер
                 });
 
@@ -828,11 +828,11 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             <div id="state_<?= $state->id ?>" class="div-state" title="<?= $state->description ?>">
                 <div class="content-state">
                     <div id="state_name_<?= $state->id ?>" class="div-state-name"><?= $state->name ?></div>
-                    <div class="connect-state glyphicon-share-alt" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"></div>
-                    <div id="state_del_<?= $state->id ?>" class="del-state glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                    <div id="state_edit_<?= $state->id ?>" class="edit-state glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                    <div id="state_add_property_<?= $state->id ?>" class="add-state-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
-                    <div id="state_copy_<?= $state->id ?>" class="copy-state glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"></div>
+                    <div class="connect-state" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"><i class="fa-solid fa-share"></i></div>
+                    <div id="state_del_<?= $state->id ?>" class="del-state glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                    <div id="state_edit_<?= $state->id ?>" class="edit-state glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                    <div id="state_add_property_<?= $state->id ?>" class="add-state-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"><i class="fa-solid fa-plus"></i></div>
+                    <div id="state_copy_<?= $state->id ?>" class="copy-state glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"><i class="fa-solid fa-circle-plus"></i></div>
                 </div>
 
                 <!-- отображение разделительной пунктирной линии -->
@@ -853,8 +853,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     <?php if ($state_property->state == $state->id){ ?>
                         <div id="state_property_<?= $state_property->id ?>" class="div-state-property">
                             <div class="button-state-property">
-                                <div id="state_property_edit_<?= $state_property->id ?>" class="edit-state-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                <div id="state_property_del_<?= $state_property->id ?>" class="del-state-property glyphicon-trash"  title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                                <div id="state_property_edit_<?= $state_property->id ?>" class="edit-state-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                <div id="state_property_del_<?= $state_property->id ?>" class="del-state-property glyphicon-trash"  title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
                             </div>
                             <?= $state_property->name ?> <?= $state_property->getOperatorName() ?> <?= $state_property->value ?>
                         </div>
@@ -869,10 +869,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             <div id="transition_<?= $transition->id ?>" class="div-transition" style="visibility:hidden;">
                 <div class="content-transition">
                     <div id="transition_name_<?= $transition->id ?>" class="div-transition-name"><?= $transition->name ?></div>
-                    <div id="transition_del_<?= $transition->id ?>" class="del-transition glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                    <div id="transition_edit_<?= $transition->id ?>" class="edit-transition glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                    <div id="transition_hide_<?= $transition->id ?>" class="hide-transition glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"></div>
-                    <div id="transition_add_property_<?= $transition->id ?>" class="add-transition-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
+                    <div id="transition_del_<?= $transition->id ?>" class="del-transition glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                    <div id="transition_edit_<?= $transition->id ?>" class="edit-transition glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                    <div id="transition_hide_<?= $transition->id ?>" class="hide-transition glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"><i class="fa-solid fa-eye-slash"></i></div>
+                    <div id="transition_add_property_<?= $transition->id ?>" class="add-transition-property glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"><i class="fa-solid fa-plus"></i></div>
                 </div>
 
                 <!-- отображение разделительной пунктирной линии -->
@@ -893,8 +893,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     <?php if ($transition_property->transition == $transition->id){ ?>
                         <div id="transition_property_<?= $transition_property->id ?>" class="div-transition-property">
                             <div class="button-transition-property">
-                                <div id="transition_property_edit_<?= $transition_property->id ?>" class="edit-transition-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                <div id="transition_property_del_<?= $transition_property->id ?>" class="del-transition-property glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                                <div id="transition_property_edit_<?= $transition_property->id ?>" class="edit-transition-property glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                <div id="transition_property_del_<?= $transition_property->id ?>" class="del-transition-property glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
                             </div>
                             <?= $transition_property->name ?> <?= $transition_property->getOperatorName()?> <?= $transition_property->value ?>
                         </div>

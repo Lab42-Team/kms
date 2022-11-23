@@ -1,8 +1,8 @@
 <?php
 
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 use app\modules\stde\models\TransitionProperty;
 
@@ -12,7 +12,7 @@ use app\modules\stde\models\TransitionProperty;
 <!-- Модальное окно добавления нового условия -->
 <?php Modal::begin([
     'id' => 'addTransitionPropertyModalForm',
-    'header' => '<h3>' . Yii::t('app', 'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -63,12 +63,14 @@ use app\modules\stde\models\TransitionProperty;
                         div_edit_property.id = 'transition_property_edit_' + data['id'];
                         div_edit_property.className = 'edit-transition-property glyphicon-pencil';
                         div_edit_property.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit_property.innerHTML = '<i class="fa-solid fa-pen"></i>';
                         div_button_property.append(div_edit_property);
 
                         var div_del_property = document.createElement('div');
                         div_del_property.id = 'transition_property_del_' + data['id'];
                         div_del_property.className = 'del-transition-property glyphicon-trash';
                         div_del_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del_property.innerHTML = '<i class="fa-solid fa-trash"></i>';
                         div_button_property.append(div_del_property);
 
                         //добавлены новые записи в массив условия для изменений
@@ -129,14 +131,7 @@ use app\modules\stde\models\TransitionProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -147,7 +142,7 @@ use app\modules\stde\models\TransitionProperty;
 <!-- Модальное окно изменения условия -->
 <?php Modal::begin([
     'id' => 'editTransitionPropertyModalForm',
-    'header' => '<h3>' . Yii::t('app', 'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -184,12 +179,14 @@ use app\modules\stde\models\TransitionProperty;
                         div_edit_transition_property.id = 'transition_property_edit_' + data['id'];
                         div_edit_transition_property.className = 'edit-transition-property glyphicon-pencil';
                         div_edit_transition_property.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit_transition_property.innerHTML = '<i class="fa-solid fa-pen"></i>';
                         div_button_transition_property.append(div_edit_transition_property);
 
                         var div_del_transition_property = document.createElement('div');
                         div_del_transition_property.id = 'transition_property_del_' + data['id'];
                         div_del_transition_property.className = 'del-transition-property glyphicon-trash';
                         div_del_transition_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del_transition_property.innerHTML = '<i class="fa-solid fa-trash"></i>';
                         div_button_transition_property.append(div_del_transition_property);
 
                         //изменена запись в массиве условия
@@ -243,14 +240,7 @@ use app\modules\stde\models\TransitionProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -261,7 +251,7 @@ use app\modules\stde\models\TransitionProperty;
 <!-- Модальное окно удаления условия -->
 <?php Modal::begin([
     'id' => 'deleteTransitionPropertyModalForm',
-    'header' => '<h3>' . Yii::t('app', 'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -346,14 +336,7 @@ use app\modules\stde\models\TransitionProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

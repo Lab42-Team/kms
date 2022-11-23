@@ -7,7 +7,7 @@ use yii\web\Response;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
 use app\modules\stde\models\StateProperty;

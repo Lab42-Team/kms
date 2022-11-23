@@ -1,8 +1,8 @@
 <?php
 
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 
 /* @var $state_model app\modules\stde\models\Transition */
@@ -13,7 +13,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно добавления нового состояния -->
 <?php Modal::begin([
     'id' => 'addStateModalForm',
-    'header' => '<h3>' . Yii::t('app', 'STATE_ADD_NEW_STATE') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'STATE_ADD_NEW_STATE') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -58,32 +58,37 @@ use app\modules\main\models\Lang;
                         div_content_state.append(div_state_name);
 
                         var div_connect = document.createElement('div');
-                        div_connect.className = 'connect-state glyphicon-share-alt' ;
+                        div_connect.className = 'connect-state' ;
                         div_connect.title = '<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>' ;
+                        div_connect.innerHTML = '<i class="fa-solid fa-share"></i>';
                         div_content_state.append(div_connect);
 
                         var div_del = document.createElement('div');
                         div_del.id = 'state_del_' + data['id'];
                         div_del.className = 'del-state glyphicon-trash' ;
                         div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del.innerHTML = '<i class="fa-solid fa-trash"></i>'
                         div_content_state.append(div_del);
 
                         var div_edit = document.createElement('div');
                         div_edit.id = 'state_edit_' + data['id'];
                         div_edit.className = 'edit-state glyphicon-pencil' ;
                         div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>'
                         div_content_state.append(div_edit);
 
                         var div_add_parameter = document.createElement('div');
                         div_add_parameter.id = 'state_add_property_' + data['id'];
                         div_add_parameter.className = 'add-state-property glyphicon-plus' ;
                         div_add_parameter.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>' ;
+                        div_add_parameter.innerHTML = '<i class="fa-solid fa-plus"></i>'
                         div_content_state.append(div_add_parameter);
 
                         var div_copy = document.createElement('div');
                         div_copy.id = 'state_copy_' + data['id'];
                         div_copy.className = 'copy-state glyphicon-plus-sign' ;
                         div_copy.title = '<?php echo Yii::t('app', 'BUTTON_COPY'); ?>' ;
+                        div_copy.innerHTML = '<i class="fa-solid fa-circle-plus"></i>'
                         div_content_state.append(div_copy);
 
                         //сделать div двигаемым
@@ -93,7 +98,7 @@ use app\modules\main\models\Lang;
                         instance.addToGroup('group_field', div_state);
 
                         instance.makeSource(div_state, {
-                            filter: ".connect-state",
+                            filter: ".fa-share",
                             anchor: "Continuous", //непрерывный анкер
                         });
 
@@ -148,14 +153,18 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
+<!-- Теперь не работает
+<= Button::widget([
     'label' => Yii::t('app', 'BUTTON_CANCEL'),
     'options' => [
         'class' => 'btn-danger',
         'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
+        'data-bs-dismiss'=>'modal'
     ]
 ]); ?>
+-->
+
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -166,7 +175,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно изменения состояния -->
 <?php Modal::begin([
     'id' => 'editStateModalForm',
-    'header' => '<h3>' . Yii::t('app', 'STATE_EDIT_STATE') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'STATE_EDIT_STATE') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -241,14 +250,17 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
+<!-- Теперь не работает
+<= Button::widget([
     'label' => Yii::t('app', 'BUTTON_CANCEL'),
     'options' => [
-        'class' => 'btn-danger',
+        'class' => 'btn btn-danger',
         'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
+        'data-bs-dismiss'=>'modal'
     ]
-]); ?>
+]); ?>-->
+
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -259,7 +271,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно удаления состояния -->
 <?php Modal::begin([
     'id' => 'deleteStateModalForm',
-    'header' => '<h3>' . Yii::t('app', 'STATE_DELETE_STATE') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'STATE_DELETE_STATE') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -339,14 +351,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -357,7 +362,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно копирования состояния -->
 <?php Modal::begin([
     'id' => 'copyStateModalForm',
-    'header' => '<h3>' . Yii::t('app', 'STATE_COPY_STATE') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'STATE_COPY_STATE') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -402,32 +407,37 @@ use app\modules\main\models\Lang;
                         div_content_state.append(div_state_name);
 
                         var div_connect = document.createElement('div');
-                        div_connect.className = 'connect-state glyphicon-share-alt' ;
+                        div_connect.className = 'connect-state' ;
                         div_connect.title = '<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>' ;
+                        div_connect.innerHTML = '<i class="fa-solid fa-share"></i>';
                         div_content_state.append(div_connect);
 
                         var div_del = document.createElement('div');
                         div_del.id = 'state_del_' + data['id'];
                         div_del.className = 'del-state glyphicon-trash' ;
                         div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del.innerHTML = '<i class="fa-solid fa-trash"></i>'
                         div_content_state.append(div_del);
 
                         var div_edit = document.createElement('div');
                         div_edit.id = 'state_edit_' + data['id'];
                         div_edit.className = 'edit-state glyphicon-pencil' ;
                         div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>'
                         div_content_state.append(div_edit);
 
                         var div_add_parameter = document.createElement('div');
                         div_add_parameter.id = 'state_add_property_' + data['id'];
                         div_add_parameter.className = 'add-state-property glyphicon-plus' ;
                         div_add_parameter.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>' ;
+                        div_add_parameter.innerHTML = '<i class="fa-solid fa-plus"></i>'
                         div_content_state.append(div_add_parameter);
 
                         var div_copy = document.createElement('div');
                         div_copy.id = 'state_copy_' + data['id'];
                         div_copy.className = 'copy-state glyphicon-plus-sign' ;
                         div_copy.title = '<?php echo Yii::t('app', 'BUTTON_COPY'); ?>' ;
+                        div_copy.innerHTML = '<i class="fa-solid fa-circle-plus"></i>'
                         div_content_state.append(div_copy);
 
                         //сделать div двигаемым
@@ -437,7 +447,7 @@ use app\modules\main\models\Lang;
                         instance.addToGroup('group_field', div_state);
 
                         instance.makeSource(div_state, {
-                            filter: ".connect-state",
+                            filter: ".fa-share",
                             anchor: "Continuous", //непрерывный анкер
                         });
 
@@ -480,12 +490,14 @@ use app\modules\main\models\Lang;
                             div_edit_property.id = 'state_property_edit_' + data['state_property_id_'+i];
                             div_edit_property.className = 'edit-state-property glyphicon-pencil';
                             div_edit_property.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                            div_edit_property.innerHTML = '<i class="fa-solid fa-pen"></i>';
                             div_button_property.append(div_edit_property);
 
                             var div_del_property = document.createElement('div');
                             div_del_property.id = 'state_property_del_' + data['state_property_id_'+i];
                             div_del_property.className = 'del-state-property glyphicon-trash';
                             div_del_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                            div_del_property.innerHTML = '<i class="fa-solid fa-trash"></i>';
                             div_button_property.append(div_del_property);
 
 
@@ -547,14 +559,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

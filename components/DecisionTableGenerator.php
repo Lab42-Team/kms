@@ -16,6 +16,7 @@ class DecisionTableGenerator
     //поиск значения StateProperty
     public static function findStatePropertyValue($id_state)
     {
+        $value = null;
         $state_property_element = StateProperty::find()->where(['state' => $id_state])->one();
         if ($state_property_element != null){
             $value = $state_property_element->value;
@@ -27,6 +28,7 @@ class DecisionTableGenerator
     //поиск наименования StateProperty
     public static function findStatePropertyName($id_state)
     {
+        $value = null;
         $state_property_element = StateProperty::find()->where(['state' => $id_state])->one();
         if ($state_property_element != null){
             $value = $state_property_element->name;

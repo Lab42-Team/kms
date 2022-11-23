@@ -17,7 +17,7 @@
 /* @var $parameter_model app\modules\eete\controllers\TreeDiagramsController */
 /* @var $the_initial_event_is app\modules\eete\controllers\TreeDiagramsController */
 
-use yii\helpers\Html;
+use yii\bootstrap5\Html;
 use yii\widgets\Pjax;
 use app\modules\main\models\Lang;
 use app\modules\eete\models\Node;
@@ -27,28 +27,28 @@ $this->title = Yii::t('app', 'DIAGRAMS_PAGE_DIAGRAM') . ' - ' . $model->name;
 
 $this->params['menu_add'] = [
     ['label' => Yii::t('app', 'NAV_ADD_LEVEL'), 'url' => '#',
-        'options' => ['id'=>'nav_add_level', 'class' => 'disabled',
-            'data-toggle'=>'modal', 'data-target'=>'']],
+        'linkOptions' => ['id'=>'nav_add_level', 'class' => 'disabled',
+            'data-bs-toggle'=>'modal', 'data-bs-target'=>'']],
     ['label' => Yii::t('app', 'NAV_ADD_EVENT'), 'url' => '#',
-        'options' => ['id'=>'nav_add_event', 'class' => 'disabled',
-            'data-toggle'=>'modal', 'data-target'=>'']],
+        'linkOptions' => ['id'=>'nav_add_event', 'class' => 'disabled',
+            'data-bs-toggle'=>'modal', 'data-bs-target'=>'']],
     ['label' => Yii::t('app', 'NAV_ADD_MECHANISM'), 'url' => '#',
-        'options' => ['id'=>'nav_add_mechanism', 'class' => 'disabled',
-            'data-toggle'=>'modal', 'data-target'=>'']],
+        'linkOptions' => ['id'=>'nav_add_mechanism', 'class' => 'disabled',
+            'data-bs-toggle'=>'modal', 'data-bs-target'=>'']],
 ];
 
 $this->params['menu_diagram'] = [
-    ['label' => '<span class="glyphicon glyphicon-import"></span> ' . Yii::t('app', 'NAV_IMPORT'),
+    ['label' => '<i class="fa-solid fa-file-import"></i> ' . Yii::t('app', 'NAV_IMPORT'),
         'url' => Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .'/import/'. $model->id],
 
-    ['label' => '<span class="glyphicon glyphicon-export"></span> ' . Yii::t('app', 'NAV_EXPORT'),
+    ['label' => '<i class="fa-solid fa-file-export"></i> ' . Yii::t('app', 'NAV_EXPORT'),
         'url' => '#', 'linkOptions' => ['data-method' => 'post']],
 
-    ['label' => '<span class="glyphicon glyphicon-check"></span> ' . Yii::t('app', 'NAV_VERIFY'),
-        'url' => '#', 'options' => ['id'=>'nav_correctness']],
+    ['label' => '<i class="fa-solid fa-square-check"></i> ' . Yii::t('app', 'NAV_VERIFY'),
+        'url' => '#', 'linkOptions' => ['id'=>'nav_correctness']],
 
-    ['label' => '<span class="glyphicon glyphicon-object-align-vertical"></span> ' . Yii::t('app', 'NAV_ALIGNMENT'),
-        'url' => '#', 'options' => ['id'=>'nav_alignment']],
+    ['label' => '<i class="fa-solid fa-align-center"></i> ' . Yii::t('app', 'NAV_ALIGNMENT'),
+        'url' => '#', 'linkOptions' => ['id'=>'nav_alignment']],
 ];
 ?>
 
@@ -169,21 +169,21 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
             // Включение переходов на модальные окна
             if (<?= TreeDiagram::CLASSIC_TREE_MODE ?> != <?= $model_tree_diagram->mode ?>){
-                nav_add_level.className = 'enabled';
-                nav_add_level.setAttribute("data-target", "#addLevelModalForm");
+                nav_add_level.className = 'dropdown-item';
+                nav_add_level.setAttribute("data-bs-target", "#addLevelModalForm");
                 if (('<?php echo $level_model_count; ?>' > 0)&&('<?php echo $the_initial_event_is; ?>' == 0)){
-                    nav_add_event.className = 'enabled';
-                    nav_add_event.setAttribute("data-target", "#addEventModalForm");
+                    nav_add_event.className = 'dropdown-item';
+                    nav_add_event.setAttribute("data-bs-target", "#addEventModalForm");
                 }
                 if ('<?php echo $level_model_count; ?>' > 1){
-                    nav_add_event.className = 'enabled';
-                    nav_add_event.setAttribute("data-target", "#addEventModalForm");
-                    nav_add_mechanism.className = 'enabled';
-                    nav_add_mechanism.setAttribute("data-target", "#addMechanismModalForm");
+                    nav_add_event.className = 'dropdown-item';
+                    nav_add_event.setAttribute("data-bs-target", "#addEventModalForm");
+                    nav_add_mechanism.className = 'dropdown-item';
+                    nav_add_mechanism.setAttribute("data-bs-target", "#addMechanismModalForm");
                 }
             } else {
-                nav_add_event.className = 'enabled';
-                nav_add_event.setAttribute("data-target", "#addEventModalForm");
+                nav_add_event.className = 'dropdown-item';
+                nav_add_event.setAttribute("data-bs-target", "#addEventModalForm");
                 nav_add_level.hidden = true;
                 nav_add_mechanism.hidden = true;
             }
@@ -576,7 +576,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                 }
 
                 instance.makeSource(windows[i], {
-                    filter: ".ep",
+                    filter: ".fa-share",
                     anchor: anchor_bottom,
                 });
 
@@ -957,7 +957,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
                         document.getElementById('edit_label_level').style.display = "none";
 
-                        $("#editEventModalForm").modal("show");
+                        $("#editEventModalForm").modal('show');
                     }
                 });
             } else {
@@ -973,7 +973,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
                         document.getElementById('edit_label_level').style.display = "";
 
-                        $("#editEventModalForm").modal("show");
+                        $("#editEventModalForm").modal('show');
                     }
                 });
             }
@@ -1246,38 +1246,44 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                             div_content_event.append(div_event_name);
 
                             var div_ep = document.createElement('div');
-                            div_ep.className = 'ep ep-event glyphicon-share-alt' ;
+                            div_ep.className = 'ep ep-event' ;
                             div_ep.title = '<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>' ;
+                            div_ep.innerHTML = '<i class="fa-solid fa-share"></i>';
                             div_content_event.append(div_ep);
 
                             var div_del = document.createElement('div');
                             div_del.id = 'node_del_' + data['id'];
                             div_del.className = 'del del-event glyphicon-trash' ;
                             div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                            div_del.innerHTML = '<i class="fa-solid fa-trash"></i>';
                             div_content_event.append(div_del);
 
                             var div_edit = document.createElement('div');
                             div_edit.id = 'node_edit_' + data['id'];
                             div_edit.className = 'edit edit-event glyphicon-pencil' ;
                             div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                            div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
                             div_content_event.append(div_edit);
 
                             var div_add_parameter = document.createElement('div');
                             div_add_parameter.id = 'node_add_parameter_' + data['id'];
                             div_add_parameter.className = 'param add-parameter glyphicon-plus' ;
                             div_add_parameter.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>';
+                            div_add_parameter.innerHTML = '<i class="fa-solid fa-plus"></i>';
                             div_content_event.append(div_add_parameter);
 
                             var div_show_comment = document.createElement('div');
                             div_show_comment.id = 'node_show_comment_' + data['id'];
                             div_show_comment.className = 'show-event-comment glyphicon-paperclip' ;
                             div_show_comment.title = '<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>' ;
+                            div_show_comment.innerHTML = '<i class="fa-solid fa-paperclip"></i>';
                             div_content_event.append(div_show_comment);
 
                             var div_copy = document.createElement('div');
                             div_copy.id = 'node_copy_' + data['id'];
                             div_copy.className = 'copy-event glyphicon-plus-sign' ;
                             div_copy.title = '<?php echo Yii::t('app', 'BUTTON_COPY'); ?>' ;
+                            div_copy.innerHTML = '<i class="fa-solid fa-circle-plus"></i>';
                             div_content_event.append(div_copy);
 
 
@@ -1305,7 +1311,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
 
                             instance.makeSource(div_node_id, {
-                                filter: ".ep",
+                                filter: ".fa-share",
                                 anchor: "Bottom",
                             });
 
@@ -1994,9 +2000,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                 <div id="level_<?= $value->id ?>" class="div-level">
                     <div id="level_name_<?= $value->id ?>" class="div-level-name">
                         <div id="level_title_<?= $value->id ?>" class="div-title-name" title="<?= $value->name ?>"><?= $value->name ?></div>
-                        <div id="level_del_<?= $value->id ?>" class="del del-level glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                        <div id="level_edit_<?= $value->id ?>" class="edit edit-level glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                        <div id="level_show_comment_<?= $value->id ?>" class="show-level-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
+                        <div id="level_del_<?= $value->id ?>" class="del del-level" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                        <div id="level_edit_<?= $value->id ?>" class="edit edit-level" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                        <div id="level_show_comment_<?= $value->id ?>" class="show-level-comment" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"><i class="fa-solid fa-paperclip"></i></div>
                     </div>
                     <div id="level_description_<?= $value->id ?>" class="div-level-description">
                         <!--?= $level_value->description ?>-->
@@ -2009,12 +2015,12 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                             (<?= $initial_event_value->certainty_factor ?>)
                                         <?php } ?>
                                     </div>
-                                    <div class="ep ep-event glyphicon-share-alt" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"></div>
-                                    <div id="node_del_<?= $initial_event_value->id ?>" class="del del-event glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                    <div id="node_edit_<?= $initial_event_value->id ?>" class="edit edit-event glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                    <div id="node_add_parameter_<?= $initial_event_value->id ?>" class="param add-parameter glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
-                                    <div id="node_show_comment_<?= $initial_event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
-                                    <div id="node_copy_<?= $initial_event_value->id ?>" class="copy-event glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"></div>
+                                    <div class="ep ep-event" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"><i class="fa-solid fa-share"></i></div>
+                                    <div id="node_del_<?= $initial_event_value->id ?>" class="del del-event glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                    <div id="node_edit_<?= $initial_event_value->id ?>" class="edit edit-event glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                    <div id="node_add_parameter_<?= $initial_event_value->id ?>" class="param add-parameter glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"><i class="fa-solid fa-plus"></i></div>
+                                    <div id="node_show_comment_<?= $initial_event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"><i class="fa-solid fa-paperclip"></i></div>
+                                    <div id="node_copy_<?= $initial_event_value->id ?>" class="copy-event glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"><i class="fa-solid fa-circle-plus"></i></div>
                                 </div>
 
                                 <!-- отображение разделительной пунктирной линии -->
@@ -2034,8 +2040,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                     <?php if ($parameter_value->node == $initial_event_value->id){ ?>
                                         <div id="parameter_<?= $parameter_value->id ?>" class="div-parameter">
                                             <div class="button-parameter">
-                                                <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                                <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                                                <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                                <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
                                             </div>
                                             <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                         </div>
@@ -2046,9 +2052,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                             <?php if ($initial_event_value->comment != null){ ?>
                                 <div id="node_comment_<?= $initial_event_value->id ?>" class="div-event-comment" style="visibility:hidden;">
                                     <div id="node_comment_name_<?= $initial_event_value->id ?>" class="div-comment-name"><?= $initial_event_value->comment ?></div>
-                                    <div id="node_edit_comment_<?= $initial_event_value->id ?>" class="edit-event-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                    <div id="node_del_comment_<?= $initial_event_value->id ?>" class="del-event-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                    <div id="node_hide_comment_<?= $initial_event_value->id ?>" class="hide-event-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"></div>
+                                    <div id="node_edit_comment_<?= $initial_event_value->id ?>" class="edit-event-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                    <div id="node_del_comment_<?= $initial_event_value->id ?>" class="del-event-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                    <div id="node_hide_comment_<?= $initial_event_value->id ?>" class="hide-event-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"><i class="fa-solid fa-eye-slash"></i></div>
                                 </div>
                             <?php } ?>
                         <?php endforeach; ?>
@@ -2065,12 +2071,12 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                         (<?= $event_value->certainty_factor ?>)
                                                     <?php } ?>
                                                 </div>
-                                                <div class="ep ep-event glyphicon-share-alt" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"></div>
-                                                <div id="node_del_<?= $event_value->id ?>" class="del del-event glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                                <div id="node_edit_<?= $event_value->id ?>" class="edit edit-event glyphicon-pencil"  title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                                <div id="node_add_parameter_<?= $event_value->id ?>" class="param add-parameter glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
-                                                <div id="node_show_comment_<?= $event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
-                                                <div id="node_copy_<?= $event_value->id ?>" class="copy-event glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"></div>
+                                                <div class="ep ep-event" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"><i class="fa-solid fa-share"></i></div>
+                                                <div id="node_del_<?= $event_value->id ?>" class="del del-event glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                                <div id="node_edit_<?= $event_value->id ?>" class="edit edit-event glyphicon-pencil"  title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                                <div id="node_add_parameter_<?= $event_value->id ?>" class="param add-parameter glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"><i class="fa-solid fa-plus"></i></div>
+                                                <div id="node_show_comment_<?= $event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"><i class="fa-solid fa-paperclip"></i></div>
+                                                <div id="node_copy_<?= $event_value->id ?>" class="copy-event glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"><i class="fa-solid fa-circle-plus"></i></div>
                                             </div>
 
                                             <!-- отображение разделительной пунктирной линии -->
@@ -2090,8 +2096,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                 <?php if ($parameter_value->node == $event_value->id){ ?>
                                                     <div id="parameter_<?= $parameter_value->id ?>" class="div-parameter">
                                                         <div class="button-parameter">
-                                                            <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                                            <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash"  title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                                                            <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                                            <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash"  title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
                                                         </div>
                                                         <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                                     </div>
@@ -2102,9 +2108,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                         <?php if ($event_value->comment != null){ ?>
                                             <div id="node_comment_<?= $event_value->id ?>" class="div-event-comment"  style="visibility:hidden;">
                                                 <div id="node_comment_name_<?= $event_value->id ?>" class="div-comment-name"><?= $event_value->comment ?></div>
-                                                <div id="node_edit_comment_<?= $event_value->id ?>" class="edit-event-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                                <div id="node_del_comment_<?= $event_value->id ?>" class="del-event-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                                <div id="node_hide_comment_<?= $event_value->id ?>" class="hide-event-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"></div>
+                                                <div id="node_edit_comment_<?= $event_value->id ?>" class="edit-event-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                                <div id="node_del_comment_<?= $event_value->id ?>" class="del-event-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                                <div id="node_hide_comment_<?= $event_value->id ?>" class="hide-event-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"><i class="fa-solid fa-eye-slash"></i></div>
                                             </div>
                                         <?php } ?>
 
@@ -2116,9 +2122,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                         <?php if ($value->comment != null){ ?>
                             <div id="level_comment_<?= $value->id ?>" class="div-level-comment" style="visibility:hidden;">
                                 <div id="level_comment_name_<?= $value->id ?>" class="div-comment-name"><?= $value->comment ?></div>
-                                <div id="level_edit_comment_<?= $value->id ?>" class="edit-level-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                <div id="level_del_comment_<?= $value->id ?>" class="del-level-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                <div id="level_hide_comment_<?= $value->id ?>" class="hide-level-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"></div>
+                                <div id="level_edit_comment_<?= $value->id ?>" class="edit-level-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                <div id="level_del_comment_<?= $value->id ?>" class="del-level-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                <div id="level_hide_comment_<?= $value->id ?>" class="hide-level-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"><i class="fa-solid fa-eye-slash"></i></div>
                             </div>
                         <?php } ?>
 
@@ -2135,10 +2141,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                         <div id="level_<?= $level_value->id ?>" class="div-level">
                             <div id="level_name_<?= $level_value->id ?>" class="div-level-name">
                                 <div id="level_title_<?= $level_value->id ?>" class="div-title-name" title="<?= $level_value->name ?>"><?= $level_value->name ?></div>
-                                <div id="level_del_<?= $level_value->id ?>" class="del del-level glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                <div id="level_edit_<?= $level_value->id ?>" class="edit edit-level glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                <div id="level_move_<?= $level_value->id ?>" class="move move-level glyphicon-transfer" title="<?php echo Yii::t('app', 'BUTTON_MOVE'); ?>"></div>
-                                <div id="level_show_comment_<?= $level_value->id ?>" class="show-level-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
+                                <div id="level_del_<?= $level_value->id ?>" class="del del-level glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                <div id="level_edit_<?= $level_value->id ?>" class="edit edit-level glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                <div id="level_move_<?= $level_value->id ?>" class="move move-level glyphicon-transfer" title="<?php echo Yii::t('app', 'BUTTON_MOVE'); ?>"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+                                <div id="level_show_comment_<?= $level_value->id ?>" class="show-level-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"><i class="fa-solid fa-paperclip"></i></div>
                             </div>
                             <div id="level_description_<?= $level_value->id ?>" class="div-level-description">
                                 <!--?= $level_value->description ?>-->
@@ -2152,9 +2158,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                     class="div-mechanism node" title="<?= $mechanism_value->description ?>">
                                                     <div id="node_name_<?= $mechanism_value->id ?>" class="div-mechanism-name"><?= $mechanism_value->name ?></div>
                                                     <div class="div-mechanism-m">M</div>
-                                                    <div class="ep ep-mechanism glyphicon-share-alt" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"></div>
-                                                    <div id="node_del_<?= $mechanism_value->id ?>" class="del del-mechanism glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                                    <div id="node_edit_<?= $mechanism_value->id ?>" class="edit edit-mechanism glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
+                                                    <div class="ep ep-mechanism" title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"><i class="fa-solid fa-share"></i></div>
+                                                    <div id="node_del_<?= $mechanism_value->id ?>" class="del del-mechanism glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                                    <div id="node_edit_<?= $mechanism_value->id ?>" class="edit edit-mechanism glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
                                                 </div>
                                             <?php } ?>
                                         <?php endforeach; ?>
@@ -2168,12 +2174,12 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                                 (<?= $event_value->certainty_factor ?>)
                                                             <?php } ?>
                                                         </div>
-                                                        <div class="ep ep-event glyphicon-share-alt"  title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"></div>
-                                                        <div id="node_del_<?= $event_value->id ?>" class="del del-event glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                                        <div id="node_edit_<?= $event_value->id ?>" class="edit edit-event glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                                        <div id="node_add_parameter_<?= $event_value->id ?>" class="param add-parameter glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"></div>
-                                                        <div id="node_show_comment_<?= $event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"></div>
-                                                        <div id="node_copy_<?= $event_value->id ?>" class="copy-event glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"></div>
+                                                        <div class="ep ep-event"  title="<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>"><i class="fa-solid fa-share"></i></div>
+                                                        <div id="node_del_<?= $event_value->id ?>" class="del del-event glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                                        <div id="node_edit_<?= $event_value->id ?>" class="edit edit-event glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                                        <div id="node_add_parameter_<?= $event_value->id ?>" class="param add-parameter glyphicon-plus" title="<?php echo Yii::t('app', 'BUTTON_ADD'); ?>"><i class="fa-solid fa-plus"></i></div>
+                                                        <div id="node_show_comment_<?= $event_value->id ?>" class="show-event-comment glyphicon-paperclip" title="<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>"><i class="fa-solid fa-paperclip"></i></div>
+                                                        <div id="node_copy_<?= $event_value->id ?>" class="copy-event glyphicon-plus-sign" title="<?php echo Yii::t('app', 'BUTTON_COPY'); ?>"><i class="fa-solid fa-circle-plus"></i></div>
                                                     </div>
 
                                                     <!-- отображение разделительной пунктирной линии -->
@@ -2194,8 +2200,8 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                             <div id="parameter_<?= $parameter_value->id ?>" class="div-parameter">
                                                                 <?= $parameter_value->name ?> <?= $parameter_value->getOperatorName() ?> <?= $parameter_value->value ?>
                                                                 <div class="button-parameter">
-                                                                    <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                                                    <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
+                                                                    <div id="edit_parameter_<?= $parameter_value->id ?>" class="edit edit-parameter glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                                                    <div id="del_parameter_<?= $parameter_value->id ?>" class="del del-parameter glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
                                                                 </div>
                                                             </div>
                                                         <?php } ?>
@@ -2205,9 +2211,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                                 <?php if ($event_value->comment != null){ ?>
                                                     <div id="node_comment_<?= $event_value->id ?>" class="div-event-comment"  style="visibility:hidden;">
                                                         <div id="node_comment_name_<?= $event_value->id ?>" class="div-comment-name"><?= $event_value->comment ?></div>
-                                                        <div id="node_edit_comment_<?= $event_value->id ?>" class="edit-event-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                                        <div id="node_del_comment_<?= $event_value->id ?>" class="del-event-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                                        <div id="node_hide_comment_<?= $event_value->id ?>" class="hide-event-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"></div>
+                                                        <div id="node_edit_comment_<?= $event_value->id ?>" class="edit-event-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                                        <div id="node_del_comment_<?= $event_value->id ?>" class="del-event-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                                        <div id="node_hide_comment_<?= $event_value->id ?>" class="hide-event-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"><i class="fa-solid fa-eye-slash"></i></div>
                                                     </div>
                                                 <?php } ?>
 
@@ -2219,9 +2225,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                 <?php if ($level_value->comment != null){ ?>
                                     <div id="level_comment_<?= $level_value->id ?>" class="div-level-comment" style="visibility:hidden;">
                                         <div id="level_comment_name_<?= $level_value->id ?>" class="div-comment-name"><?= $level_value->comment ?></div>
-                                        <div id="level_edit_comment_<?= $level_value->id ?>" class="edit-level-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"></div>
-                                        <div id="level_del_comment_<?= $level_value->id ?>" class="del-level-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"></div>
-                                        <div id="level_hide_comment_<?= $level_value->id ?>" class="hide-level-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"></div>
+                                        <div id="level_edit_comment_<?= $level_value->id ?>" class="edit-level-comment glyphicon-pencil" title="<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>"><i class="fa-solid fa-pen"></i></div>
+                                        <div id="level_del_comment_<?= $level_value->id ?>" class="del-level-comment glyphicon-trash" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
+                                        <div id="level_hide_comment_<?= $level_value->id ?>" class="hide-level-comment glyphicon-eye-close" title="<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>"><i class="fa-solid fa-eye-slash"></i></div>
                                     </div>
                                 <?php } ?>
 

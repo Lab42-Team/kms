@@ -1,8 +1,8 @@
 <?php
 
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 
 /* @var $node_model app\modules\eete\models\Node */
@@ -20,7 +20,7 @@ use app\modules\main\models\Lang;
     <!-- Модальное окно добавления нового механизма -->
 <?php Modal::begin([
     'id' => 'addMechanismModalForm',
-    'header' => '<h3>' . Yii::t('app', 'MECHANISM_ADD_NEW_MECHANISM') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'MECHANISM_ADD_NEW_MECHANISM') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -66,20 +66,23 @@ use app\modules\main\models\Lang;
                             div_mechanism.append(div_mechanism_m);
 
                             var div_ep = document.createElement('div');
-                            div_ep.className = 'ep ep-mechanism glyphicon-share-alt' ;
+                            div_ep.className = 'ep ep-mechanism' ;
                             div_ep.title = '<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>' ;
+                            div_ep.innerHTML = '<i class="fa-solid fa-share"></i>';
                             div_mechanism.append(div_ep);
 
                             var div_del = document.createElement('div');
                             div_del.id = 'node_del_' + data['id'];
                             div_del.className = 'del del-mechanism glyphicon-trash' ;
                             div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                            div_del.innerHTML = '<i class="fa-solid fa-trash"></i>';
                             div_mechanism.append(div_del);
 
                             var div_edit = document.createElement('div');
                             div_edit.id = 'node_edit_' + data['id'];
                             div_edit.className = 'edit edit-mechanism glyphicon-pencil' ;
                             div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                            div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
                             div_mechanism.append(div_edit);
 
                             document.getElementById('add-mechanism-form').reset();
@@ -108,7 +111,7 @@ use app\modules\main\models\Lang;
 
 
                             instance.makeSource(div_node_id, {
-                                filter: ".ep",
+                                filter: ".fa-share",
                                 anchor: [ 0.5, 1, 0, 1, 0, -20 ],
                             });
 
@@ -172,14 +175,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -191,7 +187,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно изменения нового механизма -->
 <?php Modal::begin([
     'id' => 'editMechanismModalForm',
-    'header' => '<h3>' . Yii::t('app', 'MECHANISM_EDIT_MECHANISM') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'MECHANISM_EDIT_MECHANISM') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -269,7 +265,7 @@ use app\modules\main\models\Lang;
                             instance.addToGroup(g_name, new_div_mechanism);//добавляем в группу
 
                             instance.makeSource(new_div_mechanism, {
-                                filter: ".ep",
+                                filter: ".fa-share",
                                 anchor: [ 0.5, 1, 0, 1, 0, -20 ],
                             });
 
@@ -354,14 +350,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -373,7 +362,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно удаления механизма -->
 <?php Modal::begin([
     'id' => 'deleteMechanismModalForm',
-    'header' => '<h3>' . Yii::t('app', 'MECHANISM_DELETE_MECHANISM') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'MECHANISM_DELETE_MECHANISM') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -471,14 +460,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

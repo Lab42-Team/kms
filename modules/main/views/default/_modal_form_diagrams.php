@@ -3,14 +3,14 @@
 /* @var $model app\modules\main\models\Diagram */
 
 use yii\helpers\Html;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use yii\widgets\ActiveForm;
 ?>
 
 <?php Modal::begin([
     'id' => 'removeDiagramModalForm',
-    'header' => '<h3>' . Yii::t('app', 'DIAGRAMS_PAGE_DELETE_DIAGRAM') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'DIAGRAMS_PAGE_DELETE_DIAGRAM') . '</h3>',
 ]); ?>
 
     <div class="modal-body">

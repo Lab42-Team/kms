@@ -1,8 +1,8 @@
 <?php
 
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 use app\modules\eete\models\Parameter;
 
@@ -14,7 +14,7 @@ use app\modules\eete\models\Parameter;
 <!-- Модальное окно добавления нового параметра -->
 <?php Modal::begin([
     'id' => 'addParameterModalForm',
-    'header' => '<h3>' . Yii::t('app', 'PARAMETER_ADD_NEW_PARAMETER') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'PARAMETER_ADD_NEW_PARAMETER') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -64,12 +64,14 @@ use app\modules\eete\models\Parameter;
                             div_edit_parameter.id = 'edit_parameter_' + data['id'];
                             div_edit_parameter.className = 'edit edit-parameter glyphicon-pencil';
                             div_edit_parameter.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                            div_edit_parameter.innerHTML = '<i class="fa-solid fa-pen"></i>';
                             div_button_parameter.append(div_edit_parameter);
 
                             var div_del_parameter = document.createElement('div');
                             div_del_parameter.id = 'del_parameter_' + data['id'];
                             div_del_parameter.className = 'del del-parameter glyphicon-trash';
                             div_del_parameter.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                            div_del_parameter.innerHTML = '<i class="fa-solid fa-trash"></i>';
                             div_button_parameter.append(div_del_parameter);
 
 
@@ -128,14 +130,7 @@ use app\modules\eete\models\Parameter;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -149,7 +144,7 @@ use app\modules\eete\models\Parameter;
 <!-- Модальное окно изменения параметра -->
 <?php Modal::begin([
     'id' => 'editParameterModalForm',
-    'header' => '<h3>' . Yii::t('app', 'PARAMETER_EDIT_PARAMETER') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'PARAMETER_EDIT_PARAMETER') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -194,12 +189,14 @@ use app\modules\eete\models\Parameter;
                         div_edit_parameter.id = 'edit_parameter_' + data['id'];
                         div_edit_parameter.className = 'edit edit-parameter glyphicon-pencil';
                         div_edit_parameter.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit_parameter.innerHTML = '<i class="fa-solid fa-pen"></i>';
                         div_button_parameter.append(div_edit_parameter);
 
                         var div_del_parameter = document.createElement('div');
                         div_del_parameter.id = 'del_parameter_' + data['id'];
                         div_del_parameter.className = 'del del-parameter glyphicon-trash';
                         div_del_parameter.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del_parameter.innerHTML = '<i class="fa-solid fa-trash"></i>';
                         div_button_parameter.append(div_del_parameter);
 
                         document.getElementById('edit-parameter-form').reset();
@@ -240,14 +237,7 @@ use app\modules\eete\models\Parameter;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -261,7 +251,7 @@ use app\modules\eete\models\Parameter;
 <!-- Модальное окно удаления параметра -->
 <?php Modal::begin([
     'id' => 'deleteParameterModalForm',
-    'header' => '<h3>' . Yii::t('app', 'PARAMETER_DELETE_PARAMETER') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'PARAMETER_DELETE_PARAMETER') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -347,14 +337,7 @@ use app\modules\eete\models\Parameter;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

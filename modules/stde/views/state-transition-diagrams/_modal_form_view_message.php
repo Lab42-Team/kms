@@ -1,15 +1,15 @@
 <?php
 
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 
 ?>
 
 <!-- Модальное окно для вывода сообщений об ошибках при связывании элементов -->
 <?php Modal::begin([
     'id' => 'viewMessageErrorLinkingItemsModalForm',
-    'header' => '<h3>' . Yii::t('app', 'ERROR_LINKING_ITEMS') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'ERROR_LINKING_ITEMS') . '</h3>',
 ]); ?>
 
     <div class="modal-body">

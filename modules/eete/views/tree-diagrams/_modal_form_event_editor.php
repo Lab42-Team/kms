@@ -1,8 +1,8 @@
 <?php
 
 use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 use app\modules\eete\models\Node;
 use app\modules\eete\models\TreeDiagram;
@@ -36,7 +36,7 @@ use app\modules\eete\models\TreeDiagram;
 <!-- Модальное окно добавления нового события -->
 <?php Modal::begin([
     'id' => 'addEventModalForm',
-    'header' => '<h3>' . Yii::t('app', 'EVENT_ADD_NEW_EVENT') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'EVENT_ADD_NEW_EVENT') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -83,38 +83,44 @@ use app\modules\eete\models\TreeDiagram;
                                 div_content_event.append(div_initial_event_name);
 
                                 var div_ep = document.createElement('div');
-                                div_ep.className = 'ep ep-event glyphicon-share-alt' ;
+                                div_ep.className = 'ep ep-event' ;
                                 div_ep.title = '<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>' ;
+                                div_ep.innerHTML = '<i class="fa-solid fa-share"></i>';
                                 div_content_event.append(div_ep);
 
                                 var div_del = document.createElement('div');
                                 div_del.id = 'node_del_' + data['id'];
                                 div_del.className = 'del del-event glyphicon-trash' ;
                                 div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                                div_del.innerHTML = '<i class="fa-solid fa-trash"></i>';
                                 div_content_event.append(div_del);
 
                                 var div_edit = document.createElement('div');
                                 div_edit.id = 'node_edit_' + data['id'];
                                 div_edit.className = 'edit edit-event glyphicon-pencil' ;
                                 div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                                div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
                                 div_content_event.append(div_edit);
 
                                 var div_add_parameter = document.createElement('div');
                                 div_add_parameter.id = 'node_add_parameter_' + data['id'];
                                 div_add_parameter.className = 'param add-parameter glyphicon-plus' ;
                                 div_add_parameter.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>' ;
+                                div_add_parameter.innerHTML = '<i class="fa-solid fa-plus"></i>';
                                 div_content_event.append(div_add_parameter);
 
                                 var div_show_comment = document.createElement('div');
                                 div_show_comment.id = 'node_show_comment_' + data['id'];
                                 div_show_comment.className = 'show-event-comment glyphicon-paperclip' ;
                                 div_show_comment.title = '<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>' ;
+                                div_show_comment.innerHTML = '<i class="fa-solid fa-paperclip"></i>';
                                 div_content_event.append(div_show_comment);
 
                                 var div_copy = document.createElement('div');
                                 div_copy.id = 'node_copy_' + data['id'];
                                 div_copy.className = 'copy-event glyphicon-plus-sign' ;
                                 div_copy.title = '<?php echo Yii::t('app', 'BUTTON_COPY'); ?>' ;
+                                div_copy.innerHTML = '<i class="fa-solid fa-circle-plus"></i>';
                                 div_content_event.append(div_copy);
                             } else {
                                 var div_level_layer = document.getElementById('level_description_' + data['id_level']);
@@ -139,38 +145,44 @@ use app\modules\eete\models\TreeDiagram;
                                 div_content_event.append(div_event_name);
 
                                 var div_ep = document.createElement('div');
-                                div_ep.className = 'ep ep-event glyphicon-share-alt' ;
+                                div_ep.className = 'ep ep-event' ;
                                 div_ep.title = '<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>' ;
+                                div_ep.innerHTML = '<i class="fa-solid fa-share"></i>';
                                 div_content_event.append(div_ep);
 
                                 var div_del = document.createElement('div');
                                 div_del.id = 'node_del_' + data['id'];
                                 div_del.className = 'del del-event glyphicon-trash' ;
                                 div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                                div_del.innerHTML = '<i class="fa-solid fa-trash"></i>';
                                 div_content_event.append(div_del);
 
                                 var div_edit = document.createElement('div');
                                 div_edit.id = 'node_edit_' + data['id'];
                                 div_edit.className = 'edit edit-event glyphicon-pencil' ;
                                 div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                                div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
                                 div_content_event.append(div_edit);
 
                                 var div_add_parameter = document.createElement('div');
                                 div_add_parameter.id = 'node_add_parameter_' + data['id'];
                                 div_add_parameter.className = 'param add-parameter glyphicon-plus' ;
                                 div_add_parameter.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>';
+                                div_add_parameter.innerHTML = '<i class="fa-solid fa-plus"></i>';
                                 div_content_event.append(div_add_parameter);
 
                                 var div_show_comment = document.createElement('div');
                                 div_show_comment .id = 'node_show_comment_' + data['id'];
                                 div_show_comment .className = 'show-event-comment glyphicon-paperclip' ;
                                 div_show_comment .title = '<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>' ;
+                                div_show_comment.innerHTML = '<i class="fa-solid fa-paperclip"></i>';
                                 div_content_event.append(div_show_comment );
 
                                 var div_copy = document.createElement('div');
                                 div_copy.id = 'node_copy_' + data['id'];
                                 div_copy.className = 'copy-event glyphicon-plus-sign' ;
                                 div_copy.title = '<?php echo Yii::t('app', 'BUTTON_COPY'); ?>' ;
+                                div_copy.innerHTML = '<i class="fa-solid fa-circle-plus"></i>';
                                 div_content_event.append(div_copy);
                             }
 
@@ -200,7 +212,7 @@ use app\modules\eete\models\TreeDiagram;
 
 
                             instance.makeSource(div_node_id, {
-                                filter: ".ep",
+                                filter: ".fa-share",
                                 anchor: "Bottom",
                             });
 
@@ -234,8 +246,8 @@ use app\modules\eete\models\TreeDiagram;
                             // Выключение переходов на модальные окна
                             var nav_add_event = document.getElementById('nav_add_event');
                             if ((data['type'] == <?= Node::INITIAL_EVENT_TYPE ?>) && (data['level_count'] == 1) && (data['mode'] == <?= TreeDiagram::EXTENDED_TREE_MODE ?>)){
-                                nav_add_event.className = 'disabled';
-                                nav_add_event.setAttribute("data-target", "");
+                                nav_add_event.className = 'disabled dropdown-item';
+                                nav_add_event.setAttribute("data-bs-target", "");
                             }
 
                             $.pjax.reload({container: '#pjax_event_editor'});
@@ -286,14 +298,17 @@ use app\modules\eete\models\TreeDiagram;
     ]
 ]); ?>
 
-<?= Button::widget([
+<!-- Теперь не работает
+<= Button::widget([
     'label' => Yii::t('app', 'BUTTON_CANCEL'),
     'options' => [
         'class' => 'btn-danger',
         'style' => 'margin:5px',
         'data-dismiss'=>'modal'
     ]
-]); ?>
+]); ?>-->
+
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -305,7 +320,7 @@ use app\modules\eete\models\TreeDiagram;
 <!-- Модальное окно изменения нового события -->
 <?php Modal::begin([
     'id' => 'editEventModalForm',
-    'header' => '<h3>' . Yii::t('app', 'EVENT_EDIT_EVENT') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'EVENT_EDIT_EVENT') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -388,7 +403,7 @@ use app\modules\eete\models\TreeDiagram;
                             instance.addToGroup(g_name, new_div_event);//добавляем в группу
 
                             instance.makeSource(new_div_event, {
-                                filter: ".ep",
+                                filter: ".fa-share",
                                 anchor: "Bottom",
                             });
 
@@ -488,14 +503,7 @@ use app\modules\eete\models\TreeDiagram;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -507,7 +515,7 @@ use app\modules\eete\models\TreeDiagram;
 <!-- Модальное окно удаления события -->
 <?php Modal::begin([
     'id' => 'deleteEventModalForm',
-    'header' => '<h3>' . Yii::t('app', 'EVENT_DELETE_EVENT') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'EVENT_DELETE_EVENT') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -589,8 +597,8 @@ use app\modules\eete\models\TreeDiagram;
                         // Включение переходов на модальные окна
                         var nav_add_event = document.getElementById('nav_add_event');
                         if (data['type'] == <?= Node::INITIAL_EVENT_TYPE ?>){
-                            nav_add_event.className = 'enabled';
-                            nav_add_event.setAttribute("data-target", "#addEventModalForm");
+                            nav_add_event.className = 'dropdown-item';
+                            nav_add_event.setAttribute("data-bs-target", "#addEventModalForm");
                         }
 
                         $.pjax.reload({container: '#pjax_event_editor'});
@@ -624,14 +632,7 @@ use app\modules\eete\models\TreeDiagram;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -643,7 +644,7 @@ use app\modules\eete\models\TreeDiagram;
 <!-- Модальное окно изменения нового события -->
 <?php Modal::begin([
     'id' => 'copyEventModalForm',
-    'header' => '<h3>' . Yii::t('app', 'EVENT_COPY_EVENT') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'EVENT_COPY_EVENT') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -690,38 +691,44 @@ use app\modules\eete\models\TreeDiagram;
                         div_content_event.append(div_event_name);
 
                         var div_ep = document.createElement('div');
-                        div_ep.className = 'ep ep-event glyphicon-share-alt' ;
+                        div_ep.className = 'ep ep-event' ;
                         div_ep.title = '<?php echo Yii::t('app', 'BUTTON_CONNECTION'); ?>' ;
+                        div_ep.innerHTML = '<i class="fa-solid fa-share"></i>';
                         div_content_event.append(div_ep);
 
                         var div_del = document.createElement('div');
                         div_del.id = 'node_del_' + data['id'];
                         div_del.className = 'del del-event glyphicon-trash' ;
                         div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del.innerHTML = '<i class="fa-solid fa-trash"></i>';
                         div_content_event.append(div_del);
 
                         var div_edit = document.createElement('div');
                         div_edit.id = 'node_edit_' + data['id'];
                         div_edit.className = 'edit edit-event glyphicon-pencil' ;
                         div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
                         div_content_event.append(div_edit);
 
                         var div_add_parameter = document.createElement('div');
                         div_add_parameter.id = 'node_add_parameter_' + data['id'];
                         div_add_parameter.className = 'param add-parameter glyphicon-plus' ;
                         div_add_parameter.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>';
+                        div_add_parameter.innerHTML = '<i class="fa-solid fa-plus"></i>';
                         div_content_event.append(div_add_parameter);
 
                         var div_show_comment = document.createElement('div');
                         div_show_comment.id = 'node_show_comment_' + data['id'];
                         div_show_comment.className = 'show-event-comment glyphicon-paperclip' ;
                         div_show_comment.title = '<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>' ;
+                        div_show_comment.innerHTML = '<i class="fa-solid fa-paperclip"></i>';
                         div_content_event.append(div_show_comment);
 
                         var div_copy = document.createElement('div');
                         div_copy.id = 'node_copy_' + data['id'];
                         div_copy.className = 'copy-event glyphicon-plus-sign' ;
                         div_copy.title = '<?php echo Yii::t('app', 'BUTTON_COPY'); ?>' ;
+                        div_copy.innerHTML = '<i class="fa-solid fa-circle-plus"></i>';
                         div_content_event.append(div_copy);
 
 
@@ -749,7 +756,7 @@ use app\modules\eete\models\TreeDiagram;
 
 
                         instance.makeSource(div_node_id, {
-                            filter: ".ep",
+                            filter: ".fa-share",
                             anchor: "Bottom",
                         });
 
@@ -809,12 +816,14 @@ use app\modules\eete\models\TreeDiagram;
                             div_edit_parameter.id = 'edit_parameter_' + data['parameter_id_'+i];
                             div_edit_parameter.className = 'edit edit-parameter glyphicon-pencil';
                             div_edit_parameter.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                            div_edit_parameter.innerHTML = '<i class="fa-solid fa-pen"></i>';
                             div_button_parameter.append(div_edit_parameter);
 
                             var div_del_parameter = document.createElement('div');
                             div_del_parameter.id = 'del_parameter_' + data['parameter_id_'+i];
                             div_del_parameter.className = 'del del-parameter glyphicon-trash';
                             div_del_parameter.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                            div_del_parameter.innerHTML = '<i class="fa-solid fa-trash"></i>';
                             div_button_parameter.append(div_del_parameter);
 
 
@@ -871,14 +880,7 @@ use app\modules\eete\models\TreeDiagram;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

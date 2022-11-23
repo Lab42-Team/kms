@@ -3,7 +3,7 @@
 /* @var $current app\components\widgets\WLang */
 /* @var $langs app\components\widgets\WLang */
 
-use yii\bootstrap\ButtonDropdown;
+use yii\bootstrap5\ButtonDropdown;
 
 ?>
 <div id="lang">
