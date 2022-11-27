@@ -228,6 +228,7 @@ return [
     'USER_MODEL_EMAIL' => 'Электронная почта',
     /* Сообщения модели User */
     'USER_MODEL_MESSAGE_USERNAME' => 'Это имя пользователя уже занято.',
+    'USER_MODEL_MESSAGE_FULL_NAME' => 'Укажите корректные Фамилия Имя Отчество.',
     'USER_MODEL_MESSAGE_UPDATED_YOUR_DETAILS' => 'Вы успешно изменили свои данные.',
     'USER_MODEL_MESSAGE_UPDATED_YOUR_PASSWORD' => 'Вы успешно изменили пароль.',
 

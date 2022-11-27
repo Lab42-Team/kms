@@ -228,6 +228,7 @@ return [
     'USER_MODEL_EMAIL' => 'E-mail',
     /* Сообщения модели User */
     'USER_MODEL_MESSAGE_USERNAME' => 'This username has already been taken.',
+    'USER_MODEL_MESSAGE_FULL_NAME' => 'Specify correct full name.',
     'USER_MODEL_MESSAGE_UPDATED_YOUR_DETAILS' => 'You have successfully changed your details.',
     'USER_MODEL_MESSAGE_UPDATED_YOUR_PASSWORD' => 'You have successfully changed password.',
 
