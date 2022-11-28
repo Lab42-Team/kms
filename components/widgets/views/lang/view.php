@@ -11,8 +11,8 @@ use yii\bootstrap5\ButtonDropdown;
         <?= ButtonDropdown::widget([
             'label' => $current->url == 'ru' ? "<figure class='icon-lang icon-ru'></figure>" :
                 "<figure class='icon-lang icon-en'></figure>",
-            'options' => [
-                'class' => 'btn-default',
+            'buttonOptions' => [
+                'class' => 'btn btn-light',
             ],
             'encodeLabel' => false,
             'dropdown' => [
