@@ -1,6 +1,6 @@
 <?php
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Modal;
 use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
@@ -153,19 +153,18 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<!-- Теперь не работает
-<= Button::widget([
+<?= Button::widget([
     'label' => Yii::t('app', 'BUTTON_CANCEL'),
     'options' => [
-        'class' => 'btn-danger',
+        'class' => 'btn btn-danger',
         'style' => 'margin:5px',
         'data-bs-dismiss'=>'modal'
     ]
 ]); ?>
+
+<!--
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 -->
-
-<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
-
 <?php ActiveForm::end(); ?>
 
 <?php Modal::end(); ?>

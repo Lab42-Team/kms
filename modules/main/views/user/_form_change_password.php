@@ -5,7 +5,7 @@
 /* @var $form yii\widgets\ActiveForm */
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 ?>
 
 <div class="change-password-form">

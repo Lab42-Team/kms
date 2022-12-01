@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 use yii\bootstrap5\Modal;
 use yii\bootstrap5\Button;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 ?>
 
 <?php Modal::begin([

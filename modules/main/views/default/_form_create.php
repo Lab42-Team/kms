@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use app\modules\main\models\Diagram;
 use app\modules\eete\models\TreeDiagram;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\main\models\Diagram */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yii\bootstrap5\ActiveForm */
 ?>
 
 <?php

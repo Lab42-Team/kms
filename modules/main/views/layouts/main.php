@@ -133,7 +133,7 @@ AppAsset::register($this);
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 'options' => [
-                    'class' => 'h-100 px-4 bg-light rounded',
+                    'class' => 'px-4 bg-light rounded',
                 ],
             ]) ?>
             <?= Alert::widget() ?>
@@ -141,7 +141,7 @@ AppAsset::register($this);
         </div>
     </div>
 
-    <footer id="footer" class="mt-auto py-3 bg-light">
+    <footer id="footer" class="mt-auto py-4 bg-light">
         <div class="container">
             <div class="row text-muted">
                 <div class="col-md-6 text-center text-md-start">&copy; <?= date('Y') ?> <?= Yii::t('app', 'FOOTER_INSTITUTE') ?></div>

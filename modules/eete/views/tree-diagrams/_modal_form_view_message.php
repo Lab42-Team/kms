@@ -1,6 +1,6 @@
 <?php
 
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Modal;
 use yii\bootstrap5\Button;
 

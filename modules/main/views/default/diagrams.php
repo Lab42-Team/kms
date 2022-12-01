@@ -66,7 +66,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Yii::$app->user->isGuest ? '' : Diagram::getStatusesArray(),
                 'visible' => !Yii::$app->user->isGuest,
             ],
-
             [
                 'attribute' => 'correctness',
                 'format' => 'raw',

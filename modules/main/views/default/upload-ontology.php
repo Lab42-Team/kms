@@ -5,7 +5,7 @@
 /* @var $owl_file_form app\modules\main\models\OWLFileForm */
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 $this->title = Yii::t('app', 'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY');
 
