@@ -26,10 +26,9 @@ html, body {
 
 /* Language images */
 .icon-lang {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     display: inline-block;
-    vertical-align: middle;
     margin: 0 3px 0 0;
 }
 
