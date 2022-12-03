@@ -106,7 +106,7 @@ AppAsset::register($this);
                         'items' => array_filter([
                             ['label' => '<i class="fa-solid fa-user"></i> ' .
                                 Yii::t('app', 'NAV_PROFILE'),
-                                'url' => '/user/profile/' . Yii::$app->user->identity->getId()],
+                                'url' => ['/user/profile/' . Yii::$app->user->identity->getId()]],
                             ['label' => '<i class="fa-solid fa-envelope"></i> ' .
                                 Yii::t('app', 'NAV_CONTACT_US'), 'url' => ['/main/default/contact']],
                             ['label' => '<i class="fa-solid fa-arrow-right-from-bracket"></i> ' .
