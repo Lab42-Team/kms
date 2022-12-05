@@ -134,6 +134,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'add-state-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 
@@ -152,8 +153,8 @@ use app\modules\main\models\Lang;
         'style' => 'margin:5px'
     ]
 ]); ?>
-
-<?= Button::widget([
+<!--
+<= Button::widget([
     'label' => Yii::t('app', 'BUTTON_CANCEL'),
     'options' => [
         'class' => 'btn btn-danger',
@@ -161,10 +162,10 @@ use app\modules\main\models\Lang;
         'data-bs-dismiss'=>'modal'
     ]
 ]); ?>
-
-<!--
-<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 -->
+
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
+
 <?php ActiveForm::end(); ?>
 
 <?php Modal::end(); ?>
@@ -232,6 +233,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-state-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($state_model); ?>
@@ -541,6 +543,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'copy-state-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($state_model); ?>

@@ -11,7 +11,7 @@ function viewErrors(form, errors) {
         });
     });
     // Удаление всех слоев с сообщениями у полей
-    $(form + " .help-block").each(function() {
+    $(form + " .invalid-feedback").each(function() {
         $(this).remove();
     });
     // Цикл по всем ошибкам ввода
@@ -23,7 +23,9 @@ function viewErrors(form, errors) {
         console.log(key + value);
         // Добавление слоя ошибки ввода к полю
         var field = $(form + " #" + key);
-        field.after("<div class=\"help-block\">" + value + "</div>");
-        field.closest(".form-group").addClass("has-error");
+        field.addClass("is-invalid");
+        field.attr("aria-invalid", "true");
+        field.after("<div class=\"invalid-feedback\">" + value + "</div>");
+        //field.closest(".form-group").addClass("has-error");
     });
 }

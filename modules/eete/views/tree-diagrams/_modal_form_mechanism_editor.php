@@ -156,6 +156,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'add-mechanism-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($node_model); ?>
@@ -326,6 +327,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-mechanism-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 

@@ -104,6 +104,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'add-event-comment-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($node_model); ?>
@@ -179,6 +180,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-event-comment-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($node_model); ?>

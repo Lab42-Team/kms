@@ -192,11 +192,13 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addLevelModalForm").on("hidden.bs.modal", function() {
                 // Скрытие списка ошибок ввода в модальном окне
                 $("#add-level-form .error-summary").hide();
-                $("#add-level-form .form-group").each(function() {
-                    $(this).removeClass("has-error");
-                    $(this).removeClass("has-success");
+                var elem = document.getElementById("add-level-form").elements;
+                $.each(elem, function (i, e) {
+                    e.classList.remove("is-invalid");
+                    e.classList.remove("is-valid");
+                    e.removeAttribute("aria-invalid");
                 });
-                $("#add-level-form .help-block").each(function() {
+                $("#add-level-form .invalid-feedback").each(function() {
                     $(this).text("");
                 });
             });
@@ -205,11 +207,13 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addEventModalForm").on("hidden.bs.modal", function() {
                 // Скрытие списка ошибок ввода в модальном окне
                 $("#add-event-form .error-summary").hide();
-                $("#add-event-form .form-group").each(function() {
-                    $(this).removeClass("has-error");
-                    $(this).removeClass("has-success");
+                var elem = document.getElementById("add-event-form").elements;
+                $.each(elem, function (i, e) {
+                    e.classList.remove("is-invalid");
+                    e.classList.remove("is-valid");
+                    e.removeAttribute("aria-invalid");
                 });
-                $("#add-event-form .help-block").each(function() {
+                $("#add-event-form .invalid-feedback").each(function() {
                     $(this).text("");
                 });
             });
@@ -218,11 +222,13 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addMechanismModalForm").on("hidden.af.modal", function() {
                 // Скрытие списка ошибок ввода в модальном окне
                 $("#add-mechanism-form .error-summary").hide();
-                $("#add-mechanism-form .form-group").each(function() {
-                    $(this).removeClass("has-error");
-                    $(this).removeClass("has-success");
+                var elem = document.getElementById("add-mechanism-form").elements;
+                $.each(elem, function (i, e) {
+                    e.classList.remove("is-invalid");
+                    e.classList.remove("is-valid");
+                    e.removeAttribute("aria-invalid");
                 });
-                $("#add-mechanism-form .help-block").each(function() {
+                $("#add-mechanism-form .invalid-feedback").each(function() {
                     $(this).text("");
                 });
             });

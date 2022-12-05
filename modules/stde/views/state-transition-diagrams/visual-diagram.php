@@ -242,11 +242,13 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addStateModalForm").on("hidden.bs.modal", function() {
                 // Скрытие списка ошибок ввода в модальном окне
                 $("#add-state-form .error-summary").hide();
-                $("#add-state-form .form-group").each(function() {
-                    $(this).removeClass("has-error");
-                    $(this).removeClass("has-success");
+                var elem = document.getElementById("add-state-form").elements;
+                $.each(elem, function (i, e) {
+                    e.classList.remove("is-invalid");
+                    e.classList.remove("is-valid");
+                    e.removeAttribute("aria-invalid");
                 });
-                $("#add-state-form .help-block").each(function() {
+                $("#add-state-form .invalid-feedback").each(function() {
                     $(this).text("");
                 });
             });
@@ -255,11 +257,13 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addStatePropertyModalForm").on("hidden.bs.modal", function() {
                 // Скрытие списка ошибок ввода в модальном окне
                 $("#add-state-property-form .error-summary").hide();
-                $("#add-state-property-form .form-group").each(function() {
-                    $(this).removeClass("has-error");
-                    $(this).removeClass("has-success");
+                var elem = document.getElementById("add-state-property-form").elements;
+                $.each(elem, function (i, e) {
+                    e.classList.remove("is-invalid");
+                    e.classList.remove("is-valid");
+                    e.removeAttribute("aria-invalid");
                 });
-                $("#add-state-property-form .help-block").each(function() {
+                $("#add-state-property-form .invalid-feedback").each(function() {
                     $(this).text("");
                 });
             });
@@ -275,11 +279,13 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
                 // Скрытие списка ошибок ввода в модальном окне
                 $("#add-transition-form .error-summary").hide();
-                $("#add-transition-form .form-group").each(function() {
-                    $(this).removeClass("has-error");
-                    $(this).removeClass("has-success");
+                var elem = document.getElementById("add-transition-form").elements;
+                $.each(elem, function (i, e) {
+                    e.classList.remove("is-invalid");
+                    e.classList.remove("is-valid");
+                    e.removeAttribute("aria-invalid");
                 });
-                $("#add-transition-form .help-block").each(function() {
+                $("#add-transition-form .invalid-feedback").each(function() {
                     $(this).text("");
                 });
             });
@@ -288,11 +294,13 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addTransitionPropertyModalForm").on("hidden.bs.modal", function() {
                 // Скрытие списка ошибок ввода в модальном окне
                 $("#add-transition-property-form .error-summary").hide();
-                $("#add-transition-property-form .form-group").each(function() {
-                    $(this).removeClass("has-error");
-                    $(this).removeClass("has-success");
+                var elem = document.getElementById("add-state-form").elements;
+                $.each(elem, function (i, e) {
+                    e.classList.remove("is-invalid");
+                    e.classList.remove("is-valid");
+                    e.removeAttribute("aria-invalid");
                 });
-                $("#add-transition-property-form .help-block").each(function() {
+                $("#add-transition-property-form .invalid-feedback").each(function() {
                     $(this).text("");
                 });
             });

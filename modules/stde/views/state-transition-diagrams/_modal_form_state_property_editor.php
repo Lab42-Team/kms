@@ -110,6 +110,7 @@ use app\modules\stde\models\StateProperty;
 <?php $form = ActiveForm::begin([
     'id' => 'add-state-property-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 
@@ -230,6 +231,7 @@ use app\modules\stde\models\StateProperty;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-state-property-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 

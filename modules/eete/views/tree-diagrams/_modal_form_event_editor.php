@@ -271,6 +271,7 @@ use app\modules\eete\models\TreeDiagram;
 <?php $form = ActiveForm::begin([
     'id' => 'add-event-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($node_model); ?>
@@ -478,6 +479,7 @@ use app\modules\eete\models\TreeDiagram;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-event-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($node_model); ?>
@@ -861,6 +863,7 @@ use app\modules\eete\models\TreeDiagram;
 <?php $form = ActiveForm::begin([
     'id' => 'copy-event-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($node_model); ?>

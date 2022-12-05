@@ -142,6 +142,7 @@ use app\modules\main\models\Lang;
     <?php $form = ActiveForm::begin([
         'id' => 'add-level-form',
         'enableClientValidation' => true,
+        'errorSummaryCssClass' => 'error-summary',
     ]); ?>
 
         <?= $form->errorSummary($level_model); ?>
@@ -229,6 +230,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-level-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($level_model); ?>

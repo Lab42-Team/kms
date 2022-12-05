@@ -109,6 +109,7 @@ use app\modules\eete\models\Parameter;
 <?php $form = ActiveForm::begin([
     'id' => 'add-parameter-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($parameter_model); ?>
@@ -216,6 +217,7 @@ use app\modules\eete\models\Parameter;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-parameter-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($parameter_model); ?>

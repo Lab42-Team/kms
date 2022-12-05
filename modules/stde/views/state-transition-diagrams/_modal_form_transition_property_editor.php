@@ -107,6 +107,7 @@ use app\modules\stde\models\TransitionProperty;
 <?php $form = ActiveForm::begin([
     'id' => 'add-transition-property-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($transition_property_model); ?>
@@ -216,6 +217,7 @@ use app\modules\stde\models\TransitionProperty;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-transition-property-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($transition_property_model); ?>
