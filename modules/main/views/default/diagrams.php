@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->getTypeName();
                 },
                 'filter' => Diagram::getTypesArray(),
+                'filterInputOptions' => ['class' => 'form-select']
             ],
             [
                 'attribute' => 'status',
@@ -65,6 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Yii::$app->user->isGuest ? '' : Diagram::getStatusesArray(),
                 'visible' => !Yii::$app->user->isGuest,
+                'filterInputOptions' => ['class' => 'form-select']
             ],
             [
                 'attribute' => 'correctness',
@@ -74,6 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Yii::$app->user->isGuest ? '': Diagram::getCorrectnessArray(),
                 'visible' => !Yii::$app->user->isGuest,
+                'filterInputOptions' => ['class' => 'form-select']
             ],
             [
                 'attribute' => 'author',
@@ -82,6 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->user->username;
                 },
                 'filter' => User::getAllUsersArray(),
+                'filterInputOptions' => ['class' => 'form-select']
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
