@@ -35,22 +35,22 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-blackboard"></span> ' .
+        <?= Html::a('<i class="fa-solid fa-display"></i> ' .
             Yii::t('app', 'BUTTON_OPEN_DIAGRAM'), $url, ['class' => 'btn btn-success']
         ) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> ' .
+        <?= Html::a('<i class="fa-solid fa-pencil"></i> ' .
             Yii::t('app', 'BUTTON_UPDATE'),
             ['update', 'id' => $model->id], ['class' => 'btn btn-primary']
         ) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-import"></span> ' .
+        <?= Html::a('<i class="fa-solid fa-file-import"></i> ' .
             Yii::t('app', 'BUTTON_IMPORT'), ['import', 'id' => $model->id], ['class' => 'btn btn-primary']
         ) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-export"></span> ' .
+        <?= Html::a('<i class="fa-solid fa-file-export"></i> ' .
             Yii::t('app', 'BUTTON_EXPORT'), $url,
             ['data' => ['method' => 'post'], 'class' => 'btn btn-primary']
         ) ?>
         <?= $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ?
-            Html::a('<span class="glyphicon glyphicon-download-alt"></span> ' .
+            Html::a('<i class="fa-solid fa-download"></i> ' .
                 Yii::t('app', 'BUTTON_UPLOAD_ONTOLOGY'),
                 ['upload-ontology', 'id' => $model->id], ['class' => 'btn btn-primary']
             ) : false
@@ -61,11 +61,11 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
                 ['upload-csv', 'id' => $model->id], ['class' => 'btn btn-primary']
             ) : false
         ?>
-        <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' .
+        <?= Html::a('<i class="fa-solid fa-trash"></i> ' .
             Yii::t('app', 'BUTTON_DELETE'), ['#'], [
             'class' => 'btn btn-danger',
-            'data-toggle' => 'modal',
-            'data-target' => '#removeDiagramModalForm'
+            'data-bs-toggle' => 'modal',
+            'data-bs-target' => '#removeDiagramModalForm'
         ]) ?>
     </p>
 

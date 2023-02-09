@@ -27,19 +27,22 @@ use yii\bootstrap5\ActiveForm;
     'enableClientValidation'=>true,
 ]); ?>
 
-<?= Html::submitButton('<span class="glyphicon glyphicon-ok"></span> ' .
+<?= Html::submitButton('<i class="fa-solid fa-check"></i> ' .
     Yii::t('app', 'BUTTON_DELETE'), ['class' => 'btn btn-danger']) ?>
 
-<?= Button::widget([
+<!-- Теперь не работает
+<= Button::widget([
     'label' => '<span class="glyphicon glyphicon-remove"></span> ' .
         Yii::t('app', 'BUTTON_CANCEL'),
     'encodeLabel' => false,
     'options' => [
         'class' => 'btn-primary',
         'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
+        'data-bs-dismiss'=>'modal'
     ]
-]); ?>
+]); ?>-->
+
+<button type="button" class="btn btn-primary" style="margin:5px" data-bs-dismiss="modal"><?php echo '<i class="fa-solid fa-xmark"></i> ' . Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
