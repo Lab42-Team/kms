@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($import_model, 'file_name')->fileInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('<span class="glyphicon glyphicon-floppy-disk"></span> ' . Yii::t('app', 'BUTTON_IMPORT'),
+        <?= Html::submitButton('<i class="fa-solid fa-floppy-disk"></i> ' . Yii::t('app', 'BUTTON_IMPORT'),
             ['class' => 'btn btn-success', 'name'=>'import-main-button']) ?>
     </div>
 

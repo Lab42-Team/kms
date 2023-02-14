@@ -41,7 +41,7 @@ class EventTreeXMLImport
                     // Создание Node
                     $node_model = new Node();
                     $node_model->name = (string)$child['name'];
-                    $node_model->certainty_factor = (real)$child['certainty_factor'];
+                    $node_model->certainty_factor = (float)$child['certainty_factor'];
                     $node_model->description = (string)$child['description'];
                     $node_model->operator = Node::AND_OPERATOR;
 

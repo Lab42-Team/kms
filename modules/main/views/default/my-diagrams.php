@@ -108,18 +108,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'export' => function ($url, $model, $key) {
                         $url = '#';
+                        $data = [];
                         $tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
-                        if (!empty($tree_diagram))
+                        if (!empty($tree_diagram)){
                             $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
-                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
-                            $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
-                        return Html::a('<i class="fa-solid fa-file-export"></i>',
-                            $url,
-                            [
+                            $data = [
                                 'data' => ['method' => 'post'],
                                 'title' => Yii::t('app', 'BUTTON_EXPORT'),
                                 'aria-label' => Yii::t('app', 'BUTTON_EXPORT')
-                            ]
+                            ];
+                        }
+                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE){
+                            $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
+                            $data = [
+                                'data' => [
+                                    'method' => 'post',
+                                    'params' => ['value' => 'xml'],
+                                ],
+                                'title' => Yii::t('app', 'BUTTON_EXPORT'),
+                                'aria-label' => Yii::t('app', 'BUTTON_EXPORT')
+                            ];
+                        }
+                        return Html::a('<i class="fa-solid fa-file-export"></i>',
+                            $url, $data
+
                         );
                     },
                     'upload-ontology' => function ($url, $model, $key) {

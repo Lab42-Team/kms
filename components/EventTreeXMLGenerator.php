@@ -53,7 +53,11 @@ class EventTreeXMLGenerator
             $node_element->setAttribute('type', $event->getTypeNameEn());
             $node_element->setAttribute('name', $event->name);
             $node_element->setAttribute('description', $event->description);
-            $node_element->setAttribute('certainty_factor', $event->certainty_factor);
+            if ( $event->certainty_factor != null){
+                $node_element->setAttribute('certainty_factor', $event->certainty_factor);
+            } else {
+                $node_element->setAttribute('certainty_factor', '');
+            }
             $xml_element->appendChild($node_element);
 
             //отрисовка "Parameter"

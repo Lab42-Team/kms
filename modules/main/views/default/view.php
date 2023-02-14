@@ -45,10 +45,18 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
         <?= Html::a('<i class="fa-solid fa-file-import"></i> ' .
             Yii::t('app', 'BUTTON_IMPORT'), ['import', 'id' => $model->id], ['class' => 'btn btn-primary']
         ) ?>
-        <?= Html::a('<i class="fa-solid fa-file-export"></i> ' .
-            Yii::t('app', 'BUTTON_EXPORT'), $url,
-            ['data' => ['method' => 'post'], 'class' => 'btn btn-primary']
-        ) ?>
+        <?= $model->type == Diagram::EVENT_TREE_TYPE ?
+            Html::a('<i class="fa-solid fa-file-export"></i> ' .
+                Yii::t('app', 'BUTTON_EXPORT'), $url,
+                ['data' => ['method' => 'post'], 'class' => 'btn btn-primary']
+            ) : false
+        ?>
+        <?= $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ?
+            Html::a('<i class="fa-solid fa-file-export"></i> ' .
+                Yii::t('app', 'BUTTON_EXPORT'), $url,
+                ['data' => ['method' => 'post', 'params' => ['value' => 'xml']], 'class' => 'btn btn-primary']
+            ) : false
+        ?>
         <?= $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ?
             Html::a('<i class="fa-solid fa-download"></i> ' .
                 Yii::t('app', 'BUTTON_UPLOAD_ONTOLOGY'),
@@ -56,7 +64,7 @@ if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
             ) : false
         ?>
         <?= $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ?
-            Html::a('<span class="glyphicon glyphicon-download-alt"></span> ' .
+            Html::a('<i class="fa-solid fa-file-arrow-down"></i> ' .
                 Yii::t('app', 'BUTTON_DECISION_TABLE'),
                 ['upload-csv', 'id' => $model->id], ['class' => 'btn btn-primary']
             ) : false
