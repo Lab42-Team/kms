@@ -518,8 +518,8 @@ use app\modules\main\models\Lang;
                         }
 
                         //разместить новый state по новым координатам
-                        div_state.style.left = '20px';
-                        div_state.style.top = '20px';
+                        div_state.style.left = parseInt(data['indent_x'], 10) + 'px';
+                        div_state.style.top = parseInt(data['indent_y'], 10) + 'px';
 
                         //обновление поля visual_diagram_field для размещения элементов
                         mousemoveState();

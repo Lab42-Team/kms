@@ -808,8 +808,9 @@ class TreeDiagramsController extends Controller
             $model->operator = $event->operator;
             $model->type = Node::EVENT_TYPE;
             $model->tree_diagram = $event->tree_diagram;
-            $model->indent_x = 20;
-            $model->indent_y = 20;
+            // Присваивает новому Node местопоожение правее копируемого
+            $model->indent_x = $event->indent_x + 160;
+            $model->indent_y = $event->indent_y;
             $model->level_id = 1;//для обхода обязательности заполнения
             $model->save();
 

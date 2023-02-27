@@ -241,12 +241,13 @@ class StateTransitionDiagramsController extends Controller
 
             $state = State::find()->where(['id' => Yii::$app->request->post('state_id_on_click')])->one();
 
-            // Формирование модели уровня
+            // Формирование модели состояния
             $model = new State();
             // Задание id диаграммы
             $model->diagram = $state->diagram;
-            $model->indent_x = 20;
-            $model->indent_y = 20;
+            // Присваивает новому состоянию местопоожение правее копируемого
+            $model->indent_x = $state->indent_x + 160;
+            $model->indent_y = $state->indent_y;
 
             // Определение полей модели уровня и валидация формы
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {

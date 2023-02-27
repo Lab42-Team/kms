@@ -643,7 +643,7 @@ use app\modules\eete\models\TreeDiagram;
 
 
 
-<!-- Модальное окно изменения нового события -->
+<!-- Модальное окно копирования события на уровень -->
 <?php Modal::begin([
     'id' => 'copyEventModalForm',
     'title' => '<h3>' . Yii::t('app', 'EVENT_COPY_EVENT') . '</h3>',

@@ -1397,6 +1397,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                     j = j + 1;
                                 });
                                 mas_data_parameter[j] = {id:id, name:name, description:description, operator:operator, value:value};
+
+                                //разместить новый event по новым координатам
+                                div_event.style.left = parseInt(data['indent_x'], 10) + 'px';
+                                div_event.style.top = parseInt(data['indent_y'], 10) + 'px';
                             }
                         }
                     },
