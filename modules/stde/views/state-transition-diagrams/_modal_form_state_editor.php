@@ -140,7 +140,7 @@ use app\modules\main\models\Lang;
 
 <?= $form->errorSummary($state_model); ?>
 
-<?= $form->field($state_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -238,7 +238,7 @@ use app\modules\main\models\Lang;
 
 <?= $form->errorSummary($state_model); ?>
 
-<?= $form->field($state_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -548,7 +548,7 @@ use app\modules\main\models\Lang;
 
 <?= $form->errorSummary($state_model); ?>
 
-<?= $form->field($state_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 

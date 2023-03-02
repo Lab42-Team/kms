@@ -114,13 +114,13 @@ use app\modules\eete\models\Parameter;
 
 <?= $form->errorSummary($parameter_model); ?>
 
-<?= $form->field($parameter_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($parameter_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($parameter_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
 
 <?= $form->field($parameter_model, 'operator')->dropDownList(Parameter::getOperatorArray()) ?>
 
-<?= $form->field($parameter_model, 'value')->textInput(['maxlength' => true]) ?>
+<?= $form->field($parameter_model, 'value')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= Button::widget([
     'label' => Yii::t('app', 'BUTTON_ADD'),
@@ -222,13 +222,13 @@ use app\modules\eete\models\Parameter;
 
 <?= $form->errorSummary($parameter_model); ?>
 
-<?= $form->field($parameter_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($parameter_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($parameter_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
 
 <?= $form->field($parameter_model, 'operator')->dropDownList(Parameter::getOperatorArray()) ?>
 
-<?= $form->field($parameter_model, 'value')->textInput(['maxlength' => true]) ?>
+<?= $form->field($parameter_model, 'value')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= Button::widget([
     'label' => Yii::t('app', 'BUTTON_SAVE'),

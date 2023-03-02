@@ -161,7 +161,7 @@ use app\modules\main\models\Lang;
 
 <?= $form->errorSummary($node_model); ?>
 
-<?= $form->field($node_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($node_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($node_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
 
@@ -333,7 +333,7 @@ use app\modules\main\models\Lang;
 
 <?= $form->errorSummary($node_model); ?>
 
-<?= $form->field($node_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($node_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($node_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
 

@@ -116,13 +116,13 @@ use app\modules\stde\models\StateProperty;
 
 <?= $form->errorSummary($state_property_model); ?>
 
-<?= $form->field($state_property_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_property_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_property_model, 'operator')->
     dropDownList(StateProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
         label(Yii::t('app', 'STATE_PROPERTY_MODEL_OPERATOR'),['style'=>'margin-left:40%'])?>
 
-<?= $form->field($state_property_model, 'value')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_property_model, 'value')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -237,13 +237,13 @@ use app\modules\stde\models\StateProperty;
 
 <?= $form->errorSummary($state_property_model); ?>
 
-<?= $form->field($state_property_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_property_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_property_model, 'operator')->
     dropDownList(StateProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
         label(Yii::t('app', 'STATE_PROPERTY_MODEL_OPERATOR'),['style'=>'margin-left:40%'])?>
 
-<?= $form->field($state_property_model, 'value')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_property_model, 'value')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 

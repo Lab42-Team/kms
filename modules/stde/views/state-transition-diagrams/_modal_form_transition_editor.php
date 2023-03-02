@@ -184,7 +184,7 @@ use app\modules\stde\models\TransitionProperty;
 
 <?= $form->errorSummary($transition_model); ?>
 
-<?= $form->field($transition_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($transition_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -193,13 +193,13 @@ use app\modules\stde\models\TransitionProperty;
 
 <div class="line">
 
-<?= $form->field($transition_model, 'name_property')->textInput(['maxlength' => true]) ?>
+<?= $form->field($transition_model, 'name_property')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($transition_model, 'operator_property')->
     dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
         label(Yii::t('app', 'TRANSITION_MODEL_OPERATOR_PROPERTY'),['style'=>'margin-left:40%'])?>
 
-<?= $form->field($transition_model, 'value_property')->textInput(['maxlength' => true]) ?>
+<?= $form->field($transition_model, 'value_property')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($transition_model, 'description_property')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -299,7 +299,7 @@ use app\modules\stde\models\TransitionProperty;
 
 <?= $form->errorSummary($transition_model); ?>
 
-<?= $form->field($transition_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($transition_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
