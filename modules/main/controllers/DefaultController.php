@@ -365,7 +365,34 @@ class DefaultController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        //$this->findModel($id)->delete(); //удаление по умолчанию
+        $diagram = $this->findModel($id);
+        if ($diagram->type == Diagram::EVENT_TREE_TYPE){
+            $tree_diagram = TreeDiagram::find()->where(['diagram' => $diagram->id])->one();
+
+            $sequence = Sequence::find()->where(['tree_diagram' => $tree_diagram->id])->all();
+            foreach ($sequence as $s){
+                $s -> delete();
+            }
+            $level = Level::find()->where(['tree_diagram' => $tree_diagram->id])->all();
+            foreach ($level as $l){
+                $l -> delete();
+            }
+            $node = Node::find()->where(['tree_diagram' => $tree_diagram->id])->all();
+            foreach ($node as $n){
+                $n -> delete();
+            }
+            $diagram -> delete();
+        } elseif ($diagram->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE){
+            $state = State::find()->where(['diagram' => $diagram->id])->all();
+            foreach ($state as $s){
+                $s -> delete();
+            }
+            $diagram -> delete();
+        } else {
+            $diagram -> delete();
+        }
+
         Yii::$app->getSession()->setFlash('success',
             Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM'));
 
