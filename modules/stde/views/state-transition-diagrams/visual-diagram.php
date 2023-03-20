@@ -818,6 +818,22 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         instance.repaintEverything();
     });
 
+
+    //автоматическое выравнивание элементов диаграммы после импорта
+    //(если отступ от угла = 0)
+    $(document).ready(function() {
+        var sum = 0;
+        $(".div-state").each(function(i) {
+            var id_state = $(this).attr('id');
+            var state = document.getElementById(id_state);
+            sum = sum + state.offsetLeft + state.offsetTop
+        });
+        console.log(sum );
+        if (sum == 0){
+            console.log("выровнить");
+            $("#nav_alignment").click();
+        }
+    });
 </script>
 
 
