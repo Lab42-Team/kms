@@ -840,9 +840,9 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             var state = document.getElementById(id_state);
             sum = sum + state.offsetLeft + state.offsetTop
         });
-        console.log(sum );
+        //console.log(sum );
         if (sum == 0){
-            console.log("выровнить");
+            //console.log("выровнить");
             $("#nav_alignment").click();
         }
     });
