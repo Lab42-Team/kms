@@ -371,6 +371,7 @@ use app\modules\stde\models\TransitionProperty;
                             })[ 0 ];
 
                             //удаление связи
+                            removed_transition = true;
                             instance.deleteConnection(connection);
 
                             //удалена запись в массиве состояний

@@ -112,6 +112,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var transition_property_id_on_click = 0;//id условия
 
     var added_transition = false;
+    var removed_transition = false;
 
     var states_mas = <?php echo json_encode($states_mas); ?>;//прием массива состояний из php
     var states_property_mas = <?php echo json_encode($states_property_mas); ?>;//прием массива свойств состояний из php
@@ -272,6 +273,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             $("#addTransitionModalForm").on("hidden.bs.modal", function() {
                 //если это не добавление новой связи
                 if(added_transition != true){
+                    removed_transition = true;
                     //то удаляем связь
                     instance.deleteConnection(current_connection);
                 }
@@ -475,6 +477,16 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             }
         });
 
+
+        //возврат связи на место если оторвалось
+        instance.bind("beforeDetach", function (e) {
+            //проверка является ли разрыв связи удалением
+            if(removed_transition != true){
+                return false;
+            } else {
+                removed_transition = false;
+            }
+        });
     });
     //-----конец кода jsPlumb-----
 
