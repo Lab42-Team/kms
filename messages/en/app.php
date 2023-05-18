@@ -49,6 +49,8 @@ return [
     'NAV_ADD_EVENT' => 'Event',
     'NAV_ADD_MECHANISM' => 'Mechanism',
     'NAV_ADD_STATE' => 'State',
+    'NAV_ADD_START' => 'Start',
+    'NAV_ADD_END' => 'End',
 
     'NAV_IMPORT' => 'Import',
     'NAV_EXPORT' => 'Export',
@@ -391,6 +393,23 @@ return [
     'TRANSITION_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
     'TRANSITION_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
 
+    /* StartToEnd */
+    'START_TO_END_MODEL_ID' => 'ID',
+    'START_TO_END_MODEL_CREATED_AT' => 'Created at',
+    'START_TO_END_MODEL_UPDATED_AT' => 'Updated at',
+    'START_TO_END_MODEL_TYPE' => 'Type',
+    'START_TO_END_MODEL_DIAGRAM' => 'Diagram',
+    /* Значения типов */
+    'START_TO_END_MODEL_START_TYPE' => 'Start',
+    'START_TO_END_MODEL_END_TYPE' => 'End',
+
+    /* State connection */
+    'STATE_CONNECTION_MODEL_ID' => 'ID',
+    'STATE_CONNECTION_MODEL_CREATED_AT' => 'Created at',
+    'STATE_CONNECTION_MODEL_UPDATED_AT' => 'Updated at',
+    'STATE_CONNECTION_MODEL_START_TO_END' => 'Start To End',
+    'STATE_CONNECTION_MODEL_STATE' => 'State',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'File name',
     'MESSAGE_CLEANING' => 'When importing all chart elements are removed',
@@ -437,6 +456,9 @@ return [
     'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY' => 'Add new transition property',
     'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY' => 'Transition property change',
     'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY' => 'Transition property delete',
+    'START_TO_END_DELETE_START' => 'Start delete',
+    'START_TO_END_DELETE_END' => 'End delete',
+    'CONNECTION_DELETE_CONNECTION' => 'Connection delete',
 
     /* Cообщения EETE*/
     'MAXIMUM_CONNECTIONS' => 'Maximum connections ',
@@ -451,6 +473,9 @@ return [
 
     /* Cообщения STDE*/
     'THESE_ELEMENTS_ARE_ALREADY_CONNECTED' => 'These elements are already connected',
+    'START_AND_END_CANNOT_BE_LINKED' => 'Start and end elements cannot be linked',
+    'DELETE_CONNECTION_TEXT' => 'Are you sure you want to delete the connection?',
+    'CONNECTION_IS_ALREADY_THERE' => 'The connection between these elements already exists',
 
     /* Техсты модальных форм EETE*/
     'RELATIONSHIP_PAGE_DELETE_CONNECTION_TEXT' => 'Are you sure you want to delete the connection?',
@@ -465,6 +490,8 @@ return [
     'DELETE_STATE_PROPERTY_TEXT' => 'Are you sure you want to delete the state property?',
     'DELETE_TRANSITION_TEXT' => 'Are you sure you want to delete the transition?',
     'DELETE_TRANSITION_PROPERTY_TEXT' => 'Are you sure you want to delete the transition property?',
+    'DELETE_START_TEXT' => 'Are you sure you want to delete the start?',
+    'DELETE_END_TEXT' => 'Are you sure you want to delete the end?',
 
     'CONNECTION_DELETE' => 'Delete',
 

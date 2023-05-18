@@ -49,6 +49,8 @@ return [
     'NAV_ADD_EVENT' => 'Событие',
     'NAV_ADD_MECHANISM' => 'Механизм',
     'NAV_ADD_STATE' => 'Состояние',
+    'NAV_ADD_START' => 'Начало',
+    'NAV_ADD_END' => 'Завершение',
 
     'NAV_IMPORT' => 'Импортировать',
     'NAV_EXPORT' => 'Экспортировать',
@@ -391,6 +393,23 @@ return [
     'TRANSITION_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
     'TRANSITION_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
 
+    /* StartToEnd */
+    'START_TO_END_MODEL_ID' => 'ID',
+    'START_TO_END_MODEL_CREATED_AT' => 'Создано',
+    'START_TO_END_MODEL_UPDATED_AT' => 'Обновлено',
+    'START_TO_END_MODEL_TYPE' => 'Тип',
+    'START_TO_END_MODEL_DIAGRAM' => 'Диаграмма',
+    /* Значения типов */
+    'START_TO_END_MODEL_START_TYPE' => 'Начало',
+    'START_TO_END_MODEL_END_TYPE' => 'Завершение',
+
+    /* State connection */
+    'STATE_CONNECTION_MODEL_ID' => 'ID',
+    'STATE_CONNECTION_MODEL_CREATED_AT' => 'Создано',
+    'STATE_CONNECTION_MODEL_UPDATED_AT' => 'Обновлено',
+    'STATE_CONNECTION_MODEL_START_TO_END' => 'Начало и конец',
+    'STATE_CONNECTION_MODEL_STATE' => 'Состояние',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'Имя файла',
     'MESSAGE_CLEANING' => 'При импорте все элементы диаграммы будут удалены',
@@ -437,6 +456,9 @@ return [
     'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY' => 'Добавить новое условие',
     'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY' => 'Изменение условие',
     'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY' => 'Удаление условия',
+    'START_TO_END_DELETE_START' => 'Удаление начала',
+    'START_TO_END_DELETE_END' => 'Удаление завершения',
+    'CONNECTION_DELETE_CONNECTION' => 'Удаление связи',
 
     /* Cообщения EETE*/
     'MAXIMUM_CONNECTIONS' => 'Максимальное количество соединений ',
@@ -451,6 +473,9 @@ return [
 
     /* Cообщения STDE*/
     'THESE_ELEMENTS_ARE_ALREADY_CONNECTED' => 'Эти элементы уже связаны',
+    'START_AND_END_CANNOT_BE_LINKED' => 'Элементы начала и завершения не могут быть связаны между собой',
+    'DELETE_CONNECTION_TEXT' => 'Вы действительно хотите удалить соединение?',
+    'CONNECTION_IS_ALREADY_THERE' => 'Связь между этими элементами уже существует',
 
     /* Техсты модальных форм EETE*/
     'RELATIONSHIP_PAGE_DELETE_CONNECTION_TEXT' => 'Вы действительно хотите удалить связь?',
@@ -465,6 +490,8 @@ return [
     'DELETE_STATE_PROPERTY_TEXT' => 'Вы действительно хотите удалить свойство состояния?',
     'DELETE_TRANSITION_TEXT' => 'Вы действительно хотите удалить переход?',
     'DELETE_TRANSITION_PROPERTY_TEXT' => 'Вы действительно хотите удалить условие?',
+    'DELETE_START_TEXT' => 'Вы действительно хотите удалить начало?',
+    'DELETE_END_TEXT' => 'Вы действительно хотите удалить завершение?',
 
     'CONNECTION_DELETE' => 'Удалить',
 

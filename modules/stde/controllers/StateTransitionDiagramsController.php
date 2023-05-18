@@ -13,6 +13,8 @@ use app\modules\stde\models\State;
 use app\modules\stde\models\StateProperty;
 use app\modules\stde\models\Transition;
 use app\modules\stde\models\TransitionProperty;
+use app\modules\stde\models\StartToEnd;
+use app\modules\stde\models\StateConnection;
 use app\components\StateTransitionXMLGenerator;
 use app\components\DecisionTableGenerator;
 
@@ -82,6 +84,33 @@ class StateTransitionDiagramsController extends Controller
             }
         }
 
+        //все связи между StartToEnd и State
+        $state_connections_all = StateConnection::find()->all();
+
+        //начало диаграммы
+        $start_model = StartToEnd::find()->where(['diagram' => $id, 'type' => StartToEnd::START_TYPE])->one();
+        //связи между началом StartToEnd и State диаграммы
+        $states_connection_start_model_all = array();//массив связей
+        if ($start_model != null){
+            foreach ($state_connections_all as $sc){
+                if ($sc->start_to_end == $start_model->id) {
+                    array_push($states_connection_start_model_all, $sc);
+                }
+            }
+        }
+
+        //завершение диаграммы
+        $end_model = StartToEnd::find()->where(['diagram' => $id, 'type' => StartToEnd::END_TYPE])->one();
+        //связи между завершением StartToEnd и State диаграммы
+        $states_connection_end_model_all = array();//массив связей
+        if ($end_model != null){
+            foreach ($state_connections_all as $sc){
+                if ($sc->start_to_end == $end_model->id) {
+                    array_push($states_connection_end_model_all, $sc);
+                }
+            }
+        }
+
         return $this->render('visual-diagram', [
             'model' => $this->findModel($id),
             'state_model' => $state_model,
@@ -92,6 +121,10 @@ class StateTransitionDiagramsController extends Controller
             'states_property_model_all' => $states_property_model_all,
             'transitions_model_all' => $transitions_model_all,
             'transitions_property_model_all' => $transitions_property_model_all,
+            'start_model' => $start_model,
+            'end_model' => $end_model,
+            'states_connection_start_model_all' => $states_connection_start_model_all,
+            'states_connection_end_model_all' => $states_connection_end_model_all,
         ]);
     }
 
@@ -686,4 +719,242 @@ class StateTransitionDiagramsController extends Controller
         return false;
     }
 
+
+    /**
+     * Добавление начала.
+     *
+     * @param $id - id дерева перехода состояний
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionAddStart($id)
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+            // Формирование модели уровня
+            $model = new StartToEnd();
+            // Задание id диаграммы
+            $model->diagram = $id;
+            $model->type = StartToEnd::START_TYPE;
+            // Успешный ввод данных
+            $data["success"] = true;
+            // Добавление нового состояния в БД
+            $model->save();
+            $data["id"] = $model->id;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Удаление начала.
+     *
+     * @param $id - id дерева перехода состояний
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionDeleteStart()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $start = StartToEnd::find()->where(['id' => Yii::$app->request->post('id_start')])->one();
+            $start_id = $start->id;
+            $start -> delete();
+
+            // Успешный ввод данных
+            $data["success"] = true;
+            $data["id"] = $start_id;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Добавление завешения.
+     *
+     * @param $id - id дерева перехода состояний
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionAddEnd($id)
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+            // Формирование модели уровня
+            $model = new StartToEnd();
+            // Задание id диаграммы
+            $model->diagram = $id;
+            $model->type = StartToEnd::END_TYPE;
+            // Успешный ввод данных
+            $data["success"] = true;
+            // Добавление нового состояния в БД
+            $model->save();
+            $data["id"] = $model->id;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Удаление завершения.
+     *
+     * @param $id - id дерева перехода состояний
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionDeleteEnd()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $end = StartToEnd::find()->where(['id' => Yii::$app->request->post('id_end')])->one();
+            $end_id = $end->id;
+            $end -> delete();
+
+            // Успешный ввод данных
+            $data["success"] = true;
+            $data["id"] = $end_id;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Добавление связи с началом
+     *
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionStartConnection()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            // Формирование модели уровня
+            $model = new StateConnection();
+            $model->start_to_end = Yii::$app->request->post('id_start');
+            $model->state = Yii::$app->request->post('id_state');
+
+            // Успешный ввод данных
+            $data["success"] = true;
+            // Добавление нового состояния в БД
+            $model->save();
+            $data["id"] = $model->id;
+            $data["id_start"] = $model->start_to_end;
+            $data["id_state"] = $model->state;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Добавление связи с завешением
+     *
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionEndConnection()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            // Формирование модели уровня
+            $model = new StateConnection();
+            $model->start_to_end = Yii::$app->request->post('id_end');
+            $model->state = Yii::$app->request->post('id_state');
+
+            // Успешный ввод данных
+            $data["success"] = true;
+            // Добавление нового состояния в БД
+            $model->save();
+            $data["id"] = $model->id;
+            $data["id_end"] = $model->start_to_end;
+            $data["id_state"] = $model->state;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Удаление связи начала или завершения с состоянием
+     *
+     * @return bool|\yii\console\Response|Response
+     */
+    public function actionDelStateConnection()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $id_start_to_end = Yii::$app->request->post('id_start_to_end');
+            $id_state = Yii::$app->request->post('id_state');
+
+            $state_connection = StateConnection::find()->where(['start_to_end' => $id_start_to_end, 'state' => $id_state])->one();
+            $state_connection_id = $state_connection->id;
+            $state_connection -> delete();
+
+            // Успешный ввод данных
+            $data["success"] = true;
+            // Добавление нового состояния в БД
+            $data["id"] = $state_connection_id;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
 }

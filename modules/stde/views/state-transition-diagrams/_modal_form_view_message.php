@@ -21,14 +21,7 @@ use yii\bootstrap5\Button;
     'id' => 'view-message-modal-form',
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_OK'),
-    'options' => [
-        'class' => 'btn-success',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-success" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_OK')?></button>
 
 <?php ActiveForm::end(); ?>
 

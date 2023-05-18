@@ -53,9 +53,9 @@ $config = [
                     'eete/tree-diagrams/<_eet>',
                 '/tree-diagrams/<_eet:(visual-diagram|add-level|add-event|add-mechanism|delete-level|correctness|move-level|upload-ontology|convert-ontology)>/<id:\d+>' =>
                     'eete/tree-diagrams/<_eet>',
-                '/state-transition-diagrams/<_std:(visual-diagram|add-state)>/<id:\d+>' =>
+                '/state-transition-diagrams/<_std:(visual-diagram|add-state|add-start|add-end)>/<id:\d+>' =>
                     'stde/state-transition-diagrams/<_std>',
-                '/state-transition-diagrams/<_std:(edit-state|delete-state|copy-state|add-state-property|edit-state-property|delete-state-property|add-transition|edit-transition|delete-transition|add-transition-property|edit-transition-property|delete-transition-property|save-indent)>' =>
+                '/state-transition-diagrams/<_std:(edit-state|delete-state|copy-state|add-state-property|edit-state-property|delete-state-property|add-transition|edit-transition|delete-transition|add-transition-property|edit-transition-property|delete-transition-property|save-indent|delete-start|delete-end|end-connection|start-connection|del-state-connection)>' =>
                     'stde/state-transition-diagrams/<_std>',
                 '/user/<_usr:(list|create)>' => 'main/user/<_usr>',
                 '/user/<_usr:(view|update|delete|profile|update-profile|change-password)>/<id:\d+>' =>
