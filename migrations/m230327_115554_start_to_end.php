@@ -18,6 +18,8 @@ class m230327_115554_start_to_end extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'type' => $this->smallInteger()->notNull()->defaultValue(0),
+            'indent_x' => $this->integer(),
+            'indent_y' => $this->integer(),
             'diagram' => $this->integer()->notNull(),
         ], $tableOptions);
 

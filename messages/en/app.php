@@ -398,6 +398,8 @@ return [
     'START_TO_END_MODEL_CREATED_AT' => 'Created at',
     'START_TO_END_MODEL_UPDATED_AT' => 'Updated at',
     'START_TO_END_MODEL_TYPE' => 'Type',
+    'START_TO_END_MODEL_INDENT_X' => 'Indent X',
+    'START_TO_END_MODEL_INDENT_Y' => 'Indent Y',
     'START_TO_END_MODEL_DIAGRAM' => 'Diagram',
     /* Значения типов */
     'START_TO_END_MODEL_START_TYPE' => 'Start',

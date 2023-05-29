@@ -36,6 +36,10 @@ use app\modules\main\models\Lang;
                             instance.removeFromGroup(div_start);//удаляем из группы
                             instance.remove(div_start);// удаляем начало
 
+                            var nav_add_start = document.getElementById('nav_add_start');
+                            // Включение добавления начала
+                            nav_add_start.className = 'dropdown-item';
+
                             //----------возможно нужно удалять записи из массива mas_data_state_connection_start
                         }
                     },
@@ -102,6 +106,10 @@ use app\modules\main\models\Lang;
                         var div_end = document.getElementById('end_' + data['id']);
                         instance.removeFromGroup(div_end);//удаляем из группы
                         instance.remove(div_end);// удаляем завершение
+
+                        var nav_add_end = document.getElementById('nav_add_end');
+                        // Включение добавления завершения
+                        nav_add_end.className = 'dropdown-item';
 
                         //----------возможно нужно удалять записи из массива mas_data_state_connection_end
                     }

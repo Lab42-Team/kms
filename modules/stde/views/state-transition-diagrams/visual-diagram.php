@@ -15,10 +15,10 @@ $this->params['menu_add'] = [
         'linkOptions' => ['data-bs-toggle'=>'modal', 'data-bs-target'=>'#addStateModalForm']],
 
     ['label' => Yii::t('app', 'NAV_ADD_START'), 'url' => '#',
-        'linkOptions' => ['id'=>'nav_add_start']],
+        'linkOptions' => ['id'=>'nav_add_start', 'class' => 'disabled']],
 
     ['label' => Yii::t('app', 'NAV_ADD_END'), 'url' => '#',
-        'linkOptions' => ['id'=>'nav_add_end']],
+        'linkOptions' => ['id'=>'nav_add_end', 'class' => 'disabled']],
 ];
 
 $this->params['menu_diagram'] = [
@@ -66,6 +66,18 @@ foreach ($transitions_model_all as $t){
 $transitions_property_mas = array();
 foreach ($transitions_property_model_all as $tp){
     array_push($transitions_property_mas, [$tp->id, $tp->name, $tp->description, $tp->operator, $tp->value, $tp->transition]);
+}
+
+// создаем массив из start_model для передачи в js
+$start_mas = array();
+if ($start_model != null){
+    array_push($start_mas, [$start_model->id, $start_model->indent_x, $start_model->indent_y]);
+}
+
+// создаем массив из end_model для передачи в js
+$end_mas = array();
+if ($end_model != null){
+    array_push($end_mas, [$end_model->id, $end_model->indent_x, $end_model->indent_y]);
 }
 
 // создаем массив из states_connection_start для передачи в js
@@ -141,8 +153,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     var states_property_mas = <?php echo json_encode($states_property_mas); ?>;//прием массива свойств состояний из php
     var transitions_mas = <?php echo json_encode($transitions_mas); ?>;//прием массива переходов из php
     var transitions_property_mas = <?php echo json_encode($transitions_property_mas); ?>;//прием массива условий из php
-    var states_connection_start_mas = <?php echo json_encode($states_connection_start_mas); ?>;//прием массива начало из php
-    var states_connection_end_mas = <?php echo json_encode($states_connection_end_mas); ?>;//прием массива завершений из php
+    var start_mas = <?php echo json_encode($start_mas); ?>;//прием массива начал из php
+    var end_mas = <?php echo json_encode($end_mas); ?>;//прием массива завершений из php
+    var states_connection_start_mas = <?php echo json_encode($states_connection_start_mas); ?>;//прием массива соединений с началом из php
+    var states_connection_end_mas = <?php echo json_encode($states_connection_end_mas); ?>;//прием массива соединений завершений из php
 
     var message_label = "<?php echo Yii::t('app', 'CONNECTION_DELETE'); ?>";
 
@@ -264,6 +278,48 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
     //console.log(mas_data_transition_property);
 
 
+    var mas_data_start = {};
+    var q = 0;
+    var id = "";
+    var indent_x = "";
+    var indent_y = "";
+    $.each(start_mas, function (i, mas) {
+        $.each(mas, function (j, elem) {
+            if (j == 0) {id = elem;}//записываем id
+            if (j == 1) {indent_x = elem;}
+            if (j == 2) {indent_y = elem;}
+            mas_data_start[q] = {
+                "id":id,
+                "indent_x":indent_x,
+                "indent_y":indent_y,
+            }
+        });
+        q = q+1;
+    });
+    //console.log(mas_data_start);
+
+
+    var mas_data_end = {};
+    var q = 0;
+    var id = "";
+    var indent_x = "";
+    var indent_y = "";
+    $.each(end_mas, function (i, mas) {
+        $.each(mas, function (j, elem) {
+            if (j == 0) {id = elem;}//записываем id
+            if (j == 1) {indent_x = elem;}
+            if (j == 2) {indent_y = elem;}
+            mas_data_end[q] = {
+                "id":id,
+                "indent_x":indent_x,
+                "indent_y":indent_y,
+            }
+        });
+        q = q+1;
+    });
+    //console.log(mas_data_end);
+
+
     var mas_data_state_connection_start = {};
     var q = 0;
     var id = "";
@@ -310,6 +366,17 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
     $(document).ready(function() {
         if (!guest){
+            var nav_add_start = document.getElementById('nav_add_start');
+            var nav_add_end = document.getElementById('nav_add_end');
+
+            // Включение кнопок добавления начала и завершения если их нет
+            if ('<?php echo $start_count; ?>' == 0){
+                nav_add_start.className = 'dropdown-item';
+            }
+            if ('<?php echo $end_count; ?>' == 0){
+                nav_add_end.className = 'dropdown-item';
+            }
+
             // Обработка закрытия модального окна добавления нового состояния
             $("#addStateModalForm").on("hidden.bs.modal", function() {
                 // Скрытие списка ошибок ввода в модальном окне
@@ -402,6 +469,36 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                 var state_id = parseInt(state.match(/\d+/));
 
                 if (elem.id == state_id) {
+                    $(this).css({
+                        left: parseInt(elem.indent_x),
+                        top: parseInt(elem.indent_y)
+                    });
+                }
+            });
+        });
+
+        //Распределение start (начала) на диаграмме
+        $.each(mas_data_start, function (j, elem) {
+            $(".div-start").each(function(i) {
+                var start = $(this).attr('id');
+                var start_id = parseInt(start.match(/\d+/));
+
+                if (elem.id == start_id) {
+                    $(this).css({
+                        left: parseInt(elem.indent_x),
+                        top: parseInt(elem.indent_y)
+                    });
+                }
+            });
+        });
+
+        //Распределение end (завершения) на диаграмме
+        $.each(mas_data_end, function (j, elem) {
+            $(".div-end").each(function(i) {
+                var end = $(this).attr('id');
+                var end_id = parseInt(end.match(/\d+/));
+
+                if (elem.id == end_id) {
                     $(this).css({
                         left: parseInt(elem.indent_x),
                         top: parseInt(elem.indent_y)
@@ -794,6 +891,28 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             if (h > max_h){max_h = h;}
         });
 
+        $(".div-start").each(function(i) {
+            var id_start = $(this).attr('id');
+            var start = document.getElementById(id_start);
+
+            var w = start.offsetLeft + start.clientWidth;
+            var h = start.offsetTop + start.clientHeight;
+
+            if (w > max_w){max_w = w;}
+            if (h > max_h){max_h = h;}
+        });
+
+        $(".div-end").each(function(i) {
+            var id_end = $(this).attr('id');
+            var end = document.getElementById(id_end);
+
+            var w = end.offsetLeft + end.clientWidth;
+            var h = end.offsetTop + end.clientHeight;
+
+            if (w > max_w){max_w = w;}
+            if (h > max_h){max_h = h;}
+        });
+
         field.style.width = max_w + 7 + 'px';
         field.style.height = max_h + 7 + 'px';
     };
@@ -824,6 +943,20 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
 
     //при движении блока состояния расширяем или сужаем поле visual_diagram_field
     $(document).on('mousemove', '.div-state', function() {
+        mousemoveState();
+        // Обновление формы редактора
+        instance.repaintEverything();
+    });
+
+    //при движении блока начала расширяем или сужаем поле visual_diagram_field
+    $(document).on('mousemove', '.div-start', function() {
+        mousemoveState();
+        // Обновление формы редактора
+        instance.repaintEverything();
+    });
+
+    //при движении блока завершения расширяем или сужаем поле visual_diagram_field
+    $(document).on('mousemove', '.div-end', function() {
         mousemoveState();
         // Обновление формы редактора
         instance.repaintEverything();
@@ -1182,6 +1315,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                                 $("#viewMessageErrorLinkingItemsModalForm").modal("show");
                             }
                     });
+
+                    var nav_add_start = document.getElementById('nav_add_start');
+                    // Выключение кнопки добавления начала
+                    nav_add_start.className = 'disabled dropdown-item';
                 }
             },
             error: function () {
@@ -1242,6 +1379,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                             filter: ".fa-share",
                             anchor: "Top", //непрерывный анкер
                     });
+
+                    var nav_add_end = document.getElementById('nav_add_end');
+                    // Выключение кнопки добавления завершения
+                    nav_add_end.className = 'disabled dropdown-item';
                 }
             },
             error: function () {
@@ -1258,6 +1399,67 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
             id_end = parseInt(end.match(/\d+/));
 
             $("#deleteEndModalForm").modal("show");
+        }
+    });
+
+
+    //функция сохранения расположения элемента начала или завершения
+    var saveIndentStartOrEnd = function(start_or_end_id, indent_x, indent_y) {
+        $.ajax({
+            //переход на экшен левел
+            url: "<?= Yii::$app->request->baseUrl . '/' . Lang::getCurrent()->url .
+            '/state-transition-diagrams/save-indent-start-or-end'?>",
+            type: "post",
+            data: "YII_CSRF_TOKEN=<?= Yii::$app->request->csrfToken ?>" + "&start_or_end_id=" + start_or_end_id +
+            "&indent_x=" + indent_x + "&indent_y=" + indent_y,
+            dataType: "json",
+            success: function (data) {
+                if (data['success']) {
+                    //console.log("x = " + data['indent_x']);
+                    //console.log("y = " + data['indent_y']);
+                }
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+    };
+
+
+    //сохранение расположения элемента начала
+    $(document).on('mouseup', '.div-start', function() {
+        if (!guest) {
+            var start_or_end = $(this).attr('id');
+            var start_or_end_id = parseInt(start_or_end.match(/\d+/));
+            var indent_x = $(this).position().left;
+            var indent_y = $(this).position().top;
+            //если отступ элемента отрицательный делаем его нулевым
+            if (indent_x < 0){
+                indent_x = 0;
+            }
+            if (indent_y < 0){
+                indent_y = 0;
+            }
+            saveIndentStartOrEnd(start_or_end_id, indent_x, indent_y);
+        }
+    });
+
+
+    //сохранение расположения элемента завершения
+    $(document).on('mouseup', '.div-end', function() {
+        if (!guest) {
+            var start_or_end = $(this).attr('id');
+            var start_or_end_id = parseInt(start_or_end.match(/\d+/));
+            var indent_x = $(this).position().left;
+            var indent_y = $(this).position().top;
+            //если отступ элемента отрицательный делаем его нулевым
+            if (indent_x < 0){
+                indent_x = 0;
+            }
+            if (indent_y < 0){
+                indent_y = 0;
+            }
+            saveIndentStartOrEnd(start_or_end_id, indent_x, indent_y);
         }
     });
 </script>

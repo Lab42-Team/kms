@@ -41,7 +41,8 @@ class StartToEnd extends \yii\db\ActiveRecord
     {
         return [
             [['type', 'diagram'], 'required'],
-            [['type', 'diagram'], 'integer'],
+            [['type', 'diagram', 'indent_x', 'indent_y'], 'integer'],
+            [['indent_x', 'indent_y'], 'default', 'value' => 0],
 
             // 'type','diagram' вместе должны быть уникальны, т.е. допускается только по одному началу и завершению на диаграмму
             ['type', 'unique', 'targetAttribute' => ['type', 'diagram']],
@@ -61,6 +62,8 @@ class StartToEnd extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'START_TO_END_MODEL_CREATED_AT'),
             'updated_at' => Yii::t('app', 'START_TO_END_MODEL_UPDATED_AT'),
             'type' => Yii::t('app', 'START_TO_END_MODEL_TYPE'),
+            'indent_x' => Yii::t('app', 'START_TO_END_MODEL_INDENT_X'),
+            'indent_y' => Yii::t('app', 'START_TO_END_MODEL_INDENT_Y'),
             'diagram' => Yii::t('app', 'START_TO_END_MODEL_DIAGRAM'),
         ];
     }

@@ -111,6 +111,9 @@ class StateTransitionDiagramsController extends Controller
             }
         }
 
+        $start_count = StartToEnd::find()->where(['diagram' => $id, 'type' => StartToEnd::START_TYPE])->count();//количество начал
+        $end_count = StartToEnd::find()->where(['diagram' => $id, 'type' => StartToEnd::END_TYPE])->count();//количество завершений
+
         return $this->render('visual-diagram', [
             'model' => $this->findModel($id),
             'state_model' => $state_model,
@@ -125,6 +128,8 @@ class StateTransitionDiagramsController extends Controller
             'end_model' => $end_model,
             'states_connection_start_model_all' => $states_connection_start_model_all,
             'states_connection_end_model_all' => $states_connection_end_model_all,
+            'start_count' => $start_count,
+            'end_count' => $end_count,
         ]);
     }
 
@@ -950,6 +955,38 @@ class StateTransitionDiagramsController extends Controller
             $data["success"] = true;
             // Добавление нового состояния в БД
             $data["id"] = $state_connection_id;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+
+    /**
+     * Сохранение отступов начала и завершения.
+     *
+     */
+    public function actionSaveIndentStartOrEnd()
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $start_to_end = StartToEnd::find()->where(['id' => Yii::$app->request->post('start_or_end_id')])->one();
+            $start_to_end->indent_x = Yii::$app->request->post('indent_x');
+            $start_to_end->indent_y = Yii::$app->request->post('indent_y');
+            $start_to_end->updateAttributes(['indent_x']);
+            $start_to_end->updateAttributes(['indent_y']);
+
+            $data["indent_x"] = $start_to_end->indent_x;
+            $data["indent_y"] = $start_to_end->indent_y;
+            $data["success"] = true;
 
             // Возвращение данных
             $response->data = $data;
