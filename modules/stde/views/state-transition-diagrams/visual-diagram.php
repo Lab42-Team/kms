@@ -1362,6 +1362,10 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
                     div_content_end.className = 'content-end';
                     div_end.append(div_content_end);
 
+                    var div_circle_end = document.createElement('div');
+                    div_circle_end.className = 'circle-end' ;
+                    div_content_end.append(div_circle_end);
+
                     var div_del = document.createElement('div');
                     div_del.id = 'end_del_' + data['id'];
                     div_del.className = 'del-end' ;
@@ -1568,6 +1572,7 @@ $this->registerJsFile('/js/jsplumb.js', ['position'=>yii\web\View::POS_HEAD]);  
         <?php if ($end_model != null){ ?>
             <div id="end_<?= $end_model->id ?>" class="div-end">
                 <div class="content-end">
+                    <div class="circle-end"></div>
                     <div id="end_del_<?= $end_model->id ?>" class="del-end" title="<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>"><i class="fa-solid fa-trash"></i></div>
                 </div>
             </div>
