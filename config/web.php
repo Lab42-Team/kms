@@ -60,6 +60,12 @@ $config = [
                 '/user/<_usr:(list|create)>' => 'main/user/<_usr>',
                 '/user/<_usr:(view|update|delete|profile|update-profile|change-password)>/<id:\d+>' =>
                     'main/user/<_usr>',
+
+                //'<_dgm:(index)>' => 'main/virtual-assistant/<_dgm>',
+                '/virtual-assistant/<_va:(index)>' => 'main/virtual-assistant/<_va>',
+
+
+
                 '/api/get-all-state-transition-diagrams-list' => 'api/api/get-all-state-transition-diagrams-list',
                 '/api/get-all-event-tree-diagrams-list' => 'api/api/get-all-event-tree-diagrams-list',
                 '/api/export-state-transition-diagram/<id:\d+>' => 'api/api/export-state-transition-diagram',

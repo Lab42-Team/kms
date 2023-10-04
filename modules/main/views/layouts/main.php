@@ -60,6 +60,21 @@ AppAsset::register($this);
                     ]
                 ): false,
 
+
+
+
+                (Yii::$app->user->isGuest or Yii::$app->user->identity->role == User::ROLE_ADMINISTRATOR) ? (
+                [
+                    'label' => '<i class="fa-solid fa-list"></i> ' .
+                        Yii::t('app', 'NAV_VIAC'),
+                    'url' => ['/main/virtual-assistant/index']
+                ]
+                ): false,
+
+
+
+
+
                 !Yii::$app->user->isGuest ? (
                     // Условие проверки есть ли visual-diagram в URL
                     preg_match('/visual-diagram/', Url::current([], false)) == 1 ?
