@@ -201,4 +201,15 @@ class Diagram extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TreeDiagram::className(), ['diagram' => 'id']);
     }
+
+    /**
+     * Получение списка всех диаграмм переходов состояний.
+     *
+     * @return array - массив всех записей с диаграммами переходов состояний из таблицы diagram
+     */
+    public static function getAllStateTransitionDiagramArray()
+    {
+        return ArrayHelper::map(self::find()->where(['type'=>Diagram::STATE_TRANSITION_DIAGRAM_TYPE])->all(),
+            'id', 'name');
+    }
 }

@@ -19,7 +19,6 @@ class m231003_104303_virtual_assistant extends Migration
             'updated_at' => $this->integer()->notNull(),
             'name' => $this->string()->notNull(),
             'description' => $this->text(),
-            'type' => $this->smallInteger()->notNull()->defaultValue(0),
             'status' => $this->smallInteger()->notNull()->defaultValue(0),
             'author' => $this->integer()->notNull(),
             'dialogue_model' => $this->integer()->notNull(),

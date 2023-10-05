@@ -4,7 +4,6 @@ namespace app\modules\main\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\main\models\VirtualAssistant;
 
 /**
  * VirtualAssistantSearch represents the model behind the search form of `app\modules\main\models\VirtualAssistant`.
@@ -17,7 +16,7 @@ class VirtualAssistantSearch extends VirtualAssistant
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'type', 'status', 'author', 'dialogue_model', 'knowledge_base_model'], 'integer'],
+            [['id', 'created_at', 'updated_at', 'status', 'author', 'dialogue_model', 'knowledge_base_model'], 'integer'],
             [['name', 'description'], 'safe'],
         ];
     }
@@ -61,7 +60,6 @@ class VirtualAssistantSearch extends VirtualAssistant
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'type' => $this->type,
             'status' => $this->status,
             'author' => $this->author,
             'dialogue_model' => $this->dialogue_model,

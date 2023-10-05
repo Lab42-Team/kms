@@ -14,7 +14,6 @@ use yii\behaviors\TimestampBehavior;
  * @property int $updated_at
  * @property string $name
  * @property string|null $description
- * @property int $type
  * @property int $status
  * @property int $author
  * @property int $dialogue_model
@@ -26,9 +25,6 @@ use yii\behaviors\TimestampBehavior;
  */
 class VirtualAssistant extends \yii\db\ActiveRecord
 {
-    const EVENT_TREE_TYPE = 0;               // Тип диаграммы дерево событий
-    const STATE_TRANSITION_DIAGRAM_TYPE = 1; // Тип диаграммы переходов состояний
-
     const PUBLIC_STATUS = 0;  // Публичный статус
     const PRIVATE_STATUS = 1; // Приватный статус
 
@@ -46,17 +42,17 @@ class VirtualAssistant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'author', 'dialogue_model', 'knowledge_base_model'], 'required'],
-            [['type', 'status', 'author', 'dialogue_model', 'knowledge_base_model'], 'default', 'value' => null],
-            [['type', 'status', 'author', 'dialogue_model', 'knowledge_base_model'], 'integer'],
-            [['description'], 'string', 'max' => 600],
+            [['name', 'status', 'author', 'dialogue_model', 'knowledge_base_model'], 'required'],
+            ['description', 'default', 'value' => null],
+            [['status', 'author', 'dialogue_model', 'knowledge_base_model'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            [['description'], 'string', 'max' => 600],
+            [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(),
+                'targetAttribute' => ['author' => 'id']],
             [['dialogue_model'], 'exist', 'skipOnError' => true, 'targetClass' => Diagram::className(),
                 'targetAttribute' => ['dialogue_model' => 'id']],
             [['knowledge_base_model'], 'exist', 'skipOnError' => true, 'targetClass' => Diagram::className(),
-                'targetAttribute' => ['knowledge_base_model' => 'id']],
-            [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(),
-                'targetAttribute' => ['author' => 'id']],
+                'targetAttribute' => ['knowledge_base_model' => 'id']]
         ];
     }
 
@@ -71,7 +67,6 @@ class VirtualAssistant extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_UPDATED_AT'),
             'name' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_NAME'),
             'description' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_DESCRIPTION'),
-            'type' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_TYPE'),
             'status' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_STATUS'),
             'author' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_AUTHOR'),
             'dialogue_model' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_DIALOGUE_MODEL'),
@@ -84,55 +79,6 @@ class VirtualAssistant extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
         ];
-    }
-
-
-
-    /**
-     * Получение списка типов диаграмм.
-     *
-     * @return array - массив всех возможных типов диаграмм
-     */
-    public static function getTypesArray()
-    {
-        return [
-            self::EVENT_TREE_TYPE => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_EVENT_TREE_TYPE'),
-            self::STATE_TRANSITION_DIAGRAM_TYPE =>
-                Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_STATE_TRANSITION_DIAGRAM_TYPE'),
-        ];
-    }
-
-    /**
-     * Получение названия типа диаграмм.
-     *
-     * @return mixed
-     */
-    public function getTypeName()
-    {
-        return ArrayHelper::getValue(self::getTypesArray(), $this->type);
-    }
-
-    /**
-     * Получение списка типов диаграмм на английском.
-     *
-     * @return array - массив всех возможных типов диаграмм на английском
-     */
-    public static function getTypesArrayEn()
-    {
-        return [
-            self::EVENT_TREE_TYPE => 'Event tree',
-            self::STATE_TRANSITION_DIAGRAM_TYPE => 'State transition diagram',
-        ];
-    }
-
-    /**
-     * Получение названия типа диаграмм на английском.
-     *
-     * @return mixed
-     */
-    public function getTypeNameEn()
-    {
-        return ArrayHelper::getValue(self::getTypesArrayEn(), $this->type);
     }
 
     /**
@@ -151,14 +97,13 @@ class VirtualAssistant extends \yii\db\ActiveRecord
     /**
      * Получение названия типа диаграмм.
      *
-     * @return mixed
+     * @return mixed|null
+     * @throws \Exception
      */
     public function getStatusName()
     {
         return ArrayHelper::getValue(self::getStatusesArray(), $this->status);
     }
-
-
 
     /**
      * Gets query for [[Author0]].
