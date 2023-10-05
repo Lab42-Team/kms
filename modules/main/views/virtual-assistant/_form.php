@@ -3,7 +3,7 @@
 use app\modules\main\models\Diagram;
 use app\modules\main\models\VirtualAssistant;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\modules\main\models\VirtualAssistant $model */
