@@ -61,18 +61,13 @@ AppAsset::register($this);
                 ): false,
 
 
-
-
                 (Yii::$app->user->isGuest or Yii::$app->user->identity->role == User::ROLE_ADMINISTRATOR) ? (
                 [
-                    'label' => '<i class="fa-solid fa-list"></i> ' .
-                        Yii::t('app', 'NAV_VIAC'),
-                    'url' => ['/main/virtual-assistant/index']
+                    'label' => '<i class="fa-solid fa-table"></i> ' .
+                        Yii::t('app', 'NAV_VIRTUAL_ASSISTANTS'),
+                    'url' => ['/main/virtual-assistant/list']
                 ]
                 ): false,
-
-
-
 
 
                 !Yii::$app->user->isGuest ? (

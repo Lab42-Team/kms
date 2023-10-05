@@ -4,6 +4,7 @@ namespace app\modules\main\controllers;
 
 use app\modules\main\models\VirtualAssistant;
 use app\modules\main\models\VirtualAssistantSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,6 +14,8 @@ use yii\filters\VerbFilter;
  */
 class VirtualAssistantController extends Controller
 {
+    public $layout = 'main';
+
     /**
      * @inheritDoc
      */
@@ -36,12 +39,12 @@ class VirtualAssistantController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionList()
     {
         $searchModel = new VirtualAssistantSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('list', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -49,6 +52,7 @@ class VirtualAssistantController extends Controller
 
     /**
      * Displays a single VirtualAssistant model.
+     *
      * @param int $id VIRTUAL_ASSISTANT_MODEL_ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,18 +67,17 @@ class VirtualAssistantController extends Controller
     /**
      * Creates a new VirtualAssistant model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
         $model = new VirtualAssistant();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        $model->author = Yii::$app->user->identity->getId();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success',
+                Yii::t('app', 'VIRTUAL_ASSISTANT_PAGE_MESSAGE_CREATE_VIRTUAL_ASSISTANT'));
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -85,6 +88,7 @@ class VirtualAssistantController extends Controller
     /**
      * Updates an existing VirtualAssistant model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param int $id VIRTUAL_ASSISTANT_MODEL_ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
@@ -93,7 +97,10 @@ class VirtualAssistantController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success',
+                Yii::t('app', 'VIRTUAL_ASSISTANT_PAGE_MESSAGE_UPDATED_VIRTUAL_ASSISTANT'));
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -104,7 +111,8 @@ class VirtualAssistantController extends Controller
 
     /**
      * Deletes an existing VirtualAssistant model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * If deletion is successful, the browser will be redirected to the 'list' page.
+     *
      * @param int $id VIRTUAL_ASSISTANT_MODEL_ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
@@ -112,8 +120,10 @@ class VirtualAssistantController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        Yii::$app->getSession()->setFlash('success',
+            Yii::t('app', 'VIRTUAL_ASSISTANT_PAGE_MESSAGE_DELETED_VIRTUAL_ASSISTANT'));
 
-        return $this->redirect(['index']);
+        return $this->redirect(['list']);
     }
 
     /**
@@ -125,10 +135,8 @@ class VirtualAssistantController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = VirtualAssistant::findOne(['id' => $id])) !== null) {
+        if (($model = VirtualAssistant::findOne(['id' => $id])) !== null)
             return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'ERROR_MESSAGE_PAGE_NOT_FOUND'));
     }
 }

@@ -42,6 +42,7 @@ return [
     'NAV_DIAGRAMS' => 'Диаграммы',
     'NAV_DIAGRAM' => 'Диаграмма',
     'NAV_BACK_LIST' => 'Вернуться к списку',
+    'NAV_VIRTUAL_ASSISTANTS' => 'Виртуальные ассистенты',
     'NAV_USERS' => 'Пользователи',
 
     'NAV_ADD' => 'Добавить',
@@ -163,6 +164,19 @@ return [
     'CONVERT_ONTOLOGY_PAGE_SELECT_ALL_CLASSES' => 'Выбрать все классы',
     /* Сообщения на странице импорта онтологии */
     'CONVERT_ONTOLOGY_PAGE_MESSAGE_CONVERTED_ONTOLOGY' => 'Вы успешно преобразовали OWL-онтологию в диаграмму дерева событий.',
+
+    /* Страница виртуальных ассистентов */
+    'VIRTUAL_ASSISTANT_PAGE_VIRTUAL_ASSISTANT' => 'Виртуальный ассистент',
+    'VIRTUAL_ASSISTANT_PAGE_VIRTUAL_ASSISTANTS' => 'Виртуальные ассистенты',
+    'VIRTUAL_ASSISTANT_PAGE_CREATE_VIRTUAL_ASSISTANT' => 'Создать виртуальный ассистент',
+    'VIRTUAL_ASSISTANT_PAGE_VIEW_VIRTUAL_ASSISTANT' => 'Просмотр виртуального ассистента',
+    'VIRTUAL_ASSISTANT_PAGE_UPDATE_VIRTUAL_ASSISTANT' => 'Изменить виртуальный ассистент',
+    'VIRTUAL_ASSISTANT_PAGE_DELETE_VIRTUAL_ASSISTANT' => 'Удалить виртуальный ассистент',
+    'VIRTUAL_ASSISTANT_PAGE_MODAL_FORM_TEXT' => 'Вы уверены, что хотите удалить данны виртуальный ассистент?',
+    /* Сообщения на страницах администрирования виртуальных ассистентов */
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_CREATE_VIRTUAL_ASSISTANT' => 'Вы успешно создали нового виртуального ассистента.',
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_UPDATED_VIRTUAL_ASSISTANT' => 'Вы успешно обновили данный виртуальный ассистент.',
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_DELETED_VIRTUAL_ASSISTANT' => 'Вы успешно удалили виртуальный ассистент.',
 
     /* Страница ошибки */
     'ERROR_PAGE_TEXT_ONE' => 'Вышеупомянутая ошибка произошла при обработке веб-сервером вашего запроса.',
@@ -412,12 +426,26 @@ return [
     'STATE_CONNECTION_MODEL_START_TO_END' => 'Начало и конец',
     'STATE_CONNECTION_MODEL_STATE' => 'Состояние',
 
+    /* Virtual assistant */
+    'VIRTUAL_ASSISTANT_MODEL_ID' => 'ID',
+    'VIRTUAL_ASSISTANT_MODEL_CREATED_AT' => 'Создан',
+    'VIRTUAL_ASSISTANT_MODEL_UPDATED_AT' => 'Обновлен',
+    'VIRTUAL_ASSISTANT_MODEL_NAME' => 'Название',
+    'VIRTUAL_ASSISTANT_MODEL_DESCRIPTION' => 'Описание',
+    'VIRTUAL_ASSISTANT_MODEL_STATUS' => 'Статус',
+    'VIRTUAL_ASSISTANT_MODEL_AUTHOR' => 'Автор',
+    'VIRTUAL_ASSISTANT_MODEL_DIALOGUE_MODEL' => 'Модель диалога',
+    'VIRTUAL_ASSISTANT_MODEL_KNOWLEDGE_BASE_MODEL' => 'Модель базы знаний',
+    /* Значения полей статусов */
+    'VIRTUAL_ASSISTANT_MODEL_PUBLIC_STATUS' => 'Публичный',
+    'VIRTUAL_ASSISTANT_MODEL_PRIVATE_STATUS' => 'Частный',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'Имя файла',
     'MESSAGE_CLEANING' => 'При импорте все элементы диаграммы будут удалены',
     'MESSAGE_IMPORT_ERROR_INCOMPATIBLE_MODE' => 'Режим импортируемого файла не совпадает с режимом диаграммы',
 
-    /* Заголовки модальных форм EETE*/
+    /* Заголовки модальных форм EETE */
     'LEVEL_ADD_NEW_LEVEL' => 'Добавить новый уровень',
     'LEVEL_EDIT_LEVEL' => 'Изменение уровня',
     'LEVEL_DELETE_LEVEL' => 'Удаление уровня',
@@ -444,7 +472,7 @@ return [
     'IMPORT_FORM' => 'Импортирование',
     'ERROR_COPY_EVENT' => 'Ошибка копирования события',
 
-    /* Заголовки модальных форм STDE*/
+    /* Заголовки модальных форм STDE */
     'STATE_ADD_NEW_STATE' => 'Добавить новое состояние',
     'STATE_EDIT_STATE' => 'Изменение состояния',
     'STATE_DELETE_STATE' => 'Удаление состояния',
@@ -462,7 +490,7 @@ return [
     'START_TO_END_DELETE_END' => 'Удаление завершения',
     'CONNECTION_DELETE_CONNECTION' => 'Удаление связи',
 
-    /* Cообщения EETE*/
+    /* Cообщения EETE */
     'MAXIMUM_CONNECTIONS' => 'Максимальное количество соединений ',
     'MECHANISMS_SHOULD_NOT_BE_INTERCONNECTED' => 'Механизмы не должны быть связаны между собой',
     'ELEMENTS_NOT_BE_ASSOCIATED_WITH_OTHER_ELEMENTS_HIGHER_LEVEL' => 'Элементы не должны быть связаны с другими элементами на вышестоящем уровне',
@@ -473,13 +501,13 @@ return [
     'ALERT_INITIAL_LEVEL' => 'Удаляется начальный уровень, поэтому будут удалены механизмы на следующем уровне!',
     'ALERT_DELETE_LEVEL' => 'При удалении будут удалены все элементы на уровне!',
 
-    /* Cообщения STDE*/
+    /* Cообщения STDE */
     'THESE_ELEMENTS_ARE_ALREADY_CONNECTED' => 'Эти элементы уже связаны',
     'START_AND_END_CANNOT_BE_LINKED' => 'Элементы начала и завершения не могут быть связаны между собой',
     'DELETE_CONNECTION_TEXT' => 'Вы действительно хотите удалить соединение?',
     'CONNECTION_IS_ALREADY_THERE' => 'Связь между этими элементами уже существует',
 
-    /* Техсты модальных форм EETE*/
+    /* Техсты модальных форм EETE */
     'RELATIONSHIP_PAGE_DELETE_CONNECTION_TEXT' => 'Вы действительно хотите удалить связь?',
     'DELETE_LEVEL_TEXT' => 'Вы действительно хотите удалить уровень?',
     'DELETE_EVENT_TEXT' => 'Вы действительно хотите удалить событие?',
@@ -487,7 +515,7 @@ return [
     'DELETE_PARAMETER_TEXT' => 'Вы действительно хотите удалить параметр?',
     'DELETE_COMMENT_TEXT' => 'Вы действительно хотите удалить комментарий?',
 
-    /* Техсты модальных форм STDE*/
+    /* Техсты модальных форм STDE */
     'DELETE_STATE_TEXT' => 'Вы действительно хотите удалить состояние?',
     'DELETE_STATE_PROPERTY_TEXT' => 'Вы действительно хотите удалить свойство состояния?',
     'DELETE_TRANSITION_TEXT' => 'Вы действительно хотите удалить переход?',
@@ -497,13 +525,13 @@ return [
 
     'CONNECTION_DELETE' => 'Удалить',
 
-    /* Техсты сообщений модальных форм EETE*/
+    /* Техсты сообщений модальных форм EETE */
     'MESSAGE_PROBABILITY_ALLOWED_ONLY_UP_TO_HUNDREDTHS' => 'Допускается ввод числа от 0 до 1, и только до сотых',
     'MESSAGE_ELEMENT_NAME_ALREADY_ON_DIAGRAM' => 'Элемент с таким названием уже есть на диаграмме',
     'MESSAGE_PARAMETER_NAME_ALREADY_IN_EVENT' => 'Параметер с таким названием уже есть у события',
     'MESSAGE_LEVEL_NAME_ALREADY_ON_DIAGRAM' => 'Уровень с таким названием уже есть на диаграмме',
 
-    /* Техсты сообщений модальных форм STDE*/
+    /* Техсты сообщений модальных форм STDE */
     'MESSAGE_STATE_PROPERTY_ALREADY_IN_STATE' => 'Свойство с таким названием, оператором и значением уже есть у состояния',
     'MESSAGE_TRANSITION_PROPERTY_ALREADY_IN_TRANSITION' => 'Условие с таким названием, оператором и значением уже есть у перехода',
 

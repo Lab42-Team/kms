@@ -44,11 +44,13 @@ $config = [
             'showScriptName' => false,
             'class' => 'app\components\LangUrlManager',
             'rules' => [
+                /* Основные роуты системы */
                 '/' => 'main/default/index',
                 'contact' => 'main/default/contact',
                 'sing-in' => 'main/default/sing-in',
                 '<_dgm:(my-diagrams|diagrams|create)>' => 'main/default/<_dgm>',
                 '<_dgm:(view|update|delete|import|upload-ontology|creation-template|upload-csv)>/<id:\d+>' => 'main/default/<_dgm>',
+                /* Роуты для редакторов EETE и STDE */
                 '/tree-diagrams/<_eet:(edit-level|edit-event|edit-mechanism|delete-event|delete-mechanism|add-relationship|delete-relationship|add-parameter|edit-parameter|delete-parameter|copy-event|copy-event-to-level|add-event-comment|edit-event-comment|delete-event-comment|add-level-comment|edit-level-comment|delete-level-comment|save-indent)>' =>
                     'eete/tree-diagrams/<_eet>',
                 '/tree-diagrams/<_eet:(visual-diagram|add-level|add-event|add-mechanism|delete-level|correctness|move-level|upload-ontology|convert-ontology)>/<id:\d+>' =>
@@ -57,15 +59,14 @@ $config = [
                     'stde/state-transition-diagrams/<_std>',
                 '/state-transition-diagrams/<_std:(edit-state|delete-state|copy-state|add-state-property|edit-state-property|delete-state-property|add-transition|edit-transition|delete-transition|add-transition-property|edit-transition-property|delete-transition-property|save-indent|delete-start|delete-end|end-connection|start-connection|del-state-connection|save-indent-start-or-end)>' =>
                     'stde/state-transition-diagrams/<_std>',
+                /* Роуты для пользователей */
                 '/user/<_usr:(list|create)>' => 'main/user/<_usr>',
                 '/user/<_usr:(view|update|delete|profile|update-profile|change-password)>/<id:\d+>' =>
                     'main/user/<_usr>',
-
-                //'<_dgm:(index)>' => 'main/virtual-assistant/<_dgm>',
-                '/virtual-assistant/<_va:(index)>' => 'main/virtual-assistant/<_va>',
-
-
-
+                /* Роуты для виртуальных ассистентов */
+                '/virtual-assistant/<_vas:(list|create)>' => 'main/virtual-assistant/<_vas>',
+                '/virtual-assistant/<_vas:(view|update|delete)>/<id:\d+>' =>'main/virtual-assistant/<_vas>',
+                /* Роуты для REST API */
                 '/api/get-all-state-transition-diagrams-list' => 'api/api/get-all-state-transition-diagrams-list',
                 '/api/get-all-event-tree-diagrams-list' => 'api/api/get-all-event-tree-diagrams-list',
                 '/api/export-state-transition-diagram/<id:\d+>' => 'api/api/export-state-transition-diagram',
