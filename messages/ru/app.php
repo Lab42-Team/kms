@@ -440,6 +440,21 @@ return [
     'VIRTUAL_ASSISTANT_MODEL_PUBLIC_STATUS' => 'Публичный',
     'VIRTUAL_ASSISTANT_MODEL_PRIVATE_STATUS' => 'Частный',
 
+    'GENERATOR_FORM_PLATFORM' => 'Платформа:',
+    'GENERATOR_FORM_PLATFORM_AI_MYLOGIC' => 'AI MyLogic',
+    /* Значения шагов */
+    'STEP_1' => 'Шаг 1: Моделирование',
+    'STEP_2' => 'Шаг 2: Специализация',
+    'STEP_3' => 'Шаг 3: Коды и спецификации',
+    /* Значения кнопок */
+    'BUTTON_DIALOGUE_MODEL' => 'Модель диалога (поведения) [состояния, переходы, вызовы, реакции]',
+    'BUTTON_KNOWLEDGE_BASE_MODEL' => 'Модель базы знаний [переходы/правила, состояния]',
+    'BUTTON_COMMUNICATION_MODEL' => 'Модель общения [интенты, тренировочные фразы]',
+    'BUTTON_GENERATE' => 'Генерировать',
+    'BUTTON_DOWNLOAD_JSON_1' => 'Скачать Json файл [состояния, переходы, вызовы, реакции]',
+    'BUTTON_DOWNLOAD_CSV' => 'Скачать CSV файл [переходы/правила, состояния]',
+    'BUTTON_DOWNLOAD_JSON_2' => 'Скачать Json файл [интенты, тренировочные фразы]',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'Имя файла',
     'MESSAGE_CLEANING' => 'При импорте все элементы диаграммы будут удалены',

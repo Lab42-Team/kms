@@ -70,12 +70,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Diagram::getAllStateTransitionDiagramArray(),
                 'filterInputOptions' => ['class' => 'form-select']
             ],
+            //[
+            //    'class' => ActionColumn::className(),
+            //    'urlCreator' => function ($action, VirtualAssistant $model, $key, $index, $column) {
+            //        return Url::toRoute([$action, 'id' => $model->id]);
+            //     }
+            //],
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, VirtualAssistant $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
+                'class' => 'yii\grid\ActionColumn',
+                'headerOptions' => ['class' => 'action-column'],
+                'template' => '{view} {update} {delete} {generate}',
+                'buttons' => [
+                    'generate' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa-solid fa-table"></i>',
+                            ['generate', 'id' => $model->id],
+                            [
+                                'title' => Yii::t('app', 'BUTTON_GENERATE'),
+                                'aria-label' => Yii::t('app', 'BUTTON_GENERATE')
+                            ]
+                        );
+                    },
+                ]
+            ]
+
+
+
         ],
     ]); ?>
 

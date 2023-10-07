@@ -2,12 +2,16 @@
 
 namespace app\modules\main\controllers;
 
+use app\modules\main\models\GeneratorForm;
 use app\modules\main\models\VirtualAssistant;
 use app\modules\main\models\VirtualAssistantSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\bootstrap5\ActiveForm;
+use app\components\DownloadFile;
 
 /**
  * VirtualAssistantController implements the CRUD actions for VirtualAssistant model.
@@ -139,4 +143,168 @@ class VirtualAssistantController extends Controller
             return $model;
         throw new NotFoundHttpException(Yii::t('app', 'ERROR_MESSAGE_PAGE_NOT_FOUND'));
     }
+
+
+    public function actionGenerate($id)
+    {
+        $generator = new GeneratorForm();
+
+        return $this->render('generate', [
+            'model' => $this->findModel($id),
+            'generator' => $generator,
+        ]);
+    }
+
+
+    public function actionOpenDialogueModel($id)
+    {
+        $model = $this->findModel($id);
+
+        return $this->redirect(['/state-transition-diagrams/visual-diagram/'. $model->dialogue_model]);
+    }
+
+
+    public function actionOpenKnowledgeBaseModel($id)
+    {
+        $model = $this->findModel($id);
+
+        return $this->redirect(['/state-transition-diagrams/visual-diagram/'. $model->knowledge_base_model]);
+    }
+
+
+    public function actionGeneratePlatform($id)
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+            // Формирование формы
+            $generator = new GeneratorForm();
+
+            $model = $this->findModel($id);
+
+            // Определение полей формы и валидация формы
+            if ($generator->load(Yii::$app->request->post()) && $generator->validate()) {
+
+                //Формирование файлов
+                $text1 = 'json1 Платформа: <'. $generator->getPlatformsName() .'> сформировала файл Виртуального ассистента: '. $model->name;
+                $text2 = 'csv Платформа: <'. $generator->getPlatformsName() .'> сформировала файл Виртуального ассистента: '. $model->name;
+                $text3 = 'json2 Платформа: <'. $generator->getPlatformsName() .'> сформировала файл Виртуального ассистента: '. $model->name;
+
+                $f1 = fopen('json/json-file1.json', 'w');
+                fwrite($f1, $text1);
+                fclose($f1);
+
+                $f2 = fopen('json/csv-file.csv', 'w');
+                fwrite($f2, $text2);
+                fclose($f2);
+
+                $f3 = fopen('json/json-file2.json', 'w');
+                fwrite($f3, $text3);
+                fclose($f3);
+
+
+                // Успешный ввод данных
+                $data["success"] = true;
+
+                // Формирование данных
+                $data["id"] = $id;
+                $data["platform_name"] = $generator->getPlatformsName();
+                $data["platform"] = $generator->platform;
+
+            } else
+                $data = ActiveForm::validate($generator);
+            // Возвращение данных
+            $response->data = $data;
+
+            return $response;
+        }
+        return false;
+    }
+
+
+    public function actionDownloadJson($id)
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = $this->findModel($id);
+
+            $fileName = 'json/json-file1.json';
+
+            // Успешный ввод данных
+            $data["success"] = true;
+
+            // Формирование данных
+            $data["fileName"] = $fileName;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+    public function actionDownloadCsv($id)
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = $this->findModel($id);
+
+            $fileName = 'json/csv-file.csv';
+
+            // Успешный ввод данных
+            $data["success"] = true;
+
+            // Формирование данных
+            $data["fileName"] = $fileName;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
+    public function actionDownloadJson2($id)
+    {
+        //Ajax-запрос
+        if (Yii::$app->request->isAjax) {
+            // Определение массива возвращаемых данных
+            $data = array();
+            // Установка формата JSON для возвращаемых данных
+            $response = Yii::$app->response;
+            $response->format = Response::FORMAT_JSON;
+
+            $model = $this->findModel($id);
+
+            $fileName = 'json/json-file2.json';
+
+            // Успешный ввод данных
+            $data["success"] = true;
+
+            // Формирование данных
+            $data["fileName"] = $fileName;
+
+            // Возвращение данных
+            $response->data = $data;
+            return $response;
+        }
+        return false;
+    }
+
 }

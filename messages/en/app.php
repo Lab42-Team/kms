@@ -440,6 +440,21 @@ return [
     'VIRTUAL_ASSISTANT_MODEL_PUBLIC_STATUS' => 'Public',
     'VIRTUAL_ASSISTANT_MODEL_PRIVATE_STATUS' => 'Private',
 
+    'GENERATOR_FORM_PLATFORM' => 'Platform:',
+    'GENERATOR_FORM_PLATFORM_AI_MYLOGIC' => 'AI MyLogic',
+    /* Значения шагов */
+    'STEP_1' => 'Step 1: Modeling',
+    'STEP_2' => 'Step 2: Specialization',
+    'STEP_3' => 'Step 3: Codes and specifications',
+    /* Значения кнопок */
+    'BUTTON_DIALOGUE_MODEL' => 'Dialogue model',
+    'BUTTON_KNOWLEDGE_BASE_MODEL' => 'Knowledge base model',
+    'BUTTON_COMMUNICATION_MODEL' => 'Communication model',
+    'BUTTON_GENERATE' => 'Generate',
+    'BUTTON_DOWNLOAD_JSON_1' => 'Download Json file',
+    'BUTTON_DOWNLOAD_CSV' => 'Download CSV file',
+    'BUTTON_DOWNLOAD_JSON_2' => 'Download Json file',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'File name',
     'MESSAGE_CLEANING' => 'When importing all chart elements are removed',
