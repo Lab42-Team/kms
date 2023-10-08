@@ -20,7 +20,7 @@ class m210907_143230_transition_property extends Migration
             'name' => $this->string()->notNull(),
             'description' => $this->text(),
             'operator' => $this->smallInteger()->notNull()->defaultValue(0),
-            'value' => $this->string()->notNull(),
+            'value' => $this->text(),
             'transition' => $this->integer()->notNull(),
         ], $tableOptions);
 

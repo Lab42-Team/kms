@@ -46,8 +46,8 @@ class TransitionProperty extends \yii\db\ActiveRecord
         return [
             [['name', 'value', 'transition'], 'required'],
             [['operator', 'transition'], 'integer'],
-            [['name', 'value'], 'string', 'max' => 255],
-            [['description'], 'string'],
+            [['name'], 'string', 'max' => 255],
+            [['description', 'value'], 'string'],
 
             // name, operator, value и transition вместе должны быть уникальны, но только name будет получать сообщение об ошибке
             ['name', 'unique', 'targetAttribute' => ['name', 'operator', 'value', 'transition'],

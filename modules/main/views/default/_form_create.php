@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use app\modules\main\models\Diagram;
 use app\modules\eete\models\TreeDiagram;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\main\models\Diagram */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yii\bootstrap5\ActiveForm */
 ?>
 
 <?php
@@ -45,7 +45,7 @@ use app\modules\eete\models\TreeDiagram;
 <div class="diagram-form">
 
     <?php $form = ActiveForm::begin([
-        'id' => $model->isNewRecord ? 'create-diagram-form' : 'update-diagram-form',
+        'id' => 'create-diagram-form',
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
@@ -64,10 +64,9 @@ use app\modules\eete\models\TreeDiagram;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk"></span> ' .
-            Yii::t('app', 'BUTTON_SAVE') : '<span class="glyphicon glyphicon-refresh"></span> ' .
-            Yii::t('app', 'BUTTON_UPDATE'), ['class' => 'btn btn-success',
-            'name'=>$model->isNewRecord ? 'create-diagram-button' : 'update-diagram-button']) ?>
+        <?= Html::submitButton('<span class="glyphicon glyphicon-floppy-disk"></span> ' .
+            Yii::t('app', 'BUTTON_SAVE'), ['class' => 'btn btn-success',
+            'name'=>'create-diagram-button']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

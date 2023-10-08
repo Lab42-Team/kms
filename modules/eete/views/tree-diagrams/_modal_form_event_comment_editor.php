@@ -1,8 +1,8 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 
 /* @var $node_model app\modules\eete\models\Node */
@@ -14,7 +14,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно добавления нового комментария в событие -->
 <?php Modal::begin([
     'id' => 'addEventCommentModalForm',
-    'header' => '<h3>' . Yii::t('app', 'EVENT_ADD_NEW_COMMENT') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'EVENT_ADD_NEW_COMMENT') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -56,18 +56,21 @@ use app\modules\main\models\Lang;
                             div_edit_comment.id = 'node_edit_comment_' + data['id'];
                             div_edit_comment.className = 'edit-event-comment glyphicon-pencil';
                             div_edit_comment.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                            div_edit_comment.innerHTML = '<i class="fa-solid fa-pen"></i>';
                             div_comment.append(div_edit_comment);
 
                             var div_del_comment = document.createElement('div');
                             div_del_comment.id = 'node_del_comment_' + data['id'];
                             div_del_comment.className = 'del-event-comment glyphicon-trash';
                             div_del_comment.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                            div_del_comment.innerHTML = '<i class="fa-solid fa-trash"></i>';
                             div_comment.append(div_del_comment);
 
                             var div_hide_comment = document.createElement('div');
                             div_hide_comment.id = 'node_hide_comment_' + data['id'];
                             div_hide_comment.className = 'hide-event-comment glyphicon-eye-close';
                             div_hide_comment.title = '<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>' ;
+                            div_hide_comment.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
                             div_comment.append(div_hide_comment);
 
                             document.getElementById('add-event-comment-form').reset();
@@ -101,6 +104,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'add-event-comment-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($node_model); ?>
@@ -116,14 +120,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -134,7 +131,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно изменения нового комментария в событии-->
 <?php Modal::begin([
     'id' => 'editEventCommentModalForm',
-    'header' => '<h3>' . Yii::t('app', 'EVENT_EDIT_COMMENT') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'EVENT_EDIT_COMMENT') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -183,6 +180,7 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-event-comment-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($node_model); ?>
@@ -198,14 +196,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -216,7 +207,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно удаления нового комментария в событии-->
 <?php Modal::begin([
     'id' => 'deleteEventCommentModalForm',
-    'header' => '<h3>' . Yii::t('app', 'EVENT_DELETE_COMMENT') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'EVENT_DELETE_COMMENT') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -276,14 +267,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

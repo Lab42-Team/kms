@@ -53,7 +53,11 @@ class EventTreeXMLGenerator
             $node_element->setAttribute('type', $event->getTypeNameEn());
             $node_element->setAttribute('name', $event->name);
             $node_element->setAttribute('description', $event->description);
-            $node_element->setAttribute('certainty_factor', $event->certainty_factor);
+            if ( $event->certainty_factor != null){
+                $node_element->setAttribute('certainty_factor', $event->certainty_factor);
+            } else {
+                $node_element->setAttribute('certainty_factor', '');
+            }
             $xml_element->appendChild($node_element);
 
             //отрисовка "Parameter"
@@ -94,16 +98,16 @@ class EventTreeXMLGenerator
 
     public function generateEETDXMLCode($id)
     {
+        $tree_diagram = TreeDiagram::find()->where(['id' => $id])->one();
+        $diagram = Diagram::find()->where(['id' => $tree_diagram->diagram])->one();
+        $arr = explode(' ',trim($diagram->name));
         // Определение наименования файла
-        $file = 'eetd_file.xml';
+        $file = $diagram->id.'_'.$arr[0].'.xml';
         if (!file_exists($file))
             fopen($file, 'w');
-
         // Создание документа DOM с кодировкой UTF8
         $xml = new DomDocument('1.0', 'UTF-8');
 
-        $tree_diagram = TreeDiagram::find()->where(['id' => $id])->one();
-        $diagram = Diagram::find()->where(['id' => $tree_diagram->diagram])->one();
         // Создание корневого узла Diagram
         $diagram_element = $xml->createElement('Diagram');
         $diagram_element->setAttribute('id', $diagram->id);

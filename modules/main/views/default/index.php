@@ -5,14 +5,14 @@
 $this->title = 'Knowledge Modeling System';
 ?>
 
-<div class="main-default-index">
+<div class="site-index">
 
-    <div class="jumbotron">
-        <h1><?php echo Yii::t('app', 'WELCOME_TO_KMS') ?></h1>
+    <div class="jumbotron text-center bg-transparent">
+        <h1 class="display-4"><?php echo Yii::t('app', 'WELCOME_TO_KMS') ?></h1>
     </div>
 
     <div class="body-content">
-        <h4>
+        <p>
             <?php echo '<b>' . Yii::t('app', 'KMS_NAME') . '</b> ' .
                 Yii::t('app', 'KMS_DEFINITION') ?><br /><br />
             <?php echo Yii::t('app', 'DIAGRAM_TYPES') ?><br />
@@ -25,12 +25,12 @@ $this->title = 'Knowledge Modeling System';
                 Yii::t('app', 'EVENT_TREE_DEFINITION') ?><br /><br />
             <?php echo Yii::t('app', 'ADVANCED_EVENT_TREE_DEFINITION') ?><br /><br />
             <?php echo Yii::t('app', 'EVENT_TREE_CREATION') .
-                ' <b>' . Yii::t('app', 'EET_EDITOR'). '</b>' ?><br /><br />
+                ' <b>' . Yii::t('app', 'EET_EDITOR'). '</b>' ?><br />
             <hr />
             <?php echo '<b>' . Yii::t('app', 'STATE_TRANSITION_DIAGRAM_NAME') . '</b> ' .
                 Yii::t('app', 'STATE_TRANSITION_DIAGRAM_DEFINITION') ?><br /><br />
             <?php echo Yii::t('app', 'STATE_TRANSITION_DIAGRAM_CREATION') .
-                ' <b>' . Yii::t('app', 'STD_EDITOR'). '</b>' ?><br /><br />
+                ' <b>' . Yii::t('app', 'STD_EDITOR'). '</b>' ?><br />
             <hr />
             <?php echo Yii::t('app', 'YOU_CAN_SEE_THE_CREATED') .
                 "<a href='diagrams'>" . Yii::t('app', 'DIAGRAMS') . "</a>." ?><br />
@@ -42,7 +42,7 @@ $this->title = 'Knowledge Modeling System';
                 <?php echo Yii::t('app', 'YOU_CAN_CREATE') .
                     "<a href='create'>" . Yii::t('app', 'DIAGRAM') . "</a>." ?>
             <?php endif; ?>
-        </h4>
+        </p>
     </div>
 
 </div>

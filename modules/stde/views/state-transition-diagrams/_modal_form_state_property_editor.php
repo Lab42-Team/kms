@@ -1,8 +1,8 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 use app\modules\stde\models\StateProperty;
 
@@ -12,7 +12,7 @@ use app\modules\stde\models\StateProperty;
 <!-- Модальное окно добавления нового свойства состояния -->
 <?php Modal::begin([
     'id' => 'addStatePropertyModalForm',
-    'header' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -63,12 +63,14 @@ use app\modules\stde\models\StateProperty;
                         div_edit_property.id = 'state_property_edit_' + data['id'];
                         div_edit_property.className = 'edit-state-property glyphicon-pencil';
                         div_edit_property.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit_property.innerHTML = '<i class="fa-solid fa-pen"></i>';
                         div_button_property.append(div_edit_property);
 
                         var div_del_property = document.createElement('div');
                         div_del_property.id = 'state_property_del_' + data['id'];
                         div_del_property.className = 'del-state-property glyphicon-trash';
                         div_del_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del_property.innerHTML = '<i class="fa-solid fa-trash"></i>';
                         div_button_property.append(div_del_property);
 
 
@@ -108,18 +110,19 @@ use app\modules\stde\models\StateProperty;
 <?php $form = ActiveForm::begin([
     'id' => 'add-state-property-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 
 <?= $form->errorSummary($state_property_model); ?>
 
-<?= $form->field($state_property_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_property_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_property_model, 'operator')->
     dropDownList(StateProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
         label(Yii::t('app', 'STATE_PROPERTY_MODEL_OPERATOR'),['style'=>'margin-left:40%'])?>
 
-<?= $form->field($state_property_model, 'value')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_property_model, 'value')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -133,14 +136,17 @@ use app\modules\stde\models\StateProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
+<!-- Теперь не работает
+<= Button::widget([
     'label' => Yii::t('app', 'BUTTON_CANCEL'),
     'options' => [
         'class' => 'btn-danger',
         'style' => 'margin:5px',
         'data-dismiss'=>'modal'
     ]
-]); ?>
+]); ?>-->
+
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -151,7 +157,7 @@ use app\modules\stde\models\StateProperty;
 <!-- Модальное окно изменения свойства состояния -->
 <?php Modal::begin([
     'id' => 'editStatePropertyModalForm',
-    'header' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_EDIT_STATE_PROPERTY') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_EDIT_STATE_PROPERTY') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -188,12 +194,14 @@ use app\modules\stde\models\StateProperty;
                         div_edit_state_property.id = 'state_property_edit_' + data['id'];
                         div_edit_state_property.className = 'edit-state-property glyphicon-pencil';
                         div_edit_state_property.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit_state_property.innerHTML = '<i class="fa-solid fa-pen"></i>';
                         div_button_state_property.append(div_edit_state_property);
 
                         var div_del_state_property = document.createElement('div');
                         div_del_state_property.id = 'state_property_del_' + data['id'];
                         div_del_state_property.className = 'del-state-property glyphicon-trash';
                         div_del_state_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del_state_property.innerHTML = '<i class="fa-solid fa-trash"></i>';
                         div_button_state_property.append(div_del_state_property);
 
                         //изменена запись в массиве свойств состояний
@@ -223,18 +231,19 @@ use app\modules\stde\models\StateProperty;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-state-property-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 
 <?= $form->errorSummary($state_property_model); ?>
 
-<?= $form->field($state_property_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_property_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_property_model, 'operator')->
     dropDownList(StateProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
         label(Yii::t('app', 'STATE_PROPERTY_MODEL_OPERATOR'),['style'=>'margin-left:40%'])?>
 
-<?= $form->field($state_property_model, 'value')->textInput(['maxlength' => true]) ?>
+<?= $form->field($state_property_model, 'value')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($state_property_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -248,14 +257,7 @@ use app\modules\stde\models\StateProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -266,7 +268,7 @@ use app\modules\stde\models\StateProperty;
 <!-- Модальное окно удаления свойство состояния -->
 <?php Modal::begin([
     'id' => 'deleteStatePropertyModalForm',
-    'header' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_DELETE_STATE_PROPERTY') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'STATE_PROPERTY_DELETE_STATE_PROPERTY') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -354,14 +356,7 @@ use app\modules\stde\models\StateProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

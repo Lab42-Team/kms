@@ -3,15 +3,15 @@
 /* @var $model app\modules\eete\models\TreeDiagram */
 
 use yii\helpers\Html;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
+use yii\bootstrap5\ActiveForm;
 
 ?>
 
 <?php Modal::begin([
     'id' => 'removeTreeDiagramModalForm',
-    'header' => '<h3>' . Yii::t('app', 'TREE_DIAGRAMS_PAGE_DELETE_TREE_DIAGRAM') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'TREE_DIAGRAMS_PAGE_DELETE_TREE_DIAGRAM') . '</h3>',
 ]); ?>
 
     <div class="modal-body">

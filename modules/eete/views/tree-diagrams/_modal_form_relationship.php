@@ -1,8 +1,8 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 
 /* @var $node_model app\modules\eete\models\Node */
@@ -14,7 +14,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно удаления связи -->
 <?php Modal::begin([
     'id' => 'deleteRelationshipModalForm',
-    'header' => '<h3>' . Yii::t('app', 'DELETE_RELATIONSHIP') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'DELETE_RELATIONSHIP') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -100,14 +100,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

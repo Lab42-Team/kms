@@ -20,7 +20,7 @@ class m210907_143020_state_property extends Migration
             'name' => $this->string()->notNull(),
             'description' => $this->text(),
             'operator' => $this->smallInteger()->notNull()->defaultValue(0),
-            'value' => $this->string()->notNull(),
+            'value' => $this->text(),
             'state' => $this->integer()->notNull(),
         ], $tableOptions);
 

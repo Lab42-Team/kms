@@ -310,6 +310,16 @@ path { cursor:pointer; }
     font-size: 13px;
     font-family: "Glyphicons Halflings";
 }
+
+.copy-event {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    display:none;
+    color: #337ab7;
+    font-size: 13px;
+    font-family: "Glyphicons Halflings";
+}
 /*показать скрытые кнопки*/
 .content-event:hover .edit-event {
     display:block;
@@ -324,6 +334,9 @@ path { cursor:pointer; }
     display:block;
 }
 .content-event:hover .add-parameter {
+    display:block;
+}
+.content-event:hover .copy-event {
     display:block;
 }
 

@@ -15,6 +15,7 @@ use app\modules\main\models\ContactForm;
 use app\modules\main\models\DiagramSearch;
 use app\modules\main\models\Diagram;
 use app\modules\main\models\Import;
+use app\modules\main\models\ImportCSV;
 use app\modules\eete\models\TreeDiagram;
 use app\modules\eete\models\Sequence;
 use app\modules\eete\models\Level;
@@ -28,6 +29,7 @@ use app\modules\main\models\User;
 use app\modules\main\models\OWLFileForm;
 use app\components\StateTransitionXMLImport;
 use app\components\EventTreeXMLImport;
+use app\components\StateTransitionCSVloader;
 
 class DefaultController extends Controller
 {
@@ -363,7 +365,34 @@ class DefaultController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        //$this->findModel($id)->delete(); //удаление по умолчанию
+        $diagram = $this->findModel($id);
+        if ($diagram->type == Diagram::EVENT_TREE_TYPE){
+            $tree_diagram = TreeDiagram::find()->where(['diagram' => $diagram->id])->one();
+
+            $sequence = Sequence::find()->where(['tree_diagram' => $tree_diagram->id])->all();
+            foreach ($sequence as $s){
+                $s -> delete();
+            }
+            $level = Level::find()->where(['tree_diagram' => $tree_diagram->id])->all();
+            foreach ($level as $l){
+                $l -> delete();
+            }
+            $node = Node::find()->where(['tree_diagram' => $tree_diagram->id])->all();
+            foreach ($node as $n){
+                $n -> delete();
+            }
+            $diagram -> delete();
+        } elseif ($diagram->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE){
+            $state = State::find()->where(['diagram' => $diagram->id])->all();
+            foreach ($state as $s){
+                $s -> delete();
+            }
+            $diagram -> delete();
+        } else {
+            $diagram -> delete();
+        }
+
         Yii::$app->getSession()->setFlash('success',
             Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_DELETED_DIAGRAM'));
 
@@ -447,6 +476,7 @@ class DefaultController extends Controller
 
                     return $this->render('view', [
                         'model' => $this->findModel($id),
+                        'visible' => false,
                     ]);
                 } elseif (($diagram->type == $type) and ($tree_diagram->mode == $mode)) {
                     // Импорт xml файла
@@ -461,6 +491,7 @@ class DefaultController extends Controller
 
                     return $this->render('view', [
                         'model' => $this->findModel($id),
+                        'visible' => true,
                     ]);
                 } else {
                     Yii::$app->getSession()->setFlash('error',
@@ -746,5 +777,72 @@ class DefaultController extends Controller
             Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM'));
 
         return $this->redirect(['view', 'id' => $diagram->id]);
+    }
+
+
+    /**
+     * Создание диаграммы из csv файла
+     *
+     * @param $id - идентификатор диаграммы
+     * @return string|Response
+     */
+    public function actionUploadCsv($id)
+    {
+
+        $f = 0;
+        //Массив для хранения значений csv файла
+        $csv = [];
+
+        // Поиск модели диаграммы переходов состояний по id
+        $model = $this->findModel($id);
+        $import_model = new ImportCSV();
+
+        // Обработка импорта
+        if (Yii::$app->request->isPost) {
+            $import_model->file_name = UploadedFile::getInstance($import_model, 'file_name');
+
+            if ($import_model->upload()) {
+
+                //открываем файл
+                $file = fopen('uploads/temp.csv', 'r');
+
+                if ($file !== false) {
+                    //просматриваем файл и заносим значения в массив $csv
+                    while (!feof($file) ) {
+                        $csv[] = fgetcsv($file, 0, ';');
+                    }
+                    fclose($file);
+
+                    $cod = mb_check_encoding($csv[0][0], 'UTF-8');
+
+                    if ($cod == 1){
+                        //создаем диаграмму на основе $csv
+                        $generator = new StateTransitionCSVloader();
+                        $generator->uploadCSV($id, $csv);
+
+                        // Удаление файла
+                        unlink('uploads/temp.csv');
+
+                        Yii::$app->getSession()->setFlash('success',
+                            Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_UPLOAD_DECISION_TABLE'));
+
+                        return $this->redirect(['view', 'id' => $id]);
+
+                    } else {
+                        Yii::$app->getSession()->setFlash('error',
+                            Yii::t('app', 'DIAGRAMS_PAGE_MESSAGE_INVALID_ENCODING'));
+                        return $this->render('upload-csv', [
+                            'model' => $model,
+                            'import_model' => $import_model,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return $this->render('upload-csv', [
+            'model' => $model,
+            'import_model' => $import_model,
+        ]);
     }
 }

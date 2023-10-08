@@ -5,9 +5,9 @@
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $array_template app\modules\main\controllers\DefaultController */
 
-use yii\helpers\Html;
+use yii\bootstrap5\Html;
 use yii\grid\GridView;
-use yii\bootstrap\ButtonDropdown;
+use kartik\bs5dropdown\ButtonDropdown;
 use app\modules\main\models\Diagram;
 use app\modules\eete\models\TreeDiagram;
 
@@ -24,14 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if (!Yii::$app->user->isGuest): ?>
         <div class="buttons">
-            <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' .
+            <?= Html::a('<i class="fa-solid fa-pen-to-square"></i> ' .
                 Yii::t('app', 'DIAGRAMS_PAGE_CREATE_DIAGRAM'),
                 ['create'], ['class' => 'btn btn-success']) ?>
             <?= ButtonDropdown::widget([
-                'label' => '<span class="glyphicon glyphicon-share"></span> ' .
+                'label' => '<i class="fa-solid fa-share-from-square"></i> ' .
                     Yii::t('app', 'DIAGRAMS_PAGE_CREATE_FROM_TEMPLATE'),
                 'encodeLabel' => false,
-                'options' => [
+                'buttonOptions' => [
                     'class' => 'btn btn-primary',
                 ],
                 'dropdown' => [
@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->getTypeName();
                 },
                 'filter' => Diagram::getTypesArray(),
+                'filterInputOptions' => ['class' => 'form-select']
             ],
             [
                 'attribute' => 'status',
@@ -63,6 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Yii::$app->user->isGuest ? '' : Diagram::getStatusesArray(),
                 'visible' => !Yii::$app->user->isGuest,
+                'filterInputOptions' => ['class' => 'form-select']
             ],
             [
                 'attribute' => 'correctness',
@@ -72,6 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Yii::$app->user->isGuest ? '': Diagram::getCorrectnessArray(),
                 'visible' => !Yii::$app->user->isGuest,
+                'filterInputOptions' => ['class' => 'form-select']
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -86,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
                         if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
                             $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
-                        return Html::a('<span class="glyphicon glyphicon-blackboard"></span>',
+                        return Html::a('<i class="fa-solid fa-display"></i>',
                             $url,
                             [
                                 'title' => Yii::t('app', 'BUTTON_OPEN_DIAGRAM'),
@@ -95,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     'import' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-import"></span>',
+                        return Html::a('<i class="fa-solid fa-file-import"></i>',
                             ['import', 'id' => $model->id],
                             [
                                 'title' => Yii::t('app', 'BUTTON_IMPORT'),
@@ -105,23 +108,35 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'export' => function ($url, $model, $key) {
                         $url = '#';
+                        $data = [];
                         $tree_diagram = TreeDiagram::find()->where(['diagram' => $model->id])->one();
-                        if (!empty($tree_diagram))
+                        if (!empty($tree_diagram)){
                             $url = ['/eete/tree-diagrams/visual-diagram/', 'id' => $tree_diagram->id];
-                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE)
-                            $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
-                        return Html::a('<span class="glyphicon glyphicon-export"></span>',
-                            $url,
-                            [
+                            $data = [
                                 'data' => ['method' => 'post'],
                                 'title' => Yii::t('app', 'BUTTON_EXPORT'),
                                 'aria-label' => Yii::t('app', 'BUTTON_EXPORT')
-                            ]
+                            ];
+                        }
+                        if ($model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE){
+                            $url = ['/stde/state-transition-diagrams/visual-diagram/', 'id' => $model->id];
+                            $data = [
+                                'data' => [
+                                    'method' => 'post',
+                                    'params' => ['value' => 'xml'],
+                                ],
+                                'title' => Yii::t('app', 'BUTTON_EXPORT'),
+                                'aria-label' => Yii::t('app', 'BUTTON_EXPORT')
+                            ];
+                        }
+                        return Html::a('<i class="fa-solid fa-file-export"></i>',
+                            $url, $data
+
                         );
                     },
                     'upload-ontology' => function ($url, $model, $key) {
                         return $model->type == Diagram::STATE_TRANSITION_DIAGRAM_TYPE ? Html::a(
-                            '<span class="glyphicon glyphicon-download-alt"></span>',
+                            '<i class="fa-solid fa-download"></i>',
                             ['upload-ontology', 'id' => $model->id],
                             [
                                 'title' => Yii::t('app', 'BUTTON_UPLOAD_ONTOLOGY'),

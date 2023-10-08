@@ -1,8 +1,8 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 
 /* @var $level_model app\modules\eete\models\Level */
@@ -12,7 +12,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно добавления нового уровня -->
 <?php Modal::begin([
     'id' => 'addLevelModalForm',
-    'header' => '<h3>' . Yii::t('app', 'LEVEL_ADD_NEW_LEVEL') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'LEVEL_ADD_NEW_LEVEL') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -58,12 +58,14 @@ use app\modules\main\models\Lang;
                             div_del.id = 'level_del_' + data['id'];
                             div_del.className = 'del del-level glyphicon-trash';
                             div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                            div_del.innerHTML = '<i class="fa-solid fa-trash"></i>';
                             div_level_name.append(div_del);
 
                             var div_edit = document.createElement('div');
                             div_edit.id = 'level_edit_' + data['id'];
                             div_edit.className = 'edit edit-level glyphicon-pencil';
                             div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                            div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
                             div_level_name.append(div_edit);
 
                             if (data['parent_level'] != null){
@@ -71,6 +73,7 @@ use app\modules\main\models\Lang;
                                 div_move.id = 'level_move_' + data['id'];
                                 div_move.className = 'move move-level glyphicon-transfer';
                                 div_move.title = '<?php echo Yii::t('app', 'BUTTON_MOVE'); ?>' ;
+                                div_move.innerHTML = '<i class="fa-solid fa-arrow-right-arrow-left">';
                                 div_level_name.append(div_move);
                             }
 
@@ -78,6 +81,7 @@ use app\modules\main\models\Lang;
                             div_show.id = 'level_show_comment_' + data['id'];
                             div_show.className = 'show-level-comment glyphicon-paperclip';
                             div_show.title = '<?php echo Yii::t('app', 'BUTTON_COMMENT'); ?>' ;
+                            div_show.innerHTML = '<i class="fa-solid fa-paperclip">';
                             div_level_name.append(div_show);
 
                             var div_level_description = document.createElement('div');
@@ -89,12 +93,12 @@ use app\modules\main\models\Lang;
                             var nav_add_event = document.getElementById('nav_add_event');
                             var nav_add_mechanism = document.getElementById('nav_add_mechanism');
                             if (data['level_count'] > 0){
-                                nav_add_event.className = 'enabled';
-                                nav_add_event.setAttribute("data-target", "#addEventModalForm");
+                                nav_add_event.className = 'dropdown-item';
+                                nav_add_event.setAttribute("data-bs-target", "#addEventModalForm");
                             }
                             if (data['level_count'] > 1){
-                                nav_add_mechanism.className = 'enabled';
-                                nav_add_mechanism.setAttribute("data-target", "#addMechanismModalForm");
+                                nav_add_mechanism.className = 'dropdown-item';
+                                nav_add_mechanism.setAttribute("data-bs-target", "#addMechanismModalForm");
                             }
 
                             document.getElementById('add-level-form').reset();
@@ -138,11 +142,12 @@ use app\modules\main\models\Lang;
     <?php $form = ActiveForm::begin([
         'id' => 'add-level-form',
         'enableClientValidation' => true,
+        'errorSummaryCssClass' => 'error-summary',
     ]); ?>
 
         <?= $form->errorSummary($level_model); ?>
 
-        <?= $form->field($level_model, 'name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($level_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
         <?= $form->field($level_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
 
@@ -155,14 +160,7 @@ use app\modules\main\models\Lang;
             ]
         ]); ?>
 
-        <?= Button::widget([
-            'label' => Yii::t('app', 'BUTTON_CANCEL'),
-            'options' => [
-                'class' => 'btn-danger',
-                'style' => 'margin:5px',
-                'data-dismiss'=>'modal'
-            ]
-        ]); ?>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
     <?php ActiveForm::end(); ?>
 
@@ -173,7 +171,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно изменения нового уровня -->
 <?php Modal::begin([
     'id' => 'editLevelModalForm',
-    'header' => '<h3>' . Yii::t('app', 'LEVEL_EDIT_LEVEL') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'LEVEL_EDIT_LEVEL') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -232,11 +230,12 @@ use app\modules\main\models\Lang;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-level-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($level_model); ?>
 
-<?= $form->field($level_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($level_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($level_model, 'description')->textarea(['maxlength' => true, 'rows'=>6]) ?>
 
@@ -249,14 +248,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -267,7 +259,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно удаления уровня -->
 <?php Modal::begin([
     'id' => 'deleteLevelModalForm',
-    'header' => '<h3>' . Yii::t('app', 'LEVEL_DELETE_LEVEL') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'LEVEL_DELETE_LEVEL') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -463,16 +455,16 @@ use app\modules\main\models\Lang;
                         var nav_add_event = document.getElementById('nav_add_event');
                         var nav_add_mechanism = document.getElementById('nav_add_mechanism');
                         if ((data['level_count'] == 1) && (data['the_initial_event_is'] != 0)){
-                            nav_add_event.className = 'disabled';
-                            nav_add_event.setAttribute("data-target", "");
+                            nav_add_event.className = 'disabled dropdown-item';
+                            nav_add_event.setAttribute("data-bs-target", "");
                         }
                         if (data['level_count'] < 1){
-                            nav_add_event.className = 'disabled';
-                            nav_add_event.setAttribute("data-target", "");
+                            nav_add_event.className = 'disabled dropdown-item';
+                            nav_add_event.setAttribute("data-bs-target", "");
                         }
                         if (data['level_count'] < 2){
-                            nav_add_mechanism.className = 'disabled';
-                            nav_add_mechanism.setAttribute("data-target", "");
+                            nav_add_mechanism.className = 'disabled dropdown-item';
+                            nav_add_mechanism.setAttribute("data-bs-target", "");
                         }
 
                         $.pjax.reload({container: '#pjax_level_editor'});
@@ -520,14 +512,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -538,7 +523,7 @@ use app\modules\main\models\Lang;
 <!-- Модальное окно перемещения нового уровня -->
 <?php Modal::begin([
     'id' => 'moveLevelModalForm',
-    'header' => '<h3>' . Yii::t('app', 'LEVEL_MOVING_LEVEL') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'LEVEL_MOVING_LEVEL') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -629,7 +614,7 @@ use app\modules\main\models\Lang;
 
 
                             instance.makeSource(node, {
-                                filter: ".ep",
+                                filter: ".fa-share",
                                 anchor: anchor_bottom,
                             });
 
@@ -772,14 +757,7 @@ use app\modules\main\models\Lang;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

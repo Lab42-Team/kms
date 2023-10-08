@@ -42,6 +42,7 @@ return [
     'NAV_DIAGRAMS' => 'Diagrams',
     'NAV_DIAGRAM' => 'Diagram',
     'NAV_BACK_LIST' => 'Back to the list',
+    'NAV_VIRTUAL_ASSISTANTS' => 'Virtual assistants',
     'NAV_USERS' => 'Users',
 
     'NAV_ADD' => 'Add',
@@ -49,11 +50,14 @@ return [
     'NAV_ADD_EVENT' => 'Event',
     'NAV_ADD_MECHANISM' => 'Mechanism',
     'NAV_ADD_STATE' => 'State',
+    'NAV_ADD_START' => 'Start',
+    'NAV_ADD_END' => 'End',
 
     'NAV_IMPORT' => 'Import',
     'NAV_EXPORT' => 'Export',
     'NAV_VERIFY' => 'Verify',
     'NAV_ALIGNMENT' => 'Alignment',
+    'NAV_UNLOAD_DECISION_TABLE' => 'Unload decision table',
 
     /* Пункты правого меню */
     'SIDE_NAV_POSSIBLE_ACTIONS' => 'Possible actions',
@@ -85,6 +89,8 @@ return [
     'BUTTON_UPLOAD' => 'Upload',
     'BUTTON_UPLOAD_ONTOLOGY' => 'Upload ontology',
     'BUTTON_CONVERT' => 'Convert',
+    'BUTTON_COPY' => 'Copy',
+    'BUTTON_DECISION_TABLE' => 'Upload decision table',
 
     /* Общие сообщения об ошибках */
     'ERROR_MESSAGE_PAGE_NOT_FOUND' => 'Page not found.',
@@ -135,6 +141,7 @@ return [
     'DIAGRAMS_PAGE_UPLOAD_ONTOLOGY' => 'Upload ontology',
     'DIAGRAMS_PAGE_CONVERT_ONTOLOGY' => 'Convert ontology',
     'DIAGRAMS_PAGE_CREATE_FROM_TEMPLATE' => 'Create a chart from a template',
+    'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE' => 'Upload decision table',
     /* Сообщения на страницах администрирования диаграмм */
     'DIAGRAMS_PAGE_MESSAGE_CREATE_DIAGRAM' => 'You have successfully created a new diagram.',
     'DIAGRAMS_PAGE_MESSAGE_UPDATED_DIAGRAM' => 'You have successfully updated diagram.',
@@ -142,6 +149,10 @@ return [
     'DIAGRAMS_PAGE_MESSAGE_IMPORT_DIAGRAM' => 'You have successfully imported diagram.',
     'DIAGRAMS_PAGE_MESSAGE_WARNING_BEFORE_UPLOAD_ONTOLOGY' => 'Attention! All previous diagram elements will be deleted.',
     'DIAGRAMS_PAGE_MESSAGE_UPLOAD_ONTOLOGY' => 'You have successfully uploaded ontology.',
+    'DIAGRAMS_PAGE_MESSAGE_UPLOAD_DECISION_TABLE' => 'You have successfully uploaded decision table.',
+
+    'DIAGRAMS_PAGE_UPLOAD_DECISION_TABLE_TEXT' => 'Select a file in CSV format and UTF-8 encoding.',
+    'DIAGRAMS_PAGE_MESSAGE_INVALID_ENCODING' => 'File encoding does not match UTF-8 encoding.',
 
     /* Диаграмма созданная из шаблона */
     'DIAGRAM_CREATED_FROM' => 'Chart created from ',
@@ -153,6 +164,19 @@ return [
     'CONVERT_ONTOLOGY_PAGE_SELECT_ALL_CLASSES' => 'Select all classes',
     /* Сообщения на странице импорта онтологии */
     'CONVERT_ONTOLOGY_PAGE_MESSAGE_CONVERTED_ONTOLOGY' => 'You have successfully converted OWL ontology to event tree diagram.',
+
+    /* Страница виртуальных ассистентов */
+    'VIRTUAL_ASSISTANT_PAGE_VIRTUAL_ASSISTANT' => 'Virtual assistant',
+    'VIRTUAL_ASSISTANT_PAGE_VIRTUAL_ASSISTANTS' => 'Virtual assistants',
+    'VIRTUAL_ASSISTANT_PAGE_CREATE_VIRTUAL_ASSISTANT' => 'Create virtual assistant',
+    'VIRTUAL_ASSISTANT_PAGE_VIEW_VIRTUAL_ASSISTANT' => 'View virtual assistant',
+    'VIRTUAL_ASSISTANT_PAGE_UPDATE_VIRTUAL_ASSISTANT' => 'Update virtual assistant',
+    'VIRTUAL_ASSISTANT_PAGE_DELETE_VIRTUAL_ASSISTANT' => 'Delete virtual assistant',
+    'VIRTUAL_ASSISTANT_PAGE_MODAL_FORM_TEXT' => 'Are you sure that you want to delete this virtual assistant?',
+    /* Сообщения на страницах администрирования виртуальных ассистентов */
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_CREATE_VIRTUAL_ASSISTANT' => 'You have successfully created a new virtual assistant.',
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_UPDATED_VIRTUAL_ASSISTANT' => 'You have successfully updated virtual assistant.',
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_DELETED_VIRTUAL_ASSISTANT' => 'You have successfully deleted virtual assistant.',
 
     /* Страница ошибки */
     'ERROR_PAGE_TEXT_ONE' => 'The above error occurred while the Web server was processing your request.',
@@ -220,6 +244,7 @@ return [
     'USER_MODEL_EMAIL' => 'E-mail',
     /* Сообщения модели User */
     'USER_MODEL_MESSAGE_USERNAME' => 'This username has already been taken.',
+    'USER_MODEL_MESSAGE_FULL_NAME' => 'Specify correct full name.',
     'USER_MODEL_MESSAGE_UPDATED_YOUR_DETAILS' => 'You have successfully changed your details.',
     'USER_MODEL_MESSAGE_UPDATED_YOUR_PASSWORD' => 'You have successfully changed password.',
 
@@ -382,12 +407,61 @@ return [
     'TRANSITION_PROPERTY_MODEL_NOT_EQUAL_OPERATOR' => '≠',
     'TRANSITION_PROPERTY_MODEL_APPROXIMATELY_EQUAL_OPERATOR' => '≈',
 
+    /* StartToEnd */
+    'START_TO_END_MODEL_ID' => 'ID',
+    'START_TO_END_MODEL_CREATED_AT' => 'Created at',
+    'START_TO_END_MODEL_UPDATED_AT' => 'Updated at',
+    'START_TO_END_MODEL_TYPE' => 'Type',
+    'START_TO_END_MODEL_INDENT_X' => 'Indent X',
+    'START_TO_END_MODEL_INDENT_Y' => 'Indent Y',
+    'START_TO_END_MODEL_DIAGRAM' => 'Diagram',
+    /* Значения типов */
+    'START_TO_END_MODEL_START_TYPE' => 'Start',
+    'START_TO_END_MODEL_END_TYPE' => 'End',
+
+    /* State connection */
+    'STATE_CONNECTION_MODEL_ID' => 'ID',
+    'STATE_CONNECTION_MODEL_CREATED_AT' => 'Created at',
+    'STATE_CONNECTION_MODEL_UPDATED_AT' => 'Updated at',
+    'STATE_CONNECTION_MODEL_START_TO_END' => 'Start To End',
+    'STATE_CONNECTION_MODEL_STATE' => 'State',
+
+    /* Virtual assistant */
+    'VIRTUAL_ASSISTANT_MODEL_ID' => 'ID',
+    'VIRTUAL_ASSISTANT_MODEL_CREATED_AT' => 'Created at',
+    'VIRTUAL_ASSISTANT_MODEL_UPDATED_AT' => 'Updated at',
+    'VIRTUAL_ASSISTANT_MODEL_NAME' => 'Name',
+    'VIRTUAL_ASSISTANT_MODEL_DESCRIPTION' => 'Description',
+    'VIRTUAL_ASSISTANT_MODEL_STATUS' => 'Status',
+    'VIRTUAL_ASSISTANT_MODEL_AUTHOR' => 'Author',
+    'VIRTUAL_ASSISTANT_MODEL_DIALOGUE_MODEL' => 'Dialogue model',
+    'VIRTUAL_ASSISTANT_MODEL_KNOWLEDGE_BASE_MODEL' => 'Knowledge base model',
+    /* Значения полей статусов */
+    'VIRTUAL_ASSISTANT_MODEL_PUBLIC_STATUS' => 'Public',
+    'VIRTUAL_ASSISTANT_MODEL_PRIVATE_STATUS' => 'Private',
+
+    'GENERATOR_FORM_PLATFORM' => 'Platform:',
+    'GENERATOR_FORM_PLATFORM_AI_MYLOGIC' => 'AI MyLogic',
+    /* Значения шагов */
+    'STEP_1' => 'Step 1: Modeling',
+    'STEP_2' => 'Step 2: Specialization',
+    'STEP_3' => 'Step 3: Codes and specifications',
+    /* Значения кнопок */
+    'BUTTON_DIALOGUE_MODEL' => 'Dialogue model',
+    'BUTTON_KNOWLEDGE_BASE_MODEL' => 'Knowledge base model',
+    'BUTTON_COMMUNICATION_MODEL' => 'Communication model',
+    'BUTTON_GENERATE_VA' => 'Generate virtual assistant',
+    'BUTTON_GENERATE' => 'Generate',
+    'BUTTON_DOWNLOAD_JSON_1' => 'Download Json file',
+    'BUTTON_DOWNLOAD_CSV' => 'Download CSV file',
+    'BUTTON_DOWNLOAD_JSON_2' => 'Download Json file',
+
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'File name',
     'MESSAGE_CLEANING' => 'When importing all chart elements are removed',
     'MESSAGE_IMPORT_ERROR_INCOMPATIBLE_MODE' => 'Imported file mode does not match chart mode',
 
-    /* Заголовки модальных форм EETE*/
+    /* Заголовки модальных форм EETE */
     'LEVEL_ADD_NEW_LEVEL' => 'Add new level',
     'LEVEL_EDIT_LEVEL' => 'Level change',
     'LEVEL_DELETE_LEVEL' => 'Level delete',
@@ -398,6 +472,7 @@ return [
     'EVENT_ADD_NEW_EVENT' => 'Add new event',
     'EVENT_EDIT_EVENT' => 'Event change',
     'EVENT_DELETE_EVENT' => 'Delete event',
+    'EVENT_COPY_EVENT' => 'Copy event',
     'EVENT_ADD_NEW_COMMENT' => 'Add new event comment',
     'EVENT_EDIT_COMMENT' => 'Change event comment',
     'EVENT_DELETE_COMMENT' => 'Delete event comment',
@@ -411,11 +486,13 @@ return [
     'VALIDATION' => 'Validation',
     'DELETE_RELATIONSHIP' => 'Deleting connection',
     'IMPORT_FORM' => 'Import',
+    'ERROR_COPY_EVENT' => 'Event copy error',
 
-    /* Заголовки модальных форм STDE*/
+    /* Заголовки модальных форм STDE */
     'STATE_ADD_NEW_STATE' => 'Add new state',
     'STATE_EDIT_STATE' => 'State change',
     'STATE_DELETE_STATE' => 'State delete',
+    'STATE_COPY_STATE' => 'State copy',
     'STATE_PROPERTY_ADD_NEW_STATE_PROPERTY' => 'Add new state property',
     'STATE_PROPERTY_EDIT_STATE_PROPERTY' => 'State property change',
     'STATE_PROPERTY_DELETE_STATE_PROPERTY' => 'State property delete',
@@ -425,22 +502,28 @@ return [
     'TRANSITION_PROPERTY_ADD_NEW_TRANSITION_PROPERTY' => 'Add new transition property',
     'TRANSITION_PROPERTY_EDIT_TRANSITION_PROPERTY' => 'Transition property change',
     'TRANSITION_PROPERTY_DELETE_TRANSITION_PROPERTY' => 'Transition property delete',
+    'START_TO_END_DELETE_START' => 'Start delete',
+    'START_TO_END_DELETE_END' => 'End delete',
+    'CONNECTION_DELETE_CONNECTION' => 'Connection delete',
 
-    /* Cообщения EETE*/
+    /* Cообщения EETE */
     'MAXIMUM_CONNECTIONS' => 'Maximum connections ',
     'MECHANISMS_SHOULD_NOT_BE_INTERCONNECTED' => 'The mechanisms should not be interconnected',
     'ELEMENTS_NOT_BE_ASSOCIATED_WITH_OTHER_ELEMENTS_HIGHER_LEVEL' => 'Elements must not be associated with other elements at a higher level',
     'LEVEL_MUST_BEGIN_WITH_MECHANISM' => 'The level must begin with a mechanism',
     'INITIAL_EVENT_SHOULD_NOT_BE_INCOMING_CONNECTIONS' => 'In the initial event should not be incoming connections',
-
+    'YOU_CANNOT_PLACE_MORE_THAN_ONE_EVENT_PER_ENTRY_LEVEL' => 'You cannot place more than one event per entry level',
     'ALERT_CHANGE_LEVEL' => 'When you change the level, the connection will be deleted!',
     'ALERT_INITIAL_LEVEL' => 'The initial level is deleted, so the mechanisms at the next level will be deleted!',
     'ALERT_DELETE_LEVEL' => 'When deleting, all the elements on the level will be deleted!',
 
-    /* Cообщения STDE*/
+    /* Cообщения STDE */
     'THESE_ELEMENTS_ARE_ALREADY_CONNECTED' => 'These elements are already connected',
+    'START_AND_END_CANNOT_BE_LINKED' => 'Start and end elements cannot be linked',
+    'DELETE_CONNECTION_TEXT' => 'Are you sure you want to delete the connection?',
+    'CONNECTION_IS_ALREADY_THERE' => 'The connection between these elements already exists',
 
-    /* Техсты модальных форм EETE*/
+    /* Техсты модальных форм EETE */
     'RELATIONSHIP_PAGE_DELETE_CONNECTION_TEXT' => 'Are you sure you want to delete the connection?',
     'DELETE_LEVEL_TEXT' => 'Are you sure you want to delete the level?',
     'DELETE_EVENT_TEXT' => 'Are you sure you want to delete the event?',
@@ -448,21 +531,23 @@ return [
     'DELETE_PARAMETER_TEXT' => 'Are you sure you want to delete the parameter?',
     'DELETE_COMMENT_TEXT' => 'Are you sure you want to delete the comment?',
 
-    /* Техсты модальных форм STDE*/
+    /* Техсты модальных форм STDE */
     'DELETE_STATE_TEXT' => 'Are you sure you want to delete the state?',
     'DELETE_STATE_PROPERTY_TEXT' => 'Are you sure you want to delete the state property?',
     'DELETE_TRANSITION_TEXT' => 'Are you sure you want to delete the transition?',
     'DELETE_TRANSITION_PROPERTY_TEXT' => 'Are you sure you want to delete the transition property?',
+    'DELETE_START_TEXT' => 'Are you sure you want to delete the start?',
+    'DELETE_END_TEXT' => 'Are you sure you want to delete the end?',
 
     'CONNECTION_DELETE' => 'Delete',
 
-    /* Техсты сообщений модальных форм EETE*/
+    /* Техсты сообщений модальных форм EETE */
     'MESSAGE_PROBABILITY_ALLOWED_ONLY_UP_TO_HUNDREDTHS' => 'You can enter a number from 0 to 1, and only up to hundredths',
     'MESSAGE_ELEMENT_NAME_ALREADY_ON_DIAGRAM' => 'An element with this name is already on the diagram',
     'MESSAGE_PARAMETER_NAME_ALREADY_IN_EVENT' => 'The event already has a parameter with this name',
     'MESSAGE_LEVEL_NAME_ALREADY_ON_DIAGRAM' => 'The level with this name is already on the diagram',
 
-    /* Техсты сообщений модальных форм STDE*/
+    /* Техсты сообщений модальных форм STDE */
     'MESSAGE_STATE_PROPERTY_ALREADY_IN_STATE' => 'The state already has a property with the same name, operator and value.',
     'MESSAGE_TRANSITION_PROPERTY_ALREADY_IN_TRANSITION' => 'The transition already has a condition with the same name, operator and value.',
 

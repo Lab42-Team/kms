@@ -1,8 +1,8 @@
 <?php
 
-use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
 use app\modules\stde\models\TransitionProperty;
 
@@ -13,7 +13,7 @@ use app\modules\stde\models\TransitionProperty;
 <!-- Модальное окно добавления нового перехода -->
 <?php Modal::begin([
     'id' => 'addTransitionModalForm',
-    'header' => '<h3>' . Yii::t('app', 'TRANSITION_ADD_NEW_TRANSITION') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'TRANSITION_ADD_NEW_TRANSITION') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -42,7 +42,7 @@ use app\modules\stde\models\TransitionProperty;
                         $("#addTransitionModalForm").modal("hide");
 
                         //присваиваем наименование и свойства новой связи
-                        instance.select(current_connection).setLabel({
+                        current_connection.setLabel({
                             label: data['name'],
                             location: 0.5, //расположение посередине
                             cssClass: "transitions-style",
@@ -50,7 +50,7 @@ use app\modules\stde\models\TransitionProperty;
                         });
 
                         //создаем параметр для новой связи id_transition куда прописываем название связи transition_" +  data['id'] (как замена id)
-                        instance.select(current_connection).setParameter('id_transition',"transition_connect_" +  data['id']);
+                        current_connection.setParameter('id_transition',"transition_connect_" +  data['id']);
 
                         //создание div переходов и условий
                         var div_visual_diagram_field = document.getElementById('visual_diagram_field');
@@ -75,24 +75,28 @@ use app\modules\stde\models\TransitionProperty;
                         div_del.id = 'transition_del_' + data['id'];
                         div_del.className = 'del-transition glyphicon-trash' ;
                         div_del.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del.innerHTML = '<i class="fa-solid fa-trash"></i>';
                         div_content_transition.append(div_del);
 
                         var div_edit = document.createElement('div');
                         div_edit.id = 'transition_edit_' + data['id'];
                         div_edit.className = 'edit-transition glyphicon-pencil' ;
                         div_edit.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit.innerHTML = '<i class="fa-solid fa-pen"></i>';
                         div_content_transition.append(div_edit);
 
                         var div_hide = document.createElement('div');
                         div_hide.id = 'transition_hide_' + data['id'];
                         div_hide.className = 'hide-transition glyphicon-eye-close' ;
                         div_hide.title = '<?php echo Yii::t('app', 'BUTTON_HIDE'); ?>' ;
+                        div_hide.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
                         div_content_transition.append(div_hide);
 
                         var div_add_property = document.createElement('div');
                         div_add_property.id = 'transition_add_property_' + data['id'];
                         div_add_property.className = 'add-transition-property glyphicon-plus' ;
                         div_add_property.title = '<?php echo Yii::t('app', 'BUTTON_ADD'); ?>';
+                        div_add_property.innerHTML = '<i class="fa-solid fa-plus"></i>';
                         div_content_transition.append(div_add_property);
 
                         //добавляем div разделительной линии
@@ -115,12 +119,14 @@ use app\modules\stde\models\TransitionProperty;
                         div_edit_transition_property.id = 'transition_property_edit_' + data['id_property'];
                         div_edit_transition_property.className = 'edit-transition-property glyphicon-pencil';
                         div_edit_transition_property.title = '<?php echo Yii::t('app', 'BUTTON_EDIT'); ?>' ;
+                        div_edit_transition_property.innerHTML = '<i class="fa-solid fa-pen"></i>';
                         div_button_transition_property.append(div_edit_transition_property);
 
                         var div_del_transition_property = document.createElement('div');
                         div_del_transition_property.id = 'transition_property_del_' + data['id_property'];
                         div_del_transition_property.className = 'del-transition-property glyphicon-trash';
                         div_del_transition_property.title = '<?php echo Yii::t('app', 'BUTTON_DELETE'); ?>' ;
+                        div_del_transition_property.innerHTML = '<i class="fa-solid fa-trash"></i>';
                         div_button_transition_property.append(div_del_transition_property);
 
 
@@ -172,12 +178,13 @@ use app\modules\stde\models\TransitionProperty;
 <?php $form = ActiveForm::begin([
     'id' => 'add-transition-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 
 <?= $form->errorSummary($transition_model); ?>
 
-<?= $form->field($transition_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($transition_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -186,13 +193,13 @@ use app\modules\stde\models\TransitionProperty;
 
 <div class="line">
 
-<?= $form->field($transition_model, 'name_property')->textInput(['maxlength' => true]) ?>
+<?= $form->field($transition_model, 'name_property')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($transition_model, 'operator_property')->
     dropDownList(TransitionProperty::getOperatorArray(),['style'=>'width:100px;margin-left:40%'])->
         label(Yii::t('app', 'TRANSITION_MODEL_OPERATOR_PROPERTY'),['style'=>'margin-left:40%'])?>
 
-<?= $form->field($transition_model, 'value_property')->textInput(['maxlength' => true]) ?>
+<?= $form->field($transition_model, 'value_property')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($transition_model, 'description_property')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -207,14 +214,7 @@ use app\modules\stde\models\TransitionProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -225,7 +225,7 @@ use app\modules\stde\models\TransitionProperty;
 <!-- Модальное окно изменения перехода -->
 <?php Modal::begin([
     'id' => 'editTransitionModalForm',
-    'header' => '<h3>' . Yii::t('app', 'TRANSITION_EDIT_TRANSITION') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'TRANSITION_EDIT_TRANSITION') . '</h3>',
 ]); ?>
 
 <!-- Скрипт модального окна -->
@@ -294,11 +294,12 @@ use app\modules\stde\models\TransitionProperty;
 <?php $form = ActiveForm::begin([
     'id' => 'edit-transition-form',
     'enableClientValidation' => true,
+    'errorSummaryCssClass' => 'error-summary',
 ]); ?>
 
 <?= $form->errorSummary($transition_model); ?>
 
-<?= $form->field($transition_model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($transition_model, 'name')->textarea(['maxlength' => true, 'rows'=>1]) ?>
 
 <?= $form->field($transition_model, 'description')->textarea(['maxlength' => true, 'rows'=>3]) ?>
 
@@ -320,14 +321,7 @@ use app\modules\stde\models\TransitionProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 
@@ -338,7 +332,7 @@ use app\modules\stde\models\TransitionProperty;
 <!-- Модальное окно удаления перехода -->
 <?php Modal::begin([
     'id' => 'deleteTransitionModalForm',
-    'header' => '<h3>' . Yii::t('app', 'TRANSITION_DELETE_TRANSITION') . '</h3>',
+    'title' => '<h3>' . Yii::t('app', 'TRANSITION_DELETE_TRANSITION') . '</h3>',
 ]); ?>
 
     <!-- Скрипт модального окна -->
@@ -377,6 +371,7 @@ use app\modules\stde\models\TransitionProperty;
                             })[ 0 ];
 
                             //удаление связи
+                            removed_transition = true;
                             instance.deleteConnection(connection);
 
                             //удалена запись в массиве состояний
@@ -424,14 +419,7 @@ use app\modules\stde\models\TransitionProperty;
     ]
 ]); ?>
 
-<?= Button::widget([
-    'label' => Yii::t('app', 'BUTTON_CANCEL'),
-    'options' => [
-        'class' => 'btn-danger',
-        'style' => 'margin:5px',
-        'data-dismiss'=>'modal'
-    ]
-]); ?>
+<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?php echo Yii::t('app', 'BUTTON_CANCEL')?></button>
 
 <?php ActiveForm::end(); ?>
 

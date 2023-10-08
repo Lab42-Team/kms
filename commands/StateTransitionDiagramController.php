@@ -10,6 +10,8 @@ use app\modules\stde\models\State;
 use app\modules\stde\models\StateProperty;
 use app\modules\stde\models\Transition;
 use app\modules\stde\models\TransitionProperty;
+use app\modules\stde\models\StartToEnd;
+use app\modules\stde\models\StateConnection;
 
 class StateTransitionDiagramController extends Controller
 {
@@ -41,15 +43,31 @@ class StateTransitionDiagramController extends Controller
                 $diagram->author = $user->id;
                 $this->log($diagram->save());
 
+
+                $start = new StartToEnd();
+                $start->type = StartToEnd::START_TYPE;
+                $start->indent_x = '0';
+                $start->indent_y = '100';
+                $start->diagram = $diagram->id;
+                $this->log($start->save());
+                $start0 = $start->id;
+
+
                 $state = new State();
                 $state->name = 'Состояние инициирующее';
                 $state->type = State::INITIAL_STATE_TYPE;
                 $state->description = 'Описание инициирующего состояния';
-                $state->indent_x = '0';
+                $state->indent_x = '100';
                 $state->indent_y = '60';
                 $state->diagram = $diagram->id;
                 $this->log($state->save());
                 $state0 = $state->id;
+
+
+                $state_connection = new StateConnection();
+                $state_connection->start_to_end = $start0;
+                $state_connection->state = $state0;
+                $this->log($state_connection->save());
 
 
                     $state = new StateProperty();
@@ -73,7 +91,7 @@ class StateTransitionDiagramController extends Controller
                 $state->name = 'Состояние 1';
                 $state->type = State::COMMON_STATE_TYPE;
                 $state->description = 'Описание состояния 1';
-                $state->indent_x = '250';
+                $state->indent_x = '350';
                 $state->indent_y = '60';
                 $state->diagram = $diagram->id;
                 $this->log($state->save());
@@ -99,7 +117,7 @@ class StateTransitionDiagramController extends Controller
                 $state->name = 'Состояние 2';
                 $state->type = State::COMMON_STATE_TYPE;
                 $state->description = 'Описание состояния 2';
-                $state->indent_x = '500';
+                $state->indent_x = '600';
                 $state->indent_y = '60';
                 $state->diagram = $diagram->id;
                 $this->log($state->save());
@@ -177,6 +195,20 @@ class StateTransitionDiagramController extends Controller
                         $transition_property->transition = $transition2;
                         $this->log($transition_property->save());
 
+
+                $end = new StartToEnd();
+                $end->type = StartToEnd::END_TYPE;
+                $end->indent_x = '850';
+                $end->indent_y = '100';
+                $end->diagram = $diagram->id;
+                $this->log($end->save());
+                $end0 = $end->id;
+
+                $state_connection = new StateConnection();
+                $state_connection->start_to_end = $end0;
+                $state_connection->state = $state2;
+                $this->log($state_connection->save());
+
             } else {
                 $this->stdout('The diagram is created. - - - - - - - -', Console::FG_GREEN, Console::BOLD);
             }
@@ -194,22 +226,38 @@ class StateTransitionDiagramController extends Controller
                 $this->log($diagram->save());
 
 
+                $start = new StartToEnd();
+                $start->type = StartToEnd::START_TYPE;
+                $start->indent_x = '550';
+                $start->indent_y = '0';
+                $start->diagram = $diagram->id;
+                $this->log($start->save());
+                $start0 = $start->id;
+
+
                 $state = new State();
                 $state->name = 'Подсоедините аэродромный источник электрического питания';
                 $state->type = State::INITIAL_STATE_TYPE;
                 $state->description = '';
                 $state->indent_x = '500';
-                $state->indent_y = '50';
+                $state->indent_y = '70';
                 $state->diagram = $diagram->id;
                 $this->log($state->save());
                 $state0 = $state->id;
+
+
+                $state_connection = new StateConnection();
+                $state_connection->start_to_end = $start0;
+                $state_connection->state = $state0;
+                $this->log($state_connection->save());
+
 
                 $state = new State();
                 $state->name = 'Выполните включение системы электронной индикации кабины экипажа';
                 $state->type = State::COMMON_STATE_TYPE;
                 $state->description = '';
                 $state->indent_x = '500';
-                $state->indent_y = '250';
+                $state->indent_y = '270';
                 $state->diagram = $diagram->id;
                 $this->log($state->save());
                 $state1 = $state->id;
@@ -414,6 +462,20 @@ class StateTransitionDiagramController extends Controller
                 $state->diagram = $diagram->id;
                 $this->log($state->save());
                 $state21 = $state->id;
+
+
+                $end = new StartToEnd();
+                $end->type = StartToEnd::END_TYPE;
+                $end->indent_x = '550';
+                $end->indent_y = '3050';
+                $end->diagram = $diagram->id;
+                $this->log($end->save());
+                $end0 = $end->id;
+
+                $state_connection = new StateConnection();
+                $state_connection->start_to_end = $end0;
+                $state_connection->state = $state21;
+                $this->log($state_connection->save());
 
 
                     $transition = new Transition();

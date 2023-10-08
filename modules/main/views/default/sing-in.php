@@ -1,11 +1,11 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form yii\bootstrap5\ActiveForm */
 /* @var $model app\modules\main\models\LoginForm */
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 $this->title = Yii::t('app', 'SIGN_IN_PAGE_TITLE');
 $this->params['breadcrumbs'][] = $this->title;

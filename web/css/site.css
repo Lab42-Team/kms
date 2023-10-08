@@ -14,18 +14,21 @@ html, body {
 }
 
 .footer {
-    height: 60px;
     background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
+    font-size: .9em;
+    height: 60px;
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 /* Language images */
 .icon-lang {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     display: inline-block;
-    vertical-align: middle;
     margin: 0 3px 0 0;
 }
 
@@ -39,38 +42,44 @@ html, body {
 
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
+    content: '';
+    left: 3px;
     display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    padding-left: 5px;
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    margin: 4px 4px 2px 4px;
+    background: transparent;
 }
 
 a.asc:after {
-    content: "\e151";
+    border-bottom: solid 7px #212529;
+    border-top-width: 0;
 }
 
 a.desc:after {
-    content: "\e152";
+    border-top: solid 7px #212529;
+    border-bottom-width: 0;
 }
 
 .sort-numerical a.asc:after {
-    content: "\e153";
+    border-bottom: solid 7px #212529;
+    border-top-width: 0;
 }
 
 .sort-numerical a.desc:after {
-    content: "\e154";
+    border-top: solid 7px #212529;
+    border-bottom-width: 0;
 }
 
 .sort-ordinal a.asc:after {
-    content: "\e155";
+    border-bottom: solid 7px #212529;
+    border-top-width: 0;
 }
 
 .sort-ordinal a.desc:after {
-    content: "\e156";
+    border-top: solid 7px #212529;
+    border-bottom-width: 0;
 }
 
 .grid-view th {
