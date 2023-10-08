@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('<i class="fa-solid fa-table"></i> ' .
-            Yii::t('app', 'BUTTON_GENERATE'), ['generate', 'id' => $model->id], ['class' => 'btn btn-success']
+            Yii::t('app', 'BUTTON_GENERATE_VA'), ['generate', 'id' => $model->id], ['class' => 'btn btn-success']
         ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> ' .
             Yii::t('app', 'BUTTON_UPDATE'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

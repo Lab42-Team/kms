@@ -85,8 +85,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('<i class="fa-solid fa-table"></i>',
                             ['generate', 'id' => $model->id],
                             [
-                                'title' => Yii::t('app', 'BUTTON_GENERATE'),
-                                'aria-label' => Yii::t('app', 'BUTTON_GENERATE')
+                                'title' => Yii::t('app', 'BUTTON_GENERATE_VA'),
+                                'aria-label' => Yii::t('app', 'BUTTON_GENERATE_VA')
                             ]
                         );
                     },
