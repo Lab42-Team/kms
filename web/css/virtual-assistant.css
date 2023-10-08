@@ -1,5 +1,5 @@
 .step {
-    height: 450px;
+    height: 350px;
     width: 95%;
     margin: auto;
     border:2px solid #337ab7;
@@ -11,8 +11,8 @@
 
 
 .button {
-    height: 100px;
-    width: 80%;
+    height: 68px;
+    width: 61%;
     padding-top: 20px;
 }
 

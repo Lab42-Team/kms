@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'headerOptions' => ['class' => 'action-column'],
-                'template' => '{view} {update} {delete} {generate}',
+                'template' => '{generate} {view} {update} {delete}',
                 'buttons' => [
                     'generate' => function ($url, $model, $key) {
                         return Html::a('<i class="fa-solid fa-table"></i>',

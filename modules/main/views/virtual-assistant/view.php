@@ -21,6 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a('<i class="fa-solid fa-table"></i> ' .
+            Yii::t('app', 'BUTTON_GENERATE'), ['generate', 'id' => $model->id], ['class' => 'btn btn-success']
+        ) ?>
         <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> ' .
             Yii::t('app', 'BUTTON_UPDATE'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('<i class="fa-solid fa-trash"></i> ' .
@@ -29,9 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'data-bs-toggle' => 'modal',
             'data-bs-target' => '#removeVirtualAssistantModalForm'
         ]) ?>
-        <?= Html::a('<i class="fa-solid fa-table"></i> ' .
-            Yii::t('app', 'BUTTON_GENERATE'), ['generate', 'id' => $model->id], ['class' => 'btn btn-success']
-        ) ?>
+
     </p>
 
     <?= DetailView::widget([

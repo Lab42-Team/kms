@@ -49,9 +49,9 @@ $this->registerCssFile('/css/virtual-assistant.css', ['position'=>yii\web\View::
                         var button1 = document.getElementById('download-json-button');
                         var button2 = document.getElementById('download-csv-button');
                         var button3 = document.getElementById('download-json2-button');
-                        button1.className = 'btn btn-info button';
-                        button2.className = 'btn btn-info button';
-                        button3.className = 'btn btn-info button';
+                        button1.className = 'btn btn-primary btn-sm button';
+                        button2.className = 'btn btn-primary btn-sm button';
+                        button3.className = 'btn btn-primary btn-sm button';
 
                         document.getElementById('generator-form').reset();
                     } else {
@@ -156,11 +156,12 @@ $this->registerCssFile('/css/virtual-assistant.css', ['position'=>yii\web\View::
             <div class="step">
                 <h5><?php echo Yii::t('app', 'STEP_1');?></h5>
 
-                <?= Html::a(Yii::t('app', 'BUTTON_DIALOGUE_MODEL'), ['open-dialogue-model', 'id' => $model->id], ['class' => 'btn btn-primary button']) ?>
+                <?= Html::a(Yii::t('app', 'BUTTON_DIALOGUE_MODEL'), ['open-dialogue-model', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm button']) ?>
                 <br><br>
-                <?= Html::a(Yii::t('app', 'BUTTON_KNOWLEDGE_BASE_MODEL'), ['open-knowledge-base-model', 'id' => $model->id], ['class' => 'btn btn-primary button']) ?>
+                <?= Html::a(Yii::t('app', 'BUTTON_KNOWLEDGE_BASE_MODEL'), ['open-knowledge-base-model', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm button']) ?>
                 <br><br>
-                <?= Html::a(Yii::t('app', 'BUTTON_COMMUNICATION_MODEL'), ['#', 'id' => $model->id], ['class' => 'btn btn-primary button disabled']) ?>
+                <?= Html::a(Yii::t('app', 'BUTTON_COMMUNICATION_MODEL'), ['#', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm button disabled']) ?>
+
             </div>
         </div>
 
@@ -182,7 +183,7 @@ $this->registerCssFile('/css/virtual-assistant.css', ['position'=>yii\web\View::
                     'label' => Yii::t('app', 'BUTTON_GENERATE'),
                     'options' => [
                         'id' => 'generator-button',
-                        'class' => 'btn btn-success button',
+                        'class' => 'btn btn-success btn-sm button',
                         'style' => 'margin:10px'
                     ]
                 ]); ?>
@@ -200,7 +201,7 @@ $this->registerCssFile('/css/virtual-assistant.css', ['position'=>yii\web\View::
                     'label' => Yii::t('app', 'BUTTON_DOWNLOAD_JSON_1'),
                     'options' => [
                         'id' => 'download-json-button',
-                        'class' => 'btn btn-info button disabled',
+                        'class' => 'btn btn-primary btn-sm button disabled',
                         'style' => 'margin-bottom:20px'
                     ]
                 ]); ?>
@@ -208,7 +209,7 @@ $this->registerCssFile('/css/virtual-assistant.css', ['position'=>yii\web\View::
                     'label' => Yii::t('app', 'BUTTON_DOWNLOAD_CSV'),
                     'options' => [
                         'id' => 'download-csv-button',
-                        'class' => 'btn btn-info button disabled',
+                        'class' => 'btn btn-primary btn-sm button disabled',
                         'style' => 'margin-bottom:20px'
                     ]
                 ]); ?>
@@ -216,7 +217,7 @@ $this->registerCssFile('/css/virtual-assistant.css', ['position'=>yii\web\View::
                     'label' => Yii::t('app', 'BUTTON_DOWNLOAD_JSON_2'),
                     'options' => [
                         'id' => 'download-json2-button',
-                        'class' => 'btn btn-info button disabled',
+                        'class' => 'btn btn-primary btn-sm button disabled',
                         'style' => 'margin-bottom:20px'
                     ]
                 ]); ?>
