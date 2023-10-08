@@ -29,6 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'data-bs-toggle' => 'modal',
             'data-bs-target' => '#removeVirtualAssistantModalForm'
         ]) ?>
+        <?= Html::a('<i class="fa-solid fa-table"></i> ' .
+            Yii::t('app', 'BUTTON_GENERATE'), ['generate', 'id' => $model->id], ['class' => 'btn btn-success']
+        ) ?>
     </p>
 
     <?= DetailView::widget([

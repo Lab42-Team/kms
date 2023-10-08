@@ -189,6 +189,12 @@ class VirtualAssistantController extends Controller
             // Определение полей формы и валидация формы
             if ($generator->load(Yii::$app->request->post()) && $generator->validate()) {
 
+                //проверка есть ли папка
+                $dir = "json";
+                if(!is_dir($dir)) {
+                    mkdir($dir, 0777, true);
+                }
+
                 //Формирование файлов
                 $text1 = 'json1 Платформа: <'. $generator->getPlatformsName() .'> сформировала файл Виртуального ассистента: '. $model->name;
                 $text2 = 'csv Платформа: <'. $generator->getPlatformsName() .'> сформировала файл Виртуального ассистента: '. $model->name;
