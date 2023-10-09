@@ -5,7 +5,7 @@
 
 **Knowledge Modeling System (KMS)** is a web-based application for building different visual diagrams. KMS includes a set of visual editors for modeling domain knowledge in various notations.
 
-KMS is based on PHP 7 and [Yii 2 Framework](http://www.yiiframework.com/).
+KMS is based on PHP 8 and [Yii 2 Framework](http://www.yiiframework.com/).
 
 KMS editors use [jsPlumb Toolkit](https://jsplumbtoolkit.com/), version 2.12.9 for visualization of diagrams.
 
@@ -26,16 +26,17 @@ DIRECTORY STRUCTURE
       messages/           contains internationalization files for English and Russian  
       migrations/         contains all the migrations to create a database
       modules/            contains following modules:
+          api/            contains a controller for accessing the system via RSET API
           eete/           contains main controllers, models and views for the Extended Event Tree Editor (EETE)
           stde/           contains main controllers, models and views for the State Transition Diagram Editor (STDE)
-          main/           contains views for representation main information on diagrams and users
+          main/           contains views for representation main information on diagrams, users and virtual assistants
       web/                contains js-scripts and other web resources
 
 
 REQUIREMENTS
 ------------
 
-The minimum requirement by this project that your Web server supports PHP 7.0, jsPlumb 2.12, PostgreSQL 9.0 or MySQL 8.0
+The minimum requirement by this project that your Web server supports PHP 8.0, jsPlumb 2.12, PostgreSQL 9.0 or MySQL 8.0
 
 
 INSTALLATION
