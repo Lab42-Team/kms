@@ -7,6 +7,7 @@ use yii\bootstrap5\ActiveForm;
 use app\modules\main\models\GeneratorForm;
 use yii\bootstrap5\Button;
 use app\modules\main\models\Lang;
+use yii\bootstrap5\ButtonDropdown;
 
 /** @var yii\web\View $this */
 /** @var app\modules\main\models\VirtualAssistant $model */
@@ -158,10 +159,29 @@ $this->registerCssFile('/css/virtual-assistant.css', ['position'=>yii\web\View::
 
                 <?= Html::a(Yii::t('app', 'BUTTON_DIALOGUE_MODEL'), ['open-dialogue-model', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm button']) ?>
                 <br><br>
-                <?= Html::a(Yii::t('app', 'BUTTON_KNOWLEDGE_BASE_MODEL'), ['open-knowledge-base-model', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm button']) ?>
+                <?= ButtonDropdown::widget([
+                    'label' => Yii::t('app', 'BUTTON_KNOWLEDGE_BASE_MODEL'),
+                    'encodeLabel' => false,
+                    'buttonOptions' => [
+                        'class' => 'btn btn-primary btn-sm button',
+                        'style' => 'white-space: normal',
+                    ],
+                    'dropdown' => [
+                        'items' => $array_knowledge_base_model,
+                    ],
+                ]); ?>
                 <br><br>
-                <?= Html::a(Yii::t('app', 'BUTTON_COMMUNICATION_MODEL'), ['#', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm button disabled']) ?>
-
+                <?= ButtonDropdown::widget([
+                    'label' => Yii::t('app', 'BUTTON_CONVERSATIONAL_INTERFACE_MODEL'),
+                    'encodeLabel' => false,
+                    'buttonOptions' => [
+                        'class' => 'btn btn-primary btn-sm button',
+                        'style' => 'white-space: normal',
+                    ],
+                    'dropdown' => [
+                        'items' => $array_conversational_interface_model,
+                    ],
+                ]); ?>
             </div>
         </div>
 

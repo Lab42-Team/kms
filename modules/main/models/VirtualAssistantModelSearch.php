@@ -4,11 +4,12 @@ namespace app\modules\main\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use app\modules\main\models\VirtualAssistantModel;
 
 /**
- * VirtualAssistantSearch represents the model behind the search form of `app\modules\main\models\VirtualAssistant`.
+ * VirtualAssistantModelSearch represents the model behind the search form of `app\modules\main\models\VirtualAssistantModel`.
  */
-class VirtualAssistantSearch extends VirtualAssistant
+class VirtualAssistantModelSearch extends VirtualAssistantModel
 {
     /**
      * {@inheritdoc}
@@ -16,8 +17,7 @@ class VirtualAssistantSearch extends VirtualAssistant
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'status', 'author'], 'integer'],
-            [['name', 'description'], 'safe'],
+            [['id', 'created_at', 'updated_at', 'dialogue_model', 'target_model', 'type', 'virtual_assistant_id'], 'integer'],
         ];
     }
 
@@ -37,9 +37,9 @@ class VirtualAssistantSearch extends VirtualAssistant
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($id, $params)
     {
-        $query = VirtualAssistant::find();
+        $query = VirtualAssistantModel::find();
 
         // add conditions that should always apply here
 
@@ -60,12 +60,11 @@ class VirtualAssistantSearch extends VirtualAssistant
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'status' => $this->status,
-            'author' => $this->author,
+            'dialogue_model' => $this->dialogue_model,
+            'target_model' => $this->target_model,
+            'type' => $this->type,
+            'virtual_assistant_id' => $id,
         ]);
-
-        $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;
     }

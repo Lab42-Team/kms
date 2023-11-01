@@ -178,6 +178,17 @@ return [
     'VIRTUAL_ASSISTANT_PAGE_MESSAGE_UPDATED_VIRTUAL_ASSISTANT' => 'You have successfully updated virtual assistant.',
     'VIRTUAL_ASSISTANT_PAGE_MESSAGE_DELETED_VIRTUAL_ASSISTANT' => 'You have successfully deleted virtual assistant.',
 
+    /* Страница моделей виртуальных ассистентов */
+    'VIRTUAL_ASSISTANT_PAGE_VIRTUAL_ASSISTANT_MODEL' => 'Model',
+    'VIRTUAL_ASSISTANT_PAGE_CREATE_VIRTUAL_ASSISTANT_MODEL' => 'Create models',
+    'VIRTUAL_ASSISTANT_PAGE_UPDATE_VIRTUAL_ASSISTANT_MODEL' => 'Update model',
+    'VIRTUAL_ASSISTANT_PAGE_DELETE_VIRTUAL_ASSISTANT_MODEL' => 'Delete model',
+    'VIRTUAL_ASSISTANT_PAGE_MODAL_FORM_MODEL_TEXT' => 'Are you sure that you want to delete this virtual assistant model?',
+    /* Сообщения на страницах администрирования моделей виртуальных ассистентов */
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_CREATE_VIRTUAL_ASSISTANT_MODEL' => 'You have successfully created a new virtual assistant model.',
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_UPDATED_VIRTUAL_ASSISTANT_MODEL' => 'You have successfully updated virtual assistant model.',
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_DELETED_VIRTUAL_ASSISTANT_MODEL' => 'You have successfully deleted virtual assistant model.',
+
     /* Страница ошибки */
     'ERROR_PAGE_TEXT_ONE' => 'The above error occurred while the Web server was processing your request.',
     'ERROR_PAGE_TEXT_TWO' => 'Please contact us if you think this is a server error. Thank you.',
@@ -434,11 +445,21 @@ return [
     'VIRTUAL_ASSISTANT_MODEL_DESCRIPTION' => 'Description',
     'VIRTUAL_ASSISTANT_MODEL_STATUS' => 'Status',
     'VIRTUAL_ASSISTANT_MODEL_AUTHOR' => 'Author',
-    'VIRTUAL_ASSISTANT_MODEL_DIALOGUE_MODEL' => 'Dialogue model',
-    'VIRTUAL_ASSISTANT_MODEL_KNOWLEDGE_BASE_MODEL' => 'Knowledge base model',
     /* Значения полей статусов */
     'VIRTUAL_ASSISTANT_MODEL_PUBLIC_STATUS' => 'Public',
     'VIRTUAL_ASSISTANT_MODEL_PRIVATE_STATUS' => 'Private',
+
+    /* Virtual assistant model */
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_ID' => 'ID',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_CREATED_AT' => 'Created at',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_UPDATED_AT' => 'Updated at',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_DIALOGUE_MODEL' => 'Dialogue model',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_TARGET_MODEL' => 'Target model',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_TYPE' => 'Type',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_VIRTUAL_ASSISTANT_ID' => 'Virtual assistant id',
+    /* Значения полей типов */
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_KNOWLEDGE_BASE_MODEL_TYPE' => 'Knowledge base model',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_CONVERSATIONAL_INTERFACE_MODEL_TYPE' => 'Conversational interface model',
 
     'GENERATOR_FORM_PLATFORM' => 'Platform:',
     'GENERATOR_FORM_PLATFORM_AI_MYLOGIC' => 'AI MyLogic',
@@ -449,12 +470,17 @@ return [
     /* Значения кнопок */
     'BUTTON_DIALOGUE_MODEL' => 'Dialogue model',
     'BUTTON_KNOWLEDGE_BASE_MODEL' => 'Knowledge base model',
-    'BUTTON_COMMUNICATION_MODEL' => 'Communication model',
+    'BUTTON_CONVERSATIONAL_INTERFACE_MODEL' => 'Conversational interface model',
     'BUTTON_GENERATE_VA' => 'Generate virtual assistant',
     'BUTTON_GENERATE' => 'Generate',
+    'BUTTON_VIEW_VAM' => 'View',
+    'BUTTON_UPDATE_VAM' => 'Update',
+    'BUTTON_DELETE_VAM' => 'Delete',
     'BUTTON_DOWNLOAD_JSON_1' => 'Download Json file',
     'BUTTON_DOWNLOAD_CSV' => 'Download CSV file',
     'BUTTON_DOWNLOAD_JSON_2' => 'Download Json file',
+
+    'MODELS_NOT_FOUND' => 'Models not found',
 
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'File name',

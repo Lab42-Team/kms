@@ -16,8 +16,6 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $description
  * @property int $status
  * @property int $author
- * @property int $dialogue_model
- * @property int $knowledge_base_model
  *
  * @property User $author0
  * @property Diagram $dialogueModel
@@ -42,17 +40,13 @@ class VirtualAssistant extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'status', 'author', 'dialogue_model', 'knowledge_base_model'], 'required'],
+            [['name', 'status', 'author'], 'required'],
             ['description', 'default', 'value' => null],
-            [['status', 'author', 'dialogue_model', 'knowledge_base_model'], 'integer'],
+            [['status', 'author'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 600],
             [['author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(),
                 'targetAttribute' => ['author' => 'id']],
-            [['dialogue_model'], 'exist', 'skipOnError' => true, 'targetClass' => Diagram::className(),
-                'targetAttribute' => ['dialogue_model' => 'id']],
-            [['knowledge_base_model'], 'exist', 'skipOnError' => true, 'targetClass' => Diagram::className(),
-                'targetAttribute' => ['knowledge_base_model' => 'id']]
         ];
     }
 
@@ -69,8 +63,6 @@ class VirtualAssistant extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_DESCRIPTION'),
             'status' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_STATUS'),
             'author' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_AUTHOR'),
-            'dialogue_model' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_DIALOGUE_MODEL'),
-            'knowledge_base_model' => Yii::t('app', 'VIRTUAL_ASSISTANT_MODEL_KNOWLEDGE_BASE_MODEL'),
         ];
     }
 
@@ -113,25 +105,5 @@ class VirtualAssistant extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'author']);
-    }
-
-    /**
-     * Gets query for [[DialogueModel]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDialogueModel()
-    {
-        return $this->hasOne(Diagram::className(), ['id' => 'dialogue_model']);
-    }
-
-    /**
-     * Gets query for [[KnowledgeBaseModel]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getKnowledgeBaseModel()
-    {
-        return $this->hasOne(Diagram::className(), ['id' => 'knowledge_base_model']);
     }
 }

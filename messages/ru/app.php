@@ -178,6 +178,17 @@ return [
     'VIRTUAL_ASSISTANT_PAGE_MESSAGE_UPDATED_VIRTUAL_ASSISTANT' => 'Вы успешно обновили данный виртуальный ассистент.',
     'VIRTUAL_ASSISTANT_PAGE_MESSAGE_DELETED_VIRTUAL_ASSISTANT' => 'Вы успешно удалили виртуальный ассистент.',
 
+    /* Страница моделей виртуальных ассистентов */
+    'VIRTUAL_ASSISTANT_PAGE_VIRTUAL_ASSISTANT_MODEL' => 'Модель',
+    'VIRTUAL_ASSISTANT_PAGE_CREATE_VIRTUAL_ASSISTANT_MODEL' => 'Добавление моделей',
+    'VIRTUAL_ASSISTANT_PAGE_UPDATE_VIRTUAL_ASSISTANT_MODEL' => 'Изменить модель',
+    'VIRTUAL_ASSISTANT_PAGE_DELETE_VIRTUAL_ASSISTANT_MODEL' => 'Удалить модель',
+    'VIRTUAL_ASSISTANT_PAGE_MODAL_FORM_MODEL_TEXT' => 'Вы уверены, что хотите удалить данную модель?',
+    /* Сообщения на страницах администрирования моделей виртуальных ассистентов */
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_CREATE_VIRTUAL_ASSISTANT_MODEL' => 'Вы успешно создали новую модель виртуального ассистента.',
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_UPDATED_VIRTUAL_ASSISTANT_MODEL' => 'Вы успешно обновили данную модель виртуального ассистента.',
+    'VIRTUAL_ASSISTANT_PAGE_MESSAGE_DELETED_VIRTUAL_ASSISTANT_MODEL' => 'Вы успешно удалили модель виртуального ассистента.',
+
     /* Страница ошибки */
     'ERROR_PAGE_TEXT_ONE' => 'Вышеупомянутая ошибка произошла при обработке веб-сервером вашего запроса.',
     'ERROR_PAGE_TEXT_TWO' => 'Пожалуйста, свяжитесь с нами, если Вы думаете, что это ошибка сервера. Спасибо.',
@@ -434,11 +445,21 @@ return [
     'VIRTUAL_ASSISTANT_MODEL_DESCRIPTION' => 'Описание',
     'VIRTUAL_ASSISTANT_MODEL_STATUS' => 'Статус',
     'VIRTUAL_ASSISTANT_MODEL_AUTHOR' => 'Автор',
-    'VIRTUAL_ASSISTANT_MODEL_DIALOGUE_MODEL' => 'Модель диалога',
-    'VIRTUAL_ASSISTANT_MODEL_KNOWLEDGE_BASE_MODEL' => 'Модель базы знаний',
     /* Значения полей статусов */
     'VIRTUAL_ASSISTANT_MODEL_PUBLIC_STATUS' => 'Публичный',
     'VIRTUAL_ASSISTANT_MODEL_PRIVATE_STATUS' => 'Частный',
+
+    /* Virtual assistant model */
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_ID' => 'ID',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_CREATED_AT' => 'Создан',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_UPDATED_AT' => 'Обновлен',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_DIALOGUE_MODEL' => 'Модель диалога',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_TARGET_MODEL' => 'Модель разговорного интерфейса',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_TYPE' => 'Тип',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_VIRTUAL_ASSISTANT_ID' => 'Id виртуального ассистента',
+    /* Значения полей типов */
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_KNOWLEDGE_BASE_MODEL_TYPE' => 'Модель базы знаний',
+    'VIRTUAL_ASSISTANT_MODEL_MODEL_CONVERSATIONAL_INTERFACE_MODEL_TYPE' => 'Модель разговорного интерфейса',
 
     'GENERATOR_FORM_PLATFORM' => 'Платформа:',
     'GENERATOR_FORM_PLATFORM_AI_MYLOGIC' => 'AI MyLogic',
@@ -449,12 +470,17 @@ return [
     /* Значения кнопок */
     'BUTTON_DIALOGUE_MODEL' => 'Модель диалога (поведения) [состояния, переходы, вызовы, реакции]',
     'BUTTON_KNOWLEDGE_BASE_MODEL' => 'Модель базы знаний [переходы/правила, состояния]',
-    'BUTTON_COMMUNICATION_MODEL' => 'Модель общения [интенты, тренировочные фразы]',
+    'BUTTON_CONVERSATIONAL_INTERFACE_MODEL' => 'Модель разговорного интерфейса [интенты, тренировочные фразы]',
     'BUTTON_GENERATE_VA' => 'Сгенерировать виртуальный ассистент',
     'BUTTON_GENERATE' => 'Генерировать',
+    'BUTTON_VIEW_VAM' => 'Просмотр',
+    'BUTTON_UPDATE_VAM' => 'Редактировать',
+    'BUTTON_DELETE_VAM' => 'Удалить',
     'BUTTON_DOWNLOAD_JSON_1' => 'Скачать Json файл [состояния, переходы, вызовы, реакции]',
     'BUTTON_DOWNLOAD_CSV' => 'Скачать CSV файл [переходы/правила, состояния]',
     'BUTTON_DOWNLOAD_JSON_2' => 'Скачать Json файл [интенты, тренировочные фразы]',
+
+    'MODELS_NOT_FOUND' => 'Модели не найдены',
 
     /* ImportFile */
     'IMPORT_FORM_FILE_NAME' => 'Имя файла',

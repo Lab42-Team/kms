@@ -1,12 +1,12 @@
 <?php
 
 use app\modules\main\models\Diagram;
-use app\modules\main\models\VirtualAssistant;
+use app\modules\main\models\VirtualAssistantModel;
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\modules\main\models\VirtualAssistant $model */
+/** @var app\modules\main\models\VirtualAssistant $model_vam */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -15,15 +15,15 @@ use yii\bootstrap5\ActiveForm;
 <div class="virtual-assistant-form">
 
     <?php $form = ActiveForm::begin([
-        'id' => 'create-virtual-assistant-form',
+        'id' => 'create-virtual-assistant-modal-form',
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model_vam, 'dialogue_model')->dropDownList(Diagram::getAllStateTransitionDiagramArray()) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(VirtualAssistant::getStatusesArray()) ?>
+    <?= $form->field($model_vam, 'target_model')->dropDownList(Diagram::getAllStateTransitionDiagramArray()) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 8]) ?>
+    <?= $form->field($model_vam, 'type')->dropDownList(VirtualAssistantModel::getTypesArray()) ?>
 
     <div class="form-group">
         <?= Html::submitButton('<span class="glyphicon glyphicon-floppy-disk"></span> ' .
