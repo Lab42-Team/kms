@@ -110,7 +110,7 @@ KMS contains commands for filling a new database with the initial data necessary
 This set of commands is entered sequentially into the console (located in the project folder):
 - `php yii migrate/up` — applying migrations (creating all tables in a new database);
 - `php yii lang/create` — creating default locales for `RU` and `EN` in a new database;
-- `php yii user/create-default-user` — creating a default user (administrator);
+- `php yii user/create-default-user` — creating a default user (administrator with login: `admin` and password: `admin`);
 - `php yii event-trees/create` — creating event tree diagrams (element “part” from the reliability block; consequences as a result of tank destruction), including levels, events and default mechanisms.
 - `php yii state-transition-diagram/create` — creating a default state transition diagram.
 
