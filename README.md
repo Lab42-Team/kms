@@ -55,7 +55,7 @@ composer create-project lab42-team/kms
 
 ### Install via GitHub
 
-You can clone this project into your directory:
+You can clone this project into your directory (recommended installation):
 
 ~~~
 git clone https://github.com/Lab42-Team/kms.git
@@ -104,6 +104,15 @@ return [
 **NOTES:**
 - KMS won't create a new database for you, this has to be done manually before you can access it.
 - Check and edit the other files in the `config/` directory to customize your application as required.
+
+##### Database commands:
+KMS contains commands for filling a new database with the initial data necessary for the application to run.
+This set of commands is entered sequentially into the console (located in the project folder):
+- `php yii migrate/up` — applying migrations (creating all tables in a new database);
+- `php yii lang/create` — creating default locales for `RU` and `EN` in a new database;
+- `php yii user/create-default-user` — creating a default user (administrator);
+- `php yii event-trees/create` — creating event tree diagrams (element “part” from the reliability block; consequences as a result of tank destruction), including levels, events and default mechanisms.
+- `php yii state-transition-diagram/create` — creating a default state transition diagram.
 
 AUTHORS
 -------------
