@@ -52,24 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => User::getAllUsersArray(),
                 'filterInputOptions' => ['class' => 'form-select']
             ],
-            [
-                'attribute' => 'dialogue_model',
-                'format' => 'raw',
-                'value' => function($data) {
-                    return $data->dialogueModel->name;
-                },
-                'filter' => Diagram::getAllStateTransitionDiagramArray(),
-                'filterInputOptions' => ['class' => 'form-select']
-            ],
-            [
-                'attribute' => 'knowledge_base_model',
-                'format' => 'raw',
-                'value' => function($data) {
-                    return $data->knowledgeBaseModel->name;
-                },
-                'filter' => Diagram::getAllStateTransitionDiagramArray(),
-                'filterInputOptions' => ['class' => 'form-select']
-            ],
             //[
             //    'class' => ActionColumn::className(),
             //    'urlCreator' => function ($action, VirtualAssistant $model, $key, $index, $column) {

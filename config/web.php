@@ -65,7 +65,8 @@ $config = [
                     'main/user/<_usr>',
                 /* Роуты для виртуальных ассистентов */
                 '/virtual-assistant/<_vas:(list|create)>' => 'main/virtual-assistant/<_vas>',
-                '/virtual-assistant/<_vas:(view|update|delete|generate|open-dialogue-model|open-knowledge-base-model|generate-platform|download-json|download-csv|download-json2)>/<id:\d+>' =>'main/virtual-assistant/<_vas>',
+                '/virtual-assistant/<_vas:(view|update|delete|generate|open-dialogue-model|generate-platform|download-json|download-csv|download-json2|virtual-assistant-model|create-vam)>/<id:\d+>' =>'main/virtual-assistant/<_vas>',
+                '/virtual-assistant/<_vas:(view-vam|update-vam|delete-vam)>/<id:\d+>/<id_vam:\d+>' =>'main/virtual-assistant/<_vas>',
                 /* Роуты для REST API */
                 '/api/get-all-state-transition-diagrams-list' => 'api/api/get-all-state-transition-diagrams-list',
                 '/api/get-all-event-tree-diagrams-list' => 'api/api/get-all-event-tree-diagrams-list',

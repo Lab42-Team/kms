@@ -4,7 +4,9 @@ namespace app\modules\main\controllers;
 
 use app\modules\main\models\GeneratorForm;
 use app\modules\main\models\VirtualAssistant;
+use app\modules\main\models\VirtualAssistantModel;
 use app\modules\main\models\VirtualAssistantSearch;
+use app\modules\main\models\VirtualAssistantModelSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -63,8 +65,13 @@ class VirtualAssistantController extends Controller
      */
     public function actionView($id)
     {
+        $searchModel = new VirtualAssistantModelSearch();
+        $dataProvider = $searchModel->search($id, $this->request->queryParams);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -145,30 +152,119 @@ class VirtualAssistantController extends Controller
     }
 
 
+    public function actionCreateVam($id)
+    {
+        $model_vam = new VirtualAssistantModel();
+        $model_vam->virtual_assistant_id = $id;
+        if ($model_vam->load(Yii::$app->request->post()) && $model_vam->save()) {
+            Yii::$app->getSession()->setFlash('success',
+                Yii::t('app', 'VIRTUAL_ASSISTANT_PAGE_MESSAGE_CREATE_VIRTUAL_ASSISTANT_MODEL'));
+            return $this->redirect(['view-vam', 'id' => $id, 'id_vam' => $model_vam->id]);
+        }
+
+        return $this->render('create-vam', [
+            'model' => $this->findModel($id),
+            'model_vam' => $model_vam,
+        ]);
+    }
+
+
+    public function actionViewVam($id, $id_vam)
+    {
+        return $this->render('view-vam', [
+            'model' => $this->findModel($id),
+            'model_vam' => $this->findModelVam($id_vam),
+        ]);
+    }
+
+
+    public function actionUpdateVam($id, $id_vam)
+    {
+        $model_vam = $this->findModelVam($id_vam);
+
+        if ($model_vam->load(Yii::$app->request->post()) && $model_vam->save()) {
+            Yii::$app->getSession()->setFlash('success',
+                Yii::t('app', 'VIRTUAL_ASSISTANT_PAGE_MESSAGE_UPDATED_VIRTUAL_ASSISTANT_MODEL'));
+
+            return $this->redirect(['view-vam', 'id' => $id, 'id_vam' => $model_vam->id]);
+        }
+
+        return $this->render('update-vam', [
+            'model' => $this->findModel($id),
+            'model_vam' => $model_vam,
+        ]);
+    }
+
+
+    public function actionDeleteVam($id, $id_vam)
+    {
+        $this->findModelVam($id_vam)->delete();
+        Yii::$app->getSession()->setFlash('success',
+            Yii::t('app', 'VIRTUAL_ASSISTANT_PAGE_MESSAGE_DELETED_VIRTUAL_ASSISTANT_MODEL'));
+
+        return $this->redirect(['view', 'id' => $id]);
+    }
+
+
+    protected function findModelVam($id)
+    {
+        if (($model = VirtualAssistantModel::findOne(['id' => $id])) !== null)
+            return $model;
+        throw new NotFoundHttpException(Yii::t('app', 'ERROR_MESSAGE_PAGE_NOT_FOUND'));
+    }
+
+
     public function actionGenerate($id)
     {
         $generator = new GeneratorForm();
 
+        //подбор моделей KNOWLEDGE_BASE_MODEL_TYPE
+        $knowledge_base_models = VirtualAssistantModel::find()->where(['virtual_assistant_id' => $id, 'type' => VirtualAssistantModel::KNOWLEDGE_BASE_MODEL_TYPE])->all();
+        $array_knowledge_base_model = array();
+        $i = 0;
+        if ($knowledge_base_models != null){
+            foreach ($knowledge_base_models as $elem){
+                $array_knowledge_base_model[$i]['label'] = $elem->targetModel->name;
+                $array_knowledge_base_model[$i]['url'] = '/state-transition-diagrams/visual-diagram/'. $elem->target_model;
+                $i = $i + 1;
+            }
+        }
+        if ($array_knowledge_base_model == null){
+                $array_knowledge_base_model[0]['label'] = Yii::t('app', 'MODELS_NOT_FOUND');
+                $array_knowledge_base_model[0]['url'] = '';
+        }
+
+        //подбор моделей CONVERSATIONAL_INTERFACE_MODEL_TYPE
+        $conversational_interface_models = VirtualAssistantModel::find()->where(['virtual_assistant_id' => $id, 'type' => VirtualAssistantModel::CONVERSATIONAL_INTERFACE_MODEL_TYPE])->all();
+        $array_conversational_interface_model = array();
+        $i = 0;
+        if ($conversational_interface_models != null){
+            foreach ($conversational_interface_models as $elem){
+                $array_conversational_interface_model[$i]['label'] = $elem->targetModel->name;
+                $array_conversational_interface_model[$i]['url'] = '/state-transition-diagrams/visual-diagram/'. $elem->target_model;
+                $i = $i + 1;
+            }
+        }
+        if ($array_conversational_interface_model == null){
+            $array_conversational_interface_model[0]['label'] = Yii::t('app', 'MODELS_NOT_FOUND');
+            $array_conversational_interface_model[0]['url'] = '';
+        }
+
+
         return $this->render('generate', [
             'model' => $this->findModel($id),
             'generator' => $generator,
+            'array_knowledge_base_model' => $array_knowledge_base_model,
+            'array_conversational_interface_model' => $array_conversational_interface_model,
         ]);
     }
 
 
     public function actionOpenDialogueModel($id)
     {
-        $model = $this->findModel($id);
+        $model = VirtualAssistantModel::find()->where(['virtual_assistant_id' => $id])->one();
 
         return $this->redirect(['/state-transition-diagrams/visual-diagram/'. $model->dialogue_model]);
-    }
-
-
-    public function actionOpenKnowledgeBaseModel($id)
-    {
-        $model = $this->findModel($id);
-
-        return $this->redirect(['/state-transition-diagrams/visual-diagram/'. $model->knowledge_base_model]);
     }
 
 
@@ -312,5 +408,7 @@ class VirtualAssistantController extends Controller
         }
         return false;
     }
+
+
 
 }
