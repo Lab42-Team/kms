@@ -26,11 +26,11 @@ DIRECTORY STRUCTURE
       messages/           contains internationalization files for English and Russian  
       migrations/         contains all the migrations to create a database
       modules/            contains following modules:
-          api/            contains a controller for accessing the system via RSET API
+          api/            contains a controller for accessing the system via REST API
           eete/           contains main controllers, models and views for the Extended Event Tree Editor (EETE)
           stde/           contains main controllers, models and views for the State Transition Diagram Editor (STDE)
-          main/           contains views for representation main information on diagrams, users and virtual assistants
-      web/                contains js-scripts and other web resources
+          main/           contains views for main information on diagrams, users and virtual assistants
+      web/                contains js-scripts, css-scripts and other web resources
 
 
 REQUIREMENTS
@@ -102,7 +102,7 @@ return [
 ```
 
 **NOTES:**
-- KMS won't create the database for you, this has to be done manually before you can access it.
+- KMS won't create a new database for you, this has to be done manually before you can access it.
 - Check and edit the other files in the `config/` directory to customize your application as required.
 
 AUTHORS
