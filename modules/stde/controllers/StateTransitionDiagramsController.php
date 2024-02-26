@@ -6,7 +6,6 @@ use Yii;
 use yii\web\Response;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\UploadedFile;
 use yii\bootstrap5\ActiveForm;
 use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
@@ -16,7 +15,7 @@ use app\modules\stde\models\TransitionProperty;
 use app\modules\stde\models\StartToEnd;
 use app\modules\stde\models\StateConnection;
 use app\components\StateTransitionXMLGenerator;
-use app\components\DecisionTableGenerator;
+use app\components\DecisionTableGeneratorIDSS;
 
 /**
  * StateTransitionDiagramsController implements the CRUD actions for State Transition Diagram model.
@@ -79,8 +78,8 @@ class StateTransitionDiagramsController extends Controller
                 $code_generator->generateSTDXMLCode($id);
             }
             if (Yii::$app->request->post('value', null) == 'csv'){
-                $code_generator = new DecisionTableGenerator();
-                $code_generator->generateCSVCode($id);
+                $code_generator = new DecisionTableGeneratorIDSS();
+                $code_generator->generate($id);
             }
         }
 

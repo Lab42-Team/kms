@@ -2,9 +2,6 @@
 
 namespace app\components;
 
-
-use DOMDocument;
-use app\modules\main\models\Diagram;
 use app\modules\stde\models\State;
 use app\modules\stde\models\StateProperty;
 use app\modules\stde\models\Transition;
