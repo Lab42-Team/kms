@@ -101,7 +101,7 @@ class DecisionTableGeneratorIDSS
 
         $name = 'export.csv';
         $fp = fopen($name,'wb');
-        fwrite($fp, $towrite_headers . "\n" . $towrite_rows);
+        fwrite($fp, iconv("UTF-8","CP1251",$towrite_headers."\n".$towrite_rows));
         fclose($fp);
 
         header('Content-type: text/csv');
