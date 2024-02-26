@@ -15,7 +15,7 @@ class DecisionTableGeneratorIDSS
     public static function generate($id)
     {
         $states = State::find()->where(['diagram' => $id])->all();
-        $array_states = array();
+        $array_states = [];
         foreach ($states as $state) {
             $array_states[$state->id] = [];
             $array_states[$state->id]['Наименование'] = $state->name;
@@ -24,18 +24,17 @@ class DecisionTableGeneratorIDSS
                 $array_states[$state->id][$state_property->name] = $state_property->value;
         }
 
-        $array_transitions = array();
-        $transitions = Transition::find()->all();
-        foreach ($transitions as $transition) {
-            $array_current_transition = [];
-            $array_current_transition['state-from'] = $transition->state_from;
-
-            $transition_properties = TransitionProperty::find()->where(['transition' => $transition->id])->all();
-            foreach ($transition_properties as $transition_property)
-                $array_current_transition[$transition_property->name] = $transition_property->value;
-            $array_current_transition['state-to'] = $transition->state_to;
-            $array_transitions[] = $array_current_transition;
-        }
+        $array_transitions = [];
+        $array_current_transition = [];
+        foreach ($states as $state)
+            foreach ($state->transitions as $transition) {
+                $array_current_transition['state-from'] = $transition->state_from;
+                $transition_properties = TransitionProperty::find()->where(['transition' => $transition->id])->all();
+                foreach ($transition_properties as $transition_property)
+                    $array_current_transition[$transition_property->name] = $transition_property->value;
+                $array_current_transition['state-to'] = $transition->state_to;
+                $array_transitions[] = $array_current_transition;
+            }
 
         $array_transitions = array_unique($array_transitions, SORT_REGULAR);
 
