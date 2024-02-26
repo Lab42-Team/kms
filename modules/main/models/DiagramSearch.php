@@ -2,7 +2,6 @@
 
 namespace app\modules\main\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -63,7 +62,7 @@ class DiagramSearch extends Diagram
             'type' => $this->type,
             'status' => $this->status,
             'correctness' => $this->correctness,
-            'author' => null ? $this->author : $user_id, // Выборка диаграмм по автору, если указан его id
+            'author' => $user_id ? $user_id : $this->author
         ]);
 
         $query->andFilterWhere(['ilike', 'name', $this->name])
@@ -103,7 +102,7 @@ class DiagramSearch extends Diagram
             'type' => $this->type,
             'status' => Diagram::PUBLIC_STATUS,
             'correctness' => $this->correctness,
-            'author' => $this->author,
+            'author' => $this->author
         ]);
 
         $query->andFilterWhere(['ilike', 'name', $this->name])

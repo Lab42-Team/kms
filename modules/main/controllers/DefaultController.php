@@ -215,7 +215,10 @@ class DefaultController extends Controller
 
         if (!Yii::$app->user->isGuest) {
             //подбор диаграмм EVENT_TREE_TYPE принадлежащих пользователю
-            $event_tree_templates = Diagram::find()->where(['type' => Diagram::EVENT_TREE_TYPE, 'author' => Yii::$app->user->identity->getId()])->all();
+            $event_tree_templates = Diagram::find()->where([
+                'type' => Diagram::EVENT_TREE_TYPE,
+                'author' => Yii::$app->user->identity->getId()
+            ])->all();
             $array_event_tree_template = array();
             $i = 0;
             if ($event_tree_templates != null){
@@ -227,7 +230,10 @@ class DefaultController extends Controller
             }
 
             //подбор диаграмм STATE_TRANSITION_DIAGRAM_TYPE принадлежащих пользователю
-            $state_transition_diagram_templates = Diagram::find()->where(['type' => Diagram::STATE_TRANSITION_DIAGRAM_TYPE, 'author' => Yii::$app->user->identity->getId()])->all();
+            $state_transition_diagram_templates = Diagram::find()->where([
+                'type' => Diagram::STATE_TRANSITION_DIAGRAM_TYPE,
+                'author' => Yii::$app->user->identity->getId()
+            ])->all();
             $array_state_transition_diagram_template = array();
             $i = 0;
             if ($state_transition_diagram_templates != null){
